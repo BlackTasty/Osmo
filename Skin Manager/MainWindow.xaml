@@ -1,12 +1,61 @@
-﻿<Window x:Class="Skin_Manager.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Skin_Manager"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:vm="clr-namespace:Osmo.ViewModel"
+        xmlns:ui="clr-namespace:Osmo.UI"
+        x:Class="Osmo.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Osmo" Height="600" Width="800"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+    <Window.DataContext>
+        <vm:OsmoViewModel/>
+    </Window.DataContext>
+
+    <!--SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"-->
+    <material:DialogHost Identifier="RootDialog">
+        <material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <material:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="212">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Right" Margin="16"
+                                    IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <ListBox x:Name="sidebarMenu" Margin="0 16 0 16" SelectedIndex="1"                         
+                             ItemsSource="{Binding Items}"
+                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <material:PackIcon Kind="{Binding Icon}" Width="32" Height="32" Margin="16,0,0,0"/>
+                                    <TextBlock Text="{Binding Name}" Margin="16 0 16 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </material:DrawerHost.LeftDrawerContent>
+            <DockPanel>
+                <material:ColorZone Padding="16" material:ShadowAssist.ShadowDepth="Depth2"
+                            Mode="PrimaryDark" DockPanel.Dock="Top">
+                    <DockPanel>
+                        <ToggleButton x:Name="MenuToggleButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}"/>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Osmo</TextBlock>
+                    </DockPanel>
+                </material:ColorZone>
+
+                <TextBlock x:Name="textBlock" DockPanel.Dock="Top" Margin="0,8" material:ShadowAssist.ShadowDepth="Depth2" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Center"
+                        Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Text="{Binding Content.Tag, ElementName=content}"/>
+
+                <ContentControl Margin="8" x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}">
+                </ContentControl>
+            </DockPanel>
+        </material:DrawerHost>
+    </material:DialogHost>
 </Window>

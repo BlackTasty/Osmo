@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 15
+# Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skin Manager", "Skin Manager\Skin Manager.csproj", "{525910B5-26B4-49AF-8B42-76CDFC722A87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmo", "Skin Manager\Osmo.csproj", "{525910B5-26B4-49AF-8B42-76CDFC722A87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmo.Tests", "Osmo.Tests\Osmo.Tests.csproj", "{DD5967EE-2A85-4FAA-9930-F6E970299534}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
