@@ -11,11 +11,13 @@ namespace Osmo.Core
 {
     public class SkinManager
     {
-        private FileSystemWatcher mWatcher;
+        private FileSystemWatcher mSkinWatcher;
         private string mDirectory;
 
         public event EventHandler<SkinChangedEventArgs> SkinChanged;
         public event EventHandler<SkinRenamedEventArgs> SkinRenamed;
+
+        private VeryObservableCollection<Skin> mSkins = new VeryObservableCollection<Skin>("Skins");
 
         internal string Directory
         {
@@ -23,18 +25,19 @@ namespace Osmo.Core
             set
             {
                 mDirectory = value;
-                if (mWatcher == null) //Create a new FileSystemWatcher and register events
+                if (mSkinWatcher == null) //Create a new FileSystemWatcher and register events
                 {
-                    mWatcher = new FileSystemWatcher(value, "*.*")
+                    //TODO: Filter may be reset to *.* in case the menu background isn't needed. Also remove IncludeSubDirectories!
+                    mSkinWatcher = new FileSystemWatcher(value, "menu-background*.jpg")
                     {
                         EnableRaisingEvents = true,
                         IncludeSubdirectories = true
                     };
-                    mWatcher.Changed += Watcher_Changed;
-                    mWatcher.Renamed += Watcher_Renamed;
+                    mSkinWatcher.Changed += Watcher_Changed;
+                    mSkinWatcher.Renamed += Watcher_Renamed;
                 }
                 else
-                    mWatcher.Path = value;
+                    mSkinWatcher.Path = value;
             }
         }
 

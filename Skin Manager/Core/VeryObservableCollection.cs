@@ -35,11 +35,21 @@ namespace Osmo.Core
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(CollectionName));
         }
 
+        /// <summary>
+        /// Initializes the collection with the specified name and copies all given items into into it.
+        /// </summary>
+        /// <param name="collectionName">The name of the collection (must match the property name!)</param>
+        /// <param name="items">The <see cref="List{T}"/> to copy the items from</param>
         public VeryObservableCollection(string collectionName, List<T> items) : this(collectionName)
         {
 
         }
-
+        
+        /// <summary>
+        /// Initializes the collection with the specified name and copies all given items into into it.
+        /// </summary>
+        /// <param name="collectionName">The name of the collection (must match the property name!)</param>
+        /// <param name="items">The <see cref="IEnumerable{T}"/> to copy the items from</param>
         public VeryObservableCollection(string collectionName, IEnumerable<T> items) : this(collectionName)
         {
 
@@ -76,6 +86,11 @@ namespace Osmo.Core
                 for (int i = 0; i < Count; i++)
                     RemoveAt(0);
             }
+        }
+
+        public void Refresh()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(CollectionName));
         }
     }
 }

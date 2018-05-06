@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,11 @@ namespace Osmo.Core.Objects
         private string mName;
         private string mAuthor;
         private string mPath;
-        VeryObservableCollection<string> mElements = new VeryObservableCollection<string>("Elements");
+
+        //This contains a list of file names inside the skin folder
+        private VeryObservableCollection<string> mElements = new VeryObservableCollection<string>("Elements");
+
+        private FileSystemWatcher mWatcher;
 
         #region Properties
         /// <summary>
@@ -42,14 +47,37 @@ namespace Osmo.Core.Objects
 
         public Skin(string path)
         {
+            mWatcher = new FileSystemWatcher(path, "*.*")
+            {
+                EnableRaisingEvents = true
+            };
+
+            mWatcher.Changed += Watcher_Changed;
+            mWatcher.Renamed += Watcher_Renamed;
         }
 
-        public Skin()
+        private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            mName = "Hello";
-            mAuthor = "World!";
-            for (int i = 0; i < 10; i++)
-                mElements.Add("Element");
+            int index = mElements.IndexOf(e.OldName);
+
+            if (index > -1)
+                mElements[index] = e.Name;
+        }
+
+        private void Watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            switch (e.ChangeType)
+            {
+                case WatcherChangeTypes.Changed:
+                    mElements.Refresh();
+                    break;
+                case WatcherChangeTypes.Created:
+                    mElements.Add(e.Name);
+                    break;
+                case WatcherChangeTypes.Deleted:
+                    mElements.Remove(e.Name);
+                    break;
+            }
         }
 
         #region Method and operator overrides

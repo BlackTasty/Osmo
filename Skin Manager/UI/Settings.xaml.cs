@@ -27,7 +27,8 @@ namespace Osmo.UI
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            Task.Factory.StartNew(() => snackbar.MessageQueue.Enqueue("Your settings have been saved!"));
+            snackbar.MessageQueue.Enqueue("Your settings have been saved!");
+            //Task.Factory.StartNew(() => snackbar.MessageQueue.Enqueue("Your settings have been saved!"));
         }
 
         private void SelectDirectory_Click(object sender, RoutedEventArgs e)

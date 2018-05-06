@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -60,8 +61,6 @@ namespace Osmo.ViewModel
 
         public OsmoViewModel()
         {
-            mSkins.Add(new Skin());
-
             mSidebarItems = new SidebarEntry[]
             {
                 new SidebarEntry("Home", MaterialDesignThemes.Wpf.PackIconKind.Home, new SkinSelect()),
@@ -71,26 +70,43 @@ namespace Osmo.ViewModel
         
         private void MManager_SkinChanged(object sender, SkinChangedEventArgs e)
         {
+            //TODO: isSkin may be removed in case the menu background isn't needed
+            bool isSkin = System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory;
+
             switch (e.ChangeType)
             {
                 case System.IO.WatcherChangeTypes.Changed:
+                    if (!isSkin)
+                    {
+                        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
+                        if (changed != null)
+                        {
+                        }
+                    }
                     break;
                 case System.IO.WatcherChangeTypes.Created:
-                    mSkins.Add(new Skin(e.Path));
+                    if (isSkin)
+                        mSkins.Add(new Skin(e.Path));
                     break;
                 case System.IO.WatcherChangeTypes.Deleted:
-                    Skin removed = mSkins.FirstOrDefault(x => x == e.Path);
-                    if (removed != null)
-                        mSkins.Remove(removed);
+                    if (isSkin)
+                    {
+                        Skin removed = mSkins.FirstOrDefault(x => x == e.Path);
+                        if (removed != null)
+                            mSkins.Remove(removed);
+                    }
                     break;
             }
         }
 
         private void MManager_SkinRenamed(object sender, SkinRenamedEventArgs e)
         {
-            Skin renamed = mSkins.First(x => x == e.Path);
-            if (renamed != null)
-                mSkins[mSkins.IndexOf(renamed)].Path = e.Path;
+            if (System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory)
+            {
+                Skin renamed = mSkins.First(x => x == e.Path);
+                if (renamed != null)
+                    mSkins[mSkins.IndexOf(renamed)].Path = e.Path;
+            }
         }
     }
 }

@@ -36,6 +36,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.2\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -75,7 +78,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\IntToBooleanConverter.cs" />
+    <Compile Include="Core\Configuration\AppConfiguration.cs" />
     <Compile Include="Core\Configuration\ConfigurationFile.cs" />
+    <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Objects\SidebarEntry.cs" />
     <Compile Include="Core\Objects\Skin.cs" />
     <Compile Include="Core\Objects\SkinChangedEventArgs.cs" />
