@@ -1,5 +1,4 @@
-﻿using Osmo.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,18 +16,13 @@ using System.Windows.Shapes;
 namespace Osmo.UI
 {
     /// <summary>
-    /// Interaction logic for SkinSelect.xaml
+    /// Interaction logic for FilePicker.xaml
     /// </summary>
-    public partial class SkinSelect : Grid
+    public partial class FilePicker : UserControl
     {
-        public SkinSelect()
+        public FilePicker()
         {
             InitializeComponent();
-        }
-
-        internal void Initialize(OsmoViewModel vm)
-        {
-            DataContext = vm;
         }
     }
 }

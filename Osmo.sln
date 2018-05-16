@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmo", "Skin Manager\Osmo.csproj", "{525910B5-26B4-49AF-8B42-76CDFC722A87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmo", "Osmo\Osmo.csproj", "{525910B5-26B4-49AF-8B42-76CDFC722A87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmo.Tests", "Osmo.Tests\Osmo.Tests.csproj", "{DD5967EE-2A85-4FAA-9930-F6E970299534}"
 EndProject

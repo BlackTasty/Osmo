@@ -10,6 +10,8 @@ namespace Osmo.Core.Objects
 
         public object Content { get; }
 
+        public bool IsEnabled { get; set; }
+
         /// <summary>
         /// Creates a new item for the sidebar.
         /// </summary>

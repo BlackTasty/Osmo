@@ -11,17 +11,8 @@ using System.Threading.Tasks;
 
 namespace Osmo.ViewModel
 {
-    class OsmoViewModel : INotifyPropertyChanged
+    class OsmoViewModel : ViewModelBase
     {
-        #region INotifyPropertyChanged implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void InvokePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
         private SkinManager mManager;
 
         private VeryObservableCollection<Skin> mSkins = new VeryObservableCollection<Skin>("Skins");
@@ -30,11 +21,20 @@ namespace Osmo.ViewModel
         private int mSelectedSkinIndex = -1;
 
         private string mOsuDirectory = "";
+        private string mBackupDirectory = "";
+        private double mBackupDirectorySize = 0;
 
         public SkinManager SkinManager
         {
-            get => mManager; set
+            get => mManager;
+            set
             {
+                if (mManager != null)
+                {
+                    mManager.SkinChanged -= MManager_SkinChanged;
+                    mManager.SkinRenamed -= MManager_SkinRenamed;
+                }
+
                 mManager = value;
                 if (mManager != null)
                 {
@@ -59,12 +59,33 @@ namespace Osmo.ViewModel
             }
         }
 
+        public string BackupDirectory
+        {
+            get => mBackupDirectory;
+            set
+            {
+                mBackupDirectory = value;
+                InvokePropertyChanged("BackupDirectory");
+            }
+        }
+
+        public double BackupDirectorySize
+        {
+            get => mBackupDirectorySize;
+            set
+            {
+                mBackupDirectorySize = value;
+                InvokePropertyChanged("BackupDirectorySize");
+            }
+        }
+
         public OsmoViewModel()
         {
             mSidebarItems = new SidebarEntry[]
             {
-                new SidebarEntry("Home", MaterialDesignThemes.Wpf.PackIconKind.Home, new SkinSelect()),
-                new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, new Settings())
+                new SidebarEntry("Home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance),
+                new SidebarEntry("Skin Editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance),
+                new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance)
             };
         }
         
@@ -75,15 +96,15 @@ namespace Osmo.ViewModel
 
             switch (e.ChangeType)
             {
-                case System.IO.WatcherChangeTypes.Changed:
-                    if (!isSkin)
-                    {
-                        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
-                        if (changed != null)
-                        {
-                        }
-                    }
-                    break;
+                //case System.IO.WatcherChangeTypes.Changed:
+                //    if (!isSkin)
+                //    {
+                //        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
+                //        if (changed != null)
+                //        {
+                //        }
+                //    }
+                //    break;
                 case System.IO.WatcherChangeTypes.Created:
                     if (isSkin)
                         mSkins.Add(new Skin(e.Path));

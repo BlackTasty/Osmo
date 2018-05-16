@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Osmo.Core.Configuration
 {
-    public class ConfigurationFile
+    public partial class ConfigurationFile
     {
         private string fileName;
 
@@ -31,7 +31,7 @@ namespace Osmo.Core.Configuration
         
         public string FilePath { get; private set; }
 
-        public string[] Content { get; set; }
+        protected string[] Content { get; set; }
 
         internal void Save(string[] properties)
         {

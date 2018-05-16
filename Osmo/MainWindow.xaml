@@ -33,7 +33,7 @@
                                     IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                     <ListBox x:Name="sidebarMenu" Margin="0 16 0 16" SelectedIndex="1"                         
                              ItemsSource="{Binding Items}"
-                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" SelectionChanged="sidebarMenu_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

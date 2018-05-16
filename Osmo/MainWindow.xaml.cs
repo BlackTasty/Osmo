@@ -1,4 +1,6 @@
 ﻿using MahApps.Metro.Controls;
+using MaterialDesignThemes.Wpf;
+using Osmo.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +24,14 @@ namespace Osmo
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        AppConfiguration configuration = AppConfiguration.GetInstance();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            //if (!configuration.IsValid)
+            //    sidebarMenu.SelectedIndex = 1;
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -38,6 +45,14 @@ namespace Osmo
             }
 
             MenuToggleButton.IsChecked = false;
+        }
+
+        private void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sidebarMenu.SelectedIndex != 1 && !configuration.IsValid)
+            {
+                sidebarMenu.SelectedIndex = 1;
+            }
         }
     }
 }

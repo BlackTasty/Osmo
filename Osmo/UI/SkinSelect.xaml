@@ -31,13 +31,13 @@
                 <GridViewColumn Header="Delete" Width="80">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <ToggleButton Height="16" Width="16" Style="{StaticResource MaterialDesignFlatToggleButton}"
-                                                ToolTip="MaterialDesignFlatToggleButton">
+                            <Button Height="16" Width="16" Style="{StaticResource MaterialDesignFlatButton}"
+                                                ToolTip="Delete skin">
                                 <material:PackIcon
-                                                    Kind="Delete"
-                                                    Height="16"
-                                                    Width="16" />
-                            </ToggleButton>
+                                    Kind="Delete"
+                                    Height="16"
+                                    Width="16" />
+                            </Button>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>

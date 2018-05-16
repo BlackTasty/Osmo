@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.Core.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,13 +21,39 @@ namespace Osmo.UI
     /// </summary>
     public partial class Settings : Grid
     {
-        public Settings()
+        private static Settings instance;
+
+        public AppConfiguration Configuration
+        {
+            get => AppConfiguration.GetInstance();
+        }
+
+        public static Settings Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new Settings();
+                return instance;
+            }
+        }
+
+        private Settings()
         {
             InitializeComponent();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            AppConfiguration config = AppConfiguration.GetInstance();
+
+            config.BackupBeforeMixing = (bool)cb_backupSkin.IsChecked;
+            config.BackupDirectory = txt_backupPath.Text;
+            config.OsuDirectory = txt_osuPath.Text;
+            config.PlaySoundWhenHovering = (bool)cb_playSoundOnHover.IsChecked;
+            config.ReopenLastSkin = (bool)cb_reopenLastSkin.IsChecked;
+            config.Save();
+
             snackbar.MessageQueue.Enqueue("Your settings have been saved!");
             //Task.Factory.StartNew(() => snackbar.MessageQueue.Enqueue("Your settings have been saved!"));
         }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Osmo.Core.Objects
 {
@@ -14,7 +10,7 @@ namespace Osmo.Core.Objects
         private string mPath;
 
         //This contains a list of file names inside the skin folder
-        private VeryObservableCollection<string> mElements = new VeryObservableCollection<string>("Elements");
+        private VeryObservableCollection<SkinElement> mElements = new VeryObservableCollection<SkinElement>("Elements");
 
         private FileSystemWatcher mWatcher;
 
@@ -37,7 +33,7 @@ namespace Osmo.Core.Objects
         /// <summary>
         /// This list contains all filenames of this <see cref="Skin"/> object.
         /// </summary>
-        public VeryObservableCollection<string> Elements { get => mElements; set => mElements = value; }
+        public VeryObservableCollection<SkinElement> Elements { get => mElements; set => mElements = value; }
 
         /// <summary>
         /// This returns the amount of elements this <see cref="Skin"/> object contains.
@@ -47,6 +43,9 @@ namespace Osmo.Core.Objects
 
         public Skin(string path)
         {
+            mPath = path;
+            mName = System.IO.Path.GetFileName(path);
+
             mWatcher = new FileSystemWatcher(path, "*.*")
             {
                 EnableRaisingEvents = true
@@ -54,14 +53,54 @@ namespace Osmo.Core.Objects
 
             mWatcher.Changed += Watcher_Changed;
             mWatcher.Renamed += Watcher_Renamed;
+
+            ReadElements();
         }
 
+        /// <summary>
+        /// Creates a backup 
+        /// </summary>
+        /// <param name="backupFolder">The destination where the backup should be created.</param>
+        /// <param name="overrideBackup">If true and an old backup is found, it is overridden.</param>
+        /// <returns>Returns true if the backup has been created.</returns>
+        public bool BackupSkin(string backupFolder, bool overrideBackup)
+        {
+            string skinBackupPath = System.IO.Path.Combine(backupFolder, Name);
+            if (Directory.Exists(skinBackupPath))
+            {
+                if (overrideBackup)
+                    Directory.Delete(skinBackupPath);
+                else
+                    return false;
+            }
+
+            Directory.CreateDirectory(skinBackupPath);
+            foreach (FileInfo fi in new DirectoryInfo(Path).EnumerateFiles())
+            {
+                fi.CopyTo(System.IO.Path.Combine(skinBackupPath, fi.Name));
+            }
+
+            return true;
+        }
+
+        private void ReadElements()
+        {
+            foreach (FileInfo fi in new DirectoryInfo(mPath).EnumerateFiles())
+            {
+                mElements.Add(new SkinElement(fi));
+            }
+        }
+
+        #region Watcher Events
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            int index = mElements.IndexOf(e.OldName);
+            int index = mElements.IndexOf(mElements.FirstOrDefault(x => x == e.OldFullPath) ?? SkinElement.Empty);
 
             if (index > -1)
-                mElements[index] = e.Name;
+            {
+                mElements[index].Name = e.Name;
+                mElements[index].Path = e.FullPath;
+            }
         }
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
@@ -72,13 +111,14 @@ namespace Osmo.Core.Objects
                     mElements.Refresh();
                     break;
                 case WatcherChangeTypes.Created:
-                    mElements.Add(e.Name);
+                    mElements.Add(new SkinElement(new FileInfo(e.FullPath)));
                     break;
                 case WatcherChangeTypes.Deleted:
-                    mElements.Remove(e.Name);
+                    mElements.Remove(mElements.FirstOrDefault(x => x == e.FullPath) ?? SkinElement.Empty);
                     break;
             }
         }
+        #endregion
 
         #region Method and operator overrides
         public static bool operator ==(Skin skin, string path)
