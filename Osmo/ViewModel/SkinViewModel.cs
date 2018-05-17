@@ -1,9 +1,11 @@
-﻿using Osmo.Core.Configuration;
+﻿using Osmo.Core;
+using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -15,6 +17,7 @@ namespace Osmo.ViewModel
     {
         private Skin mLoadedSkin;
         private bool mShowImage = true;
+        private ImageSource mImage;
 
         private ImageSource mTempImage;
 
@@ -39,15 +42,18 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedElement = value;
+                if (value.FileType == FileType.Image)
+                {
+                    RefreshImage();
+                }
                 InvokePropertyChanged("SelectedElement");
                 InvokePropertyChanged("IsEmptyEnabled");
-                InvokePropertyChanged("Image");
             }
         }
 
         public ImageSource Image
         {
-            get => ShowImage ? SelectedElement.Image : mTempImage;
+            get => mImage;
         }
 
         public bool ShowImage
@@ -81,6 +87,12 @@ namespace Osmo.ViewModel
         public SkinViewModel()
         {
             mLoadedSkin = new Skin(@"D:\Program Files (x86)\osu!\Skins\Osmo Test");
+        }
+
+        internal void RefreshImage()
+        {
+            mImage = Helper.LoadImage(SelectedElement.Path);
+            InvokePropertyChanged("Image");
         }
     }
 }

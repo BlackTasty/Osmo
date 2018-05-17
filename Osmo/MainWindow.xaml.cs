@@ -28,6 +28,7 @@ namespace Osmo
 
         public MainWindow()
         {
+            
             InitializeComponent();
 
             //if (!configuration.IsValid)

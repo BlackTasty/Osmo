@@ -64,7 +64,7 @@
             <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <material:ColorZone material:ShadowAssist.ShadowDepth="Depth1" VerticalAlignment="Stretch" Mode="Dark" Grid.ColumnSpan="4" Grid.RowSpan="4">
-            <Image Source="{Binding Image}"/>
+            <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
         </material:ColorZone>
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="8,0,0,0">
             <ToggleButton
@@ -109,6 +109,12 @@
                 <Button ToolTip="Reset" Click="Reset_Click">
                     <material:PackIcon
                     Kind="UndoVariant"
+                    Width="24"
+                    Height="24" />
+                </Button>
+                <Button ToolTip="Delete" Click="Delete_Click">
+                    <material:PackIcon
+                    Kind="Delete"
                     Width="24"
                     Height="24" />
                 </Button>

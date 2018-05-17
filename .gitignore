@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /Skin Manager/Core/Patcher
+/Osmo.Tests/Copy_Test
+/Osmo.Tests/ImageLockTest.cs

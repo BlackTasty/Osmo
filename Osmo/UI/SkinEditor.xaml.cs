@@ -1,21 +1,9 @@
 ﻿using Microsoft.Win32;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Osmo.UI
 {
@@ -25,6 +13,7 @@ namespace Osmo.UI
     public partial class SkinEditor : Grid
     {
         private static SkinEditor instance;
+        private string lastPath = null;
 
         public static SkinEditor Instance
         {
@@ -56,14 +45,19 @@ namespace Osmo.UI
                 InitialDirectory = vm.LoadedSkin.Path,
                 Title = "Select a file as a replacement..."
             };
+
+            if (!string.IsNullOrWhiteSpace(lastPath))
+            {
+                openFileDialog.InitialDirectory = lastPath;
+            }
             
             if (openFileDialog.ShowDialog() == true)
             {
-                ((SkinViewModel)DataContext).ShowImage = false;
-                System.Threading.Thread.Sleep(150);
                 File.Copy(openFileDialog.FileName, vm.SelectedElement.Path, true);
-                vm.SelectedElement.RefreshImage();
-                ((SkinViewModel)DataContext).ShowImage = true;
+                ((SkinViewModel)DataContext).RefreshImage();
+
+                //Save the last visited directory
+                lastPath = Path.GetDirectoryName(openFileDialog.FileName);
             }
         }
 
@@ -88,6 +82,11 @@ namespace Osmo.UI
         }
 
         private void Erase_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
 
         }

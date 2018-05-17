@@ -29,8 +29,6 @@ namespace Osmo.Core.Objects
         }
 
         public string Name { get; set; }
-        
-        public BitmapImage Image { get; set; }
 
         public FileType FileType { get => fileType; }
 
@@ -44,11 +42,6 @@ namespace Osmo.Core.Objects
             extension = fi.Extension;
 
             fileType = GetFileType(fi.Extension);
-
-            if (fileType == FileType.Image)
-            {
-                Image = LoadImage(Path);
-            }
         }
 
         private SkinElement()
@@ -56,26 +49,6 @@ namespace Osmo.Core.Objects
             Path = "";
             Name = "";
             fileType = FileType.Unknown;
-        }
-
-        internal void RefreshImage()
-        {
-            Image = LoadImage(Path);
-        }
-
-        private BitmapImage LoadImage(string path)
-        {
-            BitmapImage bmp = new BitmapImage();
-
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {
-                bmp.BeginInit();
-                bmp.CacheOption = BitmapCacheOption.OnLoad;
-                bmp.StreamSource = fs;
-                bmp.EndInit();
-            }
-
-            return bmp;
         }
 
         internal static SkinElement Empty { get => new SkinElement(); }
