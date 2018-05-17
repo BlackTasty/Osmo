@@ -40,11 +40,23 @@ namespace Osmo.Core
                         //IncludeSubdirectories = true
                     };
                     mSkinWatcher.Changed += Watcher_Changed;
+                    mSkinWatcher.Created += Watcher_Created;
+                    mSkinWatcher.Deleted += Watcher_Deleted;
                     mSkinWatcher.Renamed += Watcher_Renamed;
                 }
                 else
                     mSkinWatcher.Path = value;
             }
+        }
+
+        private void Watcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            OnSkinChanged(e.FullPath, e.ChangeType);
+        }
+
+        private void Watcher_Created(object sender, FileSystemEventArgs e)
+        {
+            OnSkinChanged(e.FullPath, e.ChangeType);
         }
 
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
@@ -54,8 +66,7 @@ namespace Osmo.Core
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            if (e.ChangeType != WatcherChangeTypes.Renamed)
-                OnSkinChanged(e.FullPath, e.ChangeType);
+            OnSkinChanged(e.FullPath, e.ChangeType);
         }
 
         protected virtual void OnSkinChanged(string path, WatcherChangeTypes changeType)

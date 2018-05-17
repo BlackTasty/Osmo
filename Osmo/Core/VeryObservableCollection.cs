@@ -16,6 +16,8 @@ namespace Osmo.Core
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     class VeryObservableCollection<T> : ObservableCollection<T>, INotifyPropertyChanged
     {
+        private bool autoSort;
+
         new event PropertyChangedEventHandler PropertyChanged;
 
         public string CollectionName { get; }
@@ -30,9 +32,21 @@ namespace Osmo.Core
             CollectionChanged += Collection_CollectionChanged;
         }
 
+        /// <summary>
+        /// Initializes the collection with the specified name and if auto-sorting is enabled.
+        /// </summary>
+        /// <param name="collectionName">The name of the collection (must match the property name!)</param>
+        /// <param name="autoSort">If true the list is sorted after every change</param>
+        public VeryObservableCollection(string collectionName, bool autoSort)
+        {
+            CollectionName = collectionName;
+            CollectionChanged += Collection_CollectionChanged;
+            this.autoSort = autoSort;
+        }
+
         private void Collection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(CollectionName));
+            OnPropertyChanged(this, new PropertyChangedEventArgs(CollectionName));
         }
 
         /// <summary>
@@ -75,6 +89,22 @@ namespace Osmo.Core
                 Add(item);
         }
 
+        public new void Add(T item)
+        {
+            base.Add(item);
+            List<T> lookupList = Items.OrderBy(x => x.ToString(), StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
+            foreach (T obj in lookupList)
+            {
+                if (obj.Equals(item))
+                {
+                    Remove(item);
+                    Insert(lookupList.IndexOf(obj), obj);
+                }
+            }
+
+        }
+
         public new void Clear()
         {
             try
@@ -90,7 +120,12 @@ namespace Osmo.Core
 
         public void Refresh()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(CollectionName));
+            OnPropertyChanged(this, new PropertyChangedEventArgs(CollectionName));
+        }
+
+        protected virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(sender, e);
         }
     }
 }

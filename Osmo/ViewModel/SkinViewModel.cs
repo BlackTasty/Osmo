@@ -33,6 +33,7 @@ namespace Osmo.ViewModel
                     mLoadedSkin.BackupSkin(AppConfiguration.GetInstance().BackupDirectory, true);
 
                 InvokePropertyChanged("LoadedSkin");
+                InvokePropertyChanged("Elements");
             }
         }
 

@@ -88,7 +88,12 @@ namespace Osmo.UI
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinElement element = ((SkinViewModel)DataContext).SelectedElement;
+            if (lv_elements.SelectedIndex < lv_elements.Items.Count - 1)
+                lv_elements.SelectedIndex++;
+            else
+                lv_elements.SelectedIndex--;
+            File.Delete(element.Path);
         }
     }
 }

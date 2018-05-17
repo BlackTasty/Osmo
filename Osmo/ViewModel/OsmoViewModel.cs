@@ -15,7 +15,7 @@ namespace Osmo.ViewModel
     {
         private SkinManager mManager;
 
-        private VeryObservableCollection<Skin> mSkins = new VeryObservableCollection<Skin>("Skins");
+        private VeryObservableCollection<Skin> mSkins = new VeryObservableCollection<Skin>("Skins", true);
         private SidebarEntry[] mSidebarItems;
         
         private int mSelectedSkinIndex = -1;

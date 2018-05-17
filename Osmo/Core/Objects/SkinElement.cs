@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Data;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Osmo.Core.Objects
 {
@@ -42,6 +39,14 @@ namespace Osmo.Core.Objects
             extension = fi.Extension;
 
             fileType = GetFileType(fi.Extension);
+        }
+
+        internal SkinElement(SkinElement copyFrom)
+        {
+            Path = copyFrom.Path;
+            Name = copyFrom.Name;
+            fileType = copyFrom.FileType;
+            extension = copyFrom.extension;
         }
 
         private SkinElement()
@@ -101,6 +106,11 @@ namespace Osmo.Core.Objects
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
         #endregion
     }

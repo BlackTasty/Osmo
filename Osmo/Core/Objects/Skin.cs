@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using Osmo.ViewModel;
+using System;
+using System.IO;
 using System.Linq;
 
 namespace Osmo.Core.Objects
@@ -10,7 +12,7 @@ namespace Osmo.Core.Objects
         private string mPath;
 
         //This contains a list of file names inside the skin folder
-        private VeryObservableCollection<SkinElement> mElements = new VeryObservableCollection<SkinElement>("Elements");
+        private VeryObservableCollection<SkinElement> mElements = new VeryObservableCollection<SkinElement>("Elements", true);
 
         private FileSystemWatcher mWatcher;
 
@@ -53,6 +55,8 @@ namespace Osmo.Core.Objects
 
             mWatcher.Changed += Watcher_Changed;
             mWatcher.Renamed += Watcher_Renamed;
+            mWatcher.Deleted += Watcher_Deleted;
+            mWatcher.Created += Watcher_Created;
 
             ReadElements();
         }
@@ -96,27 +100,37 @@ namespace Osmo.Core.Objects
         {
             int index = mElements.IndexOf(mElements.FirstOrDefault(x => x == e.OldFullPath) ?? SkinElement.Empty);
 
-            if (index > -1)
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                mElements[index].Name = e.Name;
-                mElements[index].Path = e.FullPath;
-            }
+                if (index > -1)
+                {
+                    mElements[index].Name = e.Name;
+                    mElements[index].Path = e.FullPath;
+                }
+            });
         }
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            switch (e.ChangeType)
+            mElements.Refresh();
+        }
+
+        private void Watcher_Created(object sender, FileSystemEventArgs e)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                case WatcherChangeTypes.Changed:
-                    mElements.Refresh();
-                    break;
-                case WatcherChangeTypes.Created:
-                    mElements.Add(new SkinElement(new FileInfo(e.FullPath)));
-                    break;
-                case WatcherChangeTypes.Deleted:
-                    mElements.Remove(mElements.FirstOrDefault(x => x == e.FullPath) ?? SkinElement.Empty);
-                    break;
-            }
+                mElements.Add(new SkinElement(new FileInfo(e.FullPath)));
+            });
+        }
+
+        private void Watcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            SkinElement element = mElements.FirstOrDefault(x => x == e.FullPath);
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            {
+                if (element != null)
+                    mElements.Remove(element);
+            });
         }
         #endregion
 
@@ -148,6 +162,11 @@ namespace Osmo.Core.Objects
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return Path;
         }
         #endregion
     }
