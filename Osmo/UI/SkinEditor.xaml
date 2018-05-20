@@ -58,34 +58,78 @@
             <ColumnDefinition Width="72"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="400*"/>
-            <RowDefinition Height="8"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="48"/>
+            <RowDefinition/>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="44"/>
         </Grid.RowDefinitions>
-        <material:ColorZone material:ShadowAssist.ShadowDepth="Depth1" VerticalAlignment="Stretch" Mode="Dark" Grid.ColumnSpan="4" Grid.RowSpan="4">
-            <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
+        <material:ColorZone VerticalAlignment="Stretch" Mode="Dark" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <Grid>
+                <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
+                <material:PackIcon Kind="{Binding Icon}" Visibility="{Binding ShowIcon}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
+            </Grid>
         </material:ColorZone>
-        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="8,0,0,0">
-            <ToggleButton
-                Style="{StaticResource MaterialDesignActionToggleButton}"
-                ToolTip="MaterialDesignActionLightToggleButton">
-                <ToggleButton.Content>
-                    <material:PackIcon
-                        Kind="{Binding Value, ElementName=slider_volume, Converter={StaticResource VolumeToIcon}}" />
-                </ToggleButton.Content>
-                <material:ToggleButtonAssist.OnContent>
-                    <material:PackIcon
-                        Kind="VolumeMute" />
-                </material:ToggleButtonAssist.OnContent>
-            </ToggleButton>
-            <Slider Margin="8, 10" x:Name="slider_volume"
-                    Minimum="0" Maximum="1" ToolTip="MaterialDesignDiscreteSlider"
-                    Value=".8" Width="150" SmallChange="0.01" LargeChange="0.1" TickFrequency="0.01"/>
-        </StackPanel>
-        <material:PopupBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="16"
+        <material:Transitioner x:Name="transitioner" SnapsToDevicePixels="True" SelectedIndex="{Binding PlayStatus}" AutoApplyTransitionOrigins="True" Grid.Row="2" Grid.ColumnSpan="4">
+            <material:TransitionerSlide>
+                <material:TransitionerSlide.ForwardWipe>
+                    <material:CircleWipe />
+                </material:TransitionerSlide.ForwardWipe>
+                <material:ColorZone Height="44" Mode="Dark">
+                    <Button Padding="0"
+                            HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
+                            ToolTip="Play selected file" Click="Play_Click"
+                                    Command="{x:Static material:Transitioner.MoveNextCommand}" Margin="16,0,0,0" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <material:PackIcon
+                            Kind="Play"
+                            Height="32"
+                            Width="32" />
+                    </Button>
+                </material:ColorZone>
+            </material:TransitionerSlide>
+            <material:TransitionerSlide>
+                <material:TransitionerSlide.BackwardWipe>
+                    <material:CircleWipe />
+                </material:TransitionerSlide.BackwardWipe>
+                <Grid VerticalAlignment="Center" Background="{DynamicResource PrimaryHueDarkBrush}" Height="44">
+                    <Grid Margin="16,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Padding="0"
+                            HorizontalAlignment="Left"
+                            ToolTip="Pause playback" Click="Pause_Click"
+                                    Command="{x:Static material:Transitioner.MovePreviousCommand}" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <material:PackIcon
+                            Kind="Pause"
+                            Height="32"
+                            Width="32" />
+                        </Button>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+                            <ToggleButton
+                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                ToolTip="MaterialDesignActionLightToggleButton">
+                                <ToggleButton.Content>
+                                    <material:PackIcon
+                                        Kind="{Binding Value, ElementName=slider_volume, Converter={StaticResource VolumeToIcon}, FallbackValue=VolumeMedium}" />
+                                </ToggleButton.Content>
+                                <material:ToggleButtonAssist.OnContent>
+                                    <material:PackIcon
+                                        Kind="VolumeMute" />
+                                </material:ToggleButtonAssist.OnContent>
+                            </ToggleButton>
+                            <Slider Margin="8, 10" x:Name="slider_volume"
+                                    Minimum="0" Maximum="1" ToolTip="MaterialDesignDiscreteSlider"
+                                    Value=".8" Width="150" SmallChange="0.01" LargeChange="0.1" TickFrequency="0.01"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </material:TransitionerSlide>
+        </material:Transitioner>
+
+        <material:PopupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="16"
             Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
-            PlacementMode="TopAndAlignCentres" VerticalAlignment="Bottom" HorizontalAlignment="Right" PopupMode="Click">
+            PlacementMode="TopAndAlignCentres" VerticalAlignment="Center" HorizontalAlignment="Right" PopupMode="Click">
             <material:PopupBox.ToggleCheckedContent>
                 <material:PackIcon
                     Kind="Pencil"
@@ -110,7 +154,7 @@
                     <material:PackIcon
                     Kind="UndoVariant"
                     Width="24"
-                    Height="24" />
+                    Height="24" IsEnabled="{Binding SelectedElement.MadeChanges}" />
                 </Button>
                 <Button ToolTip="Delete" Click="Delete_Click">
                     <material:PackIcon

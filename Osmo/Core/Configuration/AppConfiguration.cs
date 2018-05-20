@@ -22,6 +22,7 @@ namespace Osmo.Core.Configuration
         }
         #endregion
 
+        //TODO: Append all changed settings to EventArgs (custom class required)
         public event EventHandler<EventArgs> SettingsSaved;
 
         #region Properties
@@ -32,6 +33,11 @@ namespace Osmo.Core.Configuration
                 return File.Exists(FilePath) && !string.IsNullOrWhiteSpace(OsuDirectory)
                     && Directory.Exists(OsuDirectory);
             }
+        }
+
+        public string DefaultBackupDirectory
+        {
+            get => "[Installation folder]\\Backups\\";
         }
 
         public string OsuDirectory { get; set; }
@@ -54,6 +60,9 @@ namespace Osmo.Core.Configuration
             ReopenLastSkin = true;
             PlaySoundWhenHovering = false;
             BackupDirectory = AppDomain.CurrentDomain.BaseDirectory + "Backups";
+            OsuDirectory = "";
+
+            Load();
         }
 
         public void Save()
@@ -75,7 +84,7 @@ namespace Osmo.Core.Configuration
 
         public void Load()
         {
-            Content = LoadFile(this);
+            Content = base.LoadFile(this);
 
             if (Content != null)
             {

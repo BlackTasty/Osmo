@@ -19,6 +19,8 @@ namespace Osmo.Core
 
         private VeryObservableCollection<Skin> mSkins = new VeryObservableCollection<Skin>("Skins");
 
+        public VeryObservableCollection<Skin> Skins { get => mSkins; }
+
         internal string Directory
         {
             get => mDirectory;
@@ -30,6 +32,8 @@ namespace Osmo.Core
                     if (mSkinWatcher != null)
                     {
                         mSkinWatcher.Changed -= Watcher_Changed;
+                        mSkinWatcher.Created -= Watcher_Created;
+                        mSkinWatcher.Deleted -= Watcher_Deleted;
                         mSkinWatcher.Renamed -= Watcher_Renamed;
                     }
 
@@ -84,6 +88,18 @@ namespace Osmo.Core
             if (!System.IO.Directory.Exists(directory))
                 System.IO.Directory.CreateDirectory(directory);
             Directory = directory;
+            LoadSkins();
+        }
+
+        private void LoadSkins()
+        {
+            if (!string.IsNullOrWhiteSpace(Directory))
+            {
+                foreach (DirectoryInfo di in new DirectoryInfo(Directory + "\\Skins").EnumerateDirectories())
+                {
+                    mSkins.Add(new Skin(di.FullName));
+                }
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Osmo.Core.Objects
 {
-    internal enum FileType
+    public enum FileType
     {
         Image,
         Audio,

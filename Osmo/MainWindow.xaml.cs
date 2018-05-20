@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using Osmo.Core.Configuration;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,15 +25,22 @@ namespace Osmo
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private const int CONFIG_INDEX = 2;
+
         AppConfiguration configuration = AppConfiguration.GetInstance();
 
         public MainWindow()
         {
-            
             InitializeComponent();
+            configuration.SettingsSaved += Configuration_SettingsSaved;
+        }
 
-            //if (!configuration.IsValid)
-            //    sidebarMenu.SelectedIndex = 1;
+        private void Configuration_SettingsSaved(object sender, EventArgs e)
+        {
+            OsmoViewModel vm = DataContext as OsmoViewModel;
+
+            vm.BackupDirectory = configuration.BackupDirectory;
+            vm.OsuDirectory = configuration.OsuDirectory;
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -50,10 +58,16 @@ namespace Osmo
 
         private void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sidebarMenu.SelectedIndex != 1 && !configuration.IsValid)
+            if (sidebarMenu.SelectedIndex != CONFIG_INDEX && !configuration.IsValid)
             {
-                sidebarMenu.SelectedIndex = 1;
+                sidebarMenu.SelectedIndex = CONFIG_INDEX;
             }
+        }
+
+        private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!configuration.IsValid)
+                sidebarMenu.SelectedIndex = CONFIG_INDEX;
         }
     }
 }

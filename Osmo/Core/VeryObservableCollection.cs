@@ -14,7 +14,7 @@ namespace Osmo.Core
     /// (this removes the need to call the "OnNotifyPropertyChanged" event every time you add, edit or remove an entry.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
-    class VeryObservableCollection<T> : ObservableCollection<T>, INotifyPropertyChanged
+    public class VeryObservableCollection<T> : ObservableCollection<T>, INotifyPropertyChanged
     {
         private bool autoSort;
 

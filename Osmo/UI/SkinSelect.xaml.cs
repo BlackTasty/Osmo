@@ -1,4 +1,5 @@
-﻿using Osmo.ViewModel;
+﻿using Osmo.Core.Objects;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,22 @@ namespace Osmo.UI
         internal void Initialize(OsmoViewModel vm)
         {
             DataContext = vm;
+        }
+
+        private void LoadSkin_Click(object sender, RoutedEventArgs e)
+        {
+            SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = 1;
+        }
+
+        private void NewSkin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MixSkins_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

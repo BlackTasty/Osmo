@@ -1,12 +1,23 @@
-﻿using System.IO;
+﻿using Osmo.ViewModel;
+using System.IO;
 using System.Windows.Data;
 
 namespace Osmo.Core.Objects
 {
-    class SkinElement
+    public class SkinElement : ViewModelBase
     {
         private FileType fileType;
         private string extension;
+        private bool mMadeChanges;
+
+        public bool MadeChanges {
+            get => mMadeChanges;
+            set
+            {
+                mMadeChanges = value;
+                InvokePropertyChanged("MadeChanges");
+            }
+        }
 
         public string Path { get; set; }
 

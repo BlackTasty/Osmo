@@ -2,10 +2,11 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Data;
 
 namespace Osmo.Core.Objects
 {
-    class Skin
+    public class Skin
     {
         private string mName;
         private string mAuthor;
@@ -73,7 +74,7 @@ namespace Osmo.Core.Objects
             if (Directory.Exists(skinBackupPath))
             {
                 if (overrideBackup)
-                    Directory.Delete(skinBackupPath);
+                    Directory.Delete(skinBackupPath, true);
                 else
                     return false;
             }
@@ -153,7 +154,8 @@ namespace Osmo.Core.Objects
 
         public override bool Equals(object obj)
         {
-            if (obj != null && Path != null && (obj as Skin).Path != null)
+            if (obj != null && obj != BindingOperations.DisconnectedSource && 
+                Path != null && (obj as Skin).Path != null)
                 return Path.Contains((obj as Skin).Path);
             else
                 return false;

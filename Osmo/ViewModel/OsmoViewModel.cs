@@ -1,4 +1,5 @@
 ﻿using Osmo.Core;
+using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using Osmo.UI;
 using System;
@@ -14,11 +15,12 @@ namespace Osmo.ViewModel
     class OsmoViewModel : ViewModelBase
     {
         private SkinManager mManager;
-
-        private VeryObservableCollection<Skin> mSkins = new VeryObservableCollection<Skin>("Skins", true);
+        
         private SidebarEntry[] mSidebarItems;
         
         private int mSelectedSkinIndex = -1;
+
+        private int mSelectedSidebarIndex = 0;
 
         private string mOsuDirectory = "";
         private string mBackupDirectory = "";
@@ -44,17 +46,39 @@ namespace Osmo.ViewModel
             }
         }
 
-        public VeryObservableCollection<Skin> Skins { get => mSkins; set => mSkins = value; }
+        public VeryObservableCollection<Skin> Skins { get => mManager != null? mManager.Skins : null; }
 
         public SidebarEntry[] Items { get => mSidebarItems; }
 
-        public int SelectedSkinIndex { get => mSelectedSkinIndex; set => mSelectedSkinIndex = value; }
+        public int SelectedSkinIndex
+        {
+            get => mSelectedSkinIndex;
+            set
+            {
+                mSelectedSkinIndex = value;
+                InvokePropertyChanged("SelectedSkinIndex");
+            }
+        }
+
+        public int SelectedSidebarIndex
+        {
+            get => mSelectedSidebarIndex;
+            set
+            {
+                mSelectedSidebarIndex = value;
+                InvokePropertyChanged("SelectedSidebarIndex");
+            }
+        }
 
         public string OsuDirectory
         {
-            get => mOsuDirectory; set
+            get => mManager != null ? mManager.Directory : "";
+            set
             {
-                mOsuDirectory = value;
+                if (mManager == null)
+                    mManager = new SkinManager(value);
+                else
+                    mManager.Directory = value;
                 InvokePropertyChanged("OsuDirectory");
             }
         }
@@ -81,6 +105,11 @@ namespace Osmo.ViewModel
 
         public OsmoViewModel()
         {
+            string osuDir = AppConfiguration.GetInstance().OsuDirectory;
+
+            if (!string.IsNullOrWhiteSpace(osuDir))
+                mManager = new SkinManager(osuDir);
+
             mSidebarItems = new SidebarEntry[]
             {
                 new SidebarEntry("Home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance),
@@ -91,42 +120,45 @@ namespace Osmo.ViewModel
         
         private void MManager_SkinChanged(object sender, SkinChangedEventArgs e)
         {
-            //TODO: isSkin may be removed in case the menu background isn't needed
-            bool isSkin = System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory;
-
-            switch (e.ChangeType)
+            if (Skins != null)
             {
-                //case System.IO.WatcherChangeTypes.Changed:
-                //    if (!isSkin)
-                //    {
-                //        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
-                //        if (changed != null)
-                //        {
-                //        }
-                //    }
-                //    break;
-                case System.IO.WatcherChangeTypes.Created:
-                    if (isSkin)
-                        mSkins.Add(new Skin(e.Path));
-                    break;
-                case System.IO.WatcherChangeTypes.Deleted:
-                    if (isSkin)
-                    {
-                        Skin removed = mSkins.FirstOrDefault(x => x == e.Path);
-                        if (removed != null)
-                            mSkins.Remove(removed);
-                    }
-                    break;
+                //TODO: isSkin may be removed in case the menu background isn't needed
+                bool isSkin = System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory;
+
+                switch (e.ChangeType)
+                {
+                    //case System.IO.WatcherChangeTypes.Changed:
+                    //    if (!isSkin)
+                    //    {
+                    //        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
+                    //        if (changed != null)
+                    //        {
+                    //        }
+                    //    }
+                    //    break;
+                    case System.IO.WatcherChangeTypes.Created:
+                        if (isSkin)
+                            Skins.Add(new Skin(e.Path));
+                        break;
+                    case System.IO.WatcherChangeTypes.Deleted:
+                        if (isSkin)
+                        {
+                            Skin removed = Skins.FirstOrDefault(x => x == e.Path);
+                            if (removed != null)
+                                Skins.Remove(removed);
+                        }
+                        break;
+                }
             }
         }
 
         private void MManager_SkinRenamed(object sender, SkinRenamedEventArgs e)
         {
-            if (System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory)
+            if (Skins != null && System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory)
             {
-                Skin renamed = mSkins.First(x => x == e.Path);
+                Skin renamed = Skins.First(x => x == e.Path);
                 if (renamed != null)
-                    mSkins[mSkins.IndexOf(renamed)].Path = e.Path;
+                    Skins[Skins.IndexOf(renamed)].Path = e.Path;
             }
         }
     }

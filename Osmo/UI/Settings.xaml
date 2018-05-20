@@ -49,21 +49,12 @@
                     </TextBox.Text>
                 </TextBox>
                 <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" 
-                            ToolTip="Start searching your osu! directory" Width="130" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click">_SELECT</Button>
+                            ToolTip="Start searching your osu! directory" Width="130" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click" Tag="osu">_SELECT</Button>
                 <material:PackIcon Grid.Row="2" Kind="FolderAccount" Foreground="{Binding ElementName=txt_backupPath, Path=BorderBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" />
                 <TextBox Grid.Row="2" x:Name="txt_backupPath" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    material:HintAssist.Hint="Backup directory" Grid.Column="1" Grid.ColumnSpan="2">
-                    <TextBox.Text>
-                        <Binding
-                            Path="BackupDirectory"
-                            UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <validation:PathValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+                    material:HintAssist.Hint="{Binding Configuration.DefaultBackupDirectory, ElementName=container}" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Configuration.BackupDirectory, ElementName=container}"/>
+
+                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"  Tag="backup"
                             ToolTip="Start searching your osu! directory" Width="130" Grid.Row="2" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click">_SELECT</Button>
                 <TextBlock Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Center">
                     <Run Text="Backup folder size: "/>
