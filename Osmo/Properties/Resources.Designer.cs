@@ -69,5 +69,15 @@ namespace Osmo.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SkinIniSyntax {
+            get {
+                object obj = ResourceManager.GetObject("SkinIniSyntax", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -59,5 +59,11 @@ namespace Osmo.UI
         {
 
         }
+
+        private void lv_skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = 1;
+        }
     }
 }

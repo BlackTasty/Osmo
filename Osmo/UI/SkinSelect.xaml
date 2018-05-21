@@ -22,7 +22,7 @@
         <RowDefinition Height="12"/>
         <RowDefinition Height="42"/>
     </Grid.RowDefinitions>
-    <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}" Grid.ColumnSpan="4">
+    <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}" Grid.ColumnSpan="4" PreviewMouseDoubleClick="lv_skins_PreviewMouseDoubleClick">
         <ListView.View>
             <GridView>
                 <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="200"/>

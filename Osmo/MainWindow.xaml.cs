@@ -1,6 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using Osmo.Core.Configuration;
+using Osmo.Core.Objects;
+using Osmo.UI;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -58,6 +60,8 @@ namespace Osmo
 
         private void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            (SkinEditor.Instance.DataContext as SkinViewModel).SelectedElement = new SkinElement();
+
             if (sidebarMenu.SelectedIndex != CONFIG_INDEX && !configuration.IsValid)
             {
                 sidebarMenu.SelectedIndex = CONFIG_INDEX;

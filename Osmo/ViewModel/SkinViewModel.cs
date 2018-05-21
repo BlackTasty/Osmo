@@ -19,16 +19,20 @@ namespace Osmo.ViewModel
     {
         private Skin mLoadedSkin;
         private bool mShowImage = true;
-        private bool mPlayEnabled;
         private int mPlayStatus = 0;
         private ImageSource mImage;
 
+        private double mAudioPosition = 0;
+        private double mAudioLength = 0;
+
         private Visibility mShowIcon = Visibility.Hidden;
+        private Visibility mShowEditor = Visibility.Hidden;
         private PackIconKind mIcon = PackIconKind.File;
 
         private ImageSource mTempImage;
 
         private SkinElement mSelectedElement;
+        private AudioEngine mAudioEngine;
 
         public Skin LoadedSkin
         {
@@ -44,15 +48,45 @@ namespace Osmo.ViewModel
             }
         }
 
+        public AudioEngine AudioEngine
+        {
+            get => mAudioEngine;
+            set
+            {
+                mAudioEngine = value;
+                InvokePropertyChanged("AudioEngine");
+            }
+        }
+
+        public double AudioLength
+        {
+            get => mAudioLength;
+            set
+            {
+                mAudioLength = value;
+                InvokePropertyChanged("AudioLength");
+            }
+        }
+
+        public double AudioPosition
+        {
+            get => mAudioPosition;
+            set
+            {
+                mAudioPosition = value;
+                InvokePropertyChanged("AudioPosition");
+            }
+        }
+
         public SkinElement SelectedElement
         {
             get => mSelectedElement;
             set
             {
                 mSelectedElement = value;
-                if (value != null && value.FileType == FileType.Image)
+                if (value != new SkinElement())
                 {
-                    RefreshImage();
+                     RefreshImage();
                 }
                 else
                 {
@@ -60,7 +94,7 @@ namespace Osmo.ViewModel
                     InvokePropertyChanged("Image");
                 }
 
-                mPlayEnabled = value.FileType == FileType.Audio;
+                PlayEnabled = value.FileType == FileType.Audio;
 
                 InvokePropertyChanged("SelectedElement");
                 InvokePropertyChanged("IsEmptyEnabled");
@@ -68,10 +102,7 @@ namespace Osmo.ViewModel
             }
         }
 
-        public bool PlayEnabled
-        {
-            get => mPlayEnabled;
-        }
+        public bool PlayEnabled { get; private set; }
 
         public int PlayStatus
         {
@@ -108,6 +139,16 @@ namespace Osmo.ViewModel
             }
         }
 
+        public Visibility ShowEditor
+        {
+            get => mShowEditor;
+            set
+            {
+                mShowEditor = value;
+                InvokePropertyChanged("ShowEditor");
+            }
+        }
+
         public bool ShowImage
         {
             get => mShowImage;
@@ -134,16 +175,18 @@ namespace Osmo.ViewModel
             }
         }
 
-        public bool IsEmptyEnabled { get => mSelectedElement != null ? mSelectedElement.FileType == FileType.Image : false; }
-
-        public SkinViewModel()
-        {
-            //mLoadedSkin = new Skin(@"D:\Program Files (x86)\osu!\Skins\Osmo Test");
-        }
+        public bool IsEmptyEnabled { get => !mSelectedElement.Equals(null) ? mSelectedElement.FileType == FileType.Image : false; }
 
         internal void RefreshImage()
         {
-            mImage = Helper.LoadImage(SelectedElement.Path);
+            if (SelectedElement.FileType == FileType.Image)
+            {
+                mImage = Helper.LoadImage(SelectedElement.Path);
+            }
+            else
+            {
+                mImage = null;
+            }
             InvokePropertyChanged("Image");
         }
     }

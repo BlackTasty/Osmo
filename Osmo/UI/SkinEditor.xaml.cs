@@ -1,14 +1,25 @@
-﻿using Microsoft.Win32;
+﻿using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using System.Xml;
+using System.Linq;
 
 namespace Osmo.UI
 {
@@ -20,6 +31,11 @@ namespace Osmo.UI
         private static SkinEditor instance;
         private string lastPath = null;
         private AudioEngine audio;
+        private bool isEnteringProperty;
+
+        private CompletionWindow completionWindow;
+
+        private List<CompletionData> skinIniCompletion = new List<CompletionData>();
 
         public static SkinEditor Instance
         {
@@ -30,11 +46,28 @@ namespace Osmo.UI
                 return instance;
             }
         }
+        
+        public double AudioPosition
+        {
+            get { return (double)GetValue(AudioPositionProperty); }
+            set { SetValue(AudioPositionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AudioPosition.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AudioPositionProperty =
+            DependencyProperty.Register("AudioPosition", typeof(double), typeof(SkinEditor), new PropertyMetadata(0d));
+
+        //public double AudioPosition { get => audio != null ? audio.AudioPosition : 0; }
 
         private SkinEditor()
         {
             InitializeComponent();
-            audio = new AudioEngine();
+            audio = new AudioEngine((SkinViewModel)DataContext);
+            skinIniCompletion.AddRange(FixedValues.skinIniGeneralCompletionData);
+            skinIniCompletion.AddRange(FixedValues.skinIniColoursCompletionData);
+            skinIniCompletion.AddRange(FixedValues.skinIniFontsCompletionData);
+            skinIniCompletion.AddRange(FixedValues.skinIniCTBCompletionData);
+            skinIniCompletion.AddRange(FixedValues.skinIniManiaCompletionData);
         }
 
         public void LoadSkin(Skin skin)
@@ -45,7 +78,11 @@ namespace Osmo.UI
         private void lv_elements_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkinViewModel vm = (SkinViewModel)DataContext;
-            vm.SelectedElement = (SkinElement)lv_elements.SelectedItem;
+
+            if (lv_elements.SelectedIndex != -1)
+                vm.SelectedElement = (SkinElement)lv_elements.SelectedItem;
+            else
+                vm.SelectedElement = new SkinElement();
 
             audio.StopAudio();
             vm.PlayStatus = 0;
@@ -60,12 +97,28 @@ namespace Osmo.UI
                         break;
                     case FileType.Configuration:
                         vm.Icon = MaterialDesignThemes.Wpf.PackIconKind.FileXml;
+                        LoadDocument(vm.SelectedElement.Path);
                         break;
                     case FileType.Unknown:
                         vm.Icon = MaterialDesignThemes.Wpf.PackIconKind.File;
                         break;
                 }
             }
+
+            vm.ShowEditor = vm.SelectedElement.Name.ToLower() == "skin.ini" ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void LoadDocument(string path)
+        {
+            textEditor.Document = null; // immediately remove old document
+            TextDocument doc = new TextDocument(new StringTextSource(File.ReadAllText(path)));
+            doc.SetOwnerThread(Application.Current.Dispatcher.Thread);
+            Application.Current.Dispatcher.BeginInvoke(
+                  new Action(
+                      delegate
+                      {
+                          textEditor.Document = doc;
+                      }), DispatcherPriority.Normal);
         }
 
         private void Replace_Click(object sender, RoutedEventArgs e)
@@ -122,8 +175,8 @@ namespace Osmo.UI
             if (result == MessageBoxResult.Yes)
             {
                 SkinViewModel vm = (SkinViewModel)DataContext;
-                string path = AppConfiguration.GetInstance().BackupDirectory + 
-                    vm.LoadedSkin.Name;
+                string path = AppConfiguration.GetInstance().BackupDirectory + "\\" + 
+                    vm.LoadedSkin.Name + "\\";
                 File.Copy(path + vm.SelectedElement.Name, vm.SelectedElement.Path, true);
                 vm.RefreshImage();
                 vm.SelectedElement.MadeChanges = false;
@@ -178,11 +231,92 @@ namespace Osmo.UI
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             audio.PlayAudio((DataContext as SkinViewModel).SelectedElement.Path);
+            if (cb_mute.IsChecked == true)
+                audio.ChangeVolume(0);
+            else
+                audio.ChangeVolume(slider_volume.Value);
         }
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
             audio.StopAudio();
+        }
+
+        private void slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (audio != null)
+            {
+                cb_mute.IsChecked = false;
+                audio.ChangeVolume(slider_volume.Value);
+            }
+        }
+
+        private void Mute_Click(object sender, RoutedEventArgs e)
+        {
+            if (cb_mute.IsChecked == true)
+                audio.ChangeVolume(0);
+            else
+                audio.ChangeVolume(slider_volume.Value);
+        }
+
+        private void TextEditor_Loaded(object sender, RoutedEventArgs e)
+        {
+            using (Stream s = Application.GetResourceStream(new Uri("pack://application:,,,/Osmo;component/Resources/SkinIniSyntax.xshd", UriKind.Absolute)).Stream)
+            {
+                using (XmlTextReader reader = new XmlTextReader(s))
+                {
+                    textEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                }
+            }
+
+            textEditor.TextArea.TextEntering += TextArea_TextEntering;
+            textEditor.TextArea.TextEntered += TextArea_TextEntered;
+        }
+
+        private void TextArea_TextEntered(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!isEnteringProperty && (DataContext as SkinViewModel).SelectedElement.Name.Equals("skin.ini", StringComparison.InvariantCultureIgnoreCase))
+            {
+                completionWindow = new CompletionWindow(textEditor.TextArea);
+                IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+                foreach (CompletionData item in skinIniCompletion)
+                {
+                    if (item.Text.Contains(e.Text))
+                    data.Add(item);
+                }
+
+                if (data.Count > 0)
+                {
+                    completionWindow.Show();
+                    completionWindow.Closed += delegate { completionWindow = null; };
+                }
+            }
+            else
+            {
+                completionWindow = null;
+            }
+        }
+
+        private void TextArea_TextEntering(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!isEnteringProperty && e.Text == ":")
+            {
+                isEnteringProperty = true;
+            }
+            else if (isEnteringProperty && e.Text == "\n")
+            {
+                isEnteringProperty = false;
+            }
+
+            if (completionWindow != null && !isEnteringProperty)
+            {
+                if (!char.IsLetterOrDigit(e.Text[0]))
+                {
+                    // Whenever a non-letter is typed while the completion window is open,
+                    // insert the currently selected element.
+                    completionWindow.CompletionList.RequestInsertion(e);
+                }
+            }
         }
     }
 }

@@ -60,14 +60,12 @@ namespace Osmo.Core.Objects
             extension = copyFrom.extension;
         }
 
-        private SkinElement()
+        internal SkinElement()
         {
             Path = "";
             Name = "";
             fileType = FileType.Unknown;
         }
-
-        internal static SkinElement Empty { get => new SkinElement(); }
 
         private FileType GetFileType(string extension)
         {

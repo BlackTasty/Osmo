@@ -82,7 +82,7 @@ namespace Osmo.Core.Objects
             Directory.CreateDirectory(skinBackupPath);
             foreach (FileInfo fi in new DirectoryInfo(Path).EnumerateFiles())
             {
-                fi.CopyTo(System.IO.Path.Combine(skinBackupPath, fi.Name));
+                File.Copy(fi.FullName, System.IO.Path.Combine(skinBackupPath, fi.Name));
             }
 
             return true;
@@ -99,7 +99,7 @@ namespace Osmo.Core.Objects
         #region Watcher Events
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            int index = mElements.IndexOf(mElements.FirstOrDefault(x => x == e.OldFullPath) ?? SkinElement.Empty);
+            int index = mElements.IndexOf(mElements.FirstOrDefault(x => x == e.OldFullPath) ?? null);
 
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {

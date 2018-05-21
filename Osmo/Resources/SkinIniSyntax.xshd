@@ -1,0 +1,41 @@
+﻿<SyntaxDefinition name="SkinIni" extensions=".ini"
+        xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+    <Color name="Group" foreground="DodgerBlue" exampleText="[group]"/>
+    <Color name="Comment" foreground="Green" exampleText="// comment"/>
+    <Color name="Value" foreground="OrangeRed"/>
+
+    <!-- This is the main ruleset. -->
+    <RuleSet>
+      <Span color="Comment">
+        <Begin>//</Begin>
+        <RuleSet>
+        <Keywords fontWeight="bold" foreground="Gray">
+          <Word>TODO</Word>
+          <Word>FIXME</Word>
+        </Keywords>
+        </RuleSet>
+      </Span>
+
+      <Span color="Group">
+        <Begin>\[</Begin>
+        <End>\]</End>
+        <RuleSet>
+        <Keywords foreground="Orange">
+          <Word>General</Word>
+          <Word>Colours</Word>
+          <Word>Fonts</Word>
+          <Word>Mania</Word>
+        </Keywords>
+        </RuleSet>
+      </Span>
+
+      <Span color="Value">
+        <Begin>:</Begin>
+        <RuleSet>
+          <Keywords foreground="Black">
+            <Word>:</Word>
+          </Keywords>
+        </RuleSet>
+      </Span>
+    </RuleSet>
+</SyntaxDefinition>
