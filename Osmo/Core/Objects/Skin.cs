@@ -1,5 +1,6 @@
 ﻿using Osmo.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Data;
@@ -16,7 +17,6 @@ namespace Osmo.Core.Objects
         private VeryObservableCollection<SkinElement> mElements = new VeryObservableCollection<SkinElement>("Elements", true);
 
         private FileSystemWatcher mWatcher;
-
         #region Properties
         /// <summary>
         /// The visible name of this <see cref="Skin"/> object.
@@ -38,6 +38,8 @@ namespace Osmo.Core.Objects
         /// </summary>
         public VeryObservableCollection<SkinElement> Elements { get => mElements; set => mElements = value; }
 
+        public List<SkinElement> ChangedFiles { get => mElements.TakeWhile(o => o.HasChanges).ToList(); }
+
         /// <summary>
         /// This returns the amount of elements this <see cref="Skin"/> object contains.
         /// </summary>
@@ -46,6 +48,7 @@ namespace Osmo.Core.Objects
 
         public Skin(string path)
         {
+            mElements.WatchAlso("ChangedFiles");
             mPath = path;
             mName = System.IO.Path.GetFileName(path);
 
@@ -60,6 +63,14 @@ namespace Osmo.Core.Objects
             mWatcher.Created += Watcher_Created;
 
             ReadElements();
+        }
+
+        public void Save()
+        {
+            foreach (SkinElement element in mElements.Where(x=> !string.IsNullOrWhiteSpace(x.TempPath)))
+            {
+                element.Save();
+            }
         }
 
         /// <summary>

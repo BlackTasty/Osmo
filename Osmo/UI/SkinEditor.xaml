@@ -8,7 +8,7 @@
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="Container_Loaded" Tag="{Binding LoadedSkin.Name}">
     <Grid.DataContext>
         <vm:SkinViewModel/>
     </Grid.DataContext>
@@ -22,10 +22,16 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*" MinWidth="200"/>
     </Grid.ColumnDefinitions>
-    <ListView x:Name="lv_elements" ItemsSource="{Binding LoadedSkin.Elements}" SelectionChanged="lv_elements_SelectionChanged">
+    <ListView DockPanel.Dock="Top" VerticalAlignment="Stretch" x:Name="lv_elements" ItemsSource="{Binding LoadedSkin.Elements}" SelectionChanged="lv_elements_SelectionChanged">
         <ListView.View>
             <GridView>
-                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="200"/>
+                <GridViewColumn Width="200" Header="Name">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontStyle="{Binding FontStyle, UpdateSourceTrigger=PropertyChanged}" FontWeight="{Binding FontWeight, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
                 <GridViewColumn Header="" Width="32">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
@@ -39,7 +45,7 @@
                 <GridViewColumn Header="" Width="32">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <material:PackIcon Visibility="{Binding IsHighDefinition, Converter={StaticResource BooleanToVisibility}}"
+                            <material:PackIcon Visibility="{Binding IsHighDefinition, Converter={StaticResource BooleanToVisibility}, UpdateSourceTrigger=PropertyChanged}"
                                 Kind="HighDefinition"
                                 Height="24"
                                 Width="24" />
@@ -49,6 +55,33 @@
             </GridView>
         </ListView.View>
     </ListView>
+    <material:Card Margin="8,8,8,0" VerticalAlignment="Bottom" 
+                       Background="{DynamicResource MaterialDesignBackground}">
+        <Expander Header="Summary of changes" ExpandDirection="Up">
+            <ListView MaxHeight="300" x:Name="lv_changes" ItemsSource="{Binding LoadedSkin.Elements}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                        <Setter Property="Visibility" Value="{Binding HasChanges, Converter={StaticResource BooleanToVisibility}}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="200" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                        <!--<GridViewColumn Header="Type" Width="110">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <material:PackIcon Visibility="{Binding IsHighDefinition, Converter={StaticResource BooleanToVisibility}, UpdateSourceTrigger=PropertyChanged}"
+                                Kind="HighDefinition"
+                                Height="24"
+                                Width="24" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>-->
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Expander>
+    </material:Card>
     <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
     <Grid Grid.Column="2">
         <Grid.ColumnDefinitions>
@@ -108,8 +141,10 @@
                                 <ColumnDefinition Width="16"/>
                                 <ColumnDefinition Width="48"/>
                                 <ColumnDefinition Width="8"/>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="8"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="16"/>
+                                <ColumnDefinition Width="88"/>
                             </Grid.ColumnDefinitions>
                             <Button Padding="0" Grid.Column="1"
                             HorizontalAlignment="Left"
@@ -120,7 +155,16 @@
                             Height="32"
                             Width="32" />
                             </Button>
-                            <StackPanel Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Center">
+                            <Button Padding="0" Grid.Column="3"
+                            HorizontalAlignment="Left"
+                            ToolTip="Pause playback" Click="Stop_Click"
+                                    Command="{x:Static material:Transitioner.MovePreviousCommand}" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                                <material:PackIcon
+                            Kind="Stop"
+                            Height="32"
+                            Width="32" />
+                            </Button>
+                            <StackPanel Orientation="Horizontal" Grid.Column="5" VerticalAlignment="Center">
                                 <ToggleButton x:Name="cb_mute"
                                           Click="Mute_Click"
                                 Style="{StaticResource MaterialDesignActionToggleButton}"
@@ -135,15 +179,15 @@
                                     </material:ToggleButtonAssist.OnContent>
                                 </ToggleButton>
                                 <Slider x:Name="slider_volume" VerticalAlignment="Center" Margin="8,0"
-                                    Minimum="0" Maximum="1" ToolTip="Volume slider" ValueChanged="slider_volume_ValueChanged"
-                                    Value=".8" Width="150" SmallChange="0.01" LargeChange="0.1" TickFrequency="0.01"/>
+                                    Minimum="0" Maximum="1" ToolTip="Volume slider" ValueChanged="Slider_volume_ValueChanged"
+                                    Value=".8" Width="140" SmallChange="0.01" LargeChange="0.1" TickFrequency="0.01"/>
                             </StackPanel>
                         </Grid>
                     </material:ColorZone>
-                    <Slider  VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueMidBrush}"
-                                    Minimum="0" Maximum="{Binding AudioLength}"
-                                    Value="{Binding AudioPosition}" Margin="0,0,88,0"
-                                 Grid.RowSpan="2"/>
+                    <Slider x:Name="slider_audio" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                    Minimum="0" Maximum="{Binding AudioLength}" IsMoveToPointEnabled="True"
+                                    Value="{Binding AudioPosition}" Margin="0,0,88,0" ValueChanged="Slider_Audio_ValueChanged"
+                                    PreviewMouseDown="Slider_Audio_MouseDown" PreviewMouseUp="Slider_Audio_MouseUp" Grid.RowSpan="2"/>
                     <TextBlock VerticalAlignment="Bottom" Margin="16,4" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
                         <Run Text="Currently playing: "/>
                         <Run Text="{Binding SelectedElement.Name}"/>
@@ -153,7 +197,7 @@
         </material:Transitioner>
 
         <material:PopupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="16"
-            Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
+            Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}" IsEnabled="{Binding IsFABEnabled}"
             PlacementMode="TopAndAlignCentres" VerticalAlignment="Center" HorizontalAlignment="Right" PopupMode="Click">
             <material:PopupBox.ToggleCheckedContent>
                 <material:PackIcon
@@ -175,11 +219,11 @@
                     Width="24"
                     Height="24" />
                 </Button>
-                <Button ToolTip="Reset" Click="Reset_Click">
+                <Button ToolTip="Reset" Click="Reset_Click" IsEnabled="{Binding ResetEnabled}">
                     <material:PackIcon
                     Kind="UndoVariant"
                     Width="24"
-                    Height="24" IsEnabled="{Binding SelectedElement.MadeChanges}" />
+                    Height="24" />
                 </Button>
                 <Button ToolTip="Delete" Click="Delete_Click">
                     <material:PackIcon

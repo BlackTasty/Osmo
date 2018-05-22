@@ -12,7 +12,7 @@ namespace Osmo.Core.Configuration
         /// This file is created with the .cfg extension and is saved in the root directory of the application.
         /// </summary>
         /// <param name="fileName">Configuration file name</param>
-        internal ConfigurationFile(string fileName) : this(fileName, "cfg", "") { }
+        internal ConfigurationFile(string fileName) : this(fileName, ".cfg", "") { }
 
         /// <summary>
         /// Defines a new configuration file with the given values

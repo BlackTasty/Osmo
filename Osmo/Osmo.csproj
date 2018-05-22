@@ -79,8 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Converters\BoolToTextDecorationConverter.cs" />
     <Compile Include="Converters\FileTypeIconConverter.cs" />
     <Compile Include="Converters\IntToBooleanConverter.cs" />
+    <Compile Include="Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Converters\VolumeToIconConverter.cs" />
     <Compile Include="Core\AudioEngine.cs" />
     <Compile Include="Core\Configuration\AppConfiguration.cs" />
@@ -90,7 +92,9 @@
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\LibraryValidatior.cs" />
     <Compile Include="Core\Logger.cs" />
+    <Compile Include="Core\Objects\ChangedFile.cs" />
     <Compile Include="Core\Objects\CompletionData.cs" />
+    <Compile Include="Core\Objects\FileChangeType.cs" />
     <Compile Include="Core\Objects\FileType.cs" />
     <Compile Include="Core\Objects\Library.cs" />
     <Compile Include="Core\Objects\SidebarEntry.cs" />
@@ -101,6 +105,9 @@
     <Compile Include="Core\Parser.cs" />
     <Compile Include="Core\SkinManager.cs" />
     <Compile Include="Core\VeryObservableCollection.cs" />
+    <Compile Include="UI\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\FilePicker.xaml.cs">
       <DependentUpon>FilePicker.xaml</DependentUpon>
     </Compile>
@@ -115,6 +122,7 @@
       <DependentUpon>SkinSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Commands\CreateSkinCommand.cs" />
+    <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="ViewModel\OsmoViewModel.cs" />
     <Compile Include="ViewModel\SkinViewModel.cs" />
     <Compile Include="ViewModel\Validation\PathValidationRule.cs" />
@@ -131,6 +139,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\FilePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,5 +1,7 @@
-﻿using Osmo.ViewModel;
+﻿using Osmo.Core.Configuration;
+using Osmo.ViewModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Osmo.Core.Objects
@@ -8,33 +10,41 @@ namespace Osmo.Core.Objects
     {
         private FileType fileType;
         private string extension;
-        private bool mMadeChanges;
+        private string mPath;
+        private FontStyle fontStyle = FontStyles.Normal;
+        private FontWeight fontWeight = FontWeights.Normal;
 
-        public bool MadeChanges {
-            get => mMadeChanges;
-            set
+        public string Path
+        {
+            get => !string.IsNullOrWhiteSpace(TempPath) ? TempPath : mPath;
+            set => mPath = value;
+        }
+
+        public FontStyle FontStyle
+        {
+            get => fontStyle;
+            private set
             {
-                mMadeChanges = value;
-                InvokePropertyChanged("MadeChanges");
+                fontStyle = value;
+                FontWeight = value.Equals(FontStyles.Normal) ? FontWeights.Normal : FontWeights.Bold;
+                InvokePropertyChanged("FontStyle");
             }
         }
 
-        public string Path { get; set; }
-
-        public string TempPath { get
+        public FontWeight FontWeight
+        {
+            get => fontWeight;
+            private set
             {
-                string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "Osmo");
-
-
-                foreach (string fi in Directory.EnumerateFiles(tempPath, "ImageElement.*"))
-                {
-                    File.Delete(fi);
-                }
-
-                return System.IO.Path.Combine(tempPath, 
-                    "Osmo\\ImageElement." + extension);
+                fontWeight = value;
+                InvokePropertyChanged("FontWeight");
+                InvokePropertyChanged("HasChanges");
             }
         }
+
+        public string TempPath { get; set; }
+
+        public bool HasChanges { get => !string.IsNullOrWhiteSpace(TempPath); }
 
         public string Name { get; set; }
 
@@ -42,6 +52,8 @@ namespace Osmo.Core.Objects
 
         //TODO: Implement detection of HD elements (see https://osu.ppy.sh/help/wiki/Ranking_Criteria/Skin_Set_List/ for recommended sizes)
         public bool IsHighDefinition { get => false; }
+
+        public bool IsEmpty { get => string.IsNullOrWhiteSpace(mPath); }
 
         internal SkinElement(FileInfo fi)
         {
@@ -65,6 +77,58 @@ namespace Osmo.Core.Objects
             Path = "";
             Name = "";
             fileType = FileType.Unknown;
+        }
+
+        internal void Save()
+        {
+            if (File.Exists(TempPath))
+            {
+                File.Copy(TempPath, mPath, true);
+                File.Delete(TempPath);
+            }
+            TempPath = null;
+            FontStyle = FontStyles.Normal;
+        }
+
+        /// <summary>
+        /// Instead of copying the target file directly into the skin folder, 
+        /// we copy the new file into a temporary directory and show the new file in frontend
+        /// </summary>
+        /// <param name="fi">The new file which shall be used. Providing null results in a backup of this <see cref="SkinElement"/>.</param>
+        /// <returns>The path to the temporary file</returns>
+        internal string ReplaceBackup(FileInfo fi)
+        {
+            string backupPath = Directory.GetParent(AppConfiguration.GetInstance().BackupDirectory).FullName +
+                "\\Edited\\";
+
+            Directory.CreateDirectory(backupPath);
+
+            TempPath = backupPath + Name;
+
+            if (fi != null)
+                File.Copy(fi.FullName, TempPath, true);
+            else
+                File.Copy(mPath, TempPath, true);
+
+            FontStyle = FontStyles.Italic;
+            return TempPath;
+        }
+
+        internal void Reset()
+        {
+            if (File.Exists(TempPath))
+                File.Delete(TempPath);
+            TempPath = null;
+            FontStyle = FontStyles.Normal;
+        }
+
+        internal void Delete()
+        {
+            if (File.Exists(TempPath))
+                File.Delete(TempPath);
+
+            File.Delete(mPath);
+            TempPath = null;
         }
 
         private FileType GetFileType(string extension)
@@ -105,9 +169,9 @@ namespace Osmo.Core.Objects
 
         public override bool Equals(object obj)
         {
-            if (obj != null && obj != BindingOperations.DisconnectedSource && 
-                Path != null && (obj as SkinElement).Path != null)
-                return Path.Contains((obj as SkinElement).Path);
+            if (obj != null && obj != BindingOperations.DisconnectedSource &&
+                mPath != null && (obj as SkinElement).Path != null)
+                return mPath.Contains((obj as SkinElement).Path);
             else
                 return false;
         }

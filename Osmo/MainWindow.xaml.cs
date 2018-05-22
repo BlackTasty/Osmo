@@ -73,5 +73,16 @@ namespace Osmo
             if (!configuration.IsValid)
                 sidebarMenu.SelectedIndex = CONFIG_INDEX;
         }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //TODO: Implement dialog asking the user if he really wants to close the application without saving
+            configuration.Save();
+        }
+
+        private void SaveSkin_Click(object sender, RoutedEventArgs e)
+        {
+            SkinEditor.Instance.SaveSkin();
+        }
     }
 }

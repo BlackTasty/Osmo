@@ -17,6 +17,7 @@ namespace Osmo.Core
     public class VeryObservableCollection<T> : ObservableCollection<T>, INotifyPropertyChanged
     {
         private bool autoSort;
+        private string watchAlso;
 
         new event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,9 +45,20 @@ namespace Osmo.Core
             this.autoSort = autoSort;
         }
 
+        /// <summary>
+        /// Tell this <see cref="VeryObservableCollection{T}"/> to trigger the PropertyChanged event on another property.
+        /// </summary>
+        /// <param name="propertyName">The name of the property (the property which is exposed to XAML)</param>
+        public void WatchAlso(string propertyName)
+        {
+            watchAlso = propertyName;
+        }
+
         private void Collection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnPropertyChanged(this, new PropertyChangedEventArgs(CollectionName));
+            if (watchAlso != null)
+                OnPropertyChanged(this, new PropertyChangedEventArgs(watchAlso));
         }
 
         /// <summary>
@@ -121,6 +133,8 @@ namespace Osmo.Core
         public void Refresh()
         {
             OnPropertyChanged(this, new PropertyChangedEventArgs(CollectionName));
+            if (watchAlso != null)
+                OnPropertyChanged(this, new PropertyChangedEventArgs(watchAlso));
         }
 
         protected virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -75,6 +75,11 @@ namespace Osmo.UI
             ((SkinViewModel)DataContext).LoadedSkin = skin;
         }
 
+        public void SaveSkin()
+        {
+            ((SkinViewModel)DataContext).SaveSkin();
+        }
+
         private void lv_elements_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkinViewModel vm = (SkinViewModel)DataContext;
@@ -139,12 +144,13 @@ namespace Osmo.UI
             
             if (openFileDialog.ShowDialog() == true)
             {
-                File.Copy(openFileDialog.FileName, vm.SelectedElement.Path, true);
+                //File.Copy(openFileDialog.FileName, vm.SelectedElement.Path, true);
+                vm.SelectedElement.ReplaceBackup(new FileInfo(openFileDialog.FileName));
                 ((SkinViewModel)DataContext).RefreshImage();
 
                 //Save the last visited directory
                 lastPath = Path.GetDirectoryName(openFileDialog.FileName);
-                ((SkinViewModel)DataContext).SelectedElement.MadeChanges = true;
+                ((SkinViewModel)DataContext).ResetEnabled = true;
             }
         }
 
@@ -175,11 +181,12 @@ namespace Osmo.UI
             if (result == MessageBoxResult.Yes)
             {
                 SkinViewModel vm = (SkinViewModel)DataContext;
-                string path = AppConfiguration.GetInstance().BackupDirectory + "\\" + 
+                vm.SelectedElement.Reset();
+                /*string path = AppConfiguration.GetInstance().BackupDirectory + "\\" + 
                     vm.LoadedSkin.Name + "\\";
-                File.Copy(path + vm.SelectedElement.Name, vm.SelectedElement.Path, true);
+                File.Copy(path + vm.SelectedElement.Name, vm.SelectedElement.Path, true);*/
                 vm.RefreshImage();
-                vm.SelectedElement.MadeChanges = false;
+                vm.ResetEnabled = false;
             }
         }
 
@@ -192,11 +199,13 @@ namespace Osmo.UI
                 MessageBoxImage.Exclamation, 
                 MessageBoxResult.No);
 
-            string path = ((SkinViewModel)DataContext).SelectedElement.Path;
+            string path = ((SkinViewModel)DataContext).SelectedElement.ReplaceBackup(null);
 
             if (result == MessageBoxResult.Yes)
             {
-                using (FileStream stream = new FileStream(path, FileMode.Create))
+                using (FileStream stream = new FileStream(
+                    ((SkinViewModel)DataContext).SelectedElement.ReplaceBackup(null), 
+                    FileMode.Create))
                 {
                     PngBitmapEncoder encoder = new PngBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(
@@ -204,7 +213,7 @@ namespace Osmo.UI
                     encoder.Save(stream);
                 }
                 ((SkinViewModel)DataContext).RefreshImage();
-                ((SkinViewModel)DataContext).SelectedElement.MadeChanges = true;
+                ((SkinViewModel)DataContext).ResetEnabled = true;
             }
         }
 
@@ -224,7 +233,8 @@ namespace Osmo.UI
                     lv_elements.SelectedIndex++;
                 else
                     lv_elements.SelectedIndex--;
-                File.Delete(element.Path);
+                element.Delete();
+                ((SkinViewModel)DataContext).ResetEnabled = false;
             }
         }
 
@@ -232,31 +242,33 @@ namespace Osmo.UI
         {
             audio.PlayAudio((DataContext as SkinViewModel).SelectedElement.Path);
             if (cb_mute.IsChecked == true)
-                audio.ChangeVolume(0);
+                audio.SetVolume(0);
             else
-                audio.ChangeVolume(slider_volume.Value);
+                audio.SetVolume(slider_volume.Value);
         }
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-            audio.StopAudio();
+            audio.PauseAudio();
         }
 
-        private void slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void Slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (audio != null)
             {
                 cb_mute.IsChecked = false;
-                audio.ChangeVolume(slider_volume.Value);
+                AppConfiguration.GetInstance().Volume = slider_volume.Value;
+                audio.SetVolume(slider_volume.Value);
             }
         }
 
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
+            AppConfiguration.GetInstance().IsMuted = cb_mute.IsChecked == true;
             if (cb_mute.IsChecked == true)
-                audio.ChangeVolume(0);
+                audio.SetVolume(0);
             else
-                audio.ChangeVolume(slider_volume.Value);
+                audio.SetVolume(slider_volume.Value);
         }
 
         private void TextEditor_Loaded(object sender, RoutedEventArgs e)
@@ -317,6 +329,35 @@ namespace Osmo.UI
                     completionWindow.CompletionList.RequestInsertion(e);
                 }
             }
+        }
+
+        private void Container_Loaded(object sender, RoutedEventArgs e)
+        {
+            slider_volume.Value = AppConfiguration.GetInstance().Volume;
+            cb_mute.IsChecked = AppConfiguration.GetInstance().IsMuted;
+        }
+
+        private void Slider_Audio_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (e.NewValue % 1 != 0)
+            {
+                audio.SetPosition(slider_audio.Value);
+            }
+        }
+
+        private void Slider_Audio_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            audio.EnableSliderChange = true;
+        }
+
+        private void Slider_Audio_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            audio.EnableSliderChange = false;
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            audio.StopAudio();
         }
     }
 }

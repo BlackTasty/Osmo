@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:converter="clr-namespace:Osmo.Converters"
         xmlns:vm="clr-namespace:Osmo.ViewModel"
         xmlns:ui="clr-namespace:Osmo.UI"
         x:Class="Osmo.MainWindow"
@@ -14,10 +15,14 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    Closing="MetroWindow_Closing">
     <Window.DataContext>
         <vm:OsmoViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
+    </Window.Resources>
     <metro:MetroWindow.WindowButtonCommands>
         <metro:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"/>
     </metro:MetroWindow.WindowButtonCommands>
@@ -50,6 +55,13 @@
                             Mode="PrimaryMid" DockPanel.Dock="Top">
                     <DockPanel>
                         <ToggleButton x:Name="MenuToggleButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}"/>
+                        <Button Padding="0" DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=1}"
+                            ToolTip="Save all changes" Click="SaveSkin_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <material:PackIcon
+                            Kind="ContentSave"
+                            Height="32"
+                            Width="32" />
+                        </Button>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{Binding Content.Tag, ElementName=content}"/>
                     </DockPanel>
                 </material:ColorZone>

@@ -114,7 +114,8 @@ namespace Osmo.ViewModel
             {
                 new SidebarEntry("Home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance),
                 new SidebarEntry("Skin Editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance),
-                new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance)
+                new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
+                new SidebarEntry("About", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance)
             };
         }
         

@@ -51,6 +51,10 @@ namespace Osmo.Core.Configuration
         public bool ReopenLastSkin { get; set; }
 
         public bool PlaySoundWhenHovering { get; set; }
+
+        public double Volume { get; set; }
+
+        public bool IsMuted { get; set; }
         #endregion
 
         private AppConfiguration() : base("settings")
@@ -61,6 +65,7 @@ namespace Osmo.Core.Configuration
             PlaySoundWhenHovering = false;
             BackupDirectory = AppDomain.CurrentDomain.BaseDirectory + "Backups";
             OsuDirectory = "";
+            Volume = .8;
 
             Load();
         }
@@ -74,7 +79,9 @@ namespace Osmo.Core.Configuration
                 "BackupBeforeMixing:"+ BackupBeforeMixing,
                 "BackgroundEditor:" + BackgroundEditor.ToString(),
                 "ReopenLastSkin:" + ReopenLastSkin,
-                "PlaySoundWhenHovering:" + PlaySoundWhenHovering
+                "PlaySoundWhenHovering:" + PlaySoundWhenHovering,
+                "Volume:" + Volume,
+                "IsMuted:" + IsMuted
             };
             #endregion
 
@@ -111,6 +118,14 @@ namespace Osmo.Core.Configuration
 
                         case "PlaySoundWhenHovering":
                             PlaySoundWhenHovering = Parser.TryParse(property[1], true);
+                            break;
+
+                        case "Volume":
+                            Volume = Parser.TryParse(property[1], .8);
+                            break;
+
+                        case "IsMuted":
+                            IsMuted = Parser.TryParse(property[1], false);
                             break;
                     }
                 }
