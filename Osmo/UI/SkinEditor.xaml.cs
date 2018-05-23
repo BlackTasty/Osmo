@@ -46,7 +46,8 @@ namespace Osmo.UI
                 return instance;
             }
         }
-        
+
+        #region AudioPosition
         public double AudioPosition
         {
             get { return (double)GetValue(AudioPositionProperty); }
@@ -56,6 +57,7 @@ namespace Osmo.UI
         // Using a DependencyProperty as the backing store for AudioPosition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AudioPositionProperty =
             DependencyProperty.Register("AudioPosition", typeof(double), typeof(SkinEditor), new PropertyMetadata(0d));
+        #endregion
 
         //public double AudioPosition { get => audio != null ? audio.AudioPosition : 0; }
 

@@ -19,8 +19,8 @@ namespace Osmo.ViewModel
         private SidebarEntry[] mSidebarItems;
         
         private int mSelectedSkinIndex = -1;
-
         private int mSelectedSidebarIndex = 0;
+        private bool mIsEditorEnabled = false;
 
         private string mOsuDirectory = "";
         private string mBackupDirectory = "";
@@ -46,7 +46,7 @@ namespace Osmo.ViewModel
             }
         }
 
-        public VeryObservableCollection<Skin> Skins { get => mManager != null? mManager.Skins : null; }
+        public VeryObservableCollection<Skin> Skins { get => SkinManager != null? SkinManager.Skins : null; }
 
         public SidebarEntry[] Items { get => mSidebarItems; }
 
@@ -72,13 +72,13 @@ namespace Osmo.ViewModel
 
         public string OsuDirectory
         {
-            get => mManager != null ? mManager.Directory : "";
+            get => SkinManager != null ? SkinManager.Directory : "";
             set
             {
-                if (mManager == null)
-                    mManager = new SkinManager(value);
+                if (SkinManager == null)
+                    SkinManager = new SkinManager(value);
                 else
-                    mManager.Directory = value;
+                    SkinManager.Directory = value;
                 InvokePropertyChanged("OsuDirectory");
             }
         }
@@ -103,17 +103,27 @@ namespace Osmo.ViewModel
             }
         }
 
+        public bool IsEditorEnabled
+        {
+            get => mSidebarItems[1].IsEnabled;
+            set
+            {
+                mSidebarItems[1].IsEnabled = value;
+                InvokePropertyChanged("Items");
+            }
+        }
+
         public OsmoViewModel()
         {
             string osuDir = AppConfiguration.GetInstance().OsuDirectory;
 
             if (!string.IsNullOrWhiteSpace(osuDir))
-                mManager = new SkinManager(osuDir);
+                SkinManager = new SkinManager(osuDir);
 
             mSidebarItems = new SidebarEntry[]
             {
                 new SidebarEntry("Home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance),
-                new SidebarEntry("Skin Editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance),
+                new SidebarEntry("Skin Editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, false),
                 new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
                 new SidebarEntry("About", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance)
             };

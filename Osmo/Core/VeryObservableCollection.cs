@@ -33,15 +33,18 @@ namespace Osmo.Core
             CollectionChanged += Collection_CollectionChanged;
         }
 
+        public VeryObservableCollection(string collectionName, T item) : this(collectionName)
+        {
+            Add(item);
+        }
+
         /// <summary>
         /// Initializes the collection with the specified name and if auto-sorting is enabled.
         /// </summary>
         /// <param name="collectionName">The name of the collection (must match the property name!)</param>
         /// <param name="autoSort">If true the list is sorted after every change</param>
-        public VeryObservableCollection(string collectionName, bool autoSort)
+        public VeryObservableCollection(string collectionName, bool autoSort) : this(collectionName)
         {
-            CollectionName = collectionName;
-            CollectionChanged += Collection_CollectionChanged;
             this.autoSort = autoSort;
         }
 
@@ -62,7 +65,7 @@ namespace Osmo.Core
         }
 
         /// <summary>
-        /// Initializes the collection with the specified name and copies all given items into into it.
+        /// NOT IMPLEMENTED! Initializes the collection with the specified name and copies all given items into into it.
         /// </summary>
         /// <param name="collectionName">The name of the collection (must match the property name!)</param>
         /// <param name="items">The <see cref="List{T}"/> to copy the items from</param>
@@ -72,7 +75,7 @@ namespace Osmo.Core
         }
         
         /// <summary>
-        /// Initializes the collection with the specified name and copies all given items into into it.
+        /// NOT IMPLEMENTED! Initializes the collection with the specified name and copies all given items into into it.
         /// </summary>
         /// <param name="collectionName">The name of the collection (must match the property name!)</param>
         /// <param name="items">The <see cref="IEnumerable{T}"/> to copy the items from</param>

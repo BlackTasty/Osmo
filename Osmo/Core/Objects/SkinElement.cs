@@ -13,6 +13,8 @@ namespace Osmo.Core.Objects
         private string mPath;
         private FontStyle fontStyle = FontStyles.Normal;
         private FontWeight fontWeight = FontWeights.Normal;
+        string backupPath = Directory.GetParent(AppConfiguration.GetInstance().BackupDirectory).FullName +
+            "\\Edited\\";
 
         public string Path
         {
@@ -55,13 +57,21 @@ namespace Osmo.Core.Objects
 
         public bool IsEmpty { get => string.IsNullOrWhiteSpace(mPath); }
 
-        internal SkinElement(FileInfo fi)
+        internal SkinElement(FileInfo fi, string skinName)
         {
             Path = fi.FullName;
             Name = fi.Name;
             extension = fi.Extension;
+            backupPath += skinName + "\\";
 
             fileType = GetFileType(fi.Extension);
+
+            Directory.CreateDirectory(backupPath);
+            if (File.Exists(backupPath + Name))
+            {
+                TempPath = backupPath + Name;
+                FontStyle = FontStyles.Italic;
+            }
         }
 
         internal SkinElement(SkinElement copyFrom)
@@ -70,6 +80,7 @@ namespace Osmo.Core.Objects
             Name = copyFrom.Name;
             fileType = copyFrom.FileType;
             extension = copyFrom.extension;
+            backupPath = copyFrom.backupPath;
         }
 
         internal SkinElement()
@@ -98,9 +109,6 @@ namespace Osmo.Core.Objects
         /// <returns>The path to the temporary file</returns>
         internal string ReplaceBackup(FileInfo fi)
         {
-            string backupPath = Directory.GetParent(AppConfiguration.GetInstance().BackupDirectory).FullName +
-                "\\Edited\\";
-
             Directory.CreateDirectory(backupPath);
 
             TempPath = backupPath + Name;

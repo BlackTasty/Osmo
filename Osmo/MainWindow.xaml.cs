@@ -47,15 +47,6 @@ namespace Osmo
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            //until we had a StaysOpen glag to Drawer, this will help with scroll bars
-            var dependencyObject = Mouse.Captured as DependencyObject;
-            while (dependencyObject != null)
-            {
-                if (dependencyObject is ScrollBar) return;
-                dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
-            }
-
-            MenuToggleButton.IsChecked = false;
         }
 
         private void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,6 +57,17 @@ namespace Osmo
             {
                 sidebarMenu.SelectedIndex = CONFIG_INDEX;
             }
+
+
+            //until we had a StaysOpen glag to Drawer, this will help with scroll bars
+            var dependencyObject = Mouse.Captured as DependencyObject;
+            while (dependencyObject != null)
+            {
+                if (dependencyObject is ScrollBar) return;
+                dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
+            }
+
+            MenuToggleButton.IsChecked = false;
         }
 
         private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)

@@ -37,8 +37,7 @@
                                     HorizontalAlignment="Right" Margin="16"
                                     IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                     <ListBox x:Name="sidebarMenu" Margin="0 16 0 16" SelectedIndex="{Binding SelectedSidebarIndex}"                         
-                             ItemsSource="{Binding Items}"
-                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" SelectionChanged="sidebarMenu_SelectionChanged" Loaded="sidebarMenu_Loaded">
+                             ItemsSource="{Binding Items}" SelectionChanged="sidebarMenu_SelectionChanged" Loaded="sidebarMenu_Loaded">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -47,6 +46,18 @@
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                <Setter Property="IsHitTestVisible" Value="True"/>
+                                <Setter Property="IsEnabled" Value="True"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Content.IsEnabled}" Value="False">
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
                     </ListBox>
                 </DockPanel>
             </material:DrawerHost.LeftDrawerContent>

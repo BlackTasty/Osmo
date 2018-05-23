@@ -19,7 +19,7 @@ namespace Osmo.ViewModel
 {
     class SkinViewModel : ViewModelBase
     {
-        private Skin mLoadedSkin;
+        private Skin mLoadedSkin = null;
         private bool mShowImage = true;
         private bool mResetEnabled;
         private int mPlayStatus = 0;
@@ -36,6 +36,7 @@ namespace Osmo.ViewModel
 
         private SkinElement mSelectedElement = new SkinElement();
         private AudioEngine mAudioEngine;
+        
 
         public ICommand ResetCommand { get; } = new RelayCommand(o => ResetElement((SkinViewModel)o), 
             o => !string.IsNullOrWhiteSpace(((SkinViewModel)o).SelectedElement.TempPath));
@@ -74,9 +75,11 @@ namespace Osmo.ViewModel
                 mLoadedSkin = value;
                 //if (AppConfiguration.GetInstance().BackupBeforeMixing)
                 //    mLoadedSkin.BackupSkin(AppConfiguration.GetInstance().BackupDirectory, true);
-
+                
+                (Application.Current.MainWindow.DataContext as OsmoViewModel).IsEditorEnabled = value != null;
                 InvokePropertyChanged("LoadedSkin");
                 InvokePropertyChanged("Elements");
+                InvokePropertyChanged("IsSkinLoaded");
             }
         }
 
@@ -221,6 +224,8 @@ namespace Osmo.ViewModel
         public bool IsFABEnabled { get => mSelectedElement != null && !mSelectedElement.IsEmpty; }
 
         public bool IsEmptyEnabled { get => !mSelectedElement.Equals(null) ? mSelectedElement.FileType == FileType.Image : false; }
+
+        public bool IsSkinLoaded { get => !LoadedSkin?.IsEmpty ?? false; }
 
         internal void RefreshImage()
         {

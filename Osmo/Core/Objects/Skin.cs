@@ -9,6 +9,8 @@ namespace Osmo.Core.Objects
 {
     public class Skin
     {
+        private bool mIsEmpty;
+
         private string mName;
         private string mAuthor;
         private string mPath;
@@ -33,6 +35,8 @@ namespace Osmo.Core.Objects
         /// </summary>
         public string Author { get => mAuthor; set => mAuthor = value; }
 
+        public bool IsEmpty { get => mIsEmpty; }
+
         /// <summary>
         /// This list contains all filenames of this <see cref="Skin"/> object.
         /// </summary>
@@ -45,6 +49,11 @@ namespace Osmo.Core.Objects
         /// </summary>
         public int ElementCount { get => mElements.Count; }
         #endregion
+        
+        internal Skin()
+        {
+            mIsEmpty = true;
+        }
 
         public Skin(string path)
         {
@@ -103,7 +112,7 @@ namespace Osmo.Core.Objects
         {
             foreach (FileInfo fi in new DirectoryInfo(mPath).EnumerateFiles())
             {
-                mElements.Add(new SkinElement(fi));
+                mElements.Add(new SkinElement(fi, Name));
             }
         }
 
@@ -131,7 +140,7 @@ namespace Osmo.Core.Objects
         {
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                mElements.Add(new SkinElement(new FileInfo(e.FullPath)));
+                mElements.Add(new SkinElement(new FileInfo(e.FullPath), Name));
             });
         }
 

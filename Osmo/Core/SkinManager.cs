@@ -17,7 +17,8 @@ namespace Osmo.Core
         public event EventHandler<SkinChangedEventArgs> SkinChanged;
         public event EventHandler<SkinRenamedEventArgs> SkinRenamed;
 
-        private VeryObservableCollection<Skin> mSkins = new VeryObservableCollection<Skin>("Skins");
+        private VeryObservableCollection<Skin> mSkins = 
+            new VeryObservableCollection<Skin>("Skins", new Skin());
 
         public VeryObservableCollection<Skin> Skins { get => mSkins; }
 
