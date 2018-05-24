@@ -55,7 +55,7 @@ namespace Osmo.Core.Objects
             mIsEmpty = true;
         }
 
-        public Skin(string path)
+        internal Skin(string path)
         {
             mElements.WatchAlso("ChangedFiles");
             mPath = path;
@@ -72,6 +72,13 @@ namespace Osmo.Core.Objects
             mWatcher.Created += Watcher_Created;
 
             ReadElements();
+        }
+
+        internal Skin(NewSkinViewModel vm)
+        {
+            mName = vm.Name;
+            mAuthor = vm.Author;
+            
         }
 
         public void Save()

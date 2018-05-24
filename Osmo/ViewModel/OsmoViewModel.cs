@@ -20,9 +20,7 @@ namespace Osmo.ViewModel
         
         private int mSelectedSkinIndex = -1;
         private int mSelectedSidebarIndex = 0;
-        private bool mIsEditorEnabled = false;
-
-        private string mOsuDirectory = "";
+        
         private string mBackupDirectory = "";
         private double mBackupDirectorySize = 0;
 

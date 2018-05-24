@@ -29,6 +29,9 @@
 
     <!--SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"-->
     <material:DialogHost Identifier="RootDialog">
+        <material:DialogHost.DialogContent>
+            <ui:NewSkinDialog Margin="16"/>
+        </material:DialogHost.DialogContent>
         <material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <material:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">

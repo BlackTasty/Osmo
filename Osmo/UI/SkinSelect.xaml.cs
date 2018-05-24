@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -62,8 +63,17 @@ namespace Osmo.UI
 
         private void lv_skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-            (DataContext as OsmoViewModel).SelectedSidebarIndex = 1;
+            if (lv_skins.SelectedIndex > 0)
+            {
+                SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
+                (DataContext as OsmoViewModel).SelectedSidebarIndex = 1;
+            }
+            else if (lv_skins.SelectedIndex == 0)
+            {
+                //TODO: Implement "New skin" 
+                if (DialogHost.OpenDialogCommand.CanExecute(null, null))
+                    DialogHost.OpenDialogCommand.Execute(null, null);
+            }
         }
     }
 }
