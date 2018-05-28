@@ -124,4 +124,22 @@
   <data name="SkinIniSyntax" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SkinIniSyntax.xshd;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="SkinningCatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SkinningCatch.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SkinningInterface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SkinningInterface.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SkinningMania" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SkinningMania.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SkinningSounds" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SkinningSounds.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SkinningStandard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SkinningStandard.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SkinningTaiko" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SkinningTaiko.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

@@ -79,5 +79,114 @@ namespace Osmo.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!catch
+        ///# Date: 25.05.2018
+        ///# Entries are split like this:
+        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#
+        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph.png|1.0:min308x156;min308x148
+        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
+        ///#
+        ///#       Animatable: Accepts only  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SkinningCatch {
+            get {
+                return ResourceManager.GetString("SkinningCatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
+        ///# Date: 25.05.2018
+        ///# Entries are split like this:
+        ///# Name|Suggested SD size|Animatable|Version|Description
+        ///#
+        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph.png|1.0:min308x156;min308x148
+        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
+        ///#
+        ///#       Animatable: Accepts only tru [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SkinningInterface {
+            get {
+                return ResourceManager.GetString("SkinningInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!mania
+        ///# Date: 25.05.2018
+        ///# Entries are split like this:
+        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#
+        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph.png|1.0:min308x156;min308x148
+        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
+        ///#
+        ///#       Animatable: Accepts only  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SkinningMania {
+            get {
+                return ResourceManager.GetString("SkinningMania", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Sounds
+        ///# Date: 25.05.2018
+        ///# Entries are split like this:
+        ///#    Name|Description|Multiple sounds
+        ///#
+        ///# You don&apos;t have to write the extension into the name! (Only a dot at the end)
+        ///# Note: Only the name is required. 
+        ///#       Multiple sounds: Accepts only true or false. Every other value results in false.
+        ///#
+        ///# Main Menu
+        ///heartbeat.|This plays when the cursor is hovering over the osu!cookie in the main menu [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SkinningSounds {
+            get {
+                return ResourceManager.GetString("SkinningSounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!
+        ///# Date: 25.05.2018
+        ///# Entries are split like this:
+        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#
+        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph.png|1.0:min308x156;min308x148
+        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
+        ///#
+        ///#       Animatable: Accepts only true  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SkinningStandard {
+            get {
+                return ResourceManager.GetString("SkinningStandard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!taiko
+        ///# Date: 25.05.2018
+        ///# Entries are split like this:
+        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#
+        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph.png|1.0:min308x156;min308x148
+        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
+        ///#
+        ///#       Animatable: Accepts only  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SkinningTaiko {
+            get {
+                return ResourceManager.GetString("SkinningTaiko", resourceCulture);
+            }
+        }
     }
 }
