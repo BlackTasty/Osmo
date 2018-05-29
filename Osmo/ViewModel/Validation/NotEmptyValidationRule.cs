@@ -7,8 +7,12 @@ namespace Osmo.ViewModel.Validation
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            return !string.IsNullOrWhiteSpace(value?.ToString() ?? "") ? ValidationResult.ValidResult : 
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Runtime)
+            {
+                return !string.IsNullOrWhiteSpace(value?.ToString() ?? "") ? ValidationResult.ValidResult :
                 new ValidationResult(false, "This field cannot be empty!");
+            }
+            else return ValidationResult.ValidResult;
         }
     }
 }

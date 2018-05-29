@@ -8,7 +8,7 @@
              xmlns:vm="clr-namespace:Osmo.ViewModel"
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" 
-             Height="196" Width="236">
+             Height="206" Width="236">
     <DockPanel.DataContext>
         <vm:NewSkinViewModel/>
     </DockPanel.DataContext>

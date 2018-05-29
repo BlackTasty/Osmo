@@ -8,9 +8,13 @@ namespace Osmo.ViewModel.Validation
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            return Directory.Exists((value ?? "").ToString()) ?
-                ValidationResult.ValidResult :
-                new ValidationResult(false, "Invalid directory!");
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Runtime)
+            {
+                return Directory.Exists((value ?? "").ToString()) ?
+                    ValidationResult.ValidResult :
+                    new ValidationResult(false, "Invalid directory!");
+            }
+            else return ValidationResult.ValidResult;
         }
     }
 }

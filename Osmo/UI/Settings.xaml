@@ -39,7 +39,7 @@
                 <TextBox  x:Name="txt_osuPath" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     material:HintAssist.Hint="osu! directory" Grid.Column="1" Grid.ColumnSpan="2">
                     <TextBox.Text>
-                        <Binding
+                        <Binding Mode="OneWayToSource"
                             Path="OsuDirectory"
                             UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>

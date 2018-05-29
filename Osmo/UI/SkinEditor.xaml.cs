@@ -289,14 +289,16 @@ namespace Osmo.UI
 
         private void TextArea_TextEntered(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            if (!isEnteringProperty && (DataContext as SkinViewModel).SelectedElement.Name.Equals("skin.ini", StringComparison.InvariantCultureIgnoreCase))
+            if (!isEnteringProperty && (DataContext as SkinViewModel).SelectedElement.Name.Equals("skin.ini", 
+                StringComparison.InvariantCultureIgnoreCase))
             {
                 completionWindow = new CompletionWindow(textEditor.TextArea);
                 IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+                string line = GetTextAtCurrentLine();
                 foreach (CompletionData item in skinIniCompletion)
                 {
-                    if (item.Text.Contains(e.Text))
-                    data.Add(item);
+                    if (item.Text.Contains(line))
+                        data.Add(item);
                 }
 
                 if (data.Count > 0)
@@ -311,6 +313,13 @@ namespace Osmo.UI
             }
         }
 
+        private string GetTextAtCurrentLine()
+        {
+            int offset = textEditor.CaretOffset;
+            DocumentLine line = textEditor.Document.GetLineByOffset(offset);
+            return textEditor.Document.GetText(line.Offset, line.Length);
+        }
+
         private void TextArea_TextEntering(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             if (!isEnteringProperty && e.Text == ":")
@@ -322,7 +331,7 @@ namespace Osmo.UI
                 isEnteringProperty = false;
             }
 
-            if (completionWindow != null && !isEnteringProperty)
+            if (completionWindow != null)
             {
                 if (!char.IsLetterOrDigit(e.Text[0]))
                 {

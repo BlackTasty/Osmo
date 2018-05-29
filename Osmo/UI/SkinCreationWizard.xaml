@@ -4,16 +4,51 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
         xmlns:vm="clr-namespace:Osmo.ViewModel"
         mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel.DataContext>
         <vm:SkinWizardViewModel/>
     </StackPanel.DataContext>
-    <Expander Header="Configuration">
+    <StackPanel.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </StackPanel.Resources>
+    <Expander Header="1. Basic configuration">
         <Grid Margin="8">
-            <ComboBox
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230*"/>
+                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="230*"/>
+                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="120*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+             material:HintAssist.Hint="Skin name">
+                <TextBox.Text>
+                    <Binding Path="Name"
+                     UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="2"
+             material:HintAssist.Hint="Creator">
+                <TextBox.Text>
+                    <Binding Path="Author"
+                     UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <ComboBox x:Name="combo_version"
                 material:HintAssist.Hint="Version"
-                MinWidth="72"
+                SelectedIndex="6"
+                Grid.Column="4"
                 ItemsSource="{Binding Versions}"
                 Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                 <ComboBox.ItemsPanel>
@@ -24,18 +59,88 @@
             </ComboBox>
         </Grid>
     </Expander>
-    <Expander Header="Components">
+    <Expander Header="2. Components">
         <StackPanel Margin="8">
-            <TextBlock Text="Select which element sets you want to include"
+            <TextBlock Text="Select which element sets you want to include:"
                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
             <UniformGrid Margin="8,8,8,0">
-                <CheckBox Content="Interface"/>
-                <CheckBox Content="Sounds"/>
-                <CheckBox Content="Osu!"/>
-                <CheckBox Content="CTB"/>
-                <CheckBox Content="Taiko"/>
-                <CheckBox Content="Mania"/>
+                <CheckBox Content="Interface" IsChecked="{Binding ComponentInterface}"/>
+                <CheckBox Content="Sounds" IsChecked="{Binding ComponentSounds}"/>
+                <CheckBox Content="Osu!" IsChecked="{Binding ComponentOsu}"/>
+                <CheckBox Content="CTB" IsChecked="{Binding ComponentCTB}"/>
+                <CheckBox Content="Taiko" IsChecked="{Binding ComponentTaiko}"/>
+                <CheckBox Content="Mania" IsChecked="{Binding ComponentMania}"/>
             </UniformGrid>
+        </StackPanel>
+    </Expander>
+    <Expander Header="3. Summary">
+        <StackPanel Margin="8">
+            <BulletDecorator>
+                <BulletDecorator.Bullet>
+                    <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Margin="8,0,0,0">
+                <Run Text="Skin name:"/> <Run Text="{Binding Name}"/>
+                </TextBlock>
+            </BulletDecorator>
+            <BulletDecorator>
+                <BulletDecorator.Bullet>
+                    <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Margin="8,0,0,0">
+                <Run Text="Creator:"/> <Run Text="{Binding Author}"/>
+                </TextBlock>
+            </BulletDecorator>
+            <BulletDecorator>
+                <BulletDecorator.Bullet>
+                    <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Margin="8,0,0,0">
+                <Run Text="Selected version:"/> <Run Text="{Binding SelectedValue, ElementName=combo_version}"/>
+                </TextBlock>
+            </BulletDecorator>
+            <BulletDecorator>
+                <BulletDecorator.Bullet>
+                    <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="Selected components:" Margin="8,0,0,0"/>
+            </BulletDecorator>
+            <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentInterface, Converter={StaticResource BoolToVisibility}}">
+                <BulletDecorator.Bullet>
+                    <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="Interface" Margin="10,0,0,0"/>
+            </BulletDecorator>
+            <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentSounds, Converter={StaticResource BoolToVisibility}}">
+                <BulletDecorator.Bullet>
+                    <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="Sounds" Margin="10,0,0,0"/>
+            </BulletDecorator>
+            <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentOsu, Converter={StaticResource BoolToVisibility}}">
+                <BulletDecorator.Bullet>
+                    <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="osu! (gamemode)" Margin="10,0,0,0"/>
+            </BulletDecorator>
+            <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentCTB, Converter={StaticResource BoolToVisibility}}">
+                <BulletDecorator.Bullet>
+                    <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="CTB" Margin="10,0,0,0"/>
+            </BulletDecorator>
+            <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentTaiko, Converter={StaticResource BoolToVisibility}}">
+                <BulletDecorator.Bullet>
+                    <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="Taiko" Margin="10,0,0,0"/>
+            </BulletDecorator>
+            <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentMania, Converter={StaticResource BoolToVisibility}}">
+                <BulletDecorator.Bullet>
+                    <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                </BulletDecorator.Bullet>
+                <TextBlock Text="Mania" Margin="10,0,0,0"/>
+            </BulletDecorator>
         </StackPanel>
     </Expander>
 </StackPanel>
