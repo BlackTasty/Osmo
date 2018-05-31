@@ -15,6 +15,10 @@ namespace Osmo.Core.Reader
 
         public string Name => name;
 
+        public string PreferredFormat => supportedFormats?.Length > 0 ? supportedFormats[0] : "";
+
+        public string[] SupportedFormats => supportedFormats;
+
         public Size SuggestedSDSize =>
             sizeDescriptors.FirstOrDefault(x => !x.SuggestedSDSize.Equals(new Size()))?.SuggestedSDSize ?? new Size();
 

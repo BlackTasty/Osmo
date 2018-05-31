@@ -10,6 +10,10 @@
 
         public string Name => name;
 
+        public string PreferredFormat => supportedFormats?.Length > 0 ? supportedFormats[0] : "";
+
+        public string[] SupportedFormats => supportedFormats;
+
         public bool MultipleSounds => multipleSounds;
 
         public string Description => description ?? "";

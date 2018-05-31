@@ -4,7 +4,7 @@
 #    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
 # Note: Only the name is required. If you want to use different values for different versions, write it like this:
-#       ranking-graph|png|1.0:min308x156;min308x148
+#       ranking-graph|.png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
@@ -16,171 +16,171 @@
 # 0 = unlimited
 #
 # Main menu
-menu-background|jpg|1366x768
-welcome_text|png
-menu-snow|png|32x32
+menu-background|.jpg|1366x768
+welcome_text|.png
+menu-snow|.png|32x32
 # Button
-button-left|png
-button-middle|png
-button-right|png
+button-left|.png
+button-middle|.png
+button-right|.png
 # Cursor
-cursor|png||||By default, this element will rotate and expand (on click).
-cursormiddle|png||||This element does not rotate nor expand (on click).
-cursor-smoke|png||||This element is used when the player presses the smoke key.
-cursortrail|png||||This element is underneath the cursor|png element\nIf cursormiddle|png is present, a longer trail is used.
+cursor|.png||||By default, this element will rotate and expand (on click).
+cursormiddle|.png||||This element does not rotate nor expand (on click).
+cursor-smoke|.png||||This element is used when the player presses the smoke key.
+cursortrail|.png||||This element is underneath the cursor|.png element\nIf cursormiddle|.png is present, a longer trail is used.
 # Mod icons
-selection-mod-autoplay|png|64x64
-selection-mod-cinema|png|64x64
-selection-mod-doubletime|png|64x64
-selection-mod-easy|png|64x64
-selection-mod-fadein|png|64x64
-selection-mod-flashlight|png|64x64
-selection-mod-halftime|png|64x64
-selection-mod-hardrock|png|64x64
-selection-mod-hidden|png|64x64
-selection-mod-key1|png|64x64
-selection-mod-key2|png|64x64
-selection-mod-key3|png|64x64
-selection-mod-key4|png|64x64
-selection-mod-key5|png|64x64
-selection-mod-key6|png|64x64
-selection-mod-key7|png|64x64
-selection-mod-key8|png|64x64
-selection-mod-key9|png|64x64
-selection-mod-keycoop|png|64x64
-selection-mod-nightcore|png|64x64
-selection-mod-nofail|png|64x64
-selection-mod-perfect|png|64x64
-selection-mod-random|png|64x64
-selection-mod-relax|png|64x64
-selection-mod-relax2|png|64x64
-selection-mod-spunout|png|64x64
-selection-mod-suddendeath|png|64x64
-selection-mod-target|png|64x64
-selection-mod-|png|64x64
+selection-mod-autoplay|.png|64x64
+selection-mod-cinema|.png|64x64
+selection-mod-doubletime|.png|64x64
+selection-mod-easy|.png|64x64
+selection-mod-fadein|.png|64x64
+selection-mod-flashlight|.png|64x64
+selection-mod-halftime|.png|64x64
+selection-mod-hardrock|.png|64x64
+selection-mod-hidden|.png|64x64
+selection-mod-key1|.png|64x64
+selection-mod-key2|.png|64x64
+selection-mod-key3|.png|64x64
+selection-mod-key4|.png|64x64
+selection-mod-key5|.png|64x64
+selection-mod-key6|.png|64x64
+selection-mod-key7|.png|64x64
+selection-mod-key8|.png|64x64
+selection-mod-key9|.png|64x64
+selection-mod-keycoop|.png|64x64
+selection-mod-nightcore|.png|64x64
+selection-mod-nofail|.png|64x64
+selection-mod-perfect|.png|64x64
+selection-mod-random|.png|64x64
+selection-mod-relax|.png|64x64
+selection-mod-relax2|.png|64x64
+selection-mod-spunout|.png|64x64
+selection-mod-suddendeath|.png|64x64
+selection-mod-target|.png|64x64
+selection-mod-|.png|64x64
 # Offset wizards
-options-offset-tick|png
+options-offset-tick|.png
 # Playfield
-play-skip|png||True
-play-unranked|png
-play-warningarrow|png
-arrow-pause|png
-arrow-warning|png
-masking-border|png|max0x768|||Used when playing with 4:3 storyboards on widescreen.
-multi-skipped|png|60x30|||This element is used in multi games, seen next to the player's score (on the sides) when the player votes to skip the intro of a beatmap.
-section-fail|png
-section-pass|png
+play-skip|.png||True
+play-unranked|.png
+play-warningarrow|.png
+arrow-pause|.png
+arrow-warning|.png
+masking-border|.png|max0x768|||Used when playing with 4:3 storyboards on widescreen.
+multi-skipped|.png|60x30|||This element is used in multi games, seen next to the player's score (on the sides) when the player votes to skip the intro of a beatmap.
+section-fail|.png
+section-pass|.png
 # Countdown
-count1|png
-count2|png
-count3|png
-go|png
-ready|png
+count1|.png
+count2|.png
+count3|.png
+go|.png
+ready|.png
 # Hit bursts
-hit0|png||True
-hit50|png||True
-hit100|png||True
-hit100k|png||True
-hit300|png||True
-hit300g|png||True
-hit300k0|png||True
-inputoverlay-background|png|193x55
-inputoverlay-key|png|43x46
+hit0|.png||True
+hit50|.png||True
+hit100|.png||True
+hit100k|.png||True
+hit300|.png||True
+hit300g|.png||True
+hit300k0|.png||True
+inputoverlay-background|.png|193x55
+inputoverlay-key|.png|43x46
 # Pause screen
-pause-overlay|png,jpg|1366x768
-fail-background|png,jpg|1366x768
-pause-back|png
-pause-continue|png
-pause-replay|png
-pause-retry|png
+pause-overlay|.png,.jpg|1366x768
+fail-background|.png,.jpg|1366x768
+pause-back|.png
+pause-continue|.png
+pause-replay|.png
+pause-retry|.png
 # Scorebar
-scorebar-bg|png
-scorebar-colour|png||True
-scorebar-ki|png
-scorebar-kidanger|png
-scorebar-kidanger2|png
-scorebar-marker|png
+scorebar-bg|.png
+scorebar-colour|.png||True
+scorebar-ki|.png
+scorebar-kidanger|.png
+scorebar-kidanger2|.png
+scorebar-marker|.png
 # Score numbers
-score-0|png
-score-1|png
-score-2|png
-score-3|png
-score-4|png
-score-5|png
-score-6|png
-score-7|png
-score-8|png
-score-9|png
-score-comma|png
-score-dot|png
-score-percent|png
-score-x|png
+score-0|.png
+score-1|.png
+score-2|.png
+score-3|.png
+score-4|.png
+score-5|.png
+score-6|.png
+score-7|.png
+score-8|.png
+score-9|.png
+score-comma|.png
+score-dot|.png
+score-percent|.png
+score-x|.png
 # Ranking grades
-ranking-XH|png
-ranking-XH-small|png|34x40
-ranking-X|png
-ranking-X-small|png|34x40
-ranking-SH|png
-ranking-SH-small|png|34x40
-ranking-S|png
-ranking-S-small|png|34x40
-ranking-A|png
-ranking-A-small|png|34x40
-ranking-B|png
-ranking-B-small|png|34x40
-ranking-C|png
-ranking-C-small|png|34x40
-ranking-D|png
-ranking-D-small|png|34x40
+ranking-XH|.png
+ranking-XH-small|.png|34x40
+ranking-X|.png
+ranking-X-small|.png|34x40
+ranking-SH|.png
+ranking-SH-small|.png|34x40
+ranking-S|.png
+ranking-S-small|.png|34x40
+ranking-A|.png
+ranking-A-small|.png|34x40
+ranking-B|.png
+ranking-B-small|.png|34x40
+ranking-C|.png
+ranking-C-small|.png|34x40
+ranking-D|.png
+ranking-D-small|.png|34x40
 # Ranking screen
 ranking-accuracy-png
-ranking-graph|png|1.0:min308x156;min308x148
-ranking-maxcombo|png
-ranking-panel|png|1.0:max0x694;max0x666
-ranking-perfect|png
-ranking-title|png
-ranking-replay|png|||1.0
-ranking-retry|png|||1.0
-ranking-winner|png|200x214
+ranking-graph|.png|1.0:min308x156;min308x148
+ranking-maxcombo|.png
+ranking-panel|.png|1.0:max0x694;max0x666
+ranking-perfect|.png
+ranking-title|.png
+ranking-replay|.png|||1.0
+ranking-retry|.png|||1.0
+ranking-winner|.png|200x214
 # Score entry
-scoreentry-0|png|11x14
-scoreentry-1|png|11x14
-scoreentry-2|png|11x14
-scoreentry-3|png|11x14
-scoreentry-4|png|11x14
-scoreentry-5|png|11x14
-scoreentry-6|png|11x14
-scoreentry-7|png|11x14
-scoreentry-8|png|11x14
-scoreentry-9|png|11x14
-scoreentry-comma|png|5x14
-scoreentry-dot|png|5x14
-scoreentry-percent|png|12x14
-scoreentry-x|png|10x14
+scoreentry-0|.png|11x14
+scoreentry-1|.png|11x14
+scoreentry-2|.png|11x14
+scoreentry-3|.png|11x14
+scoreentry-4|.png|11x14
+scoreentry-5|.png|11x14
+scoreentry-6|.png|11x14
+scoreentry-7|.png|11x14
+scoreentry-8|.png|11x14
+scoreentry-9|.png|11x14
+scoreentry-comma|.png|5x14
+scoreentry-dot|.png|5x14
+scoreentry-percent|.png|12x14
+scoreentry-x|.png|10x14
 # Song selection
-menu-back|png|200x214|True
-menu-button-background|png|min690x85
-selection-mode|png|1.0:92x87;92x90
-selection-mode-over|png|1.0:92x87;92x90
-selection-mods|png|1.0:77x87;77x90
-selection-mods-over|png|1.0:77x87;77x90
-selection-random|png|1.0:77x87;77x90
-selection-random-over|png|1.0:77x87;77x90
-selection-options|png|1.0:77x87;77x90
-selection-options-over|png|1.0:77x87;77x90
-selection-tab|png|142x24
-star|png|50x50
-star2|png|24x24
+menu-back|.png|200x214|True
+menu-button-background|.png|min690x85
+selection-mode|.png|1.0:92x87;92x90
+selection-mode-over|.png|1.0:92x87;92x90
+selection-mods|.png|1.0:77x87;77x90
+selection-mods-over|.png|1.0:77x87;77x90
+selection-random|.png|1.0:77x87;77x90
+selection-random-over|.png|1.0:77x87;77x90
+selection-options|.png|1.0:77x87;77x90
+selection-options-over|.png|1.0:77x87;77x90
+selection-tab|.png|142x24
+star|.png|50x50
+star2|.png|24x24
 # Mode selection
-mode-osu|png|256x256
-mode-taiko|png|256x256
-mode-fruits|png|256x256
-mode-mania|png|256x256
-mode-osu-med|png|128x128
-mode-taiko-med|png|128x128
-mode-fruit-med|png|128x128
-mode-mania-med|png|128x128
-mode-osu-small|png|32x32
-mode-taiko-small|png|32x32
-mode-fruits-small|png|32x32
-mode-mania-small|png|32x32
+mode-osu|.png|256x256
+mode-taiko|.png|256x256
+mode-fruits|.png|256x256
+mode-mania|.png|256x256
+mode-osu-med|.png|128x128
+mode-taiko-med|.png|128x128
+mode-fruit-med|.png|128x128
+mode-mania-med|.png|128x128
+mode-osu-small|.png|32x32
+mode-taiko-small|.png|32x32
+mode-fruits-small|.png|32x32
+mode-mania-small|.png|32x32

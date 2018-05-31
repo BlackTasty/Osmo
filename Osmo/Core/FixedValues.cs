@@ -5,6 +5,9 @@ namespace Osmo.Core
 {
     static class FixedValues
     {
+        internal const int EDITOR_INDEX = 2;
+        internal const int CONFIG_INDEX = 3;
+
         internal static readonly List<CompletionData> skinIniGeneralCompletionData =
             new List<CompletionData>() {
             new CompletionData("Name", "What is the name of this skin?"),

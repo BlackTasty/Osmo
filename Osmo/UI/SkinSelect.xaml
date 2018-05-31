@@ -27,7 +27,7 @@
         <RowDefinition Height="42"/>
     </Grid.RowDefinitions>
     <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}" Grid.ColumnSpan="4"
-              PreviewMouseDoubleClick="lv_skins_PreviewMouseDoubleClick">
+              PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" PreviewMouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
         <ListView.View>
             <GridView>
                 <GridViewColumn Header="Name" Width="200">

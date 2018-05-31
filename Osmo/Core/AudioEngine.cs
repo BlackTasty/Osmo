@@ -35,7 +35,7 @@ namespace Osmo.Core
                 vm.AudioPosition = Bass.BASS_ChannelGetPosition(_stream);
         }
 
-        public void PlayAudio(string path)
+        public bool PlayAudio(string path)
         {
             if (!paused)
             {
@@ -48,6 +48,7 @@ namespace Osmo.Core
                 else
                 {
                     MessageBox.Show("Unable to play the selected audio file!");
+                    return false;
                 }
             }
             else
@@ -55,6 +56,8 @@ namespace Osmo.Core
                 paused = false;
                 Bass.BASS_ChannelPlay(_stream, false);
             }
+
+            return true;
         }
 
         public void PauseAudio()

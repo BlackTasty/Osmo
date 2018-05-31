@@ -1,5 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.Configuration;
+using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
 using System;
@@ -128,13 +130,17 @@ namespace Osmo.UI
             }).Start();
 
             vm.IsCreating = false;
+            Skin skin = new Skin(skinDirectory);
+            vm.Master.Skins.Add(skin);
+            SkinEditor.Instance.LoadSkin(skin);
+            vm.Master.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
         }
 
         private void WriteFilesFromReader(SkinWizardViewModel vm, SkinElementReader reader, string skinPath)
         {
             foreach (SkinningEntry entry in reader.Files)
             {
-                WriteFile(vm, skinPath, entry.Name, reader);
+                WriteFile(vm, skinPath, entry.Name + entry.PreferredFormat, reader);
             }
         }
 
@@ -142,7 +148,7 @@ namespace Osmo.UI
         {
             foreach (SoundEntry entry in reader.Files)
             {
-                WriteFile(vm, skinPath, entry.Name + ".wav", reader);
+                WriteFile(vm, skinPath, entry.Name + entry.PreferredFormat, reader);
             }
         }
 

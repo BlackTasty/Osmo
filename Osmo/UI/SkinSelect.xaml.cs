@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -24,7 +25,6 @@ namespace Osmo.UI
     public partial class SkinSelect : Grid
     {
         private static SkinSelect instance;
-        private const int EDITOR_INDEX = 2;
 
         public static SkinSelect Instance
         {
@@ -49,12 +49,7 @@ namespace Osmo.UI
         private void LoadSkin_Click(object sender, RoutedEventArgs e)
         {
             SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-            (DataContext as OsmoViewModel).SelectedSidebarIndex = EDITOR_INDEX;
-        }
-
-        private void NewSkin_Click(object sender, RoutedEventArgs e)
-        {
-
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
         }
 
         private void MixSkins_Click(object sender, RoutedEventArgs e)
@@ -62,18 +57,12 @@ namespace Osmo.UI
 
         }
 
-        private void lv_skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (lv_skins.SelectedIndex > 0)
             {
                 SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-                (DataContext as OsmoViewModel).SelectedSidebarIndex = EDITOR_INDEX;
-            }
-            else if (lv_skins.SelectedIndex == 0)
-            {
-                //TODO: Implement "New skin" 
-                if (DialogHost.OpenDialogCommand.CanExecute(null, null))
-                    DialogHost.OpenDialogCommand.Execute(null, null);
+                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
             }
         }
 
@@ -89,6 +78,16 @@ namespace Osmo.UI
             if (result == MessageBoxResult.Yes)
             {
                 (DataContext as OsmoViewModel).SkinManager.DeleteSkin((sender as Button).Tag.ToString());
+            }
+        }
+
+        private void Skins_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (lv_skins.SelectedIndex == 0)
+            {
+                //TODO: Implement "New skin" 
+                if (DialogHost.OpenDialogCommand.CanExecute(null, null))
+                    DialogHost.OpenDialogCommand.Execute(null, null);
             }
         }
     }

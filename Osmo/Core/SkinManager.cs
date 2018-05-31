@@ -39,7 +39,7 @@ namespace Osmo.Core
                     }
 
                     //TODO: Filter may be reset to *.* in case the menu background isn't needed. Also remove IncludeSubDirectories!
-                    mSkinWatcher = new FileSystemWatcher(value, "menu-background*.jpg")
+                    mSkinWatcher = new FileSystemWatcher(value)
                     {
                         EnableRaisingEvents = true
                         //IncludeSubdirectories = true
@@ -56,12 +56,12 @@ namespace Osmo.Core
 
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            OnSkinChanged(e.FullPath, e.ChangeType);
+            OnSkinChanged(e.FullPath, WatcherChangeTypes.Deleted);
         }
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            OnSkinChanged(e.FullPath, e.ChangeType);
+            OnSkinChanged(e.FullPath, WatcherChangeTypes.Created);
         }
 
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
@@ -71,7 +71,7 @@ namespace Osmo.Core
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            OnSkinChanged(e.FullPath, e.ChangeType);
+            OnSkinChanged(e.FullPath, WatcherChangeTypes.Changed);
         }
 
         protected virtual void OnSkinChanged(string path, WatcherChangeTypes changeType)

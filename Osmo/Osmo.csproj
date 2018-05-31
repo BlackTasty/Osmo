@@ -227,7 +227,6 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\empty.png" />
     <None Include="Resources\emptySound.wav" />
     <None Include="Resources\emptyImage.png" />
   </ItemGroup>

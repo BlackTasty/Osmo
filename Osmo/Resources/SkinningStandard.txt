@@ -4,7 +4,7 @@
 #    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
 # Note: Only the name is required. If you want to use different values for different versions, write it like this:
-#       ranking-graph|png|1.0:min308x156;min308x148
+#       ranking-graph|.png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
@@ -17,55 +17,55 @@
 # 0 = unlimited
 #
 # Comboburst
-comboburst|png||True
+comboburst|.png||True
 # Default numbers
-default-0|png
-default-1|png
-default-2|png
-default-3|png
-default-4|png
-default-5|png
-default-6|png
-default-7|png
-default-8|png
-default-9|png
+default-0|.png
+default-1|.png
+default-2|.png
+default-3|.png
+default-4|.png
+default-5|.png
+default-6|.png
+default-7|.png
+default-8|.png
+default-9|.png
 # Hit circles
-approachcircle|png|126x126
-hitcircle|png|118x118
-hitcircleoverlay|png|118x118|True
-hitcircleselect|png|118x118
-followpoint|png||True
-lightning|png|100x100
+approachcircle|.png|126x126
+hitcircle|.png|118x118
+hitcircleoverlay|.png|118x118|True
+hitcircleselect|.png|118x118
+followpoint|.png||True
+lightning|.png|100x100
 # Slider
-sliderstartcircle|png|118x118
-sliderstartcircleoverlay|png|118x118|True
-sliderendcircle|png|118x118
-sliderendcircleoverlay|png|118x118|True
-reversearrow|png|118x118
-sliderfollowcircle|png|256x256;max308x308|True
-sliderb|png|118x118|True
-sliderb-nd|png|118x118|||Ignored if sliderb|png is skinned.
-sliderb-spec|png|118x118|||Ignored if sliderb|png is skinned.
-sliderpoint10|png|50x30||1.0
-sliderpoint30|png|50x30||1.0
-sliderscorepoint|png|16x16
+sliderstartcircle|.png|118x118
+sliderstartcircleoverlay|.png|118x118|True
+sliderendcircle|.png|118x118
+sliderendcircleoverlay|.png|118x118|True
+reversearrow|.png|118x118
+sliderfollowcircle|.png|256x256;max308x308|True
+sliderb|.png|118x118|True
+sliderb-nd|.png|118x118|||Ignored if sliderb|.png is skinned.
+sliderb-spec|.png|118x118|||Ignored if sliderb|.png is skinned.
+sliderpoint10|.png|50x30||1.0
+sliderpoint30|.png|50x30||1.0
+sliderscorepoint|.png|16x16
 # Spinner
-spinner-approachcircle|png|384x384
-spinner-rpm|png|280x56
-spinner-clear|png
-spinner-spin|png
+spinner-approachcircle|.png|384x384
+spinner-rpm|.png|280x56
+spinner-clear|.png
+spinner-spin|.png
 #  Spinner (old)
-spinner-background|png|1024x702|||osu! is watching for this element. If found, it will force the old styled spinners on v2.0+.
-spinner-circle|png
-spinner-metre|png|1024x692
-spinner-osu|png
+spinner-background|.png|1024x702|||osu! is watching for this element. If found, it will force the old styled spinners on v2.0+.
+spinner-circle|.png
+spinner-metre|.png|1024x692
+spinner-osu|.png
 #  Spinner (new)
-spinner-glow|png|||2.0+
-spinner-bottom|png|||2.0+
-spinner-top|png|||2.0+
-spinner-middle|png|||2.0+
-spinner-middle2|png|||2.0+
+spinner-glow|.png|||2.0+
+spinner-bottom|.png|||2.0+
+spinner-top|.png|||2.0+
+spinner-middle|.png|||2.0+
+spinner-middle2|.png|||2.0+
 # Particles
-particle50|png|7x7|||hit50|png must be skinned.
-particle100|png|7x7|||hit100|png must be skinned.
-particle300|png|7x7|||hit300|png must be skinned.
+particle50|.png|7x7|||hit50|.png must be skinned.
+particle100|.png|7x7|||hit100|.png must be skinned.
+particle300|.png|7x7|||hit300|.png must be skinned.

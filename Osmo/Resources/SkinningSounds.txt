@@ -8,125 +8,125 @@
 #       Multiple sounds: Accepts only true or false. Every other value results in false.
 #
 # Main Menu
-heartbeat|wav,ogg,mp3|This plays when the cursor is hovering over the osu!cookie in the main menu.
-seeya|wav,ogg,mp3|- osu!supporter is required to modify.\n- Plays when closing the osu!client.
-welcome|wav,ogg,mp3|- osu!supporter is required to modify.\n- Plays when starting the osu!client.
+heartbeat|.wav,.ogg,.mp3|This plays when the cursor is hovering over the osu!cookie in the main menu.
+seeya|.wav,.ogg,.mp3|- osu!supporter is required to modify.\n- Plays when closing the osu!client.
+welcome|.wav,.ogg,.mp3|- osu!supporter is required to modify.\n- Plays when starting the osu!client.
 # Keys
-key-confirm|wav,ogg,mp3|Plays when sending a message in chat.
-key-delete|wav,ogg,mp3|Plays when deleting text in a message in chat.
-key-movement|wav,ogg,mp3|Plays when changing the text cursor position.
-key-press-1|wav,ogg,mp3|Plays when pressing a key for chat, search, edit, etc.
-key-press-2|wav,ogg,mp3|Plays when pressing a key for chat, search, edit, etc.
-key-press-3|wav,ogg,mp3|Plays when pressing a key for chat, search, edit, etc.
-key-press-4|wav,ogg,mp3|Plays when pressing a key for chat, search, edit, etc.
+key-confirm|.wav,.ogg,.mp3|Plays when sending a message in chat.
+key-delete|.wav,.ogg,.mp3|Plays when deleting text in a message in chat.
+key-movement|.wav,.ogg,.mp3|Plays when changing the text cursor position.
+key-press-1|.wav,.ogg,.mp3|Plays when pressing a key for chat, search, edit, etc.
+key-press-2|.wav,.ogg,.mp3|Plays when pressing a key for chat, search, edit, etc.
+key-press-3|.wav,.ogg,.mp3|Plays when pressing a key for chat, search, edit, etc.
+key-press-4|.wav,.ogg,.mp3|Plays when pressing a key for chat, search, edit, etc.
 # Clicks
-back-button-click|wav,ogg,mp3|Plays when clicking on back button.
-check-on|wav,ogg,mp3|Plays when enabling a checkbox or enabling a mod.
-check-off|wav,ogg,mp3|Plays when disabling a checkbox or disabling a mod.
-click-close|wav,ogg,mp3|Plays when closing a chat tab.
-click-short-confirm|wav,ogg,mp3|Plays when clicking to confirm a button or dropdown option, opening or closing chat, switching between chat tabs, or switching groups.
-menuback|wav,ogg,mp3|Plays when clicking on menu-back or returning to the previous screen.
-menuhit|wav,ogg,mp3|Plays when confirming a selection that switches screens.
-menu-back-click|wav,ogg,mp3|Plays when clicking on Back in the main menu.
-menu-charts-click|wav,ogg,mp3|Plays when clicking on Charts in the main menu.
-menu-direct-click|wav,ogg,mp3|Plays when clicking on osu!direct in the main menu.
-menu-edit-click|wav,ogg,mp3|Plays when clicking on Edit in the main menu.
-menu-exit-click|wav,ogg,mp3|Plays when clicking on Exit in the main menu.
-menu-freeplay-click|wav,ogg,mp3|Plays when clicking on Solo in the main menu.
-menu-multiplayer-click|wav,ogg,mp3|Plays when clicking on Multiplayer in the main menu.
-menu-options-click|wav,ogg,mp3|Plays when clicking on Options in the main menu.
-menu-play-click|wav,ogg,mp3|Plays when clicking on Play in the main menu.
-pause-back-click|wav,ogg,mp3|Plays when clicking Back to Menu in the pause menu.
-pause-continue-click|wav,ogg,mp3|Plays when clicking Continue to Menu in the pause menu.
-pause-retry-click|wav,ogg,mp3|Plays when clicking Retry to Menu in the pause menu.
-select-expand|wav,ogg,mp3|Plays when switching into song selection, selecting a beatmap set, opening dropdown boxes, opening chat tabs.
-select-difficulty|wav,ogg,mp3|Plays when selecting a difficulty of a beatmap set.
-shutter|wav,ogg,mp3|Plays when a screenshot is taken.
+back-button-click|.wav,.ogg,.mp3|Plays when clicking on back button.
+check-on|.wav,.ogg,.mp3|Plays when enabling a checkbox or enabling a mod.
+check-off|.wav,.ogg,.mp3|Plays when disabling a checkbox or disabling a mod.
+click-close|.wav,.ogg,.mp3|Plays when closing a chat tab.
+click-short-confirm|.wav,.ogg,.mp3|Plays when clicking to confirm a button or dropdown option, opening or closing chat, switching between chat tabs, or switching groups.
+menuback|.wav,.ogg,.mp3|Plays when clicking on menu-back or returning to the previous screen.
+menuhit|.wav,.ogg,.mp3|Plays when confirming a selection that switches screens.
+menu-back-click|.wav,.ogg,.mp3|Plays when clicking on Back in the main menu.
+menu-charts-click|.wav,.ogg,.mp3|Plays when clicking on Charts in the main menu.
+menu-direct-click|.wav,.ogg,.mp3|Plays when clicking on osu!direct in the main menu.
+menu-edit-click|.wav,.ogg,.mp3|Plays when clicking on Edit in the main menu.
+menu-exit-click|.wav,.ogg,.mp3|Plays when clicking on Exit in the main menu.
+menu-freeplay-click|.wav,.ogg,.mp3|Plays when clicking on Solo in the main menu.
+menu-multiplayer-click|.wav,.ogg,.mp3|Plays when clicking on Multiplayer in the main menu.
+menu-options-click|.wav,.ogg,.mp3|Plays when clicking on Options in the main menu.
+menu-play-click|.wav,.ogg,.mp3|Plays when clicking on Play in the main menu.
+pause-back-click|.wav,.ogg,.mp3|Plays when clicking Back to Menu in the pause menu.
+pause-continue-click|.wav,.ogg,.mp3|Plays when clicking Continue to Menu in the pause menu.
+pause-retry-click|.wav,.ogg,.mp3|Plays when clicking Retry to Menu in the pause menu.
+select-expand|.wav,.ogg,.mp3|Plays when switching into song selection, selecting a beatmap set, opening dropdown boxes, opening chat tabs.
+select-difficulty|.wav,.ogg,.mp3|Plays when selecting a difficulty of a beatmap set.
+shutter|.wav,.ogg,.mp3|Plays when a screenshot is taken.
 # Hover
-back-button-hover|wav,ogg,mp3|Plays when hovering above the back button.
-click-short|wav,ogg,mp3|Plays when hovering above all selectable boxes except beatmaps or main screen buttons.
-menuclick|wav,ogg,mp3|Plays when hovering above difficulties.
-menu-back-hover|wav,ogg,mp3|Plays when hovering above Back in the main menu.
-menu-charts-hover|wav,ogg,mp3|Plays when hovering above Charts in the main menu.
-menu-direct-hover|wav,ogg,mp3|Plays when hovering above Direct in the main menu.
-menu-edit-hover|wav,ogg,mp3|Plays when hovering above Edit in the main menu.
-menu-exit-hover|wav,ogg,mp3|Plays when hovering above Exit in the main menu.
-menu-freeplay-hover|wav,ogg,mp3|Plays when hovering above Solo in the main menu.
-menu-multiplayer-hover|wav,ogg,mp3|Plays when hovering above Multiplayer in the main menu.
-menu-options-hover|wav,ogg,mp3|Plays when hovering above Options in the main menu.
-menu-play-hover|wav,ogg,mp3|Plays when hovering above Play in the main menu.
+back-button-hover|.wav,.ogg,.mp3|Plays when hovering above the back button.
+click-short|.wav,.ogg,.mp3|Plays when hovering above all selectable boxes except beatmaps or main screen buttons.
+menuclick|.wav,.ogg,.mp3|Plays when hovering above difficulties.
+menu-back-hover|.wav,.ogg,.mp3|Plays when hovering above Back in the main menu.
+menu-charts-hover|.wav,.ogg,.mp3|Plays when hovering above Charts in the main menu.
+menu-direct-hover|.wav,.ogg,.mp3|Plays when hovering above Direct in the main menu.
+menu-edit-hover|.wav,.ogg,.mp3|Plays when hovering above Edit in the main menu.
+menu-exit-hover|.wav,.ogg,.mp3|Plays when hovering above Exit in the main menu.
+menu-freeplay-hover|.wav,.ogg,.mp3|Plays when hovering above Solo in the main menu.
+menu-multiplayer-hover|.wav,.ogg,.mp3|Plays when hovering above Multiplayer in the main menu.
+menu-options-hover|.wav,.ogg,.mp3|Plays when hovering above Options in the main menu.
+menu-play-hover|.wav,.ogg,.mp3|Plays when hovering above Play in the main menu.
 pause-hover.
-pause-back-hover|wav,ogg,mp3|Plays when hovering over Back in pause menu.
-pause-continue-hover|wav,ogg,mp3|Plays when hovering over Continue in pause menu.
-pause-retry-hover|wav,ogg,mp3|Plays when hovering over Retry in pause menu.
+pause-back-hover|.wav,.ogg,.mp3|Plays when hovering over Back in pause menu.
+pause-continue-hover|.wav,.ogg,.mp3|Plays when hovering over Continue in pause menu.
+pause-retry-hover|.wav,.ogg,.mp3|Plays when hovering over Retry in pause menu.
 # Drag
-sliderbar|wav,ogg,mp3|Plays when changing the options via a slider.
-whoosh|wav,ogg,mp3|As of now, this is disabled.
+sliderbar|.wav,.ogg,.mp3|Plays when changing the options via a slider.
+whoosh|.wav,.ogg,.mp3|As of now, this is disabled.
 # Multiplayer
-match-confirm|wav,ogg,mp3|Plays when all players are ready.
-match-join|wav,ogg,mp3|Plays when a player joins a room.
-match-leave|wav,ogg,mp3|Plays when a player leaves a room.
-match-notready|wav,ogg,mp3|Plays when a player revoked his ready signal.
-match-ready|wav,ogg,mp3|Plays when a player is ready to start.
-match-start|wav,ogg,mp3|Plays when the match is starting. This is also the chat highlight sound.
+match-confirm|.wav,.ogg,.mp3|Plays when all players are ready.
+match-join|.wav,.ogg,.mp3|Plays when a player joins a room.
+match-leave|.wav,.ogg,.mp3|Plays when a player leaves a room.
+match-notready|.wav,.ogg,.mp3|Plays when a player revoked his ready signal.
+match-ready|.wav,.ogg,.mp3|Plays when a player is ready to start.
+match-start|.wav,.ogg,.mp3|Plays when the match is starting. This is also the chat highlight sound.
 # Countdown
-count|wav,ogg,mp3|This replaces the count{n}s sounds (if one sound is wanted).\nThis is also the metronome for the target practice mod.
-count1s|wav,ogg,mp3
-count2s|wav,ogg,mp3
-count3s|wav,ogg,mp3
+count|.wav,.ogg,.mp3|This replaces the count{n}s sounds (if one sound is wanted).\nThis is also the metronome for the target practice mod.
+count1s|.wav,.ogg,.mp3
+count2s|.wav,.ogg,.mp3
+count3s|.wav,.ogg,.mp3
 gos.
 readys.
 # Metronome
-netronomelow|wav,ogg,mp3|In the beatmap editor, this plays for the small white ticks; however, the beatmap editor will only use the default sounds.\nDespite the above, this can be skinned for the offset wizard and the bananas in osu!catch (pitch goes up per caught banana).
+netronomelow|.wav,.ogg,.mp3|In the beatmap editor, this plays for the small white ticks; however, the beatmap editor will only use the default sounds.\nDespite the above, this can be skinned for the offset wizard and the bananas in osu!catch (pitch goes up per caught banana).
 # Gameplay
-applause|wav,ogg,mp3|On the ranking screen after clearing a map.
-comboburst|wav,ogg,mp3|For multiple sounds, use comboburst-{n}.wav.\nIn the skin.ini, if CustomComboBurstSounds is set to 1, comboburst-{n}.wav must be used|wav,ogg,mp3|True
-combobreak|wav,ogg,mp3|Plays when player breaks a combo of 20 or more.
-failsound|wav,ogg,mp3|Failing a map at any point.
-sectionpass|wav,ogg,mp3|Halfway through a break with high HP remaining.
-sectionfail|wav,ogg,mp3|Halfway through a break with low HP remaining.
-pause-loop|wav,ogg,mp3|Plays when the game is paused.\nThis sound is looped.\nFades out when the client loses focus.
+applause|.wav,.ogg,.mp3|On the ranking screen after clearing a map.
+comboburst|.wav,.ogg,.mp3|For multiple sounds, use comboburst-{n}.wav.\nIn the skin.ini, if CustomComboBurstSounds is set to 1, comboburst-{n}.wav must be used|.wav,.ogg,.mp3|True
+combobreak|.wav,.ogg,.mp3|Plays when player breaks a combo of 20 or more.
+failsound|.wav,.ogg,.mp3|Failing a map at any point.
+sectionpass|.wav,.ogg,.mp3|Halfway through a break with high HP remaining.
+sectionfail|.wav,.ogg,.mp3|Halfway through a break with low HP remaining.
+pause-loop|.wav,.ogg,.mp3|Plays when the game is paused.\nThis sound is looped.\nFades out when the client loses focus.
 # Hit Sounds
 #  Drum Set
-drum-hitnormal|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.
-drum-hitclap|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.
-drum-hitfinish|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.
-drum-hitwhistle|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.
-drum-slidertick|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.
-drum-sliderslide|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.\nThis sound is looped.
-drum-sliderwhistle|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.\nThis sound is looped.
+drum-hitnormal|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.
+drum-hitclap|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.
+drum-hitfinish|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.
+drum-hitwhistle|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.
+drum-slidertick|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.
+drum-sliderslide|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.\nThis sound is looped.
+drum-sliderwhistle|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.\nThis sound is looped.
 #  Normal Set
-normal-hitnormal|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-normal-hitclap|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-normal-hitfinish|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-normal-hitwhistle|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-normal-slidertick|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-normal-sliderslide|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.\nThis sound is looped.
-normal-sliderwhistle|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.\nThis sound is looped.
+normal-hitnormal|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+normal-hitclap|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+normal-hitfinish|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+normal-hitwhistle|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+normal-slidertick|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+normal-sliderslide|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.\nThis sound is looped.
+normal-sliderwhistle|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.\nThis sound is looped.
 #  Soft Set
-soft-hitnormal|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-soft-hitclap|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-soft-hitfinish|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-soft-hitwhistle|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-soft-slidertick|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-soft-sliderslide|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.\nThis sound is looped.
-soft-sliderwhistle|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.\nThis sound is looped.
+soft-hitnormal|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+soft-hitclap|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+soft-hitfinish|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+soft-hitwhistle|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+soft-slidertick|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+soft-sliderslide|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.\nThis sound is looped.
+soft-sliderwhistle|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.\nThis sound is looped.
 #  Spinner Set
-spinnerspin|wav,ogg,mp3|This sound is looped.\nThis sound could modulate from ~500 hz to 80000 hz.\nTo disable this, set SpinnerFrequencyModulate to 0.
-spinnerbonus|wav,ogg,mp3|Plays everytime you get 1000 bonus points from spinning.
+spinnerspin|.wav,.ogg,.mp3|This sound is looped.\nThis sound could modulate from ~500 hz to 80000 hz.\nTo disable this, set SpinnerFrequencyModulate to 0.
+spinnerbonus|.wav,.ogg,.mp3|Plays everytime you get 1000 bonus points from spinning.
 #Taiko Hit Sounds
 #  Normal Set
-taiko-normal-hitnormal|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-taiko-normal-hitclap|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-taiko-normal-hitfinish|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
-taiko-normal-hitwhistle|wav,ogg,mp3|Mapped as N:C1 on beatmap skins.
+taiko-normal-hitnormal|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+taiko-normal-hitclap|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+taiko-normal-hitfinish|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
+taiko-normal-hitwhistle|.wav,.ogg,.mp3|Mapped as N:C1 on beatmap skins.
 #  Soft Set
-taiko-soft-hitnormal|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-taiko-soft-hitclap|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-taiko-soft-hitfinish|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
-taiko-soft-hitwhistle|wav,ogg,mp3|Mapped as S:C1 on beatmap skins.
+taiko-soft-hitnormal|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+taiko-soft-hitclap|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+taiko-soft-hitfinish|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
+taiko-soft-hitwhistle|.wav,.ogg,.mp3|Mapped as S:C1 on beatmap skins.
 #  Drum Set
-taiko-drum-hitnormal|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.
-taiko-drum-hitclap|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.
-taiko-drum-hitfinish|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.
-taiko-drum-hitwhistle|wav,ogg,mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.
+taiko-drum-hitnormal|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.
+taiko-drum-hitclap|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.
+taiko-drum-hitfinish|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.
+taiko-drum-hitwhistle|.wav,.ogg,.mp3|Mapped as D:C1 on beatmap skins.\nOnly played when mapped and included.

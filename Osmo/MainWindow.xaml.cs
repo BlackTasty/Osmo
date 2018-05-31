@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using Osmo.UI;
@@ -17,8 +18,6 @@ namespace Osmo
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const int CONFIG_INDEX = 3;
-
         AppConfiguration configuration = AppConfiguration.GetInstance();
 
         public MainWindow()
@@ -43,9 +42,9 @@ namespace Osmo
         {
             (SkinEditor.Instance.DataContext as SkinViewModel).SelectedElement = new SkinElement();
 
-            if (sidebarMenu.SelectedIndex != CONFIG_INDEX && !configuration.IsValid)
+            if (sidebarMenu.SelectedIndex != FixedValues.CONFIG_INDEX && !configuration.IsValid)
             {
-                sidebarMenu.SelectedIndex = CONFIG_INDEX;
+                sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
             }
 
 
@@ -63,7 +62,7 @@ namespace Osmo
         private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
         {
             if (!configuration.IsValid)
-                sidebarMenu.SelectedIndex = CONFIG_INDEX;
+                sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
 
             dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
         }

@@ -242,11 +242,17 @@ namespace Osmo.UI
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            audio.PlayAudio((DataContext as SkinViewModel).SelectedElement.Path);
-            if (cb_mute.IsChecked == true)
-                audio.SetVolume(0);
+            if (audio.PlayAudio((DataContext as SkinViewModel).SelectedElement.Path))
+            {
+                if (cb_mute.IsChecked == true)
+                    audio.SetVolume(0);
+                else
+                    audio.SetVolume(slider_volume.Value);
+            }
             else
-                audio.SetVolume(slider_volume.Value);
+            {
+                (DataContext as SkinViewModel).PlayStatus = 0;
+            }
         }
 
         private void Pause_Click(object sender, RoutedEventArgs e)
