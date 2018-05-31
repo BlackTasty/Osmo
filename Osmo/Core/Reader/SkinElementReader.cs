@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Osmo.Core.Reader
 {
-    class SkinElementReader
+    class SkinElementReader : ElementGenerator
     {
-        List<SkinningEntry> skinningEntries;
+        List<SkinningEntry> entries;
 
-        public SkinElementReader(string skinningList)
+        public List<SkinningEntry> Files => entries;
+
+        public int FileCount => entries?.Count ?? 0;
+
+        public SkinElementReader(string list) : base(false)
         {
-            string[] content = skinningList.Split(new string[] { "\r\n" },
+            string[] content = list.Split(new string[] { "\r\n" },
                 StringSplitOptions.RemoveEmptyEntries);
-            skinningEntries = new List<SkinningEntry>();
+            entries = new List<SkinningEntry>();
 
             for (int i = 0; i< content.Length; i++)
             {
                 if (content[i].Trim()[0] != '#')
                 {
-                    skinningEntries.Add(new SkinningEntry(content[i]));
+                    entries.Add(new SkinningEntry(content[i]));
                 }
             }
         }

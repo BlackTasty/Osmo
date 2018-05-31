@@ -92,6 +92,17 @@ namespace Osmo.Core
             LoadSkins();
         }
 
+        public void DeleteSkin(string name)
+        {
+            Skin target = mSkins.FirstOrDefault(x => !x.IsEmpty && x.Name.Equals(name));
+
+            if (target != null)
+            {
+                mSkins.Remove(target);
+                target.Delete();
+            }
+        }
+
         private void LoadSkins()
         {
             if (!string.IsNullOrWhiteSpace(Directory))

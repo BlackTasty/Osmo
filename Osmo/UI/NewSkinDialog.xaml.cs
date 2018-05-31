@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,20 @@ namespace Osmo.UI
             InitializeComponent();
         }
 
+        internal void SetMasterViewModel(OsmoViewModel vm)
+        {
+            (DataContext as NewSkinViewModel).Master = vm;
+        }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             btn_create.IsEnabled = !string.IsNullOrWhiteSpace(txt_author.Text) && !string.IsNullOrWhiteSpace(txt_name.Text);
+        }
+
+        private void Create_Click(object sender, RoutedEventArgs e)
+        {
+            SkinCreationWizard.Instance.ApplyData(DataContext as NewSkinViewModel);
+            (DataContext as NewSkinViewModel).Master.SelectedSidebarIndex = 1;
         }
     }
 }

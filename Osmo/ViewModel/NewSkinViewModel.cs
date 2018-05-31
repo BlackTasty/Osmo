@@ -5,6 +5,8 @@
         private string mName;
         private string mAuthor;
         private bool mAddDummyFiles = true; //
+        
+        internal OsmoViewModel Master { get; set; }
 
         public string Name
         {
@@ -13,6 +15,7 @@
             {
                 mName = value;
                 InvokePropertyChanged("Name");
+                InvokePropertyChanged("IsConfirmEnabled");
             }
         }
 
@@ -23,6 +26,7 @@
             {
                 mAuthor = value;
                 InvokePropertyChanged("Author");
+                InvokePropertyChanged("IsConfirmEnabled");
             }
         }
 

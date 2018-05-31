@@ -1,24 +1,14 @@
 ﻿using MahApps.Metro.Controls;
-using MaterialDesignThemes.Wpf;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using Osmo.UI;
 using Osmo.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Osmo
 {
@@ -27,7 +17,7 @@ namespace Osmo
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const int CONFIG_INDEX = 2;
+        private const int CONFIG_INDEX = 3;
 
         AppConfiguration configuration = AppConfiguration.GetInstance();
 
@@ -74,6 +64,8 @@ namespace Osmo
         {
             if (!configuration.IsValid)
                 sidebarMenu.SelectedIndex = CONFIG_INDEX;
+
+            dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

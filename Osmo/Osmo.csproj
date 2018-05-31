@@ -87,6 +87,7 @@
     <Compile Include="Converters\IntToBooleanConverter.cs" />
     <Compile Include="Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringNotEmptyConverter.cs" />
     <Compile Include="Converters\VolumeToIconConverter.cs" />
     <Compile Include="Core\AudioEngine.cs" />
     <Compile Include="Core\Configuration\AppConfiguration.cs" />
@@ -108,9 +109,10 @@
     <Compile Include="Core\Objects\SkinElement.cs" />
     <Compile Include="Core\Objects\SkinRenamedEventArgs.cs" />
     <Compile Include="Core\Parser.cs" />
+    <Compile Include="Core\Reader\ElementGenerator.cs" />
     <Compile Include="Core\Reader\SkinElementReader.cs" />
     <Compile Include="Core\Reader\SkinningEntry.cs" />
-    <Compile Include="Core\Reader\SkinningReader.cs" />
+    <Compile Include="Core\Reader\ElementReader.cs" />
     <Compile Include="Core\Reader\SkinSoundReader.cs" />
     <Compile Include="Core\Reader\SoundEntry.cs" />
     <Compile Include="Core\Reader\VersionSizeDescriptor.cs" />
@@ -146,9 +148,7 @@
     <Compile Include="UI\SkinSelect.xaml.cs">
       <DependentUpon>SkinSelect.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Commands\CreateSkinCommand.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
-    <Compile Include="ViewModel\MasterViewModel.cs" />
     <Compile Include="ViewModel\NewSkinViewModel.cs" />
     <Compile Include="ViewModel\OsmoViewModel.cs" />
     <Compile Include="ViewModel\SkinViewModel.cs" />
@@ -224,12 +224,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\empty.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\empty.png" />
+    <None Include="Resources\emptySound.wav" />
+    <None Include="Resources\emptyImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

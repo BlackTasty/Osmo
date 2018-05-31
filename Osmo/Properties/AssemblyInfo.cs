@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Skin Manager")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Osmo")]
+[assembly: AssemblyDescription("Open Skin Manager for osu!")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Skin Manager")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("Osmo")]
+[assembly: AssemblyCopyright("Copyright © Raphael Winkler 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

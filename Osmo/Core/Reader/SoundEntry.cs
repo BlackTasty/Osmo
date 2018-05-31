@@ -1,6 +1,6 @@
 ﻿namespace Osmo.Core.Reader
 {
-    class SoundEntry : SkinningReader
+    class SoundEntry : ElementReader
     {
         private string name;
         private bool multipleSounds;

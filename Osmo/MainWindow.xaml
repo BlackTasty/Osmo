@@ -10,7 +10,7 @@
         xmlns:ui="clr-namespace:Osmo.UI"
         x:Class="Osmo.MainWindow"
         mc:Ignorable="d"
-        Title="Osmo" Height="600" Width="800"
+        Title="Osmo" Height="600" Width="800" MinWidth="683" MinHeight="536"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -30,7 +30,7 @@
     <!--SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"-->
     <material:DialogHost Identifier="RootDialog">
         <material:DialogHost.DialogContent>
-            <ui:NewSkinDialog Margin="16"/>
+            <ui:NewSkinDialog x:Name="dialg_newSkin" Margin="16"/>
         </material:DialogHost.DialogContent>
         <material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <material:DrawerHost.LeftDrawerContent>

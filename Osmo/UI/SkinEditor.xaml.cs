@@ -82,7 +82,7 @@ namespace Osmo.UI
             ((SkinViewModel)DataContext).SaveSkin();
         }
 
-        private void lv_elements_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Elements_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkinViewModel vm = (SkinViewModel)DataContext;
 
@@ -174,7 +174,7 @@ namespace Osmo.UI
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to revert all changes made to this image?",
+            var result = MessageBox.Show("Do you really want to revert all changes made to this element?",
                 "Revert changes?",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Exclamation,
@@ -369,6 +369,33 @@ namespace Osmo.UI
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             audio.StopAudio();
+        }
+
+        private void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
+            var result = MessageBox.Show("Do you really want to revert all changes made to this element?",
+                "Revert changes?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation,
+                MessageBoxResult.No);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                SkinViewModel vm = (SkinViewModel)DataContext;
+                SkinElement element = vm.LoadedSkin.Elements.FirstOrDefault(x => x.Name.Equals(
+                    (sender as Button).Tag)) ?? null;
+
+                if (element != null)
+                {
+                    element.Reset();
+                    if (element.Equals(vm.SelectedElement))
+                    {
+                        vm.RefreshImage();
+                        vm.ResetEnabled = false;
+                    }
+                }
+            }
         }
     }
 }

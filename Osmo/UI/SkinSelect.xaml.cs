@@ -24,6 +24,7 @@ namespace Osmo.UI
     public partial class SkinSelect : Grid
     {
         private static SkinSelect instance;
+        private const int EDITOR_INDEX = 2;
 
         public static SkinSelect Instance
         {
@@ -48,7 +49,7 @@ namespace Osmo.UI
         private void LoadSkin_Click(object sender, RoutedEventArgs e)
         {
             SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-            (DataContext as OsmoViewModel).SelectedSidebarIndex = 1;
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = EDITOR_INDEX;
         }
 
         private void NewSkin_Click(object sender, RoutedEventArgs e)
@@ -66,13 +67,28 @@ namespace Osmo.UI
             if (lv_skins.SelectedIndex > 0)
             {
                 SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-                (DataContext as OsmoViewModel).SelectedSidebarIndex = 1;
+                (DataContext as OsmoViewModel).SelectedSidebarIndex = EDITOR_INDEX;
             }
             else if (lv_skins.SelectedIndex == 0)
             {
                 //TODO: Implement "New skin" 
                 if (DialogHost.OpenDialogCommand.CanExecute(null, null))
                     DialogHost.OpenDialogCommand.Execute(null, null);
+            }
+        }
+
+        private void SkinDelete_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Replace "Delete" MessageBox with MaterialDesign dialog
+            var result = MessageBox.Show("Are you sure you want to delete this skin?",
+                "Delete skin?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation,
+                MessageBoxResult.No);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                (DataContext as OsmoViewModel).SkinManager.DeleteSkin((sender as Button).Tag.ToString());
             }
         }
     }

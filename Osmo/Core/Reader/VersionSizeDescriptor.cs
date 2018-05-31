@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Osmo.Core.Reader
 {
-    class VersionSizeDescriptor : SkinningReader
+    class VersionSizeDescriptor : ElementReader
     {
         private Size suggestedSDSize;
         private Size maxSize;

@@ -121,6 +121,7 @@ namespace Osmo.ViewModel
             mSidebarItems = new SidebarEntry[]
             {
                 new SidebarEntry("Home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance),
+                new SidebarEntry("Skin Wizard", MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance),
                 new SidebarEntry("Skin Editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, false),
                 new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
                 new SidebarEntry("About", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance)

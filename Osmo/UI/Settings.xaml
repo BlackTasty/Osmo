@@ -97,9 +97,9 @@
     </StackPanel>
 
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" 
-                            ToolTip="Save your settings" Width="130" Grid.Column="1" Grid.Row="2" Margin="10,5" Click="Save_Click">_SAVE</Button>
+                            ToolTip="Revert all changes in your settings" Width="130" Grid.Column="1" Grid.Row="2" Margin="10,5">_ABORT</Button>
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" 
-                            ToolTip="Revert all changes in your settings" Width="130" Grid.Column="2" Grid.Row="2" Margin="10,5">_ABORT</Button>
+                            ToolTip="Save your settings" Width="130" Grid.Column="2" Grid.Row="2" Margin="10,5" Click="Save_Click">_SAVE</Button>
     <material:Snackbar MessageQueue="{material:MessageQueue}"
                                                  x:Name="snackbar" Grid.ColumnSpan="3" Grid.Row="2" />
 </Grid>

@@ -3,21 +3,25 @@ using System.Collections.Generic;
 
 namespace Osmo.Core.Reader
 {
-    class SkinSoundReader
+    class SkinSoundReader : ElementGenerator
     {
-        List<SoundEntry> soundEntries;
+        List<SoundEntry> entries;
 
-        public SkinSoundReader(string soundList)
+        public List<SoundEntry> Files => entries;
+
+        public int FileCount => entries?.Count ?? 0;
+
+        public SkinSoundReader(string list) : base(true)
         {
-            string[] content = soundList.Split(new string[] { "\r\n" },
+            string[] content = list.Split(new string[] { "\r\n" },
                 StringSplitOptions.RemoveEmptyEntries);
-            soundEntries = new List<SoundEntry>();
+            entries = new List<SoundEntry>();
 
             for (int i = 0; i < content.Length; i++)
             {
                 if (content[i].Trim()[0] != '#')
                 {
-                    soundEntries.Add(new SoundEntry(content[i]));
+                    entries.Add(new SoundEntry(content[i]));
                 }
             }
         }

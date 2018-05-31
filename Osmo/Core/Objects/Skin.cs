@@ -42,8 +42,6 @@ namespace Osmo.Core.Objects
         /// </summary>
         public VeryObservableCollection<SkinElement> Elements { get => mElements; set => mElements = value; }
 
-        public List<SkinElement> ChangedFiles { get => mElements.TakeWhile(o => o.HasChanges).ToList(); }
-
         /// <summary>
         /// This returns the amount of elements this <see cref="Skin"/> object contains.
         /// </summary>
@@ -57,7 +55,6 @@ namespace Osmo.Core.Objects
 
         internal Skin(string path)
         {
-            mElements.WatchAlso("ChangedFiles");
             mPath = path;
             mName = System.IO.Path.GetFileName(path);
 
@@ -78,7 +75,6 @@ namespace Osmo.Core.Objects
         {
             mName = vm.Name;
             mAuthor = vm.Author;
-            
         }
 
         public void Save()
@@ -113,6 +109,12 @@ namespace Osmo.Core.Objects
             }
 
             return true;
+        }
+
+        public void Delete()
+        {
+            mWatcher.Dispose();
+            Directory.Delete(Path, true);
         }
 
         private void ReadElements()

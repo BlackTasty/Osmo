@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Globalization;
-using System.IO;
-using System.Windows;
 using System.Windows.Data;
 
 namespace Osmo.Converters
 {
-    class BoolToTextDecorationConverter : IValueConverter
+    class StringNotEmptyConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (File.Exists(value.ToString()))
+            if (value is string)
             {
-                return TextDecorations.Strikethrough;
+                return !string.IsNullOrWhiteSpace((value ?? "").ToString());
             }
-            else return null;
+            else return true;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

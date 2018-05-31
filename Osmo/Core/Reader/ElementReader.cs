@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Osmo.Core.Reader
+﻿namespace Osmo.Core.Reader
 {
-    class SkinningReader
+    class ElementReader
     {
         private string version;
         private bool versionEqualOrLower; //Is set to true if a - is found in the version column

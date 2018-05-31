@@ -20,8 +20,6 @@ namespace Osmo.ViewModel
             "latest"
         };
 
-        private string mSelectedVersion;
-
         private bool mComponentInterface = true;
         private bool mComponentSounds = true;
         private bool mComponentOsu;
@@ -29,16 +27,16 @@ namespace Osmo.ViewModel
         private bool mComponentTaiko;
         private bool mComponentMania;
 
+        private bool mIsCreating;
+        private double mCurrentFileCount;
+        private double mFilesToCreate;
+        private string mCurrentFileName;
+
         public List<string> Versions => mVersions;
 
-        public string SelectedVersion
+        public bool IsConfirmEnabled
         {
-            get => mSelectedVersion;
-            set
-            {
-                mSelectedVersion = value;
-                InvokePropertyChanged("SelectedVersion");
-            }
+            get => !string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Author);
         }
 
         public bool ComponentInterface
@@ -98,6 +96,46 @@ namespace Osmo.ViewModel
             {
                 mComponentMania = value;
                 InvokePropertyChanged("ComponentMania");
+            }
+        }
+
+        public bool IsCreating
+        {
+            get => mIsCreating;
+            set
+            {
+                mIsCreating = value;
+                InvokePropertyChanged("IsCreating");
+            }
+        }
+
+        public double CurrentFileCount
+        {
+            get => mCurrentFileCount;
+            set
+            {
+                mCurrentFileCount = value;
+                InvokePropertyChanged("Current");
+            }
+        }
+
+        public double FilesToCreate
+        {
+            get => mFilesToCreate;
+            set
+            {
+                mFilesToCreate = value;
+                InvokePropertyChanged("FilesToCreate");
+            }
+        }
+
+        public string CurrentFileName
+        {
+            get => mCurrentFileName;
+            set
+            {
+                mCurrentFileName = value;
+                InvokePropertyChanged("CurrentFileName");
             }
         }
 

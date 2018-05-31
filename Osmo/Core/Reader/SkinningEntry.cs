@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Osmo.Core.Reader
 {
-    class SkinningEntry : SkinningReader
+    class SkinningEntry : ElementReader
     {
         private string name;
         private bool animatable;
