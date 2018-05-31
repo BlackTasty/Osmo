@@ -1,10 +1,10 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!taiko
 # Date: 25.05.2018
 # Entries are split like this:
-#    Name|Suggested SD size|Animatable|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
 # Note: Only the name is required. If you want to use different values for different versions, write it like this:
-#       ranking-graph.png|1.0:min308x156;min308x148
+#       ranking-graph|png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
@@ -17,40 +17,40 @@
 # 0 = unlimited
 #
 # Pippidon
-pippidonclear.png||True
-pippidonfail.png||True
-pippidonidle.png||True
-pippidonkiai.png||True
+pippidonclear|png||True
+pippidonfail|png||True
+pippidonidle|png||True
+pippidonkiai|png||True
 # Hit Bursts
-taiko-hit0.png||True
-taiko-hit100.png||True
-taiko-hit100k.png||True
-taiko-hit300.png||True
-taiko-hit300k.png||True
-taiko-hit300g.png
+taiko-hit0|png||True
+taiko-hit100|png||True
+taiko-hit100k|png||True
+taiko-hit300|png||True
+taiko-hit300k|png||True
+taiko-hit300g|png
 # Notes
-taikobigcircle.png|118x118
-taikobigcircleoverlay.png|118x118|True
-taikoonhitcircle.png|118x118
-taikoonhitcircleoverlay.png|118x118|True
-approachcircle.png|126x126
-taiko-glow.png
-lightning.png
+taikobigcircle|png|118x118
+taikobigcircleoverlay|png|118x118|True
+taikoonhitcircle|png|118x118
+taikoonhitcircleoverlay|png|118x118|True
+approachcircle|png|126x126
+taiko-glow|png
+lightning|png
 # Playfield (upper half)
-taiko-slider.png|776x162
-taiko-slider-fail.png|776x162
-taiko-flower-group.png||True
+taiko-slider|png|776x162
+taiko-slider-fail|png|776x162
+taiko-flower-group|png||True
 # Playfield (lower half)
-taiko-bar-left.png|181x200
-taiko-drum-inner.png|1.0,2.0:max56x0;90x200
-taiko-drum-outer.png|1.0,2.0:max72x0;90x200
-taiko-bar-right.png|1.0,2.0:843x200;1024x200
-taiko-bar-right-glow.png|1.0,2.0:843x200;1024x200
+taiko-bar-left|png|181x200
+taiko-drum-inner|png|1.0,2.0:max56x0;90x200
+taiko-drum-outer|png|1.0,2.0:max72x0;90x200
+taiko-bar-right|png|1.0,2.0:843x200;1024x200
+taiko-bar-right-glow|png|1.0,2.0:843x200;1024x200
 # Drumrolls
-taiko-roll-middle.png|1x128|||The SD image width must be exactly 1px wide.
-taiko-roll-end.png|64x128
-sliderscorepoint.png
+taiko-roll-middle|png|1x128|||The SD image width must be exactly 1px wide.
+taiko-roll-end|png|64x128
+sliderscorepoint|png
 # Shaker
-spinner-warning.png
-spinner-circle.png
-spinner-approachcircle.png
+spinner-warning|png
+spinner-circle|png
+spinner-approachcircle|png

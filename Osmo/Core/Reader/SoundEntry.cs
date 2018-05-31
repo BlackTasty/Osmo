@@ -6,6 +6,8 @@
         private bool multipleSounds;
         private string description;
 
+        private string[] supportedFormats;
+
         public string Name => name;
 
         public bool MultipleSounds => multipleSounds;
@@ -25,9 +27,12 @@
                             name = content[i];
                             break;
                         case 1:
-                            description = content[i];
+                            supportedFormats = content[i].Split(',');
                             break;
                         case 2:
+                            description = content[i];
+                            break;
+                        case 3:
                             multipleSounds = Parser.TryParse(content[i], false);
                             break;
                     }

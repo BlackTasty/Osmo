@@ -1,10 +1,10 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!mania
 # Date: 25.05.2018
 # Entries are split like this:
-#    Name|Suggested SD size|Animatable|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
 # Note: Only the name is required. If you want to use different values for different versions, write it like this:
-#       ranking-graph.png|1.0:min308x156;min308x148
+#       ranking-graph|png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
@@ -17,45 +17,45 @@
 # 0 = unlimited
 #
 # Hit Bursts
-mania-hit0.png||True
-mania-hit50.png||True
-mania-hit100.png||True
-mania-hit200.png||True
-mania-hit300.png||True
-mania-hit300g.png||True
+mania-hit0|png||True
+mania-hit50|png||True
+mania-hit100|png||True
+mania-hit200|png||True
+mania-hit300|png||True
+mania-hit300g|png||True
 # Comboburst
-comboburst-mania.png||||Unlike osu!standard and osu!catch's combobursts, all edges of this imageset should not be clipped.
+comboburst-mania|png||||Unlike osu!standard and osu!catch's combobursts, all edges of this imageset should not be clipped.
 # Keys
-mania-key1.png|50x107
-mania-key1D.png|50x107
-mania-key2.png|50x107
-mania-key2D.png|50x107
-mania-keyS.png|50x107
-mania-keySD.png|50x107
+mania-key1|png|50x107
+mania-key1D|png|50x107
+mania-key2|png|50x107
+mania-key2D|png|50x107
+mania-keyS|png|50x107
+mania-keySD|png|50x107
 # Notes
-mania-note1.png||True
-mania-note2.png||True
-mania-noteS.png||True
+mania-note1|png||True
+mania-note2|png||True
+mania-noteS|png||True
 #  Long notes
 #   Head
-mania-note1H.png||True
-mania-note2H.png||True
-mania-noteSH.png||True
+mania-note1H|png||True
+mania-note2H|png||True
+mania-noteSH|png||True
 #   Body
-mania-note1L.png||True
-mania-note2L.png||True
-mania-noteSL.png||True
+mania-note1L|png||True
+mania-note2L|png||True
+mania-noteSL|png||True
 #   Tail
-mania-note1T.png||True
-mania-note2T.png||True
-mania-noteST.png||True
+mania-note1T|png||True
+mania-note2T|png||True
+mania-noteST|png||True
 # Stage
-mania-stage-left.png|max0x768
-mania-stage-right.png|max0x768
-mania-stage-bottom.png||True
-mania-stage-light.png|max0x768|True
-mania-stage-hint.png||True
-mania-warningarrow.png
+mania-stage-left|png|max0x768
+mania-stage-right|png|max0x768
+mania-stage-bottom|png||True
+mania-stage-light|png|max0x768|True
+mania-stage-hint|png||True
+mania-warningarrow|png
 # Lighting
-lightingL.png||True||This element is the lighting for the long notes.
-lightingN.png||True||This element is the lighting for the single notes (and tail notes).
+lightingL|png||True||This element is the lighting for the long notes.
+lightingN|png||True||This element is the lighting for the single notes (and tail notes).

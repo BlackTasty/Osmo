@@ -9,7 +9,8 @@ namespace Osmo.Core.Reader
         private string name;
         private bool animatable;
         private string description;
-
+        
+        private string[] supportedFormats;
         private List<VersionSizeDescriptor> sizeDescriptors;
 
         public string Name => name;
@@ -42,19 +43,22 @@ namespace Osmo.Core.Reader
                             name = content[i];
                             break;
                         case 1:
+                            supportedFormats = content[i].Split(',');
+                            break;
+                        case 2:
                             string[] sizeDefinitions = content[i].Split(';');
                             for (int j = 0; j < sizeDefinitions.Length; j++)
                             {
                                 sizeDescriptors.Add(new VersionSizeDescriptor(sizeDefinitions[j]));
                             }
                             break;
-                        case 2:
+                        case 3:
                             animatable = Parser.TryParse(content[i], false);
                             break;
-                        case 3:
+                        case 4:
                             SetVersion(content[i]);
                             break;
-                        case 4:
+                        case 5:
                             description = content[i];
                             break;
                     }

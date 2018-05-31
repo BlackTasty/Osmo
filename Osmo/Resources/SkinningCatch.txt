@@ -1,10 +1,10 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!catch
 # Date: 25.05.2018
 # Entries are split like this:
-#    Name|Suggested SD size|Animatable|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
 # Note: Only the name is required. If you want to use different values for different versions, write it like this:
-#       ranking-graph.png|1.0:min308x156;min308x148
+#       ranking-graph|png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
@@ -17,23 +17,23 @@
 # 0 = unlimited
 #
 # Catcher
-fruit-catcher-idle.png|min302x0|True|2.3+
-fruit-catcher-fail.png||True|2.3+
-fruit-catcher-kiai.png||True|2.3+
-fruit-ryuuta-idle.png||True|2.2-
+fruit-catcher-idle|png|min302x0|True|2.3+
+fruit-catcher-fail|png||True|2.3+
+fruit-catcher-kiai|png||True|2.3+
+fruit-ryuuta-idle|png||True|2.2-
 # Comboburst
-comboburst-fruits.png|max0x768|True|2.3+
+comboburst-fruits|png|max0x768|True|2.3+
 # Fruits
-lightning.png|100x100
-fruit-pear.png|128x128
-fruit-pear-overlay.png|128x128
-fruit-grapes.png|128x128
-fruit-grapes-overlay.png|128x128
-fruit-apple.png|128x128
-fruit-apple-overlay.png|128x128
-fruit-orange.png|128x128
-fruit-orange-overlay.png|128x128
-fruit-bananas.png|128x128
-fruit-bananas-overlay.png|128x128
-fruit-drop.png|128x128
-fruit-drop-overlay.png|128x128
+lightning|png|100x100
+fruit-pear|png|128x128
+fruit-pear-overlay|png|128x128
+fruit-grapes|png|128x128
+fruit-grapes-overlay|png|128x128
+fruit-apple|png|128x128
+fruit-apple-overlay|png|128x128
+fruit-orange|png|128x128
+fruit-orange-overlay|png|128x128
+fruit-bananas|png|128x128
+fruit-bananas-overlay|png|128x128
+fruit-drop|png|128x128
+fruit-drop-overlay|png|128x128
