@@ -113,6 +113,7 @@ namespace Osmo.ViewModel
 
         public OsmoViewModel()
         {
+            FixedValues.InitializeReader();
             string osuDir = AppConfiguration.GetInstance().OsuDirectory;
 
             if (!string.IsNullOrWhiteSpace(osuDir))

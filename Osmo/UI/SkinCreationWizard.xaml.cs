@@ -22,12 +22,6 @@ namespace Osmo.UI
     public partial class SkinCreationWizard : Grid
     {
         private static SkinCreationWizard instance;
-        private static SkinElementReader readerInterface;
-        private static SkinElementReader readerStandard;
-        private static SkinElementReader readerCatch;
-        private static SkinElementReader readerMania;
-        private static SkinElementReader readerTaiko;
-        private static SkinSoundReader readerSounds;
 
         public static SkinCreationWizard Instance
         {
@@ -43,12 +37,6 @@ namespace Osmo.UI
         private SkinCreationWizard()
         {
             InitializeComponent();
-            readerInterface = new SkinElementReader(Properties.Resources.SkinningInterface);
-            readerStandard = new SkinElementReader(Properties.Resources.SkinningStandard);
-            readerCatch = new SkinElementReader(Properties.Resources.SkinningCatch);
-            readerMania = new SkinElementReader(Properties.Resources.SkinningMania);
-            readerTaiko = new SkinElementReader(Properties.Resources.SkinningTaiko);
-            readerSounds = new SkinSoundReader(Properties.Resources.SkinningSounds);
         }
 
         internal void ApplyData(NewSkinViewModel vm)
@@ -86,17 +74,17 @@ namespace Osmo.UI
             vm.CurrentFileName = "";
 
             if (vm.ComponentInterface)
-                vm.FilesToCreate += readerInterface.FileCount;
+                vm.FilesToCreate += FixedValues.readerInterface.FileCount;
             if (vm.ComponentOsu)
-                vm.FilesToCreate += readerStandard.FileCount;
+                vm.FilesToCreate += FixedValues.readerStandard.FileCount;
             if (vm.ComponentMania)
-                vm.FilesToCreate += readerMania.FileCount;
+                vm.FilesToCreate += FixedValues.readerMania.FileCount;
             if (vm.ComponentCTB)
-                vm.FilesToCreate += readerCatch.FileCount;
+                vm.FilesToCreate += FixedValues.readerCatch.FileCount;
             if (vm.ComponentTaiko)
-                vm.FilesToCreate += readerTaiko.FileCount;
+                vm.FilesToCreate += FixedValues.readerTaiko.FileCount;
             if (vm.ComponentSounds)
-                vm.FilesToCreate += readerSounds.FileCount;
+                vm.FilesToCreate += FixedValues.readerSounds.FileCount;
 
             string skinDirectory = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + vm.Name;
             Directory.CreateDirectory(skinDirectory);
@@ -105,27 +93,27 @@ namespace Osmo.UI
             {
                 if (vm.ComponentInterface)
                 {
-                    WriteFilesFromReader(vm, readerInterface, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerInterface, skinDirectory);
                 }
                 if (vm.ComponentOsu)
                 {
-                    WriteFilesFromReader(vm, readerStandard, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerStandard, skinDirectory);
                 }
                 if (vm.ComponentMania)
                 {
-                    WriteFilesFromReader(vm, readerMania, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerMania, skinDirectory);
                 }
                 if (vm.ComponentCTB)
                 {
-                    WriteFilesFromReader(vm, readerCatch, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerCatch, skinDirectory);
                 }
                 if (vm.ComponentTaiko)
                 {
-                    WriteFilesFromReader(vm, readerTaiko, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerTaiko, skinDirectory);
                 }
                 if (vm.ComponentSounds)
                 {
-                    WriteSoundsFromReader(vm, readerSounds, skinDirectory);
+                    WriteSoundsFromReader(vm, FixedValues.readerSounds, skinDirectory);
                 }
             }).Start();
 

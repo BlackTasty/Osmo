@@ -2,6 +2,7 @@
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
+using Osmo.Core.Reader;
 using Osmo.UI;
 using Osmo.ViewModel;
 using System;
@@ -24,6 +25,7 @@ namespace Osmo
         {
             InitializeComponent();
             configuration.SettingsSaved += Configuration_SettingsSaved;
+            FixedValues.InitializeReader();
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)

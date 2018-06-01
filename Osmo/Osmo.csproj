@@ -96,7 +96,7 @@
     <Compile Include="Converters\SelectSkinSelector.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
-    <Compile Include="Core\LibraryValidatior.cs" />
+    <Compile Include="Core\LibraryValidator.cs" />
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Objects\ChangedFile.cs" />
     <Compile Include="Core\Objects\CompletionData.cs" />
@@ -110,6 +110,7 @@
     <Compile Include="Core\Objects\SkinRenamedEventArgs.cs" />
     <Compile Include="Core\Parser.cs" />
     <Compile Include="Core\Reader\ElementGenerator.cs" />
+    <Compile Include="Core\Reader\IEntry.cs" />
     <Compile Include="Core\Reader\SkinElementReader.cs" />
     <Compile Include="Core\Reader\SkinningEntry.cs" />
     <Compile Include="Core\Reader\ElementReader.cs" />

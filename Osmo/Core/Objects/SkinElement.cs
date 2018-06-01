@@ -1,4 +1,5 @@
 ﻿using Osmo.Core.Configuration;
+using Osmo.Core.Reader;
 using Osmo.ViewModel;
 using System.IO;
 using System.Windows;
@@ -52,6 +53,8 @@ namespace Osmo.Core.Objects
 
         public FileType FileType { get => fileType; }
 
+        public IEntry ElementDetails { get; private set; }
+
         //TODO: Implement detection of HD elements (see https://osu.ppy.sh/help/wiki/Ranking_Criteria/Skin_Set_List/ for recommended sizes)
         public bool IsHighDefinition { get => false; }
 
@@ -65,6 +68,20 @@ namespace Osmo.Core.Objects
             backupPath += skinName + "\\";
 
             fileType = GetFileType(fi.Extension);
+
+            
+            if (fileType == FileType.Image)
+            {
+                ElementDetails = FixedValues.readerInterface.FindElement(Name) ??
+                    FixedValues.readerStandard.FindElement(Name) ??
+                    FixedValues.readerCatch.FindElement(Name) ??
+                    FixedValues.readerMania.FindElement(Name) ??
+                    FixedValues.readerTaiko.FindElement(Name);
+            }
+            else if (fileType == FileType.Audio)
+            {
+                ElementDetails = FixedValues.readerSounds.FindElement(Name);
+            }
 
             Directory.CreateDirectory(backupPath);
             if (File.Exists(backupPath + Name))

@@ -118,11 +118,15 @@
             <ColumnDefinition Width="72"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
             <RowDefinition/>
             <RowDefinition Height="44"/>
             <RowDefinition Height="44"/>
         </Grid.RowDefinitions>
-        <material:ColorZone VerticalAlignment="Stretch" Mode="Dark" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <material:Card Grid.ColumnSpan="4" VerticalAlignment="Stretch">
+            
+        </material:Card>
+        <material:ColorZone VerticalAlignment="Stretch" Mode="Dark" Grid.ColumnSpan="4" Grid.RowSpan="3">
             <Grid>
                 <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
                 <material:PackIcon Kind="{Binding Icon}" Visibility="{Binding ShowIcon, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
@@ -131,11 +135,11 @@
 
         <!--{Binding ShowEditor, TargetNullValue=Hidden, FallbackValue=Hidden}-->
         <avalon:TextEditor x:Name="textEditor" Visibility="{Binding ShowEditor, TargetNullValue=Hidden, FallbackValue=Hidden}" 
-                           Grid.ColumnSpan="4" Grid.RowSpan="2" ShowLineNumbers="True" 
+                           Grid.ColumnSpan="4" Grid.RowSpan="3" ShowLineNumbers="True" 
                            Loaded="TextEditor_Loaded"/>
-        
+
         <!--{Binding PlayStatus}-->
-        <material:Transitioner x:Name="transitioner" SnapsToDevicePixels="True" SelectedIndex="{Binding PlayStatus}" AutoApplyTransitionOrigins="True" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" ClipToBounds="False">
+        <material:Transitioner x:Name="transitioner" SnapsToDevicePixels="True" SelectedIndex="{Binding PlayStatus}" AutoApplyTransitionOrigins="True" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" ClipToBounds="False">
             <material:TransitionerSlide>
                 <material:TransitionerSlide.ForwardWipe>
                     <material:CircleWipe />
@@ -223,7 +227,7 @@
             </material:TransitionerSlide>
         </material:Transitioner>
 
-        <material:PopupBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="16"
+        <material:PopupBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="3" Margin="0,16,16,16"
             Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}" IsEnabled="{Binding IsFABEnabled}"
             PlacementMode="TopAndAlignCentres" VerticalAlignment="Center" HorizontalAlignment="Right" PopupMode="Click">
             <material:PopupBox.ToggleCheckedContent>

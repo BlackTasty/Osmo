@@ -1,20 +1,18 @@
 ﻿namespace Osmo.Core.Reader
 {
-    class SoundEntry : ElementReader
+    class SoundEntry : ElementReader, IEntry
     {
-        private string name;
-        private bool multipleSounds;
-        private string description;
+        private readonly string description;
 
-        private string[] supportedFormats;
+        public string Name { get; private set; }
 
-        public string Name => name;
+        public string PreferredFormat => SupportedFormats?.Length > 0 ? SupportedFormats[0] : "";
 
-        public string PreferredFormat => supportedFormats?.Length > 0 ? supportedFormats[0] : "";
+        public string[] SupportedFormats { get; private set; }
+        
+        public bool MultipleElementsAllowed { get; private set; }
 
-        public string[] SupportedFormats => supportedFormats;
-
-        public bool MultipleSounds => multipleSounds;
+        public bool IsSound => true;
 
         public string Description => description ?? "";
 
@@ -28,16 +26,16 @@
                     switch (i)
                     {
                         case 0:
-                            name = content[i];
+                            Name = content[i];
                             break;
                         case 1:
-                            supportedFormats = content[i].Split(',');
+                            SupportedFormats = content[i].Split(',');
                             break;
                         case 2:
                             description = content[i];
                             break;
                         case 3:
-                            multipleSounds = Parser.TryParse(content[i], false);
+                            MultipleElementsAllowed = Parser.TryParse(content[i], false);
                             break;
                     }
                 }
@@ -47,6 +45,26 @@
         public override string ToString()
         {
             return string.Format("{0} ({1})", Name, Description);
+        }
+
+        public static bool operator ==(SoundEntry entry, string name)
+        {
+            return entry.Name.Equals(name);
+        }
+
+        public static bool operator !=(SoundEntry entry, string name)
+        {
+            return !entry.Name.Equals(name);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Name.Equals((obj as SoundEntry).Name);
         }
     }
 }

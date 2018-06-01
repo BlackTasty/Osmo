@@ -4,20 +4,17 @@ using System.Windows;
 
 namespace Osmo.Core.Reader
 {
-    class SkinningEntry : ElementReader
+    class SkinningEntry : ElementReader, IEntry
     {
-        private string name;
-        private bool animatable;
-        private string description;
+        private readonly string description;
         
-        private string[] supportedFormats;
         private List<VersionSizeDescriptor> sizeDescriptors;
 
-        public string Name => name;
+        public string Name { get; private set; }
 
-        public string PreferredFormat => supportedFormats?.Length > 0 ? supportedFormats[0] : "";
+        public string PreferredFormat => SupportedFormats?.Length > 0 ? SupportedFormats[0] : "";
 
-        public string[] SupportedFormats => supportedFormats;
+        public string[] SupportedFormats { get; private set; }
 
         public Size SuggestedSDSize =>
             sizeDescriptors.FirstOrDefault(x => !x.SuggestedSDSize.Equals(new Size()))?.SuggestedSDSize ?? new Size();
@@ -29,7 +26,9 @@ namespace Osmo.Core.Reader
             sizeDescriptors.FirstOrDefault(x => !x.MinimumSize.Equals(new Size()))?.MinimumSize ?? new Size();
 
 
-        public bool Animatable => animatable;
+        public bool MultipleElementsAllowed { get; private set; }
+
+        public bool IsSound => false;
 
         public string Description => description ?? "";
 
@@ -44,10 +43,10 @@ namespace Osmo.Core.Reader
                     switch (i)
                     {
                         case 0:
-                            name = content[i];
+                            Name = content[i];
                             break;
                         case 1:
-                            supportedFormats = content[i].Split(',');
+                            SupportedFormats = content[i].Split(',');
                             break;
                         case 2:
                             string[] sizeDefinitions = content[i].Split(';');
@@ -57,7 +56,7 @@ namespace Osmo.Core.Reader
                             }
                             break;
                         case 3:
-                            animatable = Parser.TryParse(content[i], false);
+                            MultipleElementsAllowed = Parser.TryParse(content[i], false);
                             break;
                         case 4:
                             SetVersion(content[i]);
@@ -87,12 +86,12 @@ namespace Osmo.Core.Reader
 
         public override int GetHashCode()
         {
-            return name.GetHashCode();
+            return Name.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            return name.Equals((obj as SkinningEntry).name);
+            return Name.Equals((obj as SkinningEntry).Name);
         }
     }
 }

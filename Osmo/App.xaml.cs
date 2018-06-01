@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core;
+using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,7 +7,6 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using static Osmo.Core.LibraryValidatior;
 
 namespace Osmo
 {

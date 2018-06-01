@@ -39,6 +39,7 @@ namespace Osmo.UI
         private SkinSelect()
         {
             InitializeComponent();
+            FixedValues.InitializeReader();
         }
 
         internal void Initialize(OsmoViewModel vm)

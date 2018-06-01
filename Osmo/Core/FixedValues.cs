@@ -1,12 +1,36 @@
 ﻿using Osmo.Core.Objects;
+using Osmo.Core.Reader;
 using System.Collections.Generic;
 
 namespace Osmo.Core
 {
     static class FixedValues
     {
+        internal static void InitializeReader()
+        {
+            if (readerInterface == null)
+                readerInterface = new SkinElementReader(Properties.Resources.SkinningInterface);
+            if (readerStandard == null)
+                readerStandard = new SkinElementReader(Properties.Resources.SkinningStandard);
+            if (readerCatch == null)
+                readerCatch = new SkinElementReader(Properties.Resources.SkinningCatch);
+            if (readerMania == null)
+                readerMania = new SkinElementReader(Properties.Resources.SkinningMania);
+            if (readerTaiko == null)
+                readerTaiko = new SkinElementReader(Properties.Resources.SkinningTaiko);
+            if (readerSounds == null)
+                readerSounds = new SkinSoundReader(Properties.Resources.SkinningSounds);
+        }
+
         internal const int EDITOR_INDEX = 2;
         internal const int CONFIG_INDEX = 3;
+        
+        internal static SkinElementReader readerInterface;
+        internal static SkinElementReader readerStandard;
+        internal static SkinElementReader readerCatch;
+        internal static SkinElementReader readerMania;
+        internal static SkinElementReader readerTaiko;
+        internal static SkinSoundReader readerSounds;
 
         internal static readonly List<CompletionData> skinIniGeneralCompletionData =
             new List<CompletionData>() {

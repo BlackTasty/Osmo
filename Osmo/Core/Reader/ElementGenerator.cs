@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace Osmo.Core.Reader
 {
@@ -7,9 +9,14 @@ namespace Osmo.Core.Reader
     {
         private bool isSound;
 
+        public List<IEntry> Files { get; private set; }
+
+        public int FileCount => Files?.Count ?? 0;
+
         protected ElementGenerator(bool isSound)
         {
             this.isSound = isSound;
+            Files = new List<IEntry>();
         }
 
         internal void Generate(string path)
@@ -37,6 +44,11 @@ namespace Osmo.Core.Reader
                     }
                 }
             }
+        }
+
+        internal IEntry FindElement(string name)
+        {
+            return Files.FirstOrDefault(x => name.Contains(x.Name));
         }
     }
 }
