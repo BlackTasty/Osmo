@@ -1,15 +1,17 @@
-﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!mania
-# Date: 25.05.2018
+﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
+# Date: 02.06.2018
 # Entries are split like this:
 #    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
-# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+# Note: Only the name and supported formats are required. 
+#       If you want to use different values for different versions, write it like this:
 #       ranking-graph|.png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
-#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini.
-#       Append + after the version numer to tell Osmo that the element is applied if the version inside skin.ini is equal or higher.
+#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
+#
+#       Description: If you want to add a linebreak, use \
 #
 # Additional formatting tips:
 # If you want to limit the maximum width and/or height, write it like this:
@@ -17,45 +19,45 @@
 # 0 = unlimited
 #
 # Hit Bursts
-mania-hit0|.png||True
-mania-hit50|.png||True
-mania-hit100|.png||True
-mania-hit200|.png||True
-mania-hit300|.png||True
-mania-hit300g|.png||True
+mania-hit0|.png||True||Animation name: mania-hit0-{n}.png.
+mania-hit50|.png||True||Animation name: mania-hit50-{n}.png.
+mania-hit100|.png||True||Animation name: mania-hit100-{n}.png.
+mania-hit200|.png||True||Animation name: mania-hit200-{n}.png.
+mania-hit300|.png||True||Animation name: mania-hit300-{n}.png.
+mania-hit300g|.png||True||Animation name: mania-hit300g-{n}.png.
 # Comboburst
-comboburst-mania|.png||||Unlike osu!standard and osu!catch's combobursts, all edges of this imageset should not be clipped.
+comboburst-mania|.png||||To have multiple combobursts, use: comboburst-mania-{n}.png.\Unlike osu!standard and osu!catch's combobursts, all edges of this imageset should not be clipped.
 # Keys
-mania-key1|.png|50x107
-mania-key1D|.png|50x107
-mania-key2|.png|50x107
-mania-key2D|.png|50x107
-mania-keyS|.png|50x107
-mania-keySD|.png|50x107
+mania-key1|.png|50x107|||This is the idle state.\This element gets stretched or compressed to fit the column width.
+mania-key1D|.png|50x107|||This is the pressed state.\This element gets stretched or compressed to fit the column width.
+mania-key2|.png|50x107|||This is the idle state.\This element gets stretched or compressed to fit the column width.
+mania-key2D|.png|50x107|||This is the pressed state.\This element gets stretched or compressed to fit the column width.
+mania-keyS|.png|50x107|||This is the idle state.\This element gets stretched or compressed to fit the column width.
+mania-keySD|.png|50x107|||This is the pressed state.\This element gets stretched or compressed to fit the column width.
 # Notes
-mania-note1|.png||True
-mania-note2|.png||True
-mania-noteS|.png||True
+mania-note1|.png||True||Animation name: mania-note1-{n}.png.\These elements are scaled to fit the individual columns.
+mania-note2|.png||True||Animation name: mania-note2-{n}.png.\These elements are scaled to fit the individual columns.
+mania-noteS|.png||True||Animation name: mania-noteS-{n}.png.\These elements are scaled to fit the individual columns.
 #  Long notes
 #   Head
-mania-note1H|.png||True
-mania-note2H|.png||True
-mania-noteSH|.png||True
+mania-note1H|.png||True||Animation name: mania-note1H-{n}.png.\By default, this is also the tail part.\This element is scaled to fit the individual columns.
+mania-note2H|.png||True||Animation name: mania-note2H-{n}.png.\By default, this is also the tail part.\This element is scaled to fit the individual columns.
+mania-noteSH|.png||True||Animation name: mania-noteSH-{n}.png.\By default, this is also the tail part.\This element is scaled to fit the individual columns.
 #   Body
-mania-note1L|.png||True
-mania-note2L|.png||True
-mania-noteSL|.png||True
+mania-note1L|.png||True||Animation name: mania-note1L-{n}.png.\The animation starts when the long note is pressed and stops if released.
+mania-note2L|.png||True||Animation name: mania-note2L-{n}.png.\The animation starts when the long note is pressed and stops if released.
+mania-noteSL|.png||True||Animation name: mania-noteSL-{n}.png.\The animation starts when the long note is pressed and stops if released.
 #   Tail
-mania-note1T|.png||True
-mania-note2T|.png||True
-mania-noteST|.png||True
+mania-note1T|.png||True||Animation name: mania-note1T-{n}.png.\These elements are the tail part of the hold note.\By default, the head notes are used instead.\By default, these elements are flipped for skin versions 2.5 and up.\These elements are scaled to fit the individual columns.
+mania-note2T|.png||True||Animation name: mania-note2T-{n}.png.\These elements are the tail part of the hold note.\By default, the head notes are used instead.\By default, these elements are flipped for skin versions 2.5 and up.\These elements are scaled to fit the individual columns.
+mania-noteST|.png||True||Animation name: mania-noteST-{n}.png.\These elements are the tail part of the hold note.\By default, the head notes are used instead.\By default, these elements are flipped for skin versions 2.5 and up.\These elements are scaled to fit the individual columns.
 # Stage
-mania-stage-left|.png|max0x768
-mania-stage-right|.png|max0x768
-mania-stage-bottom|.png||True
-mania-stage-light|.png|max0x768|True
-mania-stage-hint|.png||True
-mania-warningarrow|.png
+mania-stage-left|.png|max0x768|||This element is shown on the left side of the stage(s).\This element is stretched to fit the stage height (allows for shorter images).
+mania-stage-right|.png|max0x768|||This element is shown on the right side of the stage(s).\This element is stretched to fit the stage height (allows for shorter images).
+mania-stage-bottom|.png||True||This element is 0.625x smaller than the stage width.\Animation name: mania-stage-bottom-{n}.png.\Shown on the bottom (or top, if the stage is upside down) of the stage(s).\This element will not be stretched to fit the stage width!\This element overlays the entire stage, including the notes.
+mania-stage-light|.png|max0x768|True||Animation name: mania-stage-light-{n}.png.\This element is the lighting for the columns when the key is pressed.\This element is placed underneath the notes.
+mania-stage-hint|.png||True||This element is the graphical representation of the judgement line.\This element is drawn for the entire stage width, not individual columns.\This element is stretched to fit the stage width (allowing for narrower images)
+mania-warningarrow|.png||||This element should point downwards.\This element is always seen before the map starts, if there is enough time.
 # Lighting
-lightingL|.png||True||This element is the lighting for the long notes.
-lightingN|.png||True||This element is the lighting for the single notes (and tail notes).
+lightingL|.png||True||Animation name: lightingL-{n}.png.\This element is the lighting for the long notes.\This image is flipped horizontally if the stage is upside down.
+lightingN|.png||True||Animation name: lightingN-{n}.png.\This element is the lighting for the single notes (and tail notes).\This image is flipped horizontally if the stage is upside down.

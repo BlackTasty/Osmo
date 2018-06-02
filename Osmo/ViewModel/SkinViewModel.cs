@@ -38,34 +38,34 @@ namespace Osmo.ViewModel
         private AudioEngine mAudioEngine;
         
 
-        public ICommand ResetCommand { get; } = new RelayCommand(o => ResetElement((SkinViewModel)o), 
-            o => !string.IsNullOrWhiteSpace(((SkinViewModel)o).SelectedElement.TempPath));
+        //public ICommand ResetCommand { get; } = new RelayCommand(o => ResetElement((SkinViewModel)o), 
+        //    o => !string.IsNullOrWhiteSpace(((SkinViewModel)o).SelectedElement.TempPath));
 
-        private static void ResetElement(SkinViewModel vm)
-        {
-            //TODO: Replace "Erase" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to erase the image?",
-                "Erase image?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation,
-                MessageBoxResult.No);
+        //private static void ResetElement(SkinViewModel vm)
+        //{
+        //    //TODO: Replace "Erase" MessageBox with MaterialDesign dialog
+        //    var result = MessageBox.Show("Do you really want to erase the image?",
+        //        "Erase image?",
+        //        MessageBoxButton.YesNo,
+        //        MessageBoxImage.Exclamation,
+        //        MessageBoxResult.No);
 
-            string path = vm.SelectedElement.ReplaceBackup(null);
+        //    string path = vm.SelectedElement.ReplaceBackup(null);
 
-            if (result == MessageBoxResult.Yes)
-            {
-                using (FileStream stream = new FileStream( vm.SelectedElement.ReplaceBackup(null),
-                    FileMode.Create))
-                {
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(
-                        new BitmapImage(new Uri("pack://application:,,,/Osmo;component/Resources/empty.png", UriKind.Absolute))));
-                    encoder.Save(stream);
-                }
-                vm.RefreshImage();
-                vm.ResetEnabled = true;
-            }
-        }
+        //    if (result == MessageBoxResult.Yes)
+        //    {
+        //        using (FileStream stream = new FileStream( vm.SelectedElement.ReplaceBackup(null),
+        //            FileMode.Create))
+        //        {
+        //            PngBitmapEncoder encoder = new PngBitmapEncoder();
+        //            encoder.Frames.Add(BitmapFrame.Create(
+        //                new BitmapImage(new Uri("pack://application:,,,/Osmo;component/Resources/empty.png", UriKind.Absolute))));
+        //            encoder.Save(stream);
+        //        }
+        //        vm.RefreshImage();
+        //        vm.ResetEnabled = true;
+        //    }
+        //}
 
         public Skin LoadedSkin
         {
@@ -141,8 +141,9 @@ namespace Osmo.ViewModel
 
                 PlayEnabled = value.FileType == FileType.Audio;
 
+                ResetEnabled = !string.IsNullOrWhiteSpace(value.TempPath);
+
                 InvokePropertyChanged("SelectedElement");
-                InvokePropertyChanged("IsEmptyEnabled");
                 InvokePropertyChanged("PlayEnabled");
                 InvokePropertyChanged("IsFABEnabled");
             }
@@ -222,8 +223,6 @@ namespace Osmo.ViewModel
         }
 
         public bool IsFABEnabled { get => mSelectedElement != null && !mSelectedElement.IsEmpty; }
-
-        public bool IsEmptyEnabled { get => !mSelectedElement.Equals(null) ? mSelectedElement.FileType == FileType.Image : false; }
 
         public bool IsSkinLoaded { get => !LoadedSkin?.IsEmpty ?? false; }
 

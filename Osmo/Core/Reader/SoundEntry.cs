@@ -32,10 +32,10 @@
                             SupportedFormats = content[i].Split(',');
                             break;
                         case 2:
-                            description = content[i];
+                            MultipleElementsAllowed = Parser.TryParse(content[i], false);
                             break;
                         case 3:
-                            MultipleElementsAllowed = Parser.TryParse(content[i], false);
+                            description = content[i].Replace('\\', '\n');
                             break;
                     }
                 }

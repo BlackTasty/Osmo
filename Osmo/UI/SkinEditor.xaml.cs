@@ -20,6 +20,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml;
 using System.Linq;
+using Osmo.Core.Reader;
+using MaterialDesignThemes.Wpf.Transitions;
 
 namespace Osmo.UI
 {
@@ -91,7 +93,7 @@ namespace Osmo.UI
             else
                 vm.SelectedElement = new SkinElement();
 
-            audio.StopAudio();
+            StopAudio();
             vm.PlayStatus = 0;
 
             vm.ShowIcon = vm.SelectedElement.FileType == FileType.Image ? Visibility.Hidden : Visibility.Visible;
@@ -104,7 +106,7 @@ namespace Osmo.UI
                         break;
                     case FileType.Configuration:
                         vm.Icon = MaterialDesignThemes.Wpf.PackIconKind.FileXml;
-                        LoadDocument(vm.SelectedElement.Path);
+                        LoadConfigFile(vm.SelectedElement.Path);
                         break;
                     case FileType.Unknown:
                         vm.Icon = MaterialDesignThemes.Wpf.PackIconKind.File;
@@ -115,7 +117,7 @@ namespace Osmo.UI
             vm.ShowEditor = vm.SelectedElement.Name.ToLower() == "skin.ini" ? Visibility.Visible : Visibility.Hidden;
         }
 
-        private void LoadDocument(string path)
+        private void LoadConfigFile(string path)
         {
             textEditor.Document = null; // immediately remove old document
             TextDocument doc = new TextDocument(new StringTextSource(File.ReadAllText(path)));
@@ -148,6 +150,7 @@ namespace Osmo.UI
             {
                 //File.Copy(openFileDialog.FileName, vm.SelectedElement.Path, true);
                 vm.SelectedElement.ReplaceBackup(new FileInfo(openFileDialog.FileName));
+                StopAudio();
                 ((SkinViewModel)DataContext).RefreshImage();
 
                 //Save the last visited directory
@@ -187,6 +190,7 @@ namespace Osmo.UI
                 /*string path = AppConfiguration.GetInstance().BackupDirectory + "\\" + 
                     vm.LoadedSkin.Name + "\\";
                 File.Copy(path + vm.SelectedElement.Name, vm.SelectedElement.Path, true);*/
+                StopAudio();
                 vm.RefreshImage();
                 vm.ResetEnabled = false;
             }
@@ -195,8 +199,8 @@ namespace Osmo.UI
         private void Erase_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Replace "Erase" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to erase the image?", 
-                "Erase image?", 
+            var result = MessageBox.Show("Do you really want to erase this element?", 
+                "Erase element?", 
                 MessageBoxButton.YesNo, 
                 MessageBoxImage.Exclamation, 
                 MessageBoxResult.No);
@@ -205,15 +209,9 @@ namespace Osmo.UI
 
             if (result == MessageBoxResult.Yes)
             {
-                using (FileStream stream = new FileStream(
-                    ((SkinViewModel)DataContext).SelectedElement.ReplaceBackup(null), 
-                    FileMode.Create))
-                {
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(
-                        new BitmapImage(new Uri("pack://application:,,,/Osmo;component/Resources/empty.png", UriKind.Absolute))));
-                    encoder.Save(stream);
-                }
+                SkinElement current = ((SkinViewModel)DataContext).SelectedElement;
+                StopAudio();
+                ElementGenerator.Generate(current.ReplaceBackup(null), current.ElementDetails.IsSound);
                 ((SkinViewModel)DataContext).RefreshImage();
                 ((SkinViewModel)DataContext).ResetEnabled = true;
             }
@@ -236,6 +234,7 @@ namespace Osmo.UI
                 else
                     lv_elements.SelectedIndex--;
                 element.Delete();
+                StopAudio();
                 ((SkinViewModel)DataContext).ResetEnabled = false;
             }
         }
@@ -374,6 +373,12 @@ namespace Osmo.UI
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
+            StopAudio();
+        }
+
+        private void StopAudio()
+        {
+            (DataContext as SkinViewModel).PlayStatus = 0;
             audio.StopAudio();
         }
 

@@ -21,6 +21,11 @@ namespace Osmo.Core.Reader
 
         internal void Generate(string path)
         {
+            Generate(path, isSound);
+        }
+
+        internal static void Generate(string path, bool isSound)
+        {
             if (!isSound)
             {
                 using (Bitmap bmp = Properties.Resources.emptyImage)

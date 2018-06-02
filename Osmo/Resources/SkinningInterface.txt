@@ -1,14 +1,17 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
-# Date: 25.05.2018
+# Date: 02.06.2018
 # Entries are split like this:
 #    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
-# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+# Note: Only the name and supported formats are required. 
+#       If you want to use different values for different versions, write it like this:
 #       ranking-graph|.png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
 #		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
+#
+#       Description: If you want to add a linebreak, use \
 #
 # Additional formatting tips:
 # If you want to limit the maximum width and/or height, write it like this:
@@ -16,105 +19,104 @@
 # 0 = unlimited
 #
 # Main menu
-menu-background|.jpg|1366x768
-welcome_text|.png
-menu-snow|.png|32x32
+menu-background|.jpg|1366x768|||This element is used as the playfield if beatmap does not have a background.
+welcome_text|.png||||This element appears upon starting the client.
+menu-snow|.png|32x32|||If not skinned, the current game mode's small icon will be used instead.
 # Button
-button-left|.png
-button-middle|.png
-button-right|.png
+button-left|.png||||Use same height as other button pieces.\Tinting varies by button state.
+button-middle|.png||||This element is stretched to fit the needed width.\Use same height as other button pieces.\Tinting varies by button state.
+button-right|.png||||Use same height as other button pieces.\Tinting varies by button state.
 # Cursor
 cursor|.png||||By default, this element will rotate and expand (on click).
 cursormiddle|.png||||This element does not rotate nor expand (on click).
 cursor-smoke|.png||||This element is used when the player presses the smoke key.
-cursortrail|.png||||This element is underneath the cursor|.png element\nIf cursormiddle|.png is present, a longer trail is used.
+cursortrail|.png||||This element is underneath the cursor.png element\If cursormiddle.png is present, a longer trail is used.
 # Mod icons
 selection-mod-autoplay|.png|64x64
-selection-mod-cinema|.png|64x64
+selection-mod-cinema|.png|64x64|||Click the Auto mod icon to see this icon.
 selection-mod-doubletime|.png|64x64
 selection-mod-easy|.png|64x64
-selection-mod-fadein|.png|64x64
+selection-mod-fadein|.png|64x64|||This element is osu!mania-specific.
 selection-mod-flashlight|.png|64x64
 selection-mod-halftime|.png|64x64
 selection-mod-hardrock|.png|64x64
-selection-mod-hidden|.png|64x64
-selection-mod-key1|.png|64x64
-selection-mod-key2|.png|64x64
-selection-mod-key3|.png|64x64
-selection-mod-key4|.png|64x64
-selection-mod-key5|.png|64x64
-selection-mod-key6|.png|64x64
-selection-mod-key7|.png|64x64
-selection-mod-key8|.png|64x64
-selection-mod-key9|.png|64x64
-selection-mod-keycoop|.png|64x64
-selection-mod-nightcore|.png|64x64
+selection-mod-hidden|.png|64x64|||For osu!mania, click the Fade In mod icon to see this icon.
+selection-mod-key1|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key2|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key3|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key4|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key5|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key6|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key7|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key8|.png|64x64|||This element is osu!mania-specific.
+selection-mod-key9|.png|64x64|||This element is osu!mania-specific.
+selection-mod-keycoop|.png|64x64|||This element is osu!mania-specific.
+selection-mod-nightcore|.png|64x64|||Click the Double Time mod icon to see this icon.
 selection-mod-nofail|.png|64x64
-selection-mod-perfect|.png|64x64
-selection-mod-random|.png|64x64
-selection-mod-relax|.png|64x64
-selection-mod-relax2|.png|64x64
-selection-mod-spunout|.png|64x64
+selection-mod-perfect|.png|64x64|||Click the Sudden Death mod icon to see this icon.
+selection-mod-random|.png|64x64|||This element is osu!mania-specific.
+selection-mod-relax|.png|64x64|||This element is osu!standard, osu!taiko, and osu!catch-specific mod.
+selection-mod-relax2|.png|64x64|||This element is osu!standard-specific mod.\This mod will move the cursor for the player while the player just needs to tap or click.
+selection-mod-spunout|.png|64x64|||This element is osu!standard-specific mod.
 selection-mod-suddendeath|.png|64x64
-selection-mod-target|.png|64x64
-selection-mod-|.png|64x64
+selection-mod-target|.png|64x64|||This mod is available in the cuttingedge stream only.\This element is an osu!standard-specific mod.
 # Offset wizards
-options-offset-tick|.png
+options-offset-tick|.png||||Tinting varies by tick state.
 # Playfield
-play-skip|.png||True
-play-unranked|.png
+play-skip|.png||True||Animation name: play-skip-{n}.png
+play-unranked|.png||||This element is shown when using mods that disable score submission.
 play-warningarrow|.png
-arrow-pause|.png
-arrow-warning|.png
-masking-border|.png|max0x768|||Used when playing with 4:3 storyboards on widescreen.
+arrow-pause|.png||||If skinned, this element overrides play-warningarrow.png.\This element is used in the pause and fail screens.
+arrow-warning|.png||||If skinned, this element overrides play-warningarrow.png.\Used for the end break warning.
+masking-border|.png|max0x768|||Used when playing with 4:3 storyboards on widescreen.\This element is stretched to fit the needed area.
 multi-skipped|.png|60x30|||This element is used in multi games, seen next to the player's score (on the sides) when the player votes to skip the intro of a beatmap.
-section-fail|.png
-section-pass|.png
+section-fail|.png||||This element is seen when the player has a low amount of HP, about less than 50%, during a long enough break.
+section-pass|.png||||This element is seen when the player has a high amount of HP, about more than 50%, during a long enough break.
 # Countdown
-count1|.png
-count2|.png
-count3|.png
-go|.png
-ready|.png
+count1|.png||||This should either say "1" or "3".
+count2|.png||||This should say "2".
+count3|.png||||This should either say "3" or "1".
+go|.png||||This should say "Go!".
+ready|.png||||This should say "Are You Ready?" or "Ready?".
 # Hit bursts
-hit0|.png||True
-hit50|.png||True
-hit100|.png||True
-hit100k|.png||True
-hit300|.png||True
-hit300g|.png||True
-hit300k0|.png||True
-inputoverlay-background|.png|193x55
-inputoverlay-key|.png|43x46
+hit0|.png||True||Animation name: hit0-{n}.png\Animation rate is fixed to 60 FPS.
+hit50|.png||True||Animation name: hit50-{n}.png\Animation rate is fixed to 60 FPS.
+hit100|.png||True||Animation name: hit100-{n}.png\Animation rate is fixed to 60 FPS.
+hit100k|.png||True||Animation name: hit100k-{n}.png\Animation rate is fixed to 60 FPS.
+hit300|.png||True||Animation name: hit300-{n}.png\Animation rate is fixed to 60 FPS.
+hit300g|.png||True||Animation name: hit300g-{n}.png\Animation rate is fixed to 60 FPS.
+hit300k|.png||True||Animation name: hit300k-{n}.png\Animation rate is fixed to 60 FPS.
+inputoverlay-background|.png|193x55|||This element is used in osu!standard and osu!catch.\This element is rotated 90 degrees clockwise and stretched by 1.05x in-game.
+inputoverlay-key|.png|43x46|||This element is used in osu!standard and osu!catch.
 # Pause screen
-pause-overlay|.png,.jpg|1366x768
-fail-background|.png,.jpg|1366x768
-pause-back|.png
-pause-continue|.png
-pause-replay|.png
-pause-retry|.png
+pause-overlay|.png,.jpg|1366x768|||When the game is paused, the playfield will be dimmed and this file will overlay on top of it.\This element will not strech to fit.
+fail-background|.png,.jpg|1366x768|||When the player has failed, the playfield will be dimmed and this file will overlay on top of it.\This element will strech to fit.
+pause-back|.png||||This element is seen in the fail and pause screens.
+pause-continue|.png||||This element is seen in the pause screen.
+pause-replay|.png||||This element appears on the ranking screen (after finishing a map or viewing a score).
+pause-retry|.png||||This element appears on the ranking screen after finishing a map and on the pause and fail screens.
 # Scorebar
-scorebar-bg|.png
-scorebar-colour|.png||True
-scorebar-ki|.png
-scorebar-kidanger|.png
-scorebar-kidanger2|.png
-scorebar-marker|.png
+scorebar-bg|.png||||This element has no size restrictions.
+scorebar-colour|.png||True||Animation name: scorebar-colour-{n}.png.\This element has no size restrictions.
+scorebar-ki|.png||||scorebar-marker.png has higher priority.\This element represents the "passing" zone.
+scorebar-kidanger|.png||||scorebar-marker.png has higher priority.\This element represents the "warning" zone
+scorebar-kidanger2|.png||||scorebar-marker.png has higher priority.\This element represents the "critical" zone.
+scorebar-marker|.png||||If skinned, this element overrides the scorebar-ki.png, scorebar-kidanger.png, and scorebar-kidanger2.png elements.
 # Score numbers
-score-0|.png
-score-1|.png
-score-2|.png
-score-3|.png
-score-4|.png
-score-5|.png
-score-6|.png
-score-7|.png
-score-8|.png
-score-9|.png
-score-comma|.png
-score-dot|.png
-score-percent|.png
-score-x|.png
+score-0|.png||||By default, this is also used for the combo numbers.
+score-1|.png||||By default, this is also used for the combo numbers.
+score-2|.png||||By default, this is also used for the combo numbers.
+score-3|.png||||By default, this is also used for the combo numbers.
+score-4|.png||||By default, this is also used for the combo numbers.
+score-5|.png||||By default, this is also used for the combo numbers.
+score-6|.png||||By default, this is also used for the combo numbers.
+score-7|.png||||By default, this is also used for the combo numbers.
+score-8|.png||||By default, this is also used for the combo numbers.
+score-9|.png||||By default, this is also used for the combo numbers.
+score-comma|.png||||By default, this is also used for the combo numbers.
+score-dot|.png||||By default, this is also used for the combo numbers.
+score-percent|.png||||This element is for the accuracy.
+score-x|.png||||This element is for the combo, only used in osu!standard.
 # Ranking grades
 ranking-XH|.png
 ranking-XH-small|.png|34x40
@@ -134,53 +136,53 @@ ranking-D|.png
 ranking-D-small|.png|34x40
 # Ranking screen
 ranking-accuracy-png
-ranking-graph|.png|1.0:min308x156;min308x148
+ranking-graph|.png|1.0:min308x156;min308x148|||The first 7 pixels at the top and at the left should be transparent.
 ranking-maxcombo|.png
 ranking-panel|.png|1.0:max0x694;max0x666
 ranking-perfect|.png
 ranking-title|.png
 ranking-replay|.png|||1.0
 ranking-retry|.png|||1.0
-ranking-winner|.png|200x214
+ranking-winner|.png|200x214|||This element is used in multi only.
 # Score entry
-scoreentry-0|.png|11x14
-scoreentry-1|.png|11x14
-scoreentry-2|.png|11x14
-scoreentry-3|.png|11x14
-scoreentry-4|.png|11x14
-scoreentry-5|.png|11x14
-scoreentry-6|.png|11x14
-scoreentry-7|.png|11x14
-scoreentry-8|.png|11x14
-scoreentry-9|.png|11x14
-scoreentry-comma|.png|5x14
-scoreentry-dot|.png|5x14
-scoreentry-percent|.png|12x14
-scoreentry-x|.png|10x14
+scoreentry-0|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-1|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-2|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-3|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-4|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-5|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-6|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-7|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-8|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-9|.png|11x14|||This element is used for the in-game leaderboards and input overlay.
+scoreentry-comma|.png|5x14|||This element is used for the in-game leaderboards.
+scoreentry-dot|.png|5x14|||This element is used for the in-game leaderboards.
+scoreentry-percent|.png|12x14|||This element is used for the in-game leaderboards.
+scoreentry-x|.png|10x14|||This element is used for the in-game leaderboards.
 # Song selection
-menu-back|.png|200x214|True
+menu-back|.png|200x214|True||Animation name: menu-back-{n}.png.
 menu-button-background|.png|min690x85
 selection-mode|.png|1.0:92x87;92x90
-selection-mode-over|.png|1.0:92x87;92x90
+selection-mode-over|.png|1.0:92x87;92x90|||Hover over selection-mode.png to see.
 selection-mods|.png|1.0:77x87;77x90
-selection-mods-over|.png|1.0:77x87;77x90
+selection-mods-over|.png|1.0:77x87;77x90|||Hover over selection-mods.png to see.
 selection-random|.png|1.0:77x87;77x90
-selection-random-over|.png|1.0:77x87;77x90
+selection-random-over|.png|1.0:77x87;77x90|||Hover over selection-random.png to see.
 selection-options|.png|1.0:77x87;77x90
-selection-options-over|.png|1.0:77x87;77x90
-selection-tab|.png|142x24
-star|.png|50x50
-star2|.png|24x24
+selection-options-over|.png|1.0:77x87;77x90|||Hover over selection-options.png to see.
+selection-tab|.png|142x24|||Depending on the client's window size, 4 to 5 tabs will be displayed.
+star|.png|50x50|||This element is used for difficulty star ratings (seen in song selection).
+star2|.png|24x24|||This element is used for song selection (the stars that fly from right to left), cursor, kiai time, combobursts.
 # Mode selection
 mode-osu|.png|256x256
 mode-taiko|.png|256x256
 mode-fruits|.png|256x256
 mode-mania|.png|256x256
-mode-osu-med|.png|128x128
-mode-taiko-med|.png|128x128
-mode-fruit-med|.png|128x128
-mode-mania-med|.png|128x128
-mode-osu-small|.png|32x32
-mode-taiko-small|.png|32x32
-mode-fruits-small|.png|32x32
-mode-mania-small|.png|32x32
+mode-osu-med|.png|128x128|||This element is used inside the game mode selection dropdown menu.
+mode-taiko-med|.png|128x128|||This element is used inside the game mode selection dropdown menu.
+mode-fruit-med|.png|128x128|||This element is used inside the game mode selection dropdown menu.
+mode-mania-med|.png|128x128|||This element is used inside the game mode selection dropdown menu.
+mode-osu-small|.png|32x32|||This element is on top of the selection-mode.png element.
+mode-taiko-small|.png|32x32|||This element is on top of the selection-mode.png element.
+mode-fruits-small|.png|32x32|||This element is on top of the selection-mode.png element.
+mode-mania-small|.png|32x32|||This element is on top of the selection-mode.png element.

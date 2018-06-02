@@ -62,7 +62,7 @@ namespace Osmo.Core.Reader
                             SetVersion(content[i]);
                             break;
                         case 5:
-                            description = content[i];
+                            description = content[i].Replace('\\', '\n');
                             break;
                     }
                 }

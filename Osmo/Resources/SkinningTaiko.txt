@@ -1,15 +1,17 @@
-﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!taiko
-# Date: 25.05.2018
+﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
+# Date: 02.06.2018
 # Entries are split like this:
 #    Name|Supported formats|Suggested SD size|Animatable|Version|Description
 #
-# Note: Only the name is required. If you want to use different values for different versions, write it like this:
+# Note: Only the name and supported formats are required. 
+#       If you want to use different values for different versions, write it like this:
 #       ranking-graph|.png|1.0:min308x156;min308x148
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
-#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini.
-#       Append + after the version numer to tell Osmo that the element is applied if the version inside skin.ini is equal or higher.
+#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
+#
+#       Description: If you want to add a linebreak, use \
 #
 # Additional formatting tips:
 # If you want to limit the maximum width and/or height, write it like this:
@@ -17,40 +19,40 @@
 # 0 = unlimited
 #
 # Pippidon
-pippidonclear|.png||True
-pippidonfail|.png||True
-pippidonidle|.png||True
-pippidonkiai|.png||True
+pippidonclear|.png||True||Animation name: pippidonclear{n}.png (without the hyphen (-)).
+pippidonfail|.png||True||Animation name: pippidonfail{n}.png (without the hyphen (-)).\This animation plays when the player misses a note or does not have enough health during a break.
+pippidonidle|.png||True||Animation name: pippidonidle{n}.png (without the hyphen (-)).\This animation plays when doing nothing (during breaks or waiting for the player to hit the next note)
+pippidonkiai|.png||True||Animation name: pippidonkiai{n}.png (without the hyphen (-)).\This animation plays during kiai time.
 # Hit Bursts
-taiko-hit0|.png||True
-taiko-hit100|.png||True
-taiko-hit100k|.png||True
-taiko-hit300|.png||True
-taiko-hit300k|.png||True
-taiko-hit300g|.png
+taiko-hit0|.png||True||Animation name: taiko-hit0-{n}.png.
+taiko-hit100|.png||True||Animation name: taiko-hit100-{n}.png.
+taiko-hit100k|.png||True||Animation name: taiko-hit100k-{n}.png.
+taiko-hit300|.png||True||Animation name: taiko-hit300-{n}.png.
+taiko-hit300k|.png||True||Animation name: taiko-hit300k-{n}.png.
+taiko-hit300g|.png||||This image is only used on the ranking screen (instead of taiko-hit300k.png).
 # Notes
-taikobigcircle|.png|118x118
-taikobigcircleoverlay|.png|118x118|True
+taikobigcircle|.png|118x118|||This element is used for finisher/big notes.\This element is also used on the hit position.
+taikobigcircleoverlay|.png|118x118|True||Animation name: taikobigcircleoverlay-{n}.png.
 taikoonhitcircle|.png|118x118
-taikoonhitcircleoverlay|.png|118x118|True
-approachcircle|.png|126x126
-taiko-glow|.png
-lightning|.png
+taikoonhitcircleoverlay|.png|118x118|True||Animation name: taikohitcircleoverlay-{n}.png.
+approachcircle|.png|126x126|||This element is used on the hit position as a border.
+taiko-glow|.png||||This element is behind the hit position during kiai time, expands when notes are hit.
+lightning|.png||||There isn't a need to skin this element for osu!taiko.\This element is only visible when using a transparent taiko bar.
 # Playfield (upper half)
-taiko-slider|.png|776x162
-taiko-slider-fail|.png|776x162
-taiko-flower-group|.png||True
+taiko-slider|.png|776x162|||This scrolls in a seamless loop, from the right side towards the left.\This element is disbaled if the beatmap has a storyboard.
+taiko-slider-fail|.png|776x162|||This appears when the player misses a note or if the health bar isn't filled up to 50% during a break.\This scrolls in a seamless loop, from the right side towards the left.\This element is disbaled if the beatmap has a storyboard.
+taiko-flower-group|.png||True||These are like combobursts.\To have multiple combobursts, use: taiko-flower-group-{n}.png.
 # Playfield (lower half)
-taiko-bar-left|.png|181x200
-taiko-drum-inner|.png|1.0,2.0:max56x0;90x200
-taiko-drum-outer|.png|1.0,2.0:max72x0;90x200
-taiko-bar-right|.png|1.0,2.0:843x200;1024x200
-taiko-bar-right-glow|.png|1.0,2.0:843x200;1024x200
+taiko-bar-left|.png|181x200|||This element is where the drum goes.
+taiko-drum-inner|.png|2.0-:max56x0;90x200
+taiko-drum-outer|.png|2.0-:max72x0;90x200
+taiko-bar-right|.png|2.0-:843x200;1024x200|||This element will get stretched to fit screen width.\This element is the normal state of the scrolling bar.
+taiko-bar-right-glow|.png|2.0-:843x200;1024x200|||This element will get stretched to fit screen width.\This element is the kiai state of the scrolling bar.\This element overlays taiko-bar-right.
 # Drumrolls
-taiko-roll-middle|.png|1x128|||The SD image width must be exactly 1px wide.
-taiko-roll-end|.png|64x128
-sliderscorepoint|.png
+taiko-roll-middle|.png|1x128|||The SD image width must be exactly 1px wide.\This element is the track of the roll where the sliderscorepoint.png are placed on.
+taiko-roll-end|.png|64x128|||This element is the end part of a roll.
+sliderscorepoint|.png|||This element is also used in osu!standard.\This are the ticks of the roll.
 # Shaker
-spinner-warning|.png
-spinner-circle|.png
-spinner-approachcircle|.png
+spinner-warning|.png||||This element is an indicator for the spinner.
+spinner-circle|.png||||This element is also used in osu!standard.\For each hit in the spinner happens, the circle rotates anti-clockwise.
+spinner-approachcircle|.png||||This element is also used in osu!standard.\This element is the duration indicator of the spinner.
