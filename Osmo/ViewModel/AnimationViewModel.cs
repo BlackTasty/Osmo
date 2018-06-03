@@ -1,13 +1,6 @@
 ﻿using Osmo.Core;
-using Osmo.Core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Osmo.ViewModel
 {

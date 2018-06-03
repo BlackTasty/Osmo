@@ -98,10 +98,16 @@ namespace Osmo.Core
         /// Adds multiple objects to the end of the <see cref="Collection{T}"/>.
         /// </summary>
         /// <param name="items">The objects to be added to the end of the <see cref="Collection{T}"/>.</param>
-        public void Add(List<T> items)
+        /// <param name="sort">If true, the collection is sorted after adding all items</param>
+        public void Add(List<T> items, bool sort = true)
         {
             foreach (T item in items)
-                Add(item);
+            {
+                if (sort)
+                    Add(item);
+                else
+                    base.Add(item);
+            }
         }
 
         public new void Add(T item)

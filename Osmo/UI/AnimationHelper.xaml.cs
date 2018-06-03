@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core;
+using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
 using System;
@@ -32,7 +33,8 @@ namespace Osmo.UI
         {
             AnimationViewModel vm = DataContext as AnimationViewModel;
             vm.Animation.Clear();
-            vm.Animation.Add(element.GetAnimatedElements());
+            
+            vm.Animation.Add(element.GetAnimatedElements(), false);
 
             SkinningEntry details = element.ElementDetails as SkinningEntry;
             vm.FrameOrder = details.FrameOrder;

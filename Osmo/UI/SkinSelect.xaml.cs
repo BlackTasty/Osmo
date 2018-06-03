@@ -42,11 +42,6 @@ namespace Osmo.UI
             FixedValues.InitializeReader();
         }
 
-        internal void Initialize(OsmoViewModel vm)
-        {
-            DataContext = vm;
-        }
-
         private void LoadSkin_Click(object sender, RoutedEventArgs e)
         {
             SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
@@ -90,6 +85,14 @@ namespace Osmo.UI
                 if (DialogHost.OpenDialogCommand.CanExecute(null, null))
                     DialogHost.OpenDialogCommand.Execute(null, null);
             }
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            //foreach (Skin skin in (DataContext as OsmoViewModel).Skins)
+            //{
+            //    uniGrid_skins.Children.Add(new SkinCard().InitializeSkin(skin));
+            //}
         }
     }
 }

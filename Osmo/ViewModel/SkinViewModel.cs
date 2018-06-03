@@ -177,10 +177,7 @@ namespace Osmo.ViewModel
             }
         }
 
-        public ImageSource Image
-        {
-            get => mImage;
-        }
+        public ImageSource Image => mImage;
 
         public PackIconKind Icon
         {

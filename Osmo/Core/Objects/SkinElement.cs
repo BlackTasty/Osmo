@@ -124,8 +124,7 @@ namespace Osmo.Core.Objects
                 {
                     pattern = @"\b" + ElementDetails.GetRegexName() + @"\d+\b\.png";
                 }
-
-                string baseName = Name.Substring(0, Name.LastIndexOf('-') + 1);
+                
                 int addedFrames = 0;
                 foreach (FileInfo fi in new DirectoryInfo(System.IO.Path.GetDirectoryName(mPath)).EnumerateFiles(ElementDetails.Name + "*"))
                 {
@@ -141,6 +140,7 @@ namespace Osmo.Core.Objects
                     }
                 }
 
+                elementPaths.Sort(new NaturalStringComparer());
                 return elementPaths;
             }
             else

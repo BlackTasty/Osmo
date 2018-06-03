@@ -6,7 +6,7 @@
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:converter="clr-namespace:Osmo.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700" Tag="My skins">
+             d:DesignHeight="300" d:DesignWidth="700" Tag="My skins" Loaded="Grid_Loaded">
 
     <Grid.Resources>
         <converter:SelectSkinSelector x:Key="SkinOptionSelector"/>
@@ -26,6 +26,9 @@
         <RowDefinition Height="12"/>
         <RowDefinition Height="42"/>
     </Grid.RowDefinitions>
+    <!--<ScrollViewer Grid.ColumnSpan="4" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <UniformGrid x:Name="uniGrid_skins" Margin="4"/>
+    </ScrollViewer>-->
     <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}" Grid.ColumnSpan="4"
               PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" PreviewMouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
         <ListView.View>
@@ -82,7 +85,6 @@
                 <GridViewColumn Header="Delete" Width="80">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <!--Only show button when item is selected-->
                             <Button Height="16" Width="16" Click="SkinDelete_Click"
                                     ToolTip="Delete skin" Padding="0" Tag="{Binding Name}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">

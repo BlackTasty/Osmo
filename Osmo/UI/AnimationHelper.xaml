@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Osmo.UI"
+             xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
              mc:Ignorable="d" 
@@ -12,6 +12,9 @@
     <Grid.DataContext>
         <vm:AnimationViewModel/>
     </Grid.DataContext>
+    <Grid.Resources>
+        <converter:PathToFileNameConverter x:Key="PathToFileName"/>
+    </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" MinWidth="200"/>
         <ColumnDefinition Width="5"/>
@@ -20,7 +23,8 @@
     <ListView VerticalAlignment="Stretch" ItemsSource="{Binding Animation}">
         <ListView.View>
             <GridView>
-                <!--<GridViewColumn Header="Element" DisplayMemberBinding="{Binding Name}"/>-->
+                <GridViewColumn Header="Element" DisplayMemberBinding="{Binding BindsDirectlyToSource=True, Converter={StaticResource PathToFileName}}">
+                </GridViewColumn>
             </GridView>
         </ListView.View>
     </ListView>
