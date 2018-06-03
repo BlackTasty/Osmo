@@ -12,6 +12,12 @@
         
         public bool MultipleElementsAllowed { get; private set; }
 
+        public int[] FrameOrder => null;
+
+        public int MaximumFrames => 0;
+
+        public bool ContainsHyphen => false;
+
         public bool IsSound => true;
 
         public string Description => description ?? "";
@@ -65,6 +71,11 @@
         public override bool Equals(object obj)
         {
             return Name.Equals((obj as SoundEntry).Name);
+        }
+
+        public string GetRegexName()
+        {
+            return Name;
         }
     }
 }

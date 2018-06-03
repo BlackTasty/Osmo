@@ -94,7 +94,6 @@ namespace Osmo.UI
                 vm.SelectedElement = new SkinElement();
 
             StopAudio();
-            vm.PlayStatus = 0;
 
             vm.ShowIcon = vm.SelectedElement.FileType == FileType.Image ? Visibility.Hidden : Visibility.Visible;
             if (vm.ShowIcon == Visibility.Visible)
@@ -407,6 +406,12 @@ namespace Osmo.UI
                     }
                 }
             }
+        }
+
+        private void Animate_Click(object sender, RoutedEventArgs e)
+        {
+            animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
+            animationHelper.Visibility = Visibility.Visible;
         }
     }
 }

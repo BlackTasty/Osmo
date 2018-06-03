@@ -20,8 +20,8 @@ namespace Osmo.ViewModel
     class SkinViewModel : ViewModelBase
     {
         private Skin mLoadedSkin = null;
-        private bool mShowImage = true;
         private bool mResetEnabled;
+        private bool mAnimationEnabled;
         private int mPlayStatus = 0;
         private ImageSource mImage;
 
@@ -31,8 +31,6 @@ namespace Osmo.ViewModel
         private Visibility mShowIcon = Visibility.Hidden;
         private Visibility mShowEditor = Visibility.Hidden;
         private PackIconKind mIcon = PackIconKind.File;
-
-        private ImageSource mTempImage;
 
         private SkinElement mSelectedElement = new SkinElement();
         private AudioEngine mAudioEngine;
@@ -123,6 +121,16 @@ namespace Osmo.ViewModel
             }
         }
 
+        public bool AnimationEnabled
+        {
+            get => mAnimationEnabled;
+            set
+            {
+                mAnimationEnabled = value;
+                InvokePropertyChanged("AnimationEnabled");
+            }
+        }
+
         public SkinElement SelectedElement
         {
             get => mSelectedElement;
@@ -142,6 +150,14 @@ namespace Osmo.ViewModel
                 PlayEnabled = value.FileType == FileType.Audio;
 
                 ResetEnabled = !string.IsNullOrWhiteSpace(value.TempPath);
+                if (value.ElementDetails != null)
+                {
+                    AnimationEnabled = value.ElementDetails.MultipleElementsAllowed && !value.ElementDetails.IsSound;
+                }
+                else
+                {
+                    AnimationEnabled = false;
+                }
 
                 InvokePropertyChanged("SelectedElement");
                 InvokePropertyChanged("PlayEnabled");
@@ -193,32 +209,6 @@ namespace Osmo.ViewModel
             {
                 mShowEditor = value;
                 InvokePropertyChanged("ShowEditor");
-            }
-        }
-
-        public bool ShowImage
-        {
-            get => mShowImage;
-            set
-            {
-                mShowImage = value;
-                mTempImage = null;
-                if (!value)
-                {
-                    string tempFilePath = Path.Combine(Path.GetTempPath(),
-                    "Osmo");
-                    Directory.CreateDirectory(tempFilePath);
-                    tempFilePath += "\\ImageElement.tmp";
-                    
-                    File.Copy(SelectedElement.Path, tempFilePath, true);
-                    mTempImage = new BitmapImage(new Uri(tempFilePath));
-                }
-                else
-                {
-
-                }
-
-                InvokePropertyChanged("Image");
             }
         }
 

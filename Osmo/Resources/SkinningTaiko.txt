@@ -1,7 +1,7 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
-# Date: 02.06.2018
+# Date: 03.06.2018
 # Entries are split like this:
-#    Name|Supported formats|Suggested SD size|Animatable|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
 #
 # Note: Only the name and supported formats are required. 
 #       If you want to use different values for different versions, write it like this:
@@ -9,7 +9,11 @@
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
-#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
+#                   Contains hyphen: This tells the reader if a hyphen (-) is used
+#                   Maximum frames: How many frames are detected by "osu!"?
+#                   Frame order: The order in which the frames are being played
+#
+#       If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
 #
 #       Description: If you want to add a linebreak, use \
 #
@@ -19,29 +23,29 @@
 # 0 = unlimited
 #
 # Pippidon
-pippidonclear|.png||True||Animation name: pippidonclear{n}.png (without the hyphen (-)).
+pippidonclear|.png||True;False;7;0,1,2,3,4,5,6,5,6,5,4,3,2,1,0||Animation name: pippidonclear{n}.png (without the hyphen (-)).
 pippidonfail|.png||True||Animation name: pippidonfail{n}.png (without the hyphen (-)).\This animation plays when the player misses a note or does not have enough health during a break.
 pippidonidle|.png||True||Animation name: pippidonidle{n}.png (without the hyphen (-)).\This animation plays when doing nothing (during breaks or waiting for the player to hit the next note)
 pippidonkiai|.png||True||Animation name: pippidonkiai{n}.png (without the hyphen (-)).\This animation plays during kiai time.
 # Hit Bursts
-taiko-hit0|.png||True||Animation name: taiko-hit0-{n}.png.
-taiko-hit100|.png||True||Animation name: taiko-hit100-{n}.png.
-taiko-hit100k|.png||True||Animation name: taiko-hit100k-{n}.png.
-taiko-hit300|.png||True||Animation name: taiko-hit300-{n}.png.
-taiko-hit300k|.png||True||Animation name: taiko-hit300k-{n}.png.
+taiko-hit0|.png||True;True||Animation name: taiko-hit0-{n}.png.
+taiko-hit100|.png||True;True||Animation name: taiko-hit100-{n}.png.
+taiko-hit100k|.png||True;True||Animation name: taiko-hit100k-{n}.png.
+taiko-hit300|.png||True;True||Animation name: taiko-hit300-{n}.png.
+taiko-hit300k|.png||True;True||Animation name: taiko-hit300k-{n}.png.
 taiko-hit300g|.png||||This image is only used on the ranking screen (instead of taiko-hit300k.png).
 # Notes
 taikobigcircle|.png|118x118|||This element is used for finisher/big notes.\This element is also used on the hit position.
-taikobigcircleoverlay|.png|118x118|True||Animation name: taikobigcircleoverlay-{n}.png.
+taikobigcircleoverlay|.png|118x118|True;True;2||Animation name: taikobigcircleoverlay-{n}.png.
 taikoonhitcircle|.png|118x118
-taikoonhitcircleoverlay|.png|118x118|True||Animation name: taikohitcircleoverlay-{n}.png.
+taikoonhitcircleoverlay|.png|118x118|True;True;2||Animation name: taikohitcircleoverlay-{n}.png.
 approachcircle|.png|126x126|||This element is used on the hit position as a border.
 taiko-glow|.png||||This element is behind the hit position during kiai time, expands when notes are hit.
 lightning|.png||||There isn't a need to skin this element for osu!taiko.\This element is only visible when using a transparent taiko bar.
 # Playfield (upper half)
 taiko-slider|.png|776x162|||This scrolls in a seamless loop, from the right side towards the left.\This element is disbaled if the beatmap has a storyboard.
 taiko-slider-fail|.png|776x162|||This appears when the player misses a note or if the health bar isn't filled up to 50% during a break.\This scrolls in a seamless loop, from the right side towards the left.\This element is disbaled if the beatmap has a storyboard.
-taiko-flower-group|.png||True||These are like combobursts.\To have multiple combobursts, use: taiko-flower-group-{n}.png.
+taiko-flower-group|.png||True;True||These are like combobursts.\To have multiple combobursts, use: taiko-flower-group-{n}.png.
 # Playfield (lower half)
 taiko-bar-left|.png|181x200|||This element is where the drum goes.
 taiko-drum-inner|.png|2.0-:max56x0;90x200

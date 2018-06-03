@@ -12,6 +12,14 @@
 
         bool MultipleElementsAllowed { get; }
 
+        int MaximumFrames { get; }
+
+        int[] FrameOrder { get; }
+
+        bool ContainsHyphen { get; }
+
         bool IsSound { get; }
+
+        string GetRegexName();
     }
 }

@@ -28,6 +28,18 @@ namespace Osmo.Core.Reader
 
         public bool MultipleElementsAllowed { get; private set; }
 
+        /// <summary>
+        /// Setting this value to 0 tells engine that infinite frames are allowed.
+        /// </summary>
+        public int MaximumFrames { get; private set; }
+
+        /// <summary>
+        /// If this isn't defined, no frame order is used.
+        /// </summary>
+        public int[] FrameOrder { get; private set; }
+
+        public bool ContainsHyphen { get; private set; }
+
         public bool IsSound => false;
 
         public string Description => description ?? "";
@@ -56,7 +68,30 @@ namespace Osmo.Core.Reader
                             }
                             break;
                         case 3:
-                            MultipleElementsAllowed = Parser.TryParse(content[i], false);
+                            string[] subContent = content[i].Split(';');
+                            for (int j = 0; j < subContent.Length; j++)
+                            {
+                                switch (j)
+                                {
+                                    case 0: //Animatable
+                                        MultipleElementsAllowed = Parser.TryParse(subContent[j], false);
+                                        break;
+                                    case 1: //Contains hyphen
+                                        ContainsHyphen = Parser.TryParse(subContent[j], false);
+                                        break;
+                                    case 2: //Maximum frames
+                                        MaximumFrames = Parser.TryParse(subContent[j], 0);
+                                        break;
+                                    case 3: //Frame order
+                                        string[] rawFrameOrder = subContent[j].Split(',');
+                                        FrameOrder = new int[rawFrameOrder.Length];
+                                        for (int frameIndex = 0; frameIndex < rawFrameOrder.Length; frameIndex++)
+                                        {
+                                            FrameOrder[frameIndex] = Parser.TryParse(rawFrameOrder[frameIndex], 0);
+                                        }
+                                        break;
+                                }
+                            }
                             break;
                         case 4:
                             SetVersion(content[i]);
@@ -92,6 +127,11 @@ namespace Osmo.Core.Reader
         public override bool Equals(object obj)
         {
             return Name.Equals((obj as SkinningEntry).Name);
+        }
+
+        public string GetRegexName()
+        {
+            return ContainsHyphen ? Name + "[-]" : Name;
         }
     }
 }

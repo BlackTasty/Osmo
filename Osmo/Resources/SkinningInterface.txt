@@ -1,7 +1,7 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
-# Date: 02.06.2018
+# Date: 03.06.2018
 # Entries are split like this:
-#    Name|Supported formats|Suggested SD size|Animatable|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
 #
 # Note: Only the name and supported formats are required. 
 #       If you want to use different values for different versions, write it like this:
@@ -9,7 +9,11 @@
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
-#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
+#                   Contains hyphen: This tells the reader if a hyphen (-) is used
+#                   Maximum frames: How many frames are detected by "osu!"?
+#                   Frame order: The order in which the frames are being played
+#
+#       If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
 #
 #       Description: If you want to add a linebreak, use \
 #
@@ -63,7 +67,7 @@ selection-mod-target|.png|64x64|||This mod is available in the cuttingedge strea
 # Offset wizards
 options-offset-tick|.png||||Tinting varies by tick state.
 # Playfield
-play-skip|.png||True||Animation name: play-skip-{n}.png
+play-skip|.png||True;True||Animation name: play-skip-{n}.png
 play-unranked|.png||||This element is shown when using mods that disable score submission.
 play-warningarrow|.png
 arrow-pause|.png||||If skinned, this element overrides play-warningarrow.png.\This element is used in the pause and fail screens.
@@ -79,13 +83,13 @@ count3|.png||||This should either say "3" or "1".
 go|.png||||This should say "Go!".
 ready|.png||||This should say "Are You Ready?" or "Ready?".
 # Hit bursts
-hit0|.png||True||Animation name: hit0-{n}.png\Animation rate is fixed to 60 FPS.
-hit50|.png||True||Animation name: hit50-{n}.png\Animation rate is fixed to 60 FPS.
-hit100|.png||True||Animation name: hit100-{n}.png\Animation rate is fixed to 60 FPS.
-hit100k|.png||True||Animation name: hit100k-{n}.png\Animation rate is fixed to 60 FPS.
-hit300|.png||True||Animation name: hit300-{n}.png\Animation rate is fixed to 60 FPS.
-hit300g|.png||True||Animation name: hit300g-{n}.png\Animation rate is fixed to 60 FPS.
-hit300k|.png||True||Animation name: hit300k-{n}.png\Animation rate is fixed to 60 FPS.
+hit0|.png||True;True||Animation name: hit0-{n}.png\Animation rate is fixed to 60 FPS.
+hit50|.png||True;True||Animation name: hit50-{n}.png\Animation rate is fixed to 60 FPS.
+hit100|.png||True;True||Animation name: hit100-{n}.png\Animation rate is fixed to 60 FPS.
+hit100k|.png||True;True||Animation name: hit100k-{n}.png\Animation rate is fixed to 60 FPS.
+hit300|.png||True;True||Animation name: hit300-{n}.png\Animation rate is fixed to 60 FPS.
+hit300g|.png||True;True||Animation name: hit300g-{n}.png\Animation rate is fixed to 60 FPS.
+hit300k|.png||True;True||Animation name: hit300k-{n}.png\Animation rate is fixed to 60 FPS.
 inputoverlay-background|.png|193x55|||This element is used in osu!standard and osu!catch.\This element is rotated 90 degrees clockwise and stretched by 1.05x in-game.
 inputoverlay-key|.png|43x46|||This element is used in osu!standard and osu!catch.
 # Pause screen
@@ -97,7 +101,7 @@ pause-replay|.png||||This element appears on the ranking screen (after finishing
 pause-retry|.png||||This element appears on the ranking screen after finishing a map and on the pause and fail screens.
 # Scorebar
 scorebar-bg|.png||||This element has no size restrictions.
-scorebar-colour|.png||True||Animation name: scorebar-colour-{n}.png.\This element has no size restrictions.
+scorebar-colour|.png||True;True||Animation name: scorebar-colour-{n}.png.\This element has no size restrictions.
 scorebar-ki|.png||||scorebar-marker.png has higher priority.\This element represents the "passing" zone.
 scorebar-kidanger|.png||||scorebar-marker.png has higher priority.\This element represents the "warning" zone
 scorebar-kidanger2|.png||||scorebar-marker.png has higher priority.\This element represents the "critical" zone.
@@ -160,7 +164,7 @@ scoreentry-dot|.png|5x14|||This element is used for the in-game leaderboards.
 scoreentry-percent|.png|12x14|||This element is used for the in-game leaderboards.
 scoreentry-x|.png|10x14|||This element is used for the in-game leaderboards.
 # Song selection
-menu-back|.png|200x214|True||Animation name: menu-back-{n}.png.
+menu-back|.png|200x214|True;True||Animation name: menu-back-{n}.png.
 menu-button-background|.png|min690x85
 selection-mode|.png|1.0:92x87;92x90
 selection-mode-over|.png|1.0:92x87;92x90|||Hover over selection-mode.png to see.

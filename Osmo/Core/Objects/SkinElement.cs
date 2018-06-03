@@ -1,7 +1,10 @@
 ﻿using Osmo.Core.Configuration;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Data;
 
@@ -56,7 +59,7 @@ namespace Osmo.Core.Objects
         public IEntry ElementDetails { get; private set; }
 
         //TODO: Implement detection of HD elements (see https://osu.ppy.sh/help/wiki/Ranking_Criteria/Skin_Set_List/ for recommended sizes)
-        public bool IsHighDefinition { get => false; }
+        public bool IsHighDefinition { get => Name.Contains("@2x"); }
 
         public bool IsEmpty { get => string.IsNullOrWhiteSpace(mPath); }
 
@@ -105,6 +108,45 @@ namespace Osmo.Core.Objects
             Path = "";
             Name = "";
             fileType = FileType.Unknown;
+        }
+
+        internal List<string> GetAnimatedElements()
+        {
+            if (ElementDetails != null)
+            {
+                List<string> elementPaths = new List<string>();
+                string pattern;
+                if (IsHighDefinition)
+                {
+                    pattern = @"\b" + ElementDetails.GetRegexName() + @"\d+\b@2x\.png";
+                }
+                else
+                {
+                    pattern = @"\b" + ElementDetails.GetRegexName() + @"\d+\b\.png";
+                }
+
+                string baseName = Name.Substring(0, Name.LastIndexOf('-') + 1);
+                int addedFrames = 0;
+                foreach (FileInfo fi in new DirectoryInfo(System.IO.Path.GetDirectoryName(mPath)).EnumerateFiles(ElementDetails.Name + "*"))
+                {
+                    if (Regex.IsMatch(fi.Name, pattern))
+                    {
+                        elementPaths.Add(fi.FullName);
+                        addedFrames++;
+
+                        if (ElementDetails.MaximumFrames > 0 && addedFrames == ElementDetails.MaximumFrames)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                return elementPaths;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         internal void Save()

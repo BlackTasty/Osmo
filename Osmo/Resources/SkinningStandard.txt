@@ -1,7 +1,7 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
-# Date: 02.06.2018
+# Date: 03.06.2018
 # Entries are split like this:
-#    Name|Supported formats|Suggested SD size|Animatable|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
 #
 # Note: Only the name and supported formats are required. 
 #       If you want to use different values for different versions, write it like this:
@@ -9,7 +9,11 @@
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
-#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
+#                   Contains hyphen: This tells the reader if a hyphen (-) is used
+#                   Maximum frames: How many frames are detected by "osu!"?
+#                   Frame order: The order in which the frames are being played
+#
+#       If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
 #
 #       Description: If you want to add a linebreak, use \
 #
@@ -19,7 +23,7 @@
 # 0 = unlimited
 #
 # Comboburst
-comboburst|.png||True||To have multiple combobursts, use: comboburst-{n}.png.
+comboburst|.png||True;True||To have multiple combobursts, use: comboburst-{n}.png.
 # Default numbers
 default-0|.png||||This element is downscaled by 0.8x
 default-1|.png||||This element is downscaled by 0.8x
@@ -34,17 +38,17 @@ default-9|.png||||This element is downscaled by 0.8x
 # Hit circles
 approachcircle|.png|126x126|||Should be a circle.
 hitcircle|.png|118x118|||Also used for sliderstartcircle and/or sliderendcircle if not skinned.\Should be a circle.
-hitcircleoverlay|.png|118x118|True||Animation name: hitcircleoverlay-{n}.png\Also used for sliderstartcircleoverlay and/or sliderendcircleoverlay if not skinned.\Should be a circle.
+hitcircleoverlay|.png|118x118|True;True||Animation name: hitcircleoverlay-{n}.png\Also used for sliderstartcircleoverlay and/or sliderendcircleoverlay if not skinned.\Should be a circle.
 hitcircleselect|.png|118x118|||This element is only used in the beatmap editor.\Should be a circle.
-followpoint|.png||True||Animation name: followpoint-{n}.png\If an arrow-like figure is used, it should point towards the right.
+followpoint|.png||True;True||Animation name: followpoint-{n}.png\If an arrow-like figure is used, it should point towards the right.
 lightning|.png|100x100
 # Slider
 sliderstartcircle|.png|118x118|||Overrides hitcircle.png for the start of the slider, if skinned.\Should be a circle.
-sliderstartcircleoverlay|.png|118x118|True||Animation name: sliderstartcircleoverlay-{n}.png\Should be a circle.
+sliderstartcircleoverlay|.png|118x118|True;True||Animation name: sliderstartcircleoverlay-{n}.png\Should be a circle.
 sliderendcircle|.png|118x118|||Overrides hitcircle.png for the end of the slider, if skinned.\Should be a circle.
-sliderendcircleoverlay|.png|118x118|True||Animation name: sliderendcircleoverlay-{n}.png\Should be a circle.
+sliderendcircleoverlay|.png|118x118|True;True||Animation name: sliderendcircleoverlay-{n}.png\Should be a circle.
 reversearrow|.png|118x118|||If an arrow-like figure is used, it should point towards the right.
-sliderfollowcircle|.png|256x256;max308x308|True||Animation name: sliderfollowcircle-{n}.png
+sliderfollowcircle|.png|256x256;max308x308|True;True||Animation name: sliderfollowcircle-{n}.png
 sliderb|.png|118x118|True||Animation name: sliderb{n}.png (no hyphen (-))
 sliderb-nd|.png|118x118|||Ignored if sliderb.png is skinned.
 sliderb-spec|.png|118x118|||Ignored if sliderb.png is skinned.

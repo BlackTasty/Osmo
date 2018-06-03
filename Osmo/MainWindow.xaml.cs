@@ -73,6 +73,7 @@ namespace Osmo
         {
             //TODO: Implement dialog asking the user if he really wants to close the application without saving
             configuration.Save();
+            (SkinEditor.Instance.animationHelper.DataContext as AnimationViewModel).StopAnimation();
         }
 
         private void SaveSkin_Click(object sender, RoutedEventArgs e)

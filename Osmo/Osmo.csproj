@@ -130,6 +130,9 @@
     <Compile Include="UI\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\AnimationHelper.xaml.cs">
+      <DependentUpon>AnimationHelper.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\FilePicker.xaml.cs">
       <DependentUpon>FilePicker.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,7 @@
     <Compile Include="UI\SkinSelect.xaml.cs">
       <DependentUpon>SkinSelect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AnimationViewModel.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="ViewModel\NewSkinViewModel.cs" />
     <Compile Include="ViewModel\OsmoViewModel.cs" />
@@ -170,6 +174,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\AnimationHelper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

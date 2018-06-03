@@ -1,7 +1,7 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
-# Date: 02.06.2018
+# Date: 03.06.2018
 # Entries are split like this:
-#    Name|Supported formats|Suggested SD size|Animatable|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
 #
 # Note: Only the name and supported formats are required. 
 #       If you want to use different values for different versions, write it like this:
@@ -9,7 +9,11 @@
 #       You can specify multiple version for one value like "1.0,2.0:308x148".
 #
 #       Animatable: Accepts only true or false. Every other value results in false
-#		If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
+#                   Contains hyphen: This tells the reader if a hyphen (-) is used
+#                   Maximum frames: How many frames are detected by "osu!"?
+#                   Frame order: The order in which the frames are being played
+#
+#       If you provide a version, than this element is only created/shown when the version matches the version inside skin.ini
 #
 #       Description: If you want to add a linebreak, use \
 #
@@ -19,12 +23,12 @@
 # 0 = unlimited
 #
 # Catcher
-fruit-catcher-idle|.png|min302x0|True|2.3+|Animation name: fruit-catcher-idle-{n}.png\This element is the catcher state when doing nothing or catching objects\This should face towards the right.\The first 16 pixels at the top should be transparent.
-fruit-catcher-fail|.png||True|2.3+|Animation name: fruit-catcher-fail-{n}.png\This element is the "missed" catcher state.\This overrides fruit-catcher-kiai.png if a fruit or drop/droplet is missed during kiai time.\This should face towards the right.
-fruit-catcher-kiai|.png||True|2.3+|Animation name: fruit-catcher-kiai-{n}.png\This element is the catcher state during kiai time.\fruit-catcher-fail.png will override this if a fruit or drop/droplet is missed during kiai time.\This should face towards the right.
-fruit-ryuuta-idle|.png||True|2.2-|Beatmap Skinnable if the player skin is using v2.2-.\Animation name: fruit-ryuuta-{n}.png\This should face towards the right.
+fruit-catcher-idle|.png|min302x0|True;True|2.3+|Animation name: fruit-catcher-idle-{n}.png\This element is the catcher state when doing nothing or catching objects\This should face towards the right.\The first 16 pixels at the top should be transparent.
+fruit-catcher-fail|.png||True;True|2.3+|Animation name: fruit-catcher-fail-{n}.png\This element is the "missed" catcher state.\This overrides fruit-catcher-kiai.png if a fruit or drop/droplet is missed during kiai time.\This should face towards the right.
+fruit-catcher-kiai|.png||True;True|2.3+|Animation name: fruit-catcher-kiai-{n}.png\This element is the catcher state during kiai time.\fruit-catcher-fail.png will override this if a fruit or drop/droplet is missed during kiai time.\This should face towards the right.
+fruit-ryuuta-idle|.png||True;True|2.2-|Beatmap Skinnable if the player skin is using v2.2-.\Animation name: fruit-ryuuta-{n}.png\This should face towards the right.
 # Comboburst
-comboburst-fruits|.png|max0x768|True|2.3+|To have multiple combobursts, use: comboburst-fruits-{n}.png.\On v2.2-, comboburst.png will be used instead.\This should face towards the right.
+comboburst-fruits|.png|max0x768|True;True|2.3+|To have multiple combobursts, use: comboburst-fruits-{n}.png.\On v2.2-, comboburst.png will be used instead.\This should face towards the right.
 # Fruits
 lightning|.png|100x100|||This pulsates on the catch line for where fruit's landing location during kiai time.\This element is also used in osu!standard and osu!taiko.
 fruit-pear|.png|128x128|||This element is shown first.\This element is used for the hyperdash outline.

@@ -24,8 +24,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <BitmapImage x:Key="EmptyImage" UriSource="pack://application:,,,/Osmo;component/Resources/empty.png" options:Freeze="True"/>
-
             <!-- MahApps Brushes -->
             <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
             <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}"/>

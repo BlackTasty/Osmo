@@ -44,7 +44,7 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="" Width="32">
+                <GridViewColumn Header="HD" Width="32">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <material:PackIcon Visibility="{Binding IsHighDefinition, Converter={StaticResource BooleanToVisibility}, UpdateSourceTrigger=PropertyChanged}"
@@ -110,7 +110,7 @@
             </ListView>
         </Expander>
     </material:Card>
-    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
+    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
     <Grid Grid.Column="2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125*"/>
@@ -247,6 +247,12 @@
                     Height="24" />
             </material:PopupBox.ToggleCheckedContent>
             <StackPanel>
+                <Button ToolTip="Animate" Click="Animate_Click" Margin="4" IsEnabled="{Binding AnimationEnabled}">
+                    <material:PackIcon
+                    Kind="Animation"
+                    Width="24"
+                    Height="24" />
+                </Button>
                 <Button ToolTip="Replace" Click="Replace_Click">
                     <material:PackIcon
                     Kind="FindReplace"
@@ -274,4 +280,5 @@
             </StackPanel>
         </material:PopupBox>
     </Grid>
+    <local:AnimationHelper Grid.ColumnSpan="3" x:Name="animationHelper" Visibility="Collapsed"/>
 </Grid>
