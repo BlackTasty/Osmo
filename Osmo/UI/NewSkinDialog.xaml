@@ -35,7 +35,7 @@
             </Binding>
         </TextBox.Text>
     </TextBox>
-    <CheckBox Content="Add empty files" DockPanel.Dock="Top" Margin="0,20" IsChecked="{Binding AddDummyFiles}"/>
+    <CheckBox Content="Add placeholder files" DockPanel.Dock="Top" Margin="0,20" IsChecked="{Binding AddDummyFiles}"/>
 
     <Button x:Name="btn_create" IsEnabled="False" Width="90" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="CREATE" DockPanel.Dock="Right"
                                         Command="material:DialogHost.CloseDialogCommand" Click="Create_Click"/>

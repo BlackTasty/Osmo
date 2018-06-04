@@ -65,5 +65,10 @@ namespace Osmo.UI
         {
             (DataContext as AnimationViewModel).NextFrame();
         }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            (DataContext as AnimationViewModel).StopAnimation();
+        }
     }
 }

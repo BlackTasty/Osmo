@@ -40,6 +40,7 @@ namespace Osmo.ViewModel
                 Image = Helper.LoadImage(CurrentElementPath);
                 Image.Freeze();
                 InvokePropertyChanged("Image");
+                InvokePropertyChanged("CurrentFrame");
             }
         }
 

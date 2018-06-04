@@ -81,7 +81,7 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <CheckBox Content="Add empty files" Grid.Row="1" IsChecked="{Binding AddDummyFiles}"/>
+                    <CheckBox Content="Add placeholder files" Grid.Row="1" IsChecked="{Binding AddDummyFiles}"/>
                 </Grid>
             </Expander>
             <Border

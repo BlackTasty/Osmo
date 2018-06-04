@@ -20,10 +20,10 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*" MinWidth="200"/>
     </Grid.ColumnDefinitions>
-    <ListView VerticalAlignment="Stretch" ItemsSource="{Binding Animation}">
+    <ListView VerticalAlignment="Stretch" ItemsSource="{Binding Animation}" SelectedIndex="{Binding CurrentFrame, Mode=OneWayToSource}" SelectionChanged="ListView_SelectionChanged">
         <ListView.View>
             <GridView>
-                <GridViewColumn Header="Element" DisplayMemberBinding="{Binding BindsDirectlyToSource=True, Converter={StaticResource PathToFileName}}">
+                <GridViewColumn Width="Auto" Header="Element" DisplayMemberBinding="{Binding BindsDirectlyToSource=True, Converter={StaticResource PathToFileName}}">
                 </GridViewColumn>
             </GridView>
         </ListView.View>
@@ -42,9 +42,9 @@
                     <ComboBox Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                         material:HintAssist.Hint="FPS"
                         MinWidth="50"
-                        Margin="16 0 0 0"
+                        Margin="16,0"
                         VerticalAlignment="Center"
-                        IsEditable="True"
+                        IsEditable="True" IsTextSearchEnabled="False"
                         ItemsSource="{Binding FrameRateSelector}">
                         <ComboBox.Text>
                             <Binding
@@ -59,11 +59,11 @@
                             </ItemsPanelTemplate>
                         </ComboBox.ItemsPanel>
                     </ComboBox>
-                    <TextBlock Margin="16,0" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Center">
-                        <Run Text="Current frame:"/><Run Text="{Binding CurrentFrame}"/>
+                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Center">
+                        <Run Text="Current frame:"/> <Run Text="{Binding CurrentFrame}"/>
                     </TextBlock>
                     <Button Padding="0" Width="32" DockPanel.Dock="Right" IsEnabled="{Binding PlayEnabled}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-                            ToolTip="Start animation" Click="Close_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="Close animation helper" Click="Close_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
                         <material:PackIcon
                             Kind="Close"
                             Height="32"
@@ -75,11 +75,12 @@
             <DockPanel Grid.Row="2" VerticalAlignment="Stretch">
                 <Button Padding="0" DockPanel.Dock="Left"
                             HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
-                            ToolTip="Start animation" Click="StartStopAnimation_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
+                            Click="StartStopAnimation_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                             <Setter Property="Background" Value="{x:Null}"/>
                             <Setter Property="BorderBrush" Value="{x:Null}"/>
+                            <Setter Property="ToolTip" Value="Start animation"/>
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <material:PackIcon
@@ -91,6 +92,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsAnimationPlaying}" Value="True">
                                     <DataTrigger.Setters>
+                                        <Setter Property="ToolTip" Value="Pause animation"/>
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <material:PackIcon
