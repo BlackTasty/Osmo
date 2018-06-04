@@ -35,20 +35,35 @@ namespace Osmo.UI
             vm.Animation.Clear();
             
             vm.Animation.Add(element.GetAnimatedElements(), false);
+            vm.CurrentFrame = 0;
 
             SkinningEntry details = element.ElementDetails as SkinningEntry;
             vm.FrameOrder = details.FrameOrder;
         }
 
-        private void StartAnimation_Click(object sender, RoutedEventArgs e)
+        private void StartStopAnimation_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as AnimationViewModel).StartAnimation();
+            AnimationViewModel vm = DataContext as AnimationViewModel;
+            if (!vm.IsAnimationPlaying)
+                vm.StartAnimation();
+            else
+                vm.StopAnimation();
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Collapsed;
             (DataContext as AnimationViewModel).StopAnimation();
+        }
+
+        private void PreviousFrame_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as AnimationViewModel).PreviousFrame();
+        }
+
+        private void NextFrame_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as AnimationViewModel).NextFrame();
         }
     }
 }
