@@ -154,6 +154,9 @@
     <Compile Include="UI\SkinEditor.xaml.cs">
       <DependentUpon>SkinEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SkinMixer.xaml.cs">
+      <DependentUpon>SkinMixer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SkinSelect.xaml.cs">
       <DependentUpon>SkinSelect.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\SkinMixer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\SkinSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -246,6 +253,7 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\DefaulSkinIni.txt" />
     <None Include="Resources\emptySound.wav" />
     <None Include="Resources\emptyImage.png" />
   </ItemGroup>

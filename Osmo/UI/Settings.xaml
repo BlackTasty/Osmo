@@ -6,7 +6,7 @@
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Tag="Settings">
+             d:DesignHeight="450" d:DesignWidth="800" Tag="Settings" Loaded="Settings_Loaded">
     <Grid.ColumnDefinitions>
         <ColumnDefinition/>
         <ColumnDefinition Width="150"/>
@@ -52,7 +52,7 @@
                             ToolTip="Start searching your osu! directory" Width="130" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click" Tag="osu">_SELECT</Button>
                 <material:PackIcon Grid.Row="2" Kind="FolderAccount" Foreground="{Binding ElementName=txt_backupPath, Path=BorderBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" />
                 <TextBox Grid.Row="2" x:Name="txt_backupPath" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    material:HintAssist.Hint="{Binding Configuration.DefaultBackupDirectory, ElementName=container}" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Configuration.BackupDirectory, ElementName=container}"/>
+                    material:HintAssist.Hint="{Binding Configuration.DefaultBackupDirectory, ElementName=container}" Grid.Column="1" Grid.ColumnSpan="2"/>
 
                 <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"  Tag="backup"
                             ToolTip="Start searching your osu! directory" Width="130" Grid.Row="2" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click">_SELECT</Button>
@@ -85,18 +85,18 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Text="Create a backup before merging skins" VerticalAlignment="Center"/>
                 <ToggleButton x:Name="cb_backupSkin" Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                              ToolTip="" Grid.Column="3" IsChecked="{Binding Configuration.BackupBeforeMixing, ElementName=container}"/>
+                              ToolTip="" Grid.Column="3"/>
                 <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="Play sound when hovering over an audio file" VerticalAlignment="Center"/>
                 <ToggleButton x:Name="cb_playSoundOnHover" Grid.Row="2" Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                              ToolTip="" Grid.Column="3" IsChecked="{Binding Configuration.PlaySoundWhenHovering, ElementName=container}" />
+                              ToolTip="" Grid.Column="3"/>
                 <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Text="Open the last skin you have edited at startup" VerticalAlignment="Center" Margin="0,7.02"/>
                 <ToggleButton x:Name="cb_reopenLastSkin" Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                              ToolTip="" Grid.Row="6" Grid.Column="3" IsChecked="{Binding Configuration.ReopenLastSkin, ElementName=container}" />
+                              ToolTip="" Grid.Row="6" Grid.Column="3"/>
             </Grid>
         </material:Card>
     </StackPanel>
 
-    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" 
+    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"  Click="Abort_Click"
                             ToolTip="Revert all changes in your settings" Width="130" Grid.Column="1" Grid.Row="2" Margin="10,5">_ABORT</Button>
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" 
                             ToolTip="Save your settings" Width="130" Grid.Column="2" Grid.Row="2" Margin="10,5" Click="Save_Click">_SAVE</Button>

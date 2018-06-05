@@ -1,0 +1,41 @@
+[General]
+Name: [NAME]
+Author: [AUTHOR]
+Version: [VERSION]
+
+//Please remember to remove "//" from some of options if you want them.
+//For explanation of every part, see this thread http://osu.ppy.sh/forum/t/51694
+
+SliderBallFlip: 0
+CursorRotate: 1
+//CursorTrailRotate: 0
+CursorExpand: 1
+CursorCentre: 1
+SliderBallFrames: 10
+//SpinnerFadePlayfield: 1
+ComboBurstRandom : 0
+HitCircleOverlayAboveNumer: 1
+//AnimationFramerate: 10
+//CustomComboBurstSounds: 30,60,100,150,200,250,300
+//SliderStyle: 1
+
+[Colours]
+Combo1: 255,150,0
+Combo2: 5,240,5
+Combo3: 5,5,240
+Combo4: 240,5,5
+Combo5: 240,5,5
+
+SliderBorder: 255,255,255
+//SliderTrackOverride: 0,0,0
+//SpinnerApproachCircle: 77,139,217
+//SongSelectActiveText: 0,0,0
+//SongSelectInactiveText: 255,255,255
+//StarBreakAdditive: 0,0,0
+
+[Fonts]
+HitCirclePrefix: default
+HitCircleOverlap: 3
+
+ScorePrefix: score
+ScoreOverlap: 3

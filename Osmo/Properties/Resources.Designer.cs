@@ -61,6 +61,34 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [General]
+        ///Name: [NAME]
+        ///Author: [AUTHOR]
+        ///Version: [VERSION]
+        ///
+        /////Please remember to remove &quot;//&quot; from some of options if you want them.
+        /////For explanation of every part, see this thread http://osu.ppy.sh/forum/t/51694
+        ///
+        ///SliderBallFlip: 0
+        ///CursorRotate: 1
+        /////CursorTrailRotate: 0
+        ///CursorExpand: 1
+        ///CursorCentre: 1
+        ///SliderBallFrames: 10
+        /////SpinnerFadePlayfield: 1
+        ///ComboBurstRandom : 0
+        ///HitCircleOverlayAboveNumer: 1
+        /////AnimationFramerate: 10
+        /////CustomComboBurstSounds: 30,60,100,150,200,250,300
+        /////SliderStyle:  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DefaulSkinIni {
+            get {
+                return ResourceManager.GetString("DefaulSkinIni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap emptyImage {
@@ -90,16 +118,15 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!catch
-        ///# Date: 25.05.2018
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
+        ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
         ///#
-        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
-        ///#       ranking-graph.png|1.0:min308x156;min308x148
-        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
-        ///#
-        ///#       Animatable: Accepts only  [rest of string was truncated]&quot;;.
+        ///# Note: Only the name and supported formats are required. 
+        ///#       If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph|.png|1.0:min308x156;min308x148
+        ///#       You can speci [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningCatch {
             get {
@@ -109,15 +136,14 @@ namespace Osmo.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
-        ///# Date: 25.05.2018
+        ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///# Name|Suggested SD size|Animatable|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
         ///#
-        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
-        ///#       ranking-graph.png|1.0:min308x156;min308x148
-        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
-        ///#
-        ///#       Animatable: Accepts only tru [rest of string was truncated]&quot;;.
+        ///# Note: Only the name and supported formats are required. 
+        ///#       If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph|.png|1.0:min308x156;min308x148
+        ///#       You can speci [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningInterface {
             get {
@@ -126,16 +152,15 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!mania
-        ///# Date: 25.05.2018
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
+        ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
         ///#
-        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
-        ///#       ranking-graph.png|1.0:min308x156;min308x148
-        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
-        ///#
-        ///#       Animatable: Accepts only  [rest of string was truncated]&quot;;.
+        ///# Note: Only the name and supported formats are required. 
+        ///#       If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph|.png|1.0:min308x156;min308x148
+        ///#       You can speci [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningMania {
             get {
@@ -145,16 +170,15 @@ namespace Osmo.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Sounds
-        ///# Date: 25.05.2018
+        ///# Date: 02.06.2018
         ///# Entries are split like this:
-        ///#    Name|Description|Multiple sounds
+        ///#    Name|Supported extensions|Multiple sounds|Description
         ///#
         ///# You don&apos;t have to write the extension into the name! (Only a dot at the end)
-        ///# Note: Only the name is required. 
+        ///# Note: Only the name and supported extensions are required. 
         ///#       Multiple sounds: Accepts only true or false. Every other value results in false.
         ///#
-        ///# Main Menu
-        ///heartbeat.|This plays when the cursor is hovering over the osu!cookie in the main menu [rest of string was truncated]&quot;;.
+        ///#       Description: If you want to add a linebreak, [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningSounds {
             get {
@@ -163,16 +187,15 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!
-        ///# Date: 25.05.2018
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
+        ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
         ///#
-        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
-        ///#       ranking-graph.png|1.0:min308x156;min308x148
-        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
-        ///#
-        ///#       Animatable: Accepts only true  [rest of string was truncated]&quot;;.
+        ///# Note: Only the name and supported formats are required. 
+        ///#       If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph|.png|1.0:min308x156;min308x148
+        ///#       You can speci [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningStandard {
             get {
@@ -181,16 +204,15 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/osu!taiko
-        ///# Date: 25.05.2018
+        ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
+        ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Suggested SD size|Animatable|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
         ///#
-        ///# Note: Only the name is required. If you want to use different values for different versions, write it like this:
-        ///#       ranking-graph.png|1.0:min308x156;min308x148
-        ///#       You can specify multiple version for one value like &quot;1.0,2.0:308x148&quot;.
-        ///#
-        ///#       Animatable: Accepts only  [rest of string was truncated]&quot;;.
+        ///# Note: Only the name and supported formats are required. 
+        ///#       If you want to use different values for different versions, write it like this:
+        ///#       ranking-graph|.png|1.0:min308x156;min308x148
+        ///#       You can speci [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningTaiko {
             get {

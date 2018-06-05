@@ -82,5 +82,26 @@ namespace Osmo.UI
                 }
             }
         }
+
+        private void Settings_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+            AppConfiguration config = AppConfiguration.GetInstance();
+
+            cb_backupSkin.IsChecked = config.BackupBeforeMixing;
+            txt_backupPath.Text = config.BackupDirectory;
+            txt_osuPath.Text = config.OsuDirectory;
+            cb_playSoundOnHover.IsChecked = config.PlaySoundWhenHovering;
+            cb_reopenLastSkin.IsChecked = config.ReopenLastSkin;
+        }
+
+        private void Abort_Click(object sender, RoutedEventArgs e)
+        {
+            LoadSettings();
+        }
     }
 }

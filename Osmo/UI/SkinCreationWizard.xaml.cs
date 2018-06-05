@@ -117,6 +117,12 @@ namespace Osmo.UI
                 }
             }).Start();
 
+            string skinIniRaw = Properties.Resources.DefaulSkinIni;
+            skinIniRaw = skinIniRaw.Replace("[NAME]", vm.Name)
+                .Replace("[AUTHOR]", vm.Author)
+                .Replace("[VERSION]", combo_version.Text);
+
+            File.WriteAllText(Path.Combine(skinDirectory, "skin.ini"), skinIniRaw);
             vm.IsCreating = false;
             Skin skin = new Skin(skinDirectory);
             vm.Master.Skins.Add(skin);
