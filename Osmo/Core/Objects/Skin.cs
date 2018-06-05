@@ -122,7 +122,19 @@ namespace Osmo.Core.Objects
             foreach (FileInfo fi in new DirectoryInfo(mPath).EnumerateFiles())
             {
                 mElements.Add(new SkinElement(fi, Name));
+                if (fi.Name.Equals("skin.ini", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    GetAuthor(fi.FullName);
+                }
             }
+        }
+
+        private void GetAuthor(string skinIniPath)
+        {
+            string[] content = File.ReadAllLines(skinIniPath);
+            string authorLine = content.FirstOrDefault(x => x.StartsWith("Author:",
+                    StringComparison.InvariantCultureIgnoreCase));
+            Author = authorLine?.Trim().Substring(authorLine.IndexOf(':') + 1);
         }
 
         #region Watcher Events

@@ -24,7 +24,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*" MinWidth="200"/>
     </Grid.ColumnDefinitions>
-    <ListView DockPanel.Dock="Top" VerticalAlignment="Stretch" x:Name="lv_elements" ItemsSource="{Binding LoadedSkin.Elements}" SelectionChanged="Elements_SelectionChanged">
+    <ListView x:Name="lv_elements" ItemsSource="{Binding LoadedSkin.Elements}" SelectionChanged="Elements_SelectionChanged">
         <ListView.View>
             <GridView>
                 <GridViewColumn Width="200" Header="Name">
@@ -149,7 +149,7 @@
                            Loaded="TextEditor_Loaded"/>
 
         <!--{Binding PlayStatus}-->
-        <material:Transitioner x:Name="transitioner" SnapsToDevicePixels="True" SelectedIndex="{Binding PlayStatus}" AutoApplyTransitionOrigins="True" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" ClipToBounds="False">
+        <material:Transitioner x:Name="transitioner" SnapsToDevicePixels="True" SelectedIndex="1" AutoApplyTransitionOrigins="True" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" ClipToBounds="False">
             <material:TransitionerSlide>
                 <material:TransitionerSlide.ForwardWipe>
                     <material:CircleWipe />

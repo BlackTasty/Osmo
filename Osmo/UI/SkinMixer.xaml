@@ -4,30 +4,128 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Osmo.UI"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:Osmo.Converters"
+             xmlns:vm="clr-namespace:Osmo.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <Grid.DataContext>
+        <vm:SkinMixerViewModel/>
+    </Grid.DataContext>
+    <Grid.Resources>
+        <converter:FileTypeIconConverter x:Key="FileTypeToIcon"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Grid.Resources>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition MinWidth="200"/>
-        <ColumnDefinition Width="5"/>
-        <ColumnDefinition Width="100"/>
-        <ColumnDefinition Width="5"/>
-        <ColumnDefinition MinWidth="200"/>
+        <ColumnDefinition Width="350*"/>
+        <ColumnDefinition Width="70"/>
+        <ColumnDefinition Width="350*"/>
     </Grid.ColumnDefinitions>
-    <ListView>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="24"/>
+        <RowDefinition Height="300*"/>
+        <RowDefinition Height="200*"/>
+        <RowDefinition Height="44"/>
+    </Grid.RowDefinitions>
+    <ListView x:Name="lv_elementsLeft" Grid.Row="1" ItemsSource="{Binding SkinLeft.Elements}" SelectionChanged="LeftSkin_SelectionChanged">
         <ListView.View>
             <GridView>
-                
+                <GridViewColumn Width="200" Header="Name">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontStyle="{Binding FontStyle, UpdateSourceTrigger=PropertyChanged}" FontWeight="{Binding FontWeight, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Header="" Width="32">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <material:PackIcon
+                                Kind="{Binding FileType, Converter={StaticResource FileTypeToIcon}, Mode=OneWay, FallbackValue=File}"
+                                Height="24"
+                                Width="24" />
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Header="HD" Width="32">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <material:PackIcon Visibility="{Binding IsHighDefinition, Converter={StaticResource BooleanToVisibility}, UpdateSourceTrigger=PropertyChanged}"
+                                Kind="HighDefinition"
+                                Height="24"
+                                Width="24" />
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Header="Revert" Width="80">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="24" Width="24" Style="{StaticResource MaterialDesignFlatButton}"
+                                    Visibility="{Binding HasChanges, Converter={StaticResource BooleanToVisibility}}"
+                                        ToolTip="Revert changes" Padding="0" Click="ChangeList_Revert_Click" Tag="{Binding Name}">
+                                <material:PackIcon
+                                            Kind="UndoVariant"
+                                            Height="16"
+                                            Width="16" />
+                            </Button>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
             </GridView>
         </ListView.View>
     </ListView>
-    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
-    <Canvas Background="Black" Grid.Column="2"/>
-    <GridSplitter Grid.Column="3" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
-    <ListView Grid.Column="4">
+    <ListView x:Name="lv_elementsRight" Grid.Row="1" Grid.Column="2" ItemsSource="{Binding SkinRight.Elements}" SelectionChanged="RightSkin_SelectionChanged">
         <ListView.View>
             <GridView>
-
+                <GridViewColumn Width="200" Header="Name">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontStyle="{Binding FontStyle, UpdateSourceTrigger=PropertyChanged}" FontWeight="{Binding FontWeight, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Header="" Width="32">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <material:PackIcon
+                                Kind="{Binding FileType, Converter={StaticResource FileTypeToIcon}, Mode=OneWay, FallbackValue=File}"
+                                Height="24"
+                                Width="24" />
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Header="HD" Width="32">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <material:PackIcon Visibility="{Binding IsHighDefinition, Converter={StaticResource BooleanToVisibility}, UpdateSourceTrigger=PropertyChanged}"
+                                Kind="HighDefinition"
+                                Height="24"
+                                Width="24" />
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
             </GridView>
         </ListView.View>
     </ListView>
+    <material:ColorZone Mode="Dark" Grid.Row="2" VerticalAlignment="Stretch">
+        <Grid>
+            <Image Source="{Binding ImageLeft}"/>
+        </Grid>
+    </material:ColorZone>
+    <material:ColorZone Mode="Dark" Grid.Column="2" Grid.Row="2" VerticalAlignment="Stretch">
+        <Grid>
+            <Image Source="{Binding ImageRight}"/>
+        </Grid>
+    </material:ColorZone>
+    <material:Card Grid.ColumnSpan="3" VerticalAlignment="Stretch">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350*"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="350*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding SkinLeft.Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Text="{Binding SkinRight.Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </material:Card>
 </Grid>

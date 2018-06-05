@@ -36,7 +36,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="44"/>
             </Grid.RowDefinitions>
-            <material:Card VerticalAlignment="Stretch">
+            <material:Card VerticalAlignment="Stretch" Margin="8,0">
                 <DockPanel LastChildFill="False" Margin="8,0">
                     <TextBlock Text="FPS" DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>
                     <ComboBox Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
@@ -72,8 +72,16 @@
                 </DockPanel>
             </material:Card>
             <Image Grid.Row="1" Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
-            <DockPanel Grid.Row="2" VerticalAlignment="Stretch">
-                <Button Padding="0" DockPanel.Dock="Left"
+            <DockPanel Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                <Button Padding="0" DockPanel.Dock="Left" Margin="8,0"
+                            HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
+                            ToolTip="Previous frame" Click="PreviousFrame_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <material:PackIcon
+                            Kind="StepBackward"
+                            Height="32"
+                            Width="32" />
+                </Button>
+                <Button Padding="0" DockPanel.Dock="Left" Margin="8,0"
                             HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
                             Click="StartStopAnimation_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
                     <Button.Style>
@@ -108,14 +116,6 @@
                     </Button.Style>
                 </Button>
                 <Button Padding="0" DockPanel.Dock="Left" Margin="8,0"
-                            HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
-                            ToolTip="Previous frame" Click="PreviousFrame_Click" Background="{x:Null}" BorderBrush="{x:Null}">
-                    <material:PackIcon
-                            Kind="StepBackward"
-                            Height="32"
-                            Width="32" />
-                </Button>
-                <Button Padding="0" DockPanel.Dock="Left"
                             HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
                             ToolTip="Next frame" Click="NextFrame_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                     <material:PackIcon
