@@ -23,6 +23,7 @@ namespace Osmo.Core
         }
 
         internal const int EDITOR_INDEX = 2;
+        internal const int MIXER_INDEX = 3;
         internal const int CONFIG_INDEX = 4;
         
         internal static SkinElementReader readerInterface;

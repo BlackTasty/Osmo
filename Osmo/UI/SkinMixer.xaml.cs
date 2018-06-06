@@ -1,4 +1,6 @@
-﻿using Osmo.Core;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
+using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -43,21 +45,27 @@ namespace Osmo.UI
             audio = new AudioEngine((AudioViewModel)DataContext);
         }
 
-        //TODO: Remove method "Test" when done testing
-        public void Test(Skin left, Skin right)
+        internal void LoadSkin(Skin skin)
         {
-            (DataContext as SkinMixerViewModel).SkinLeft = left;
-            (DataContext as SkinMixerViewModel).SkinRight = right;
+            (DataContext as SkinMixerViewModel).SkinLeft = skin;
         }
 
         private void LeftSkin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SkinMixerViewModel vm = (SkinMixerViewModel)DataContext;
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
 
             if (lv_elementsLeft.SelectedIndex != -1)
                 vm.SelectedElementLeft = (SkinElement)lv_elementsLeft.SelectedItem;
             else
                 vm.SelectedElementLeft = new SkinElement();
+
+            StopAudio(true);
+
+            vm.ShowIconLeft = vm.SelectedElementLeft.FileType == FileType.Image ? Visibility.Hidden : Visibility.Visible;
+            if (vm.ShowIconLeft == Visibility.Visible)
+            {
+                vm.IconLeft = GetIconKind(vm.SelectedElementLeft);
+            }
         }
 
         private void RightSkin_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -68,6 +76,14 @@ namespace Osmo.UI
                 vm.SelectedElementRight = (SkinElement)lv_elementsRight.SelectedItem;
             else
                 vm.SelectedElementRight = new SkinElement();
+
+            StopAudio(false);
+
+            vm.ShowIconRight = vm.SelectedElementRight.FileType == FileType.Image ? Visibility.Hidden : Visibility.Visible;
+            if (vm.ShowIconRight == Visibility.Visible)
+            {
+                vm.IconRight = GetIconKind(vm.SelectedElementRight);
+            }
         }
 
         private void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
@@ -96,14 +112,88 @@ namespace Osmo.UI
             }
         }
 
+        private void StopAudio(bool stopLeft)
+        {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+
+            if (stopLeft)
+            {
+                if (vm.AudioPlayingLeft)
+                {
+                    vm.AudioPlayingLeft = false;
+                    audio.StopAudio();
+                }
+            }
+            else
+            {
+                if (vm.AudioPlayingRight)
+                {
+                    vm.AudioPlayingRight = false;
+                    audio.StopAudio();
+                }
+            }
+        }
+
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
-
+            AppConfiguration.GetInstance().IsMuted = cb_mute.IsChecked == true;
+            if (cb_mute.IsChecked == true)
+                audio.SetVolume(0);
+            else
+                audio.SetVolume(slider_volume.Value);
         }
 
         private void Volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (audio != null)
+            {
+                cb_mute.IsChecked = false;
+                AppConfiguration.GetInstance().Volume = slider_volume.Value;
+                audio.SetVolume(slider_volume.Value);
+            }
+        }
 
+        private PackIconKind GetIconKind(SkinElement element)
+        {
+            switch (element.FileType)
+            {
+                case FileType.Audio:
+                    return PackIconKind.FileMusic;
+                case FileType.Configuration:
+                    return PackIconKind.FileXml;
+                case FileType.Image:
+                    return PackIconKind.Image;
+                default:
+                    return PackIconKind.File;
+            }
+        }
+
+        private void PlaybackToggleLeft_Click(object sender, RoutedEventArgs e)
+        {
+            if ((DataContext as SkinMixerViewModel).AudioPlayingLeft)
+            {
+                StopAudio(true);
+            }
+            else
+            {
+                StopAudio(false);
+                audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementLeft.Path);
+                (DataContext as SkinMixerViewModel).AudioPlayingLeft = true;
+            }
+        }
+
+        private void PlaybackToggleRight_Click(object sender, RoutedEventArgs e)
+        {
+            if ((DataContext as SkinMixerViewModel).AudioPlayingRight)
+            {
+                StopAudio(false);
+            }
+            else
+            {
+                StopAudio(true);
+                audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementRight.Path);
+                (DataContext as SkinMixerViewModel).AudioPlayingRight = true;
+            }
         }
     }
 }

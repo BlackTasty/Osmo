@@ -109,82 +109,84 @@
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="True" />
             <Expander Header="3. Summary">
-                <StackPanel Margin="8">
-                    <BulletDecorator>
-                        <BulletDecorator.Bullet>
-                            <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Margin="8,0,0,0">
+                <ScrollViewer>
+                    <StackPanel Margin="8">
+                        <BulletDecorator>
+                            <BulletDecorator.Bullet>
+                                <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="8,0,0,0">
                             <Run Text="Skin name:"/> <Run Text="{Binding ElementName=txt_name, Path=Text}"/>
-                        </TextBlock>
-                    </BulletDecorator>
-                    <BulletDecorator>
-                        <BulletDecorator.Bullet>
-                            <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Margin="8,0,0,0">
+                            </TextBlock>
+                        </BulletDecorator>
+                        <BulletDecorator>
+                            <BulletDecorator.Bullet>
+                                <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="8,0,0,0">
                             <Run Text="Creator:"/> <Run Text="{Binding ElementName=txt_author, Path=Text}"/>
-                        </TextBlock>
-                    </BulletDecorator>
-                    <BulletDecorator>
-                        <BulletDecorator.Bullet>
-                            <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Margin="8,0,0,0">
+                            </TextBlock>
+                        </BulletDecorator>
+                        <BulletDecorator>
+                            <BulletDecorator.Bullet>
+                                <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="8,0,0,0">
                             <Run Text="Selected version:"/> <Run Text="{Binding SelectedValue, ElementName=combo_version}"/>
-                        </TextBlock>
-                    </BulletDecorator>
-                    <BulletDecorator>
-                        <BulletDecorator.Bullet>
-                            <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Margin="8,0,0,0">
+                            </TextBlock>
+                        </BulletDecorator>
+                        <BulletDecorator>
+                            <BulletDecorator.Bullet>
+                                <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="8,0,0,0">
                             <Run Text="Empty files will be added:"/> <Run Text="{Binding AddDummyFiles}"/>
-                        </TextBlock>
-                    </BulletDecorator>
-                    <BulletDecorator>
-                        <BulletDecorator.Bullet>
-                            <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="Selected components:" Margin="8,0,0,0"/>
-                    </BulletDecorator>
-                    <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentInterface, Converter={StaticResource BoolToVisibility}}">
-                        <BulletDecorator.Bullet>
-                            <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="Interface" Margin="10,0,0,0"/>
-                    </BulletDecorator>
-                    <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentSounds, Converter={StaticResource BoolToVisibility}}">
-                        <BulletDecorator.Bullet>
-                            <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="Sounds" Margin="10,0,0,0"/>
-                    </BulletDecorator>
-                    <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentOsu, Converter={StaticResource BoolToVisibility}}">
-                        <BulletDecorator.Bullet>
-                            <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="osu! (gamemode)" Margin="10,0,0,0"/>
-                    </BulletDecorator>
-                    <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentCTB, Converter={StaticResource BoolToVisibility}}">
-                        <BulletDecorator.Bullet>
-                            <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="CTB" Margin="10,0,0,0"/>
-                    </BulletDecorator>
-                    <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentTaiko, Converter={StaticResource BoolToVisibility}}">
-                        <BulletDecorator.Bullet>
-                            <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="Taiko" Margin="10,0,0,0"/>
-                    </BulletDecorator>
-                    <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentMania, Converter={StaticResource BoolToVisibility}}">
-                        <BulletDecorator.Bullet>
-                            <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="Mania" Margin="10,0,0,0"/>
-                    </BulletDecorator>
-                </StackPanel>
+                            </TextBlock>
+                        </BulletDecorator>
+                        <BulletDecorator>
+                            <BulletDecorator.Bullet>
+                                <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Text="Selected components:" Margin="8,0,0,0"/>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentInterface, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Text="Interface" Margin="10,0,0,0"/>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentSounds, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Text="Sounds" Margin="10,0,0,0"/>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentOsu, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Text="osu! (gamemode)" Margin="10,0,0,0"/>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentCTB, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Text="CTB" Margin="10,0,0,0"/>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentTaiko, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Text="Taiko" Margin="10,0,0,0"/>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentMania, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Text="Mania" Margin="10,0,0,0"/>
+                        </BulletDecorator>
+                    </StackPanel>
+                </ScrollViewer>
             </Expander>
         </StackPanel>
     </material:Card>

@@ -1,10 +1,12 @@
-﻿using Osmo.Core;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Osmo.ViewModel
@@ -17,6 +19,13 @@ namespace Osmo.ViewModel
         private SkinElement mSelectedElementRight;
         private ImageSource mImageLeft;
         private ImageSource mImageRight;
+        private PackIconKind mIconLeft = PackIconKind.File;
+        private PackIconKind mIconRight = PackIconKind.File;
+        private Visibility mShowIconLeft = Visibility.Hidden;
+        private Visibility mShowIconRight = Visibility.Hidden;
+
+        private bool mAudioPlayingLeft;
+        private bool mAudioPlayingRight;
 
         public Skin SkinLeft
         {
@@ -64,7 +73,41 @@ namespace Osmo.ViewModel
 
         public ImageSource ImageLeft => mImageLeft;
 
+        public PackIconKind IconLeft
+        {
+            get => mIconLeft;
+            set
+            {
+                mIconLeft = value;
+                InvokePropertyChanged("IconLeft");
+            }
+        }
+
+        public Visibility ShowIconLeft
+        {
+            get => mShowIconLeft;
+            set
+            {
+                mShowIconLeft = value;
+                InvokePropertyChanged("ShowIconLeft");
+            }
+        }
+
         public bool PlayEnabledLeft { get; private set; }
+
+        public bool AudioPlayingLeft
+        {
+            get => mAudioPlayingLeft;
+            set
+            {
+                mAudioPlayingLeft = value;
+                if (value)
+                {
+                    AudioPlayingRight = false;
+                }
+                InvokePropertyChanged("AudioPlayingLeft");
+            }
+        }
         #endregion
 
         #region Selected element right side
@@ -93,7 +136,41 @@ namespace Osmo.ViewModel
 
         public ImageSource ImageRight => mImageRight;
 
+        public PackIconKind IconRight
+        {
+            get => mIconRight;
+            set
+            {
+                mIconRight = value;
+                InvokePropertyChanged("IconRight");
+            }
+        }
+
+        public Visibility ShowIconRight
+        {
+            get => mShowIconRight;
+            set
+            {
+                mShowIconRight = value;
+                InvokePropertyChanged("ShowIconRight");
+            }
+        }
+
         public bool PlayEnabledRight { get; private set; }
+
+        public bool AudioPlayingRight
+        {
+            get => mAudioPlayingRight;
+            set
+            {
+                mAudioPlayingRight = value;
+                if (value)
+                {
+                    AudioPlayingLeft = false;
+                }
+                InvokePropertyChanged("AudioPlayingRight");
+            }
+        }
         #endregion
 
         private ImageSource RefreshImage(SkinElement target)

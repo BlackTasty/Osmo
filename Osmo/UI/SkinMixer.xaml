@@ -111,11 +111,59 @@
     <material:ColorZone Mode="Dark" Grid.Row="2" VerticalAlignment="Stretch">
         <Grid>
             <Image Source="{Binding ImageLeft}"/>
+            <material:PackIcon Kind="{Binding IconLeft}" Visibility="{Binding ShowIconLeft, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
+            <Button Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="PlaybackToggleLeft_Click"
+                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledLeft}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Background" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="{x:Null}"/>
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <material:PackIcon Kind="Play" Height="32" Width="32" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AudioPlayingLeft}" Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <material:PackIcon Kind="Stop" Height="32" Width="32" />
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </material:ColorZone>
     <material:ColorZone Mode="Dark" Grid.Column="2" Grid.Row="2" VerticalAlignment="Stretch">
         <Grid>
             <Image Source="{Binding ImageRight}"/>
+            <material:PackIcon Kind="{Binding IconRight}" Visibility="{Binding ShowIconRight, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
+            <Button Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="PlaybackToggleRight_Click"
+                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledRight}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Background" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="{x:Null}"/>
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <material:PackIcon Kind="Play" Height="32" Width="32" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AudioPlayingRight}" Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <material:PackIcon Kind="Stop" Height="32" Width="32" />
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </material:ColorZone>
     <material:Card Grid.ColumnSpan="3" VerticalAlignment="Stretch">
@@ -130,7 +178,7 @@
         </Grid>
     </material:Card>
     <material:Card Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch">
-        <Grid>
+        <Grid Margin="8,0">
             <StackPanel Orientation="Horizontal" Grid.Column="5" VerticalAlignment="Center">
                 <ToggleButton x:Name="cb_mute" Click="Mute_Click"
                                 Style="{StaticResource MaterialDesignActionToggleButton}"
@@ -150,11 +198,9 @@
             </StackPanel>
         </Grid>
     </material:Card>
-    <material:PopupBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="0,16,16,16" VerticalAlignment="Bottom"
+    <Button Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="0,16,16,16" VerticalAlignment="Bottom"
                        HorizontalAlignment="Right"
-            Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}" >
-        <material:PopupBox.Content>
-            <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
-        </material:PopupBox.Content>
-    </material:PopupBox>
+            Style="{StaticResource MaterialDesignFloatingActionAccentButton}" >
+        <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
+    </Button>
 </Grid>

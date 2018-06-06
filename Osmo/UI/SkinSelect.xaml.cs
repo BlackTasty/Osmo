@@ -50,7 +50,8 @@ namespace Osmo.UI
 
         private void MixSkins_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
         }
 
         private void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)

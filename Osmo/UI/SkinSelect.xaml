@@ -7,7 +7,6 @@
              xmlns:converter="clr-namespace:Osmo.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700" Tag="My skins" Loaded="Grid_Loaded">
-
     <Grid.Resources>
         <converter:SelectSkinSelector x:Key="SkinOptionSelector"/>
         
@@ -128,6 +127,6 @@
 
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{x:Static material:DialogHost.OpenDialogCommand}"
                             ToolTip="Create a blank skin" Width="160" Grid.Column="2" Grid.Row="2" Margin="5">_NEW SKIN</Button>
-    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="MixSkins_Click"
+    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="MixSkins_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
                             ToolTip="Combine two or more skins together" Width="120" Grid.Column="3" Grid.Row="2" Margin="5">_MIX SKINS</Button>
 </Grid>

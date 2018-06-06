@@ -26,8 +26,6 @@ namespace Osmo
             InitializeComponent();
             configuration.SettingsSaved += Configuration_SettingsSaved;
             FixedValues.InitializeReader();
-            OsmoViewModel vm = DataContext as OsmoViewModel;
-            SkinMixer.Instance.Test(vm.Skins[2], vm.Skins[1]);
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)
