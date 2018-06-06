@@ -66,7 +66,7 @@ namespace Osmo.UI
         private SkinEditor()
         {
             InitializeComponent();
-            audio = new AudioEngine((SkinViewModel)DataContext);
+            audio = new AudioEngine((AudioViewModel)DataContext);
             skinIniCompletion.AddRange(FixedValues.skinIniGeneralCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniColoursCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniFontsCompletionData);

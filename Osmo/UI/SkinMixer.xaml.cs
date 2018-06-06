@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core;
+using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Osmo.UI
     public partial class SkinMixer : Grid
     {
         private static SkinMixer instance;
+        AudioEngine audio;
 
         public static SkinMixer Instance
         {
@@ -38,6 +40,7 @@ namespace Osmo.UI
         private SkinMixer()
         {
             InitializeComponent();
+            audio = new AudioEngine((AudioViewModel)DataContext);
         }
 
         //TODO: Remove method "Test" when done testing
@@ -91,6 +94,16 @@ namespace Osmo.UI
                     }
                 }
             }
+        }
+
+        private void Mute_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
         }
     }
 }

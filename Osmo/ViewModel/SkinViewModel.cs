@@ -17,16 +17,13 @@ using System.Windows.Media.Imaging;
 
 namespace Osmo.ViewModel
 {
-    class SkinViewModel : ViewModelBase
+    class SkinViewModel : AudioViewModel
     {
         private Skin mLoadedSkin = null;
         private bool mResetEnabled;
         private bool mAnimationEnabled;
         private int mPlayStatus = 0;
         private ImageSource mImage;
-
-        private double mAudioPosition = 0;
-        private double mAudioLength = 0;
 
         private Visibility mShowIcon = Visibility.Hidden;
         private Visibility mShowEditor = Visibility.Hidden;
@@ -88,26 +85,6 @@ namespace Osmo.ViewModel
             {
                 mAudioEngine = value;
                 InvokePropertyChanged("AudioEngine");
-            }
-        }
-
-        public double AudioLength
-        {
-            get => mAudioLength;
-            set
-            {
-                mAudioLength = value;
-                InvokePropertyChanged("AudioLength");
-            }
-        }
-
-        public double AudioPosition
-        {
-            get => mAudioPosition;
-            set
-            {
-                mAudioPosition = value;
-                InvokePropertyChanged("AudioPosition");
             }
         }
 

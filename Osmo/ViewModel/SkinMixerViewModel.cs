@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace Osmo.ViewModel
 {
-    class SkinMixerViewModel : ViewModelBase
+    class SkinMixerViewModel : AudioViewModel
     {
         private Skin mSkinLeft;
         private Skin mSkinRight;

@@ -16,11 +16,11 @@ namespace Osmo.Core
         private BASSTimer _timer;
         private bool paused;
 
-        private SkinViewModel vm;
+        private AudioViewModel vm;
 
         public bool EnableSliderChange { get; set; }
 
-        public AudioEngine(SkinViewModel vm)
+        public AudioEngine(AudioViewModel vm)
         {
             this.vm = vm;
             Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);

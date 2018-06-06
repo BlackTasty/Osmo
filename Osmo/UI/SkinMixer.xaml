@@ -15,6 +15,7 @@
     <Grid.Resources>
         <converter:FileTypeIconConverter x:Key="FileTypeToIcon"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+        <converter:VolumeToIconConverter x:Key="VolumeToIcon"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="350*"/>
@@ -128,4 +129,32 @@
             <TextBlock Grid.Column="2" Text="{Binding SkinRight.Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </material:Card>
+    <material:Card Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch">
+        <Grid>
+            <StackPanel Orientation="Horizontal" Grid.Column="5" VerticalAlignment="Center">
+                <ToggleButton x:Name="cb_mute" Click="Mute_Click"
+                                Style="{StaticResource MaterialDesignActionToggleButton}"
+                                ToolTip="MaterialDesignActionLightToggleButton">
+                    <ToggleButton.Content>
+                        <material:PackIcon
+                                        Kind="{Binding Value, ElementName=slider_volume, Converter={StaticResource VolumeToIcon}, FallbackValue=VolumeMedium}" />
+                    </ToggleButton.Content>
+                    <material:ToggleButtonAssist.OnContent>
+                        <material:PackIcon
+                                        Kind="VolumeMute" />
+                    </material:ToggleButtonAssist.OnContent>
+                </ToggleButton>
+                <Slider x:Name="slider_volume" VerticalAlignment="Center" Margin="8,0"
+                                    Minimum="0" Maximum="1" ToolTip="Volume slider" ValueChanged="Volume_ValueChanged"
+                                    Value=".8" Width="140" SmallChange="0.01" LargeChange="0.1" TickFrequency="0.01"/>
+            </StackPanel>
+        </Grid>
+    </material:Card>
+    <material:PopupBox Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="0,16,16,16" VerticalAlignment="Bottom"
+                       HorizontalAlignment="Right"
+            Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}" >
+        <material:PopupBox.Content>
+            <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
+        </material:PopupBox.Content>
+    </material:PopupBox>
 </Grid>
