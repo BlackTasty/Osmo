@@ -9,7 +9,18 @@ namespace Osmo.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return int.Parse(value.ToString()) == int.Parse(parameter.ToString()) ? Visibility.Visible : Visibility.Collapsed;
+            string parameterParsed = parameter?.ToString() ?? "";
+            if (!string.IsNullOrEmpty(parameterParsed))
+            {
+                string[] parameterValues = parameterParsed.Split(';');
+                for (int i = 0; i < parameterValues.Length; i++)
+                {
+                    if (int.Parse(value?.ToString() ?? "-1") == int.Parse(parameterValues[i]))
+                        return Visibility.Visible;
+                }
+            }
+
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

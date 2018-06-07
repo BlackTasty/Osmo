@@ -68,6 +68,7 @@ namespace Osmo.ViewModel
                 InvokePropertyChanged("ImageLeft");
                 InvokePropertyChanged("PlayEnabledLeft");
                 InvokePropertyChanged("SelectedElementLeft");
+                InvokePropertyChanged("FileTypeMatch");
             }
         }
 
@@ -131,6 +132,7 @@ namespace Osmo.ViewModel
                 InvokePropertyChanged("ImageRight");
                 InvokePropertyChanged("PlayEnabledRight");
                 InvokePropertyChanged("SelectedElementRight");
+                InvokePropertyChanged("FileTypeMatch");
             }
         }
 
@@ -171,6 +173,17 @@ namespace Osmo.ViewModel
                 InvokePropertyChanged("AudioPlayingRight");
             }
         }
+
+        public bool FileTypeMatch
+        {
+            get
+            {
+                FileType typeLeft = SelectedElementLeft?.FileType ?? FileType.Configuration;
+                FileType typeRight = SelectedElementRight?.FileType ?? FileType.Unknown;
+
+                return typeLeft == typeRight;
+            }
+        }
         #endregion
 
         private ImageSource RefreshImage(SkinElement target)
@@ -188,6 +201,7 @@ namespace Osmo.ViewModel
         internal void RefreshImage()
         {
             mImageLeft = RefreshImage(SelectedElementLeft);
+            InvokePropertyChanged("ImageLeft");
         }
     }
 }

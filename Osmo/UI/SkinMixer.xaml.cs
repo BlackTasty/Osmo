@@ -57,6 +57,11 @@ namespace Osmo.UI
             }
         }
 
+        internal void SaveSkin()
+        {
+            ((SkinMixerViewModel)DataContext).SkinLeft.Save();
+        }
+
         private void LeftSkin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
@@ -104,6 +109,7 @@ namespace Osmo.UI
 
             if (result == MessageBoxResult.Yes)
             {
+                StopAudio(true);
                 SkinMixerViewModel vm = (SkinMixerViewModel)DataContext;
                 SkinElement element = vm.SkinLeft.Elements.FirstOrDefault(x => x.Name.Equals(
                     (sender as Button).Tag)) ?? null;
@@ -218,12 +224,32 @@ namespace Osmo.UI
 
         private void MoveElement_Click(object sender, RoutedEventArgs e)
         {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
 
+            vm.SelectedElementLeft.ReplaceBackup(new System.IO.FileInfo(vm.SelectedElementRight.Path));
+            StopAudio(true);
+            vm.RefreshImage();
         }
 
         private void RevertSelected_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
+            var result = MessageBox.Show("Do you really want to revert all changes made to this element?",
+                "Revert changes?",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation,
+                MessageBoxResult.No);
 
+            if (result == MessageBoxResult.Yes)
+            {
+                StopAudio(true);
+                SkinMixerViewModel vm = (SkinMixerViewModel)DataContext;
+                vm.SelectedElementLeft.Reset();
+                /*string path = AppConfiguration.GetInstance().BackupDirectory + "\\" + 
+                    vm.LoadedSkin.Name + "\\";
+                File.Copy(path + vm.SelectedElement.Name, vm.SelectedElement.Path, true);*/
+                vm.RefreshImage();
+            }
         }
     }
 }

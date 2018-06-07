@@ -150,11 +150,11 @@ namespace Osmo.UI
                 //File.Copy(openFileDialog.FileName, vm.SelectedElement.Path, true);
                 vm.SelectedElement.ReplaceBackup(new FileInfo(openFileDialog.FileName));
                 StopAudio();
-                ((SkinViewModel)DataContext).RefreshImage();
+                vm.RefreshImage();
 
                 //Save the last visited directory
                 lastPath = Path.GetDirectoryName(openFileDialog.FileName);
-                ((SkinViewModel)DataContext).ResetEnabled = true;
+                vm.ResetEnabled = true;
             }
         }
 
@@ -173,7 +173,7 @@ namespace Osmo.UI
             }
         }
 
-        private void Reset_Click(object sender, RoutedEventArgs e)
+        private void Revert_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
             var result = MessageBox.Show("Do you really want to revert all changes made to this element?",

@@ -78,7 +78,14 @@ namespace Osmo
 
         private void SaveSkin_Click(object sender, RoutedEventArgs e)
         {
-            SkinEditor.Instance.SaveSkin();
+            if (sidebarMenu.SelectedIndex == 2)
+            {
+                SkinEditor.Instance.SaveSkin();
+            }
+            else if (sidebarMenu.SelectedIndex == 3)
+            {
+                SkinMixer.Instance.SaveSkin();
+            }
         }
     }
 }

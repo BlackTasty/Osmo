@@ -265,7 +265,7 @@
                     Width="24"
                     Height="24" />
                 </Button>
-                <Button ToolTip="Reset" Click="Reset_Click" IsEnabled="{Binding ResetEnabled}">
+                <Button ToolTip="Revert" Click="Revert_Click" IsEnabled="{Binding ResetEnabled}">
                     <material:PackIcon
                     Kind="UndoVariant"
                     Width="24"

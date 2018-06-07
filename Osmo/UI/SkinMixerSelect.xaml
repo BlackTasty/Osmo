@@ -35,7 +35,7 @@
         <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Abort_Click"
                             ToolTip="Load the selected skin" Width="120" Margin="5">_ABORT</Button>
         
-        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="SelectSkin_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
+        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="SelectSkin_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
                             ToolTip="Load the selected skin" Width="120" Margin="5">_SELECT SKIN</Button>
 
     </StackPanel>
