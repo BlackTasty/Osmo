@@ -74,7 +74,7 @@ namespace Osmo.ViewModel
             set
             {
                 if (SkinManager == null)
-                    SkinManager = new SkinManager(value);
+                    SkinManager = SkinManager.MakeInstance(value);
                 else
                     SkinManager.Directory = value;
                 InvokePropertyChanged("OsuDirectory");
@@ -117,7 +117,7 @@ namespace Osmo.ViewModel
             string osuDir = AppConfiguration.GetInstance().OsuDirectory;
 
             if (!string.IsNullOrWhiteSpace(osuDir))
-                SkinManager = new SkinManager(osuDir);
+                SkinManager = SkinManager.MakeInstance(osuDir);
 
             mSidebarItems = new SidebarEntry[]
             {

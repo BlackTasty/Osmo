@@ -45,9 +45,16 @@ namespace Osmo.UI
             audio = new AudioEngine((AudioViewModel)DataContext);
         }
 
-        internal void LoadSkin(Skin skin)
+        internal void LoadSkin(Skin skin, bool isLeft)
         {
-            (DataContext as SkinMixerViewModel).SkinLeft = skin;
+            if (isLeft)
+            {
+                (DataContext as SkinMixerViewModel).SkinLeft = skin;
+            }
+            else
+            {
+                (DataContext as SkinMixerViewModel).SkinRight = skin;
+            }
         }
 
         private void LeftSkin_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -162,7 +169,7 @@ namespace Osmo.UI
                 case FileType.Configuration:
                     return PackIconKind.FileXml;
                 case FileType.Image:
-                    return PackIconKind.Image;
+                    return PackIconKind.FileImage;
                 default:
                     return PackIconKind.File;
             }
@@ -178,6 +185,10 @@ namespace Osmo.UI
             {
                 StopAudio(false);
                 audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementLeft.Path);
+                if (cb_mute.IsChecked == true)
+                    audio.SetVolume(0);
+                else
+                    audio.SetVolume(slider_volume.Value);
                 (DataContext as SkinMixerViewModel).AudioPlayingLeft = true;
             }
         }
@@ -192,8 +203,27 @@ namespace Osmo.UI
             {
                 StopAudio(true);
                 audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementRight.Path);
+                if (cb_mute.IsChecked == true)
+                    audio.SetVolume(0);
+                else
+                    audio.SetVolume(slider_volume.Value);
                 (DataContext as SkinMixerViewModel).AudioPlayingRight = true;
             }
+        }
+
+        private void LoadRightSkin_Click(object sender, RoutedEventArgs e)
+        {
+            skinSelect.Visibility = Visibility.Visible;
+        }
+
+        private void MoveElement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RevertSelected_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

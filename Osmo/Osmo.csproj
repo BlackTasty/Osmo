@@ -157,6 +157,9 @@
     <Compile Include="UI\SkinMixer.xaml.cs">
       <DependentUpon>SkinMixer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SkinMixerSelect.xaml.cs">
+      <DependentUpon>SkinMixerSelect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SkinSelect.xaml.cs">
       <DependentUpon>SkinSelect.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,7 @@
     <Compile Include="ViewModel\OsmoViewModel.cs" />
     <Compile Include="ViewModel\SkinCardViewModel.cs" />
     <Compile Include="ViewModel\SkinMixerViewModel.cs" />
+    <Compile Include="ViewModel\SkinSelectViewModel.cs" />
     <Compile Include="ViewModel\SkinViewModel.cs" />
     <Compile Include="ViewModel\SkinWizardViewModel.cs" />
     <Compile Include="ViewModel\Validation\NotEmptyValidationRule.cs" />
@@ -217,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\SkinMixer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SkinMixerSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -16,6 +16,7 @@
         <converter:FileTypeIconConverter x:Key="FileTypeToIcon"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
         <converter:VolumeToIconConverter x:Key="VolumeToIcon"/>
+        <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="350*"/>
@@ -166,6 +167,48 @@
             </Button>
         </Grid>
     </material:ColorZone>
+    <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">
+        <Button Padding="0" Margin="0,8" Click="MoveElement_Click"
+                    Height="48" Width="48" Foreground="{DynamicResource MaterialDesignToolTipBackground}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="BorderBrush" Value="{x:Null}"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_elementsLeft}" Value="True"/>
+                                <Condition Binding="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_elementsRight}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <material:PackIcon Kind="ArrowLeft" Width="48" Height="48"/>
+        </Button>
+        <Button Padding="0" Margin="0,8" Click="RevertSelected_Click"
+                    Height="48" Width="48" Foreground="{DynamicResource MaterialDesignToolTipBackground}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                    <Setter Property="BorderBrush" Value="{x:Null}"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_elementsLeft}" Value="True"/>
+                                <Condition Binding="{Binding SelectedElementLeft.HasChanges}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <material:PackIcon Kind="UndoVariant" Width="48" Height="48"/>
+        </Button>
+    </StackPanel>
     <material:Card Grid.ColumnSpan="3" VerticalAlignment="Stretch">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -199,8 +242,9 @@
         </Grid>
     </material:Card>
     <Button Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="0,16,16,16" VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right"
+                       HorizontalAlignment="Right" Click="LoadRightSkin_Click"
             Style="{StaticResource MaterialDesignFloatingActionAccentButton}" >
         <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
     </Button>
+    <local:SkinMixerSelect x:Name="skinSelect" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Hidden"/>
 </Grid>

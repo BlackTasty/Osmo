@@ -11,16 +11,33 @@ namespace Osmo.Core
 {
     public class SkinManager
     {
+        #region Singleton implementation
+        private static SkinManager instance;
+
+        public static SkinManager GetInstance()
+        {
+            if (instance == null)
+                throw new NullReferenceException("You have to call MakeInstance(string) first!");
+
+            return instance;
+        }
+
+        public static SkinManager MakeInstance(string directory)
+        {
+            if (instance == null)
+                instance = new SkinManager(directory);
+
+            return instance;
+        }
+        #endregion
+
         private FileSystemWatcher mSkinWatcher;
         private string mDirectory;
 
         public event EventHandler<SkinChangedEventArgs> SkinChanged;
         public event EventHandler<SkinRenamedEventArgs> SkinRenamed;
-
-        private VeryObservableCollection<Skin> mSkins = 
-            new VeryObservableCollection<Skin>("Skins", new Skin());
-
-        public VeryObservableCollection<Skin> Skins { get => mSkins; }
+        
+        public VeryObservableCollection<Skin> Skins { get; private set; } = new VeryObservableCollection<Skin>("Skins", new Skin());
 
         internal string Directory
         {
@@ -84,7 +101,7 @@ namespace Osmo.Core
             SkinRenamed?.Invoke(this, new SkinRenamedEventArgs(pathBefore, pathAfter));
         }
 
-        public SkinManager(string directory)
+        private SkinManager(string directory)
         {
             if (!System.IO.Directory.Exists(directory))
                 System.IO.Directory.CreateDirectory(directory);
@@ -94,11 +111,11 @@ namespace Osmo.Core
 
         public void DeleteSkin(string name)
         {
-            Skin target = mSkins.FirstOrDefault(x => !x.IsEmpty && x.Name.Equals(name));
+            Skin target = Skins.FirstOrDefault(x => !x.IsEmpty && x.Name.Equals(name));
 
             if (target != null)
             {
-                mSkins.Remove(target);
+                Skins.Remove(target);
                 target.Delete();
             }
         }
@@ -109,7 +126,7 @@ namespace Osmo.Core
             {
                 foreach (DirectoryInfo di in new DirectoryInfo(Directory + "\\Skins").EnumerateDirectories())
                 {
-                    mSkins.Add(new Skin(di.FullName));
+                    Skins.Add(new Skin(di.FullName));
                 }
             }
         }

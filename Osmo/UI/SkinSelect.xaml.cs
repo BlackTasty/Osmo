@@ -50,7 +50,7 @@ namespace Osmo.UI
 
         private void MixSkins_Click(object sender, RoutedEventArgs e)
         {
-            SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
+            SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true);
             (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
         }
 
