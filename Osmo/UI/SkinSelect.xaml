@@ -117,6 +117,21 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
+                <GridViewColumn Header="Export" Width="80">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="16" Width="16" Click="Export_Click" Style="{StaticResource MaterialDesignFlatButton}"
+                                    ToolTip="Export skin" Padding="0" Tag="{Binding Name}"
+                                    Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
+                                <material:PackIcon
+                                                    Kind="Export"
+                                                    Height="16"
+                                                    Width="16" 
+                                                />
+                            </Button>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
             </GridView>
         </ListView.View>
     </ListView>

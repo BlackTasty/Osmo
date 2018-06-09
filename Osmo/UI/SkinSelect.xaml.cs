@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
@@ -75,6 +76,22 @@ namespace Osmo.UI
             if (result == MessageBoxResult.Yes)
             {
                 (DataContext as OsmoViewModel).SkinManager.DeleteSkin((sender as Button).Tag.ToString());
+            }
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Replace OpenFolderDialog with custom FilePicker control (and remove Winforms dependency)
+            using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
+            {
+                Description = "Select the directory you want to export your skin to"
+            })
+            {
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    (DataContext as OsmoViewModel).SkinManager.ExportSkin((sender as Button).Tag.ToString(), 
+                        dlg.SelectedPath);
+                }
             }
         }
 

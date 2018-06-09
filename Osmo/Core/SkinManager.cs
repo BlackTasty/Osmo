@@ -120,6 +120,11 @@ namespace Osmo.Core
             }
         }
 
+        public void ExportSkin(string name, string targetDir)
+        {
+            Skins.FirstOrDefault(x => !x.IsEmpty && x.Name.Equals(name))?.Export(targetDir);
+        }
+
         private void LoadSkins()
         {
             if (!string.IsNullOrWhiteSpace(Directory))

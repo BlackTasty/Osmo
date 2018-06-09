@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Windows.Data;
 
@@ -83,6 +84,11 @@ namespace Osmo.Core.Objects
             {
                 element.Save();
             }
+        }
+
+        public void Export(string targetDir)
+        {
+            ZipFile.CreateFromDirectory(Path, targetDir + "\\" + Name + ".osk");
         }
 
         /// <summary>
