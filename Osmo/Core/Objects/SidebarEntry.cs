@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using System.Windows;
 
 namespace Osmo.Core.Objects
 {
@@ -10,7 +11,27 @@ namespace Osmo.Core.Objects
 
         public object Content { get; }
 
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled
+        {
+            get
+            {
+                if (Content.GetType().IsSubclassOf(typeof(FrameworkElement)))
+                {
+                    return (Content as FrameworkElement).IsEnabled;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (Content.GetType().IsSubclassOf(typeof(FrameworkElement)))
+                {
+                    (Content as FrameworkElement).IsEnabled = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Creates a new item for the sidebar.
@@ -23,7 +44,6 @@ namespace Osmo.Core.Objects
             Name = name;
             Icon = icon;
             Content = content;
-            IsEnabled = true;
         }
 
         /// <summary>

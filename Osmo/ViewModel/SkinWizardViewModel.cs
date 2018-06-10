@@ -27,6 +27,10 @@ namespace Osmo.ViewModel
         private bool mComponentTaiko;
         private bool mComponentMania;
 
+        private bool mConfigurationOpen;
+        private bool mComponentsOpen;
+        private bool mSummaryOpen;
+
         private bool mIsCreating;
         private double mCurrentFileCount;
         private double mFilesToCreate;
@@ -96,6 +100,51 @@ namespace Osmo.ViewModel
             {
                 mComponentMania = value;
                 InvokePropertyChanged("ComponentMania");
+            }
+        }
+
+        public bool ConfigurationOpen
+        {
+            get => mConfigurationOpen;
+            set
+            {
+                mConfigurationOpen = value;
+                if (value)
+                {
+                    ComponentsOpen = false;
+                    SummaryOpen = false;
+                }
+                InvokePropertyChanged("ConfigurationOpen");
+            }
+        }
+
+        public bool ComponentsOpen
+        {
+            get => mComponentsOpen;
+            set
+            {
+                mComponentsOpen = value;
+                if (value)
+                {
+                    ConfigurationOpen = false;
+                    SummaryOpen = false;
+                }
+                InvokePropertyChanged("ComponentsOpen");
+            }
+        }
+
+        public bool SummaryOpen
+        {
+            get => mSummaryOpen;
+            set
+            {
+                mSummaryOpen = value;
+                if (value)
+                {
+                    ConfigurationOpen = false;
+                    ComponentsOpen = false;
+                }
+                InvokePropertyChanged("SummaryOpen");
             }
         }
 

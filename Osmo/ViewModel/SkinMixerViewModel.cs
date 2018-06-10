@@ -33,6 +33,7 @@ namespace Osmo.ViewModel
             set
             {
                 mSkinLeft = value;
+                (Application.Current.MainWindow.DataContext as OsmoViewModel).IsMixerEnabled = value != null;
                 InvokePropertyChanged("SkinLeft");
             }
         }

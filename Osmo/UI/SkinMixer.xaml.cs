@@ -62,6 +62,16 @@ namespace Osmo.UI
             ((SkinMixerViewModel)DataContext).SkinLeft.Save();
         }
 
+        internal void ExportSkin(string targetDir, bool alsoSave)
+        {
+            if (alsoSave)
+            {
+                ((SkinMixerViewModel)DataContext).SkinLeft.Save();
+            }
+
+            ((SkinMixerViewModel)DataContext).SkinLeft.Export(targetDir);
+        }
+
         private void LeftSkin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkinMixerViewModel vm = DataContext as SkinMixerViewModel;

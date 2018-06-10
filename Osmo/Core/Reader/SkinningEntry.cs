@@ -44,6 +44,8 @@ namespace Osmo.Core.Reader
 
         public string Description => description ?? "";
 
+        public string Flags { get; private set; } = "";
+
         internal SkinningEntry(string line)
         {
             sizeDescriptors = new List<VersionSizeDescriptor>();
@@ -98,6 +100,9 @@ namespace Osmo.Core.Reader
                             break;
                         case 5:
                             description = content[i].Replace('\\', '\n');
+                            break;
+                        case 6:
+                            Flags = content[i].ToLower();
                             break;
                     }
                 }

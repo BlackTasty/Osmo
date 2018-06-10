@@ -103,10 +103,18 @@ namespace Osmo.ViewModel
 
         public bool IsEditorEnabled
         {
-            get => mSidebarItems[1].IsEnabled;
             set
             {
-                mSidebarItems[1].IsEnabled = value;
+                mSidebarItems[FixedValues.EDITOR_INDEX].IsEnabled = value;
+                InvokePropertyChanged("Items");
+            }
+        }
+
+        public bool IsMixerEnabled
+        {
+            set
+            {
+                mSidebarItems[FixedValues.MIXER_INDEX].IsEnabled = value;
                 InvokePropertyChanged("Items");
             }
         }

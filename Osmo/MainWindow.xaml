@@ -10,7 +10,7 @@
         xmlns:ui="clr-namespace:Osmo.UI"
         x:Class="Osmo.MainWindow"
         mc:Ignorable="d"
-        Title="Osmo" Height="600" Width="800" MinWidth="683" MinHeight="536"
+        Title="Osmo" Height="600" Width="800" MinWidth="683" MinHeight="554"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -69,10 +69,17 @@
                             Mode="PrimaryMid" DockPanel.Dock="Top">
                     <DockPanel>
                         <ToggleButton x:Name="MenuToggleButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}"/>
-                        <Button Padding="0" DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0,0,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
                             ToolTip="Save all changes" Click="SaveSkin_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
                             <material:PackIcon
                             Kind="ContentSave"
+                            Height="32"
+                            Width="32" />
+                        </Button>
+                        <Button Padding="0" DockPanel.Dock="Right" Margin="16,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                            ToolTip="Export your skin" Click="ExportSkin_Click" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <material:PackIcon
+                            Kind="Export"
                             Height="32"
                             Width="32" />
                         </Button>

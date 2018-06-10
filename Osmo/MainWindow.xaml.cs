@@ -26,6 +26,7 @@ namespace Osmo
             InitializeComponent();
             configuration.SettingsSaved += Configuration_SettingsSaved;
             FixedValues.InitializeReader();
+            SkinCreationWizard.Instance.ApplyMasterViewModel(DataContext as OsmoViewModel);
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)
@@ -85,6 +86,33 @@ namespace Osmo
             else if (sidebarMenu.SelectedIndex == 3)
             {
                 SkinMixer.Instance.SaveSkin();
+            }
+        }
+
+        private void ExportSkin_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Do you wish to save your skin first?", "Save before export?",
+                MessageBoxButton.YesNoCancel, MessageBoxImage.None, MessageBoxResult.Yes);
+
+            if (result != MessageBoxResult.Cancel)
+            {
+                using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
+                {
+                    Description = "Select the directory you want to export your skin to"
+                })
+                {
+                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (sidebarMenu.SelectedIndex == 2)
+                        {
+                            SkinEditor.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
+                        }
+                        else if (sidebarMenu.SelectedIndex == 3)
+                        {
+                            SkinMixer.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
+                        }
+                    }
+                }
             }
         }
     }

@@ -15,6 +15,7 @@
     <Grid.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         <converter:StringNotEmptyConverter x:Key="StringNotEmpty"/>
+        <converter:DoubleToBooleanConverter x:Key="DoubleToBool"/>
     </Grid.Resources>
     <Grid.RowDefinitions>
         <RowDefinition/>
@@ -29,7 +30,7 @@
     </Grid.ColumnDefinitions>
     <material:Card Background="{DynamicResource MaterialDesignBackground}" Grid.ColumnSpan="4" Margin="8">
         <StackPanel>
-            <Expander Header="1. Basic configuration">
+            <Expander Header="1. Basic configuration" IsExpanded="{Binding ConfigurationOpen}">
                 <Grid Margin="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="230*"/>
@@ -67,13 +68,10 @@
                         </TextBox.Text>
                     </TextBox>
 
-                    <ComboBox x:Name="combo_version"
-                        material:HintAssist.Hint="Version"
-                        SelectedIndex="6"
-                        Grid.Column="4"
-                        ItemsSource="{Binding Versions}"
+                    <ComboBox x:Name="combo_version" material:HintAssist.Hint="Version"
+                        SelectedIndex="6" Grid.Column="4" ItemsSource="{Binding Versions}"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                        VerticalAlignment="Top">
+                        VerticalAlignment="Top" SelectionChanged="Version_SelectionChanged">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -89,17 +87,31 @@
                 Height="1"
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="True" />
-            <Expander Header="2. Components">
+            <Expander Header="2. Components" IsExpanded="{Binding ComponentsOpen}">
                 <StackPanel Margin="8,8,8,0">
                     <TextBlock Text="Select which element sets you want to include:"
                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-                    <UniformGrid Margin="8,8,8,0">
+                    <UniformGrid Margin="8">
                         <CheckBox Content="Interface" IsChecked="{Binding ComponentInterface}"/>
                         <CheckBox Content="Sounds" IsChecked="{Binding ComponentSounds}"/>
                         <CheckBox Content="Osu!" IsChecked="{Binding ComponentOsu}"/>
                         <CheckBox Content="CTB" IsChecked="{Binding ComponentCTB}"/>
                         <CheckBox Content="Taiko" IsChecked="{Binding ComponentTaiko}"/>
                         <CheckBox Content="Mania" IsChecked="{Binding ComponentMania}"/>
+                    </UniformGrid>
+                    <TextBlock Text="osu! specific components:"
+                               Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                    <UniformGrid Margin="8" IsEnabled="{Binding ComponentOsu}">
+                        <RadioButton Content="Old spinner" x:Name="cb_spinnerOld"/>
+                        <RadioButton Content="New spinner (version 2.0 and above)" IsChecked="True"  x:Name="cb_spinnerNew"
+                                     IsEnabled="{Binding ElementName=combo_version, Path=Text, Converter={StaticResource DoubleToBool}, ConverterParameter=2.0}"/>
+                    </UniformGrid>
+                    <TextBlock Text="CTB specific components:"
+                               Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                    <UniformGrid Margin="8,8,8,0" IsEnabled="{Binding ComponentCTB}">
+                        <RadioButton Content="Old fruit catcher" x:Name="cb_catcherOld"/>
+                        <RadioButton Content="New fruit catcher (version 2.3 and above)" IsChecked="True"  x:Name="cb_catcherNew"
+                                     IsEnabled="{Binding ElementName=combo_version, Path=Text, Converter={StaticResource DoubleToBool}, ConverterParameter=2.3}"/>
                     </UniformGrid>
                 </StackPanel>
             </Expander>
@@ -108,8 +120,8 @@
                 Height="1"
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="True" />
-            <Expander Header="3. Summary">
-                <ScrollViewer>
+            <Expander Header="3. Summary" IsExpanded="{Binding SummaryOpen}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         <BulletDecorator>
                             <BulletDecorator.Bullet>
@@ -140,7 +152,7 @@
                                 <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Margin="8,0,0,0">
-                            <Run Text="Empty files will be added:"/> <Run Text="{Binding AddDummyFiles}"/>
+                            <Run Text="Placeholder files will be added:"/> <Run Text="{Binding AddDummyFiles}"/>
                             </TextBlock>
                         </BulletDecorator>
                         <BulletDecorator>
@@ -151,37 +163,57 @@
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentInterface, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
-                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                                <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Text="Interface" Margin="10,0,0,0"/>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentSounds, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
-                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                                <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Text="Sounds" Margin="10,0,0,0"/>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentOsu, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
-                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                                <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Text="osu! (gamemode)" Margin="10,0,0,0"/>
                         </BulletDecorator>
-                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentCTB, Converter={StaticResource BoolToVisibility}}">
+                        <BulletDecorator Margin="24,0,0,0" Visibility="{Binding ComponentOsu, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
                                 <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
+                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                <TextBlock Text="Spinner style: "/>
+                                <TextBlock Text="New style" Visibility="{Binding ElementName=cb_spinnerNew, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                <TextBlock Text="Old style" Visibility="{Binding ElementName=cb_spinnerOld, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                            </StackPanel>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentCTB, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
                             <TextBlock Text="CTB" Margin="10,0,0,0"/>
+                        </BulletDecorator>
+                        <BulletDecorator Margin="24,0,0,0" Visibility="{Binding ComponentCTB, Converter={StaticResource BoolToVisibility}}">
+                            <BulletDecorator.Bullet>
+                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                            </BulletDecorator.Bullet>
+                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                <TextBlock Text="Catcher style: "/>
+                                <TextBlock Text="New style" Visibility="{Binding ElementName=cb_catcherNew, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                <TextBlock Text="Old style" Visibility="{Binding ElementName=cb_catcherOld, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                            </StackPanel>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentTaiko, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
-                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                                <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Text="Taiko" Margin="10,0,0,0"/>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentMania, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
-                                <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
+                                <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Text="Mania" Margin="10,0,0,0"/>
                         </BulletDecorator>

@@ -39,13 +39,17 @@ namespace Osmo.UI
             InitializeComponent();
         }
 
+        internal void ApplyMasterViewModel(OsmoViewModel vm)
+        {
+            (DataContext as SkinWizardViewModel).Master = vm;
+        }
+
         internal void ApplyData(NewSkinViewModel vm)
         {
             SkinWizardViewModel wizardVm = DataContext as SkinWizardViewModel;
             wizardVm.Name = vm.Name;
             wizardVm.Author = vm.Author;
             wizardVm.AddDummyFiles = vm.AddDummyFiles;
-            wizardVm.Master = vm.Master;
         }
 
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
@@ -88,6 +92,8 @@ namespace Osmo.UI
 
             string skinDirectory = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + vm.Name;
             Directory.CreateDirectory(skinDirectory);
+            bool spinnerNewChecked = (bool)cb_spinnerNew.IsChecked;
+            bool catcherNewChecked = (bool)cb_catcherNew.IsChecked;
 
             new Thread(() =>
             {
@@ -97,7 +103,7 @@ namespace Osmo.UI
                 }
                 if (vm.ComponentOsu)
                 {
-                    WriteFilesFromReader(vm, FixedValues.readerStandard, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerStandard, skinDirectory, spinnerNewChecked);
                 }
                 if (vm.ComponentMania)
                 {
@@ -105,7 +111,7 @@ namespace Osmo.UI
                 }
                 if (vm.ComponentCTB)
                 {
-                    WriteFilesFromReader(vm, FixedValues.readerCatch, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerCatch, skinDirectory, catcherNewChecked);
                 }
                 if (vm.ComponentTaiko)
                 {
@@ -130,11 +136,35 @@ namespace Osmo.UI
             vm.Master.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
         }
 
-        private void WriteFilesFromReader(SkinWizardViewModel vm, SkinElementReader reader, string skinPath)
+        /// <summary>
+        /// This method iterates through all entries inside the given <see cref="SkinElementReader"/> and writes them into the given path.
+        /// </summary>
+        /// <param name="vm">The viewmodel of the skin creation wizard</param>
+        /// <param name="reader">The reader which contains all information about skin elements</param>
+        /// <param name="skinPath">The path where all elements should be saved to</param>
+        /// <param name="useNewStyle">Optional: If true, this method will only export elements without flag or with the flag "New".
+        /// <para>
+        /// If false, this method will only export elements without flag or with the flag "Old".
+        /// </para>
+        /// <para>
+        /// If null, flags are ignored.
+        /// </para></param>
+        private void WriteFilesFromReader(SkinWizardViewModel vm, SkinElementReader reader, string skinPath, bool? useNewStyle = null)
         {
             foreach (SkinningEntry entry in reader.Files)
             {
-                WriteFile(vm, skinPath, entry.Name + entry.PreferredFormat, reader);
+                if (useNewStyle == null)
+                {
+                    WriteFile(vm, skinPath, entry.Name + entry.PreferredFormat, reader);
+                }
+                else if (useNewStyle == true && !entry.Flags.Contains("old"))
+                {
+                    WriteFile(vm, skinPath, entry.Name + entry.PreferredFormat, reader);
+                }
+                else if (useNewStyle == false && !entry.Flags.Contains("new"))
+                {
+                    WriteFile(vm, skinPath, entry.Name + entry.PreferredFormat, reader);
+                }
             }
         }
 
@@ -151,6 +181,19 @@ namespace Osmo.UI
             vm.CurrentFileCount++;
             vm.CurrentFileName = name;
             gen.Generate(Path.Combine(skinPath, name));
+        }
+
+        private void Version_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (combo_version.SelectedIndex == 0)
+            {
+                cb_spinnerOld.IsChecked = true;
+            }
+
+            if (combo_version.SelectedIndex < 4)
+            {
+                cb_catcherOld.IsChecked = true;
+            }
         }
     }
 }

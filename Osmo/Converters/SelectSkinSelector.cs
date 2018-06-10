@@ -17,7 +17,7 @@ namespace Osmo.Converters
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item != null && item is Skin)
+            if (item != null && item.GetType() == typeof(Skin))
             {
                 if (container is FrameworkElement element)
                 {

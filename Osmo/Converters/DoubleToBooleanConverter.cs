@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Osmo.Core;
+using System;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Osmo.Converters
 {
-    class PathToFileNameConverter : IValueConverter
+    class DoubleToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value.GetType() == typeof(string))
-            {
-                return new FileInfo(value?.ToString() ?? "").Name;
-            }
-            else return null;
+            return Parser.TryParse(value.ToString().Replace('.', ','), 0.0) >=
+                Parser.TryParse(parameter.ToString().Replace('.', ','), 0.0);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -84,6 +84,16 @@ namespace Osmo.UI
             ((SkinViewModel)DataContext).SaveSkin();
         }
 
+        public void ExportSkin(string targetDir, bool alsoSave)
+        {
+            if (alsoSave)
+            {
+                ((SkinViewModel)DataContext).SaveSkin();
+            }
+
+            ((SkinViewModel)DataContext).ExportSkin(targetDir, alsoSave);
+        }
+
         private void Elements_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SkinViewModel vm = (SkinViewModel)DataContext;

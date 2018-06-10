@@ -1,7 +1,7 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
 # Date: 03.06.2018
 # Entries are split like this:
-#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description|Flags
 #
 # Note: Only the name and supported formats are required. 
 #       If you want to use different values for different versions, write it like this:

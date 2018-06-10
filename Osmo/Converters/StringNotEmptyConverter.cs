@@ -11,7 +11,7 @@ namespace Osmo.Converters
         {
             if (parameter == null)
             {
-                if (value is string)
+                if (value.GetType() == typeof(string))
                 {
                     return !string.IsNullOrWhiteSpace((value ?? "").ToString());
                 }
@@ -19,7 +19,7 @@ namespace Osmo.Converters
             }
             else
             {
-                if (value is string)
+                if (value.GetType() == typeof(string))
                 {
                     return !string.IsNullOrWhiteSpace((value ?? "").ToString()) ? Visibility.Visible : Visibility.Collapsed;
                 }

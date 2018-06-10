@@ -167,5 +167,16 @@ namespace Osmo.ViewModel
             LoadedSkin.Save();
             InvokePropertyChanged("ResetEnabled");
         }
+
+        internal void ExportSkin(string targetDir, bool alsoSave)
+        {
+            if (alsoSave)
+            {
+                LoadedSkin.Save();
+                InvokePropertyChanged("ResetEnabled");
+            }
+
+            LoadedSkin.Export(targetDir);
+        }
     }
 }

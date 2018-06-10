@@ -10,7 +10,7 @@ namespace Osmo.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is FileType)
+            if (value.GetType() == typeof(FileType))
             {
                 switch ((FileType)value)
                 {

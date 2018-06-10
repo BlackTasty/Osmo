@@ -1,7 +1,7 @@
 ﻿# This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
 # Date: 03.06.2018
 # Entries are split like this:
-#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
+#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description|Flags|Flags
 #
 # Note: Only the name and supported formats are required. 
 #       If you want to use different values for different versions, write it like this:
@@ -61,16 +61,16 @@ spinner-rpm|.png|280x56
 spinner-clear|.png||||This appears when the player has fulfilled the spinner.
 spinner-spin|.png||||This appears at the start of a spinner.
 #  Spinner (old)
-spinner-background|.png|1024x702|||osu! is watching for this element. If found, it will force the old styled spinners on v2.0+.
-spinner-circle|.png||||This element is the rotating part of the spinner
-spinner-metre|.png|1024x692|||This element is the progression bars
-spinner-osu|.png||||This appears after the spinner fades out.
+spinner-background|.png|1024x702|||osu! is watching for this element. If found, it will force the old styled spinners on v2.0+.|Old
+spinner-circle|.png||||This element is the rotating part of the spinner|Old
+spinner-metre|.png|1024x692|||This element is the progression bars|Old
+spinner-osu|.png||||This appears after the spinner fades out.|Old
 #  Spinner (new)
-spinner-glow|.png|||2.0+|This blinks when awarding bonus points.\This element is the lowest layer.
-spinner-bottom|.png|||2.0+|This rotates the slowest.\This element is the second lowest layer.
-spinner-top|.png|||2.0+|This rotates the second fastest (slower than spinner-middle2.png).\This element is the middle layer.
-spinner-middle|.png|||2.0+|This rotates the fastest.\This element is the second highest layer.
-spinner-middle2|.png|||2.0+|Tinted red over time (this is the time indicator).\This element is the highest layer.
+spinner-glow|.png|||2.0+|This blinks when awarding bonus points.\This element is the lowest layer.|New
+spinner-bottom|.png|||2.0+|This rotates the slowest.\This element is the second lowest layer.|New
+spinner-top|.png|||2.0+|This rotates the second fastest (slower than spinner-middle2.png).\This element is the middle layer.|New
+spinner-middle|.png|||2.0+|This rotates the fastest.\This element is the second highest layer.|New
+spinner-middle2|.png|||2.0+|Tinted red over time (this is the time indicator).\This element is the highest layer.|New
 # Particles
 particle50|.png|7x7|||hit50.png must be skinned.
 particle100|.png|7x7|||hit100.png must be skinned.
