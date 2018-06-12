@@ -145,30 +145,30 @@ namespace Osmo.ViewModel
                 //TODO: isSkin may be removed in case the menu background isn't needed
                 bool isSkin = System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory;
 
-                switch (e.ChangeType)
-                {
-                    //case System.IO.WatcherChangeTypes.Changed:
-                    //    if (!isSkin)
-                    //    {
-                    //        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
-                    //        if (changed != null)
-                    //        {
-                    //        }
-                    //    }
-                    //    break;
-                    case System.IO.WatcherChangeTypes.Created:
-                        if (isSkin)
-                            Skins.Add(new Skin(e.Path));
-                        break;
-                    case System.IO.WatcherChangeTypes.Deleted:
-                        if (isSkin)
-                        {
-                            Skin removed = Skins.FirstOrDefault(x => x == e.Path);
-                            if (removed != null)
-                                Skins.Remove(removed);
-                        }
-                        break;
-                }
+                //switch (e.ChangeType)
+                //{
+                //    //case System.IO.WatcherChangeTypes.Changed:
+                //    //    if (!isSkin)
+                //    //    {
+                //    //        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
+                //    //        if (changed != null)
+                //    //        {
+                //    //        }
+                //    //    }
+                //    //    break;
+                //    case System.IO.WatcherChangeTypes.Created:
+                //        if (isSkin)
+                //            Skins.Add(new Skin(e.Path));
+                //        break;
+                //    case System.IO.WatcherChangeTypes.Deleted:
+                //        if (isSkin)
+                //        {
+                //            Skin removed = Skins.FirstOrDefault(x => x == e.Path);
+                //            if (removed != null)
+                //                Skins.Remove(removed);
+                //        }
+                //        break;
+                //}
             }
         }
 

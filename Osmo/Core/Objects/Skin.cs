@@ -83,7 +83,7 @@ namespace Osmo.Core.Objects
 
         public static Skin Import(FileInfo oskPath)
         {
-            string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\" + oskPath.Name;
+            string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + oskPath.Name.Replace(oskPath.Extension, "");
 
             MessageBoxResult result = MessageBoxResult.OK;
             if (Directory.Exists(skinPath))
@@ -99,13 +99,13 @@ namespace Osmo.Core.Objects
             if (result == MessageBoxResult.OK)
             {
                 Directory.CreateDirectory(skinPath);
-                ZipFile.ExtractToDirectory(oskPath.FullName, AppConfiguration.GetInstance().OsuDirectory + skinPath);
+                ZipFile.ExtractToDirectory(oskPath.FullName, skinPath);
 
                 return new Skin(skinPath);
             }
             else
             {
-                return null;
+                return new Skin();
             }
         }
 

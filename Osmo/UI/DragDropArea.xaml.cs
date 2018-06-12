@@ -1,4 +1,6 @@
-﻿using Osmo.Core.Objects;
+﻿using Microsoft.Win32;
+using Osmo.Core.Objects;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,6 +46,10 @@ namespace Osmo.UI
             {
                 SetValue(OskPathProperty, value);
                 IsOskPathOkay = !string.IsNullOrWhiteSpace(value);
+                if (IsOskPathOkay)
+                    dropArea.Cursor = null;
+                else
+                    dropArea.Cursor = Cursors.Hand;
             }
         }
 
@@ -58,12 +64,12 @@ namespace Osmo.UI
 
         private void Control_DragLeave(object sender, DragEventArgs e)
         {
-            Visibility = Visibility.Collapsed;
+            Close();
         }
 
         private void Control_Drop(object sender, DragEventArgs e)
         {
-            OskPath = tempOskPath.FullName;
+            OskPath = tempOskPath.Name;
         }
 
         private void Control_DragEnter(object sender, DragEventArgs e)
@@ -86,12 +92,50 @@ namespace Osmo.UI
 
         private void Abort_Click(object sender, RoutedEventArgs e)
         {
+            Close();
+        }
+
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            if (tempOskPath != null)
+            {
+                var skin = Skin.Import(tempOskPath);
+
+                if (!skin.IsEmpty)
+                {
+                    (DataContext as OsmoViewModel).Skins.Add(skin);
+                }
+
+                Close();
+            }
+        }
+
+        private void Close()
+        {
+            tempOskPath = null;
+            OskPath = null;
             Visibility = Visibility.Collapsed;
         }
 
-        private void Install_Click(object sender, RoutedEventArgs e)
+        private void Control_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var skin = Skin.Import()
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Executable skin file.|*.osk",
+                Title = "Select an osu skin file to import..."
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                tempOskPath = new FileInfo(openFileDialog.FileName);
+                OskPath = tempOskPath.Name;
+            }
+        }
+
+        private void CancelSkin_Click(object sender, RoutedEventArgs e)
+        {
+            tempOskPath = null;
+            OskPath = null;
         }
     }
 }

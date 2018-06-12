@@ -35,16 +35,19 @@
                 <RowDefinition Height="12"/>
                 <RowDefinition Height="42"/>
             </Grid.RowDefinitions>
-            <Grid DragLeave="Control_DragLeave" Drop="Control_Drop" DragEnter="Control_DragEnter" AllowDrop="True" Grid.ColumnSpan="3">
+            <Grid x:Name="dropArea" DragLeave="Control_DragLeave" Drop="Control_Drop" DragEnter="Control_DragEnter" MouseDown="Control_MouseDown" Cursor="Hand" AllowDrop="True" Grid.ColumnSpan="3">
                 <Rectangle Stroke="{DynamicResource PrimaryHueMidBrush}" StrokeThickness="2" StrokeDashArray="3 3" Fill="{DynamicResource MaterialDesignChipBackground}"/>
                 <TextBlock Text="Drag and Drop an .osk file here or click!" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,32" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="{Binding IsOskPathOkay, Converter={StaticResource InverseBoolToVisibility}, ElementName=dragDrop}"/>
-                <TextBlock Text="{Binding OskPath, ElementName=dragDrop}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="{Binding IsOskPathOkay, Converter={StaticResource BoolToVisibility}, ElementName=dragDrop}"/>
+                <TextBlock Text="{Binding OskPath, ElementName=dragDrop}" Margin="8,0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="{Binding IsOskPathOkay, Converter={StaticResource BoolToVisibility}, ElementName=dragDrop}" TextAlignment="Center"/>
+                <Button Height="24" Width="24" Click="CancelSkin_Click" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4" ToolTip="Select another skin" Visibility="{Binding IsOskPathOkay, Converter={StaticResource BoolToVisibility}, ElementName=dragDrop}">
+                    <material:PackIcon Kind="Close" Width="24" Height="24" Foreground="{DynamicResource MaterialDesignToolTipBackground}"/>
+                </Button>
                 <material:PackIcon Kind="ArrowCollapseDown" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,32" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="{Binding IsOskPathOkay, Converter={StaticResource InverseBoolToVisibility}, ElementName=dragDrop}"/>
             </Grid>
             <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Abort_Click"
-                            ToolTip="Combine two or more skins together" Width="120" Grid.Column="1" Grid.Row="2" Margin="5">_ABORT</Button>
-            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Install_Click" IsEnabled="{Binding ElementName=dragDrop, Path=IsOskPathOkay, FallbackValue=False}"
-                            ToolTip="Combine two or more skins together" Width="120" Grid.Column="2" Grid.Row="2" Margin="5">_INSTALL</Button>
+                            ToolTip="Abort the import process" Width="120" Grid.Column="1" Grid.Row="2" Margin="5">_ABORT</Button>
+            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Import_Click" IsEnabled="{Binding ElementName=dragDrop, Path=IsOskPathOkay, FallbackValue=False}"
+                            ToolTip="Import the selected skin" Width="120" Grid.Column="2" Grid.Row="2" Margin="5">_IMPORT</Button>
 
         </Grid>
     </material:Card>

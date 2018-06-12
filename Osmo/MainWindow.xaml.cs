@@ -193,5 +193,22 @@ namespace Osmo
         {
             dropArea.Visibility = Visibility.Visible;
         }
+
+        private void OpenInSkinMixer_Click(object sender, RoutedEventArgs e)
+        {
+            SkinMixer.Instance.LoadSkin((SkinEditor.Instance.DataContext as SkinViewModel).LoadedSkin, true);
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+        }
+
+        private void OpenInSkinEditor_Click(object sender, RoutedEventArgs e)
+        {
+            SkinEditor.Instance.LoadSkin((SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft);
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+        }
+
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            dropArea.Visibility = Visibility.Visible;
+        }
     }
 }
