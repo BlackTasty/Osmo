@@ -48,6 +48,8 @@ namespace Osmo.ViewModel
             }
         }
 
+        public bool UnsavedChanges { get => SkinLeft?.UnsavedChanges ?? false; }
+
         #region Selected element left side
         public SkinElement SelectedElementLeft
         {

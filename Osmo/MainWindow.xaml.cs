@@ -6,6 +6,7 @@ using Osmo.Core.Reader;
 using Osmo.UI;
 using Osmo.ViewModel;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -75,6 +76,43 @@ namespace Osmo
             //TODO: Implement dialog asking the user if he really wants to close the application without saving
             configuration.Save();
             (SkinEditor.Instance.animationHelper.DataContext as AnimationViewModel).StopAnimation();
+
+            OsmoViewModel vm = DataContext as OsmoViewModel;
+            SkinViewModel skinVm = SkinEditor.Instance.DataContext as SkinViewModel;
+            if (skinVm.UnsavedChanges)
+            {
+                vm.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                var result = MessageBox.Show("You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
+                    "Unsaved changes!", MessageBoxButton.YesNoCancel, MessageBoxImage.None, MessageBoxResult.Cancel);
+
+                if (result == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else if (result == MessageBoxResult.Yes)
+                {
+                    skinVm.LoadedSkin.Save();
+                }
+            }
+
+            SkinMixerViewModel mixerVm = SkinMixer.Instance.DataContext as SkinMixerViewModel;
+            if (mixerVm.UnsavedChanges)
+            {
+                vm.SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+                var result = MessageBox.Show("You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
+                    "Unsaved changes!", MessageBoxButton.YesNoCancel, MessageBoxImage.None, MessageBoxResult.Cancel);
+
+                if (result == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else if (result == MessageBoxResult.Yes)
+                {
+                    mixerVm.SkinLeft.Save();
+                }
+            }
         }
 
         private void SaveSkin_Click(object sender, RoutedEventArgs e)
@@ -114,6 +152,46 @@ namespace Osmo
                     }
                 }
             }
+        }
+
+        private void OpenInFileExplorer_OnClick(object sender, RoutedEventArgs e)
+        {
+            OsmoViewModel vm = DataContext as OsmoViewModel;
+            if (vm.SelectedSidebarIndex == FixedValues.EDITOR_INDEX)
+            {
+                Process.Start((SkinEditor.Instance.DataContext as SkinViewModel).LoadedSkin.Path);
+            }
+            else if (vm.SelectedSidebarIndex == FixedValues.MIXER_INDEX)
+            {
+                Process.Start((SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft.Path);
+            }
+        }
+
+        private void RevertAll_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Do you really want to revert all changes made to this skin? This cannot be undone!",
+                "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.None, MessageBoxResult.No) == MessageBoxResult.Yes)
+            {
+                OsmoViewModel vm = DataContext as OsmoViewModel;
+                if (vm.SelectedSidebarIndex == FixedValues.EDITOR_INDEX)
+                {
+                    (SkinEditor.Instance.DataContext as SkinViewModel).LoadedSkin.RevertAll();
+                }
+                else if (vm.SelectedSidebarIndex == FixedValues.MIXER_INDEX)
+                {
+                    (SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft.RevertAll();
+                }
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void MetroWindow_DragEnter(object sender, DragEventArgs e)
+        {
+            dropArea.Visibility = Visibility.Visible;
         }
     }
 }

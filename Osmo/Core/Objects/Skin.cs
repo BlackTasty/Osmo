@@ -1,63 +1,58 @@
-﻿using Osmo.ViewModel;
+﻿using Osmo.Core.Configuration;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Osmo.Core.Objects
 {
     public class Skin
     {
-        private bool mIsEmpty;
-
-        private string mName;
-        private string mAuthor;
-        private string mPath;
-
-        //This contains a list of file names inside the skin folder
-        private VeryObservableCollection<SkinElement> mElements = new VeryObservableCollection<SkinElement>("Elements", true);
-
         private FileSystemWatcher mWatcher;
         #region Properties
         /// <summary>
         /// The visible name of this <see cref="Skin"/> object.
         /// </summary>
-        public string Name { get => mName; set => mName = value; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The root folder of this <see cref="Skin"/> object.
         /// </summary>
-        public string Path { get => mPath; set => mPath = value; }
+        public string Path { get; set; }
 
         /// <summary>
         /// The root folder of this <see cref="Skin"/> object.
         /// </summary>
-        public string Author { get => mAuthor; set => mAuthor = value; }
+        public string Author { get; set; }
 
-        public bool IsEmpty { get => mIsEmpty; }
+        public bool IsEmpty { get; private set; }
+
+        public bool UnsavedChanges { get => Elements.Any(x => !string.IsNullOrWhiteSpace(x.TempPath)); }
 
         /// <summary>
         /// This list contains all filenames of this <see cref="Skin"/> object.
         /// </summary>
-        public VeryObservableCollection<SkinElement> Elements { get => mElements; set => mElements = value; }
+        public VeryObservableCollection<SkinElement> Elements { get; private set; } = new VeryObservableCollection<SkinElement>("Elements", true);
 
         /// <summary>
         /// This returns the amount of elements this <see cref="Skin"/> object contains.
         /// </summary>
-        public int ElementCount { get => mElements.Count; }
+        public int ElementCount { get => Elements.Count; }
         #endregion
         
         internal Skin()
         {
-            mIsEmpty = true;
+            IsEmpty = true;
         }
 
         internal Skin(string path)
         {
-            mPath = path;
-            mName = System.IO.Path.GetFileName(path);
+            Path = path;
+            Name = System.IO.Path.GetFileName(path);
 
             mWatcher = new FileSystemWatcher(path, "*.*")
             {
@@ -74,21 +69,57 @@ namespace Osmo.Core.Objects
 
         internal Skin(NewSkinViewModel vm)
         {
-            mName = vm.Name;
-            mAuthor = vm.Author;
+            Name = vm.Name;
+            Author = vm.Author;
         }
 
         public void Save()
         {
-            foreach (SkinElement element in mElements.Where(x=> !string.IsNullOrWhiteSpace(x.TempPath)))
+            foreach (SkinElement element in Elements.Where(x=> !string.IsNullOrWhiteSpace(x.TempPath)))
             {
                 element.Save();
+            }
+        }
+
+        public static Skin Import(FileInfo oskPath)
+        {
+            string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\" + oskPath.Name;
+
+            MessageBoxResult result = MessageBoxResult.OK;
+            if (Directory.Exists(skinPath))
+            {
+                result = MessageBox.Show("A skin with the name \"" + oskPath.Name + "\" exists already! Would you like to overwrite it?", "Skin exists already!", MessageBoxButton.OKCancel,
+                    MessageBoxImage.None, MessageBoxResult.Cancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    Directory.Delete(skinPath, true);
+                }
+            }
+
+            if (result == MessageBoxResult.OK)
+            {
+                Directory.CreateDirectory(skinPath);
+                ZipFile.ExtractToDirectory(oskPath.FullName, AppConfiguration.GetInstance().OsuDirectory + skinPath);
+
+                return new Skin(skinPath);
+            }
+            else
+            {
+                return null;
             }
         }
 
         public void Export(string targetDir)
         {
             ZipFile.CreateFromDirectory(Path, targetDir + "\\" + Name + ".osk");
+        }
+
+        public void RevertAll()
+        {
+            foreach (SkinElement element in Elements.Where(x => !string.IsNullOrWhiteSpace(x.TempPath)))
+            {
+                element.Reset();
+            }
         }
 
         /// <summary>
@@ -125,9 +156,9 @@ namespace Osmo.Core.Objects
 
         private void ReadElements()
         {
-            foreach (FileInfo fi in new DirectoryInfo(mPath).EnumerateFiles())
+            foreach (FileInfo fi in new DirectoryInfo(Path).EnumerateFiles())
             {
-                mElements.Add(new SkinElement(fi, Name));
+                Elements.Add(new SkinElement(fi, Name));
                 if (fi.Name.Equals("skin.ini", StringComparison.InvariantCultureIgnoreCase))
                 {
                     GetAuthor(fi.FullName);
@@ -146,38 +177,38 @@ namespace Osmo.Core.Objects
         #region Watcher Events
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            int index = mElements.IndexOf(mElements.FirstOrDefault(x => x == e.OldFullPath) ?? null);
+            int index = Elements.IndexOf(Elements.FirstOrDefault(x => x == e.OldFullPath) ?? null);
 
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 if (index > -1)
                 {
-                    mElements[index].Name = e.Name;
-                    mElements[index].Path = e.FullPath;
+                    Elements[index].Name = e.Name;
+                    Elements[index].Path = e.FullPath;
                 }
             });
         }
 
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            mElements.Refresh();
+            Elements.Refresh();
         }
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
-                mElements.Add(new SkinElement(new FileInfo(e.FullPath), Name));
+                Elements.Add(new SkinElement(new FileInfo(e.FullPath), Name));
             });
         }
 
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            SkinElement element = mElements.FirstOrDefault(x => x == e.FullPath);
+            SkinElement element = Elements.FirstOrDefault(x => x == e.FullPath);
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 if (element != null)
-                    mElements.Remove(element);
+                    Elements.Remove(element);
             });
         }
         #endregion

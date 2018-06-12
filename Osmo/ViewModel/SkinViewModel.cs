@@ -23,7 +23,6 @@ namespace Osmo.ViewModel
         private bool mResetEnabled;
         private bool mAnimationEnabled;
         private int mPlayStatus = 0;
-        private ImageSource mImage;
 
         private Visibility mShowIcon = Visibility.Hidden;
         private Visibility mShowEditor = Visibility.Hidden;
@@ -57,6 +56,8 @@ namespace Osmo.ViewModel
             }
         }
 
+        public bool UnsavedChanges { get => LoadedSkin?.UnsavedChanges ?? false; }
+
         public bool AnimationEnabled
         {
             get => mAnimationEnabled;
@@ -79,7 +80,7 @@ namespace Osmo.ViewModel
                 }
                 else
                 {
-                    mImage = null;
+                    Image = null;
                     InvokePropertyChanged("Image");
                 }
 
@@ -113,7 +114,7 @@ namespace Osmo.ViewModel
             }
         }
 
-        public ImageSource Image => mImage;
+        public ImageSource Image { get; private set; }
 
         public PackIconKind Icon
         {
@@ -153,11 +154,11 @@ namespace Osmo.ViewModel
         {
             if (SelectedElement.FileType == FileType.Image)
             {
-                mImage = Helper.LoadImage(SelectedElement.Path);
+                Image = Helper.LoadImage(SelectedElement.Path);
             }
             else
             {
-                mImage = null;
+                Image = null;
             }
             InvokePropertyChanged("Image");
         }

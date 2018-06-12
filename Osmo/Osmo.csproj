@@ -137,6 +137,9 @@
     <Compile Include="UI\AnimationHelper.xaml.cs">
       <DependentUpon>AnimationHelper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\DragDropArea.xaml.cs">
+      <DependentUpon>DragDropArea.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\FilePicker.xaml.cs">
       <DependentUpon>FilePicker.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\AnimationHelper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\DragDropArea.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
