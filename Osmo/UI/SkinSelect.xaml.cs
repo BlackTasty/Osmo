@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -100,8 +101,10 @@ namespace Osmo.UI
             if (lv_skins.SelectedIndex == 0)
             {
                 //TODO: Implement "New skin" 
-                if (DialogHost.OpenDialogCommand.CanExecute(null, null))
-                    DialogHost.OpenDialogCommand.Execute(null, null);
+                btn_newSkin.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+                //if (DialogHost.OpenDialogCommand.CanExecute(null, null))
+                //    DialogHost.OpenDialogCommand.Execute(null, null);
             }
         }
 
