@@ -22,6 +22,7 @@ using System.Xml;
 using System.Linq;
 using Osmo.Core.Reader;
 using MaterialDesignThemes.Wpf.Transitions;
+using MaterialDesignThemes.Wpf;
 
 namespace Osmo.UI
 {
@@ -183,16 +184,15 @@ namespace Osmo.UI
             }
         }
 
-        private void Revert_Click(object sender, RoutedEventArgs e)
+        private async void Revert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to revert all changes made to this element?",
-                "Revert changes?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation,
-                MessageBoxResult.No);
+            var msgBox = MaterialMessageBox.Show("Revert changes?",
+                "Do you really want to revert all changes made to this element?",
+                MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            await DialogHost.Show(msgBox);
+
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 SkinViewModel vm = (SkinViewModel)DataContext;
                 vm.SelectedElement.Reset();
@@ -205,18 +205,17 @@ namespace Osmo.UI
             }
         }
 
-        private void Erase_Click(object sender, RoutedEventArgs e)
+        private async void Erase_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace "Erase" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to erase this element?", 
-                "Erase element?", 
-                MessageBoxButton.YesNo, 
-                MessageBoxImage.Exclamation, 
-                MessageBoxResult.No);
+            var msgBox = MaterialMessageBox.Show("Erase element?",
+                "Do you really want to erase this element?",
+                MessageBoxButton.YesNo);
+
+            await DialogHost.Show(msgBox);
 
             string path = ((SkinViewModel)DataContext).SelectedElement.ReplaceBackup(null);
 
-            if (result == MessageBoxResult.Yes)
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 SkinElement current = ((SkinViewModel)DataContext).SelectedElement;
                 StopAudio();
@@ -226,16 +225,15 @@ namespace Osmo.UI
             }
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private async void Delete_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace "Delete" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to delete this element?",
-                "Erase image?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation,
-                MessageBoxResult.No);
+            var msgBox = MaterialMessageBox.Show("Delete element?",
+                "Do you really want to delete this element?",
+                MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            await DialogHost.Show(msgBox);
+
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 SkinElement element = ((SkinViewModel)DataContext).SelectedElement;
                 if (lv_elements.SelectedIndex < lv_elements.Items.Count - 1)
@@ -391,16 +389,15 @@ namespace Osmo.UI
             audio.StopAudio();
         }
 
-        private void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
+        private async void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to revert all changes made to this element?",
-                "Revert changes?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation,
-                MessageBoxResult.No);
+            var msgBox = MaterialMessageBox.Show("Revert changes?",
+                "Do you really want to revert all changes made to this element?",
+                MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            await DialogHost.Show(msgBox);
+
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 SkinViewModel vm = (SkinViewModel)DataContext;
                 SkinElement element = vm.LoadedSkin.Elements.FirstOrDefault(x => x.Name.Equals(

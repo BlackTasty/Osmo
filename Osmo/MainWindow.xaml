@@ -64,52 +64,53 @@
                     </ListBox>
                 </DockPanel>
             </material:DrawerHost.LeftDrawerContent>
-            <Grid>
-                <DockPanel>
-                    <material:ColorZone Padding="16, 13.5" material:ShadowAssist.ShadowDepth="Depth2"
+            <DockPanel>
+                <material:ColorZone Padding="16, 13.5" material:ShadowAssist.ShadowDepth="Depth2"
                             Mode="PrimaryMid" DockPanel.Dock="Top">
-                        <DockPanel>
-                            <ToggleButton x:Name="MenuToggleButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}"/>
-                            <material:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="8,0,0,0"
+                    <DockPanel>
+                        <ToggleButton x:Name="MenuToggleButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}"/>
+                        <material:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="8,0,0,0"
                                             Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}">
-                                <StackPanel>
-                                    <Button Content="Revert all changes" Click="RevertAll_Click"/>
-                                    <Button Content="Open skin in file explorer" Click="OpenInFileExplorer_OnClick"/>
-                                    <Button Content="Show skin in Skin Mixer" Click="OpenInSkinMixer_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2}"/>
-                                    <Button Content="Show skin in Skin Editor" Click="OpenInSkinEditor_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>
-                                    <Separator/>
-                                    <Button Content="Exit" Click="Close_Click"/>
-                                </StackPanel>
-                            </material:PopupBox>
-                            <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                            <StackPanel>
+                                <Button Content="Revert all changes" Click="RevertAll_Click"/>
+                                <Button Content="Open skin in file explorer" Click="OpenInFileExplorer_OnClick"/>
+                                <Button Content="Show skin in Skin Mixer" Click="OpenInSkinMixer_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2}"/>
+                                <Button Content="Show skin in Skin Editor" Click="OpenInSkinEditor_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>
+                                <Separator/>
+                                <Button Content="Exit" Click="Close_Click"/>
+                            </StackPanel>
+                        </material:PopupBox>
+                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
                             ToolTip="Save all changes" Click="SaveSkin_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
-                                <material:PackIcon
+                            <material:PackIcon
                             Kind="ContentSave"
                             Height="28"
                             Width="28" />
-                            </Button>
-                            <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                        </Button>
+                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
                             ToolTip="Export your skin" Click="ExportSkin_Click" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
-                                <material:PackIcon
+                            <material:PackIcon
                             Kind="Export"
                             Height="28"
                             Width="28" />
-                            </Button>
-                            <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
-                            ToolTip="Import a skin" Click="Import_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
-                                <material:PackIcon
+                        </Button>
+                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
+                            ToolTip="Import a skin" x:Name="btn_import" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
+                                 Command="{x:Static material:DialogHost.OpenDialogCommand}">
+                            <material:PackIcon
                             Kind="Import"
                             Height="28"
                             Width="28" />
-                            </Button>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{Binding Content.Tag, ElementName=content}"/>
-                        </DockPanel>
-                    </material:ColorZone>
+                            <Button.CommandParameter>
+                                <ui:DragDropArea Margin="16"/>
+                            </Button.CommandParameter>
+                        </Button>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{Binding Content.Tag, ElementName=content}"/>
+                    </DockPanel>
+                </material:ColorZone>
 
-                    <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
-                </DockPanel>
-                <ui:DragDropArea x:Name="dropArea" Visibility="Collapsed"/>
-            </Grid>
+                <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
+            </DockPanel>
         </material:DrawerHost>
     </material:DialogHost>
 </metro:MetroWindow>

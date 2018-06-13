@@ -144,6 +144,9 @@
       <DependentUpon>FilePicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\GridViewColumnResize.cs" />
+    <Compile Include="UI\MaterialMessageBox.xaml.cs">
+      <DependentUpon>MaterialMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\NewSkinDialog.xaml.cs">
       <DependentUpon>NewSkinDialog.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\FilePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\MaterialMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

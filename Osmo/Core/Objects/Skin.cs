@@ -1,10 +1,13 @@
-﻿using Osmo.Core.Configuration;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core.Configuration;
+using Osmo.UI;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -81,15 +84,20 @@ namespace Osmo.Core.Objects
             }
         }
 
-        public static Skin Import(FileInfo oskPath)
+        public static async Task<Skin> Import(FileInfo oskPath)
         {
             string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + oskPath.Name.Replace(oskPath.Extension, "");
 
             MessageBoxResult result = MessageBoxResult.OK;
             if (Directory.Exists(skinPath))
             {
-                result = MessageBox.Show("A skin with the name \"" + oskPath.Name + "\" exists already! Would you like to overwrite it?", "Skin exists already!", MessageBoxButton.OKCancel,
-                    MessageBoxImage.None, MessageBoxResult.Cancel);
+                var msgBox = MaterialMessageBox.Show("Skin exists already!",
+                    "A skin with the name \"" + oskPath.Name + "\" exists already! Would you like to overwrite it?",
+                    MessageBoxButton.OKCancel);
+
+                await DialogHost.Show(msgBox);
+
+                result = msgBox.Result;
                 if (result == MessageBoxResult.OK)
                 {
                     Directory.Delete(skinPath, true);

@@ -95,11 +95,11 @@ namespace Osmo.UI
             Close();
         }
 
-        private void Import_Click(object sender, RoutedEventArgs e)
+        private async void Import_Click(object sender, RoutedEventArgs e)
         {
             if (tempOskPath != null)
             {
-                var skin = Skin.Import(tempOskPath);
+                var skin = await Skin.Import(tempOskPath);
 
                 if (!skin.IsEmpty)
                 {
@@ -114,7 +114,6 @@ namespace Osmo.UI
         {
             tempOskPath = null;
             OskPath = null;
-            Visibility = Visibility.Collapsed;
         }
 
         private void Control_MouseDown(object sender, MouseButtonEventArgs e)

@@ -108,16 +108,15 @@ namespace Osmo.UI
             }
         }
 
-        private void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
+        private async void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to revert all changes made to this element?",
-                "Revert changes?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation,
-                MessageBoxResult.No);
+            var msgBox = MaterialMessageBox.Show("Revert changes?",
+                "Do you really want to revert all changes made to this element?",
+                MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            await DialogHost.Show(msgBox);
+
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 StopAudio(true);
                 SkinMixerViewModel vm = (SkinMixerViewModel)DataContext;
@@ -241,16 +240,15 @@ namespace Osmo.UI
             vm.RefreshImage();
         }
 
-        private void RevertSelected_Click(object sender, RoutedEventArgs e)
+        private async void RevertSelected_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace "Reset" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Do you really want to revert all changes made to this element?",
-                "Revert changes?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation,
-                MessageBoxResult.No);
+            var msgBox = MaterialMessageBox.Show("Revert changes?",
+                "Do you really want to revert all changes made to this element?",
+                MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            await DialogHost.Show(msgBox);
+
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 StopAudio(true);
                 SkinMixerViewModel vm = (SkinMixerViewModel)DataContext;

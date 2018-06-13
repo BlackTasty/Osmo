@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MaterialDesignThemes.Wpf;
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
@@ -71,9 +72,10 @@ namespace Osmo
             dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
         }
 
-        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //TODO: Implement dialog asking the user if he really wants to close the application without saving
+            e.Cancel = true;
+            
             configuration.Save();
             (SkinEditor.Instance.animationHelper.DataContext as AnimationViewModel).StopAnimation();
 
@@ -82,15 +84,17 @@ namespace Osmo
             if (skinVm.UnsavedChanges)
             {
                 vm.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
-                var result = MessageBox.Show("You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
-                    "Unsaved changes!", MessageBoxButton.YesNoCancel, MessageBoxImage.None, MessageBoxResult.Cancel);
+                var msgBox = MaterialMessageBox.Show("You have unsaved changes!",
+                    "You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
+                    MessageBoxButton.YesNoCancel);
 
-                if (result == MessageBoxResult.Cancel)
+                await DialogHost.Show(msgBox);
+
+                if (msgBox.Result == MessageBoxResult.Cancel)
                 {
-                    e.Cancel = true;
                     return;
                 }
-                else if (result == MessageBoxResult.Yes)
+                else if (msgBox.Result == MessageBoxResult.Yes)
                 {
                     skinVm.LoadedSkin.Save();
                 }
@@ -100,19 +104,23 @@ namespace Osmo
             if (mixerVm.UnsavedChanges)
             {
                 vm.SelectedSidebarIndex = FixedValues.MIXER_INDEX;
-                var result = MessageBox.Show("You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
-                    "Unsaved changes!", MessageBoxButton.YesNoCancel, MessageBoxImage.None, MessageBoxResult.Cancel);
+                var msgBox = MaterialMessageBox.Show("You have unsaved changes!",
+                    "You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
+                    MessageBoxButton.YesNoCancel);
 
-                if (result == MessageBoxResult.Cancel)
+                await DialogHost.Show(msgBox);
+
+                if (msgBox.Result == MessageBoxResult.Cancel)
                 {
-                    e.Cancel = true;
                     return;
                 }
-                else if (result == MessageBoxResult.Yes)
+                else if (msgBox.Result == MessageBoxResult.Yes)
                 {
                     mixerVm.SkinLeft.Save();
                 }
             }
+
+            Environment.Exit(0);
         }
 
         private void SaveSkin_Click(object sender, RoutedEventArgs e)
@@ -127,12 +135,15 @@ namespace Osmo
             }
         }
 
-        private void ExportSkin_Click(object sender, RoutedEventArgs e)
+        private async void ExportSkin_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Do you wish to save your skin first?", "Save before export?",
-                MessageBoxButton.YesNoCancel, MessageBoxImage.None, MessageBoxResult.Yes);
+            var msgBox = MaterialMessageBox.Show("Save changes first?",
+                "Do you wish to save your skin first?",
+                MessageBoxButton.YesNoCancel);
 
-            if (result != MessageBoxResult.Cancel)
+            await DialogHost.Show(msgBox);
+
+            if (msgBox.Result != MessageBoxResult.Cancel)
             {
                 using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
                 {
@@ -143,11 +154,11 @@ namespace Osmo
                     {
                         if (sidebarMenu.SelectedIndex == 2)
                         {
-                            SkinEditor.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
+                            SkinEditor.Instance.ExportSkin(dlg.SelectedPath, msgBox.Result == MessageBoxResult.Yes);
                         }
                         else if (sidebarMenu.SelectedIndex == 3)
                         {
-                            SkinMixer.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
+                            SkinMixer.Instance.ExportSkin(dlg.SelectedPath, msgBox.Result == MessageBoxResult.Yes);
                         }
                     }
                 }
@@ -191,7 +202,8 @@ namespace Osmo
 
         private void MetroWindow_DragEnter(object sender, DragEventArgs e)
         {
-            dropArea.Visibility = Visibility.Visible;
+            if (DialogHost.OpenDialogCommand.CanExecute(btn_import.CommandParameter, null))
+                DialogHost.OpenDialogCommand.Execute(btn_import.CommandParameter, null);
         }
 
         private void OpenInSkinMixer_Click(object sender, RoutedEventArgs e)
@@ -204,11 +216,6 @@ namespace Osmo
         {
             SkinEditor.Instance.LoadSkin((SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft);
             (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
-        }
-
-        private void Import_Click(object sender, RoutedEventArgs e)
-        {
-            dropArea.Visibility = Visibility.Visible;
         }
     }
 }

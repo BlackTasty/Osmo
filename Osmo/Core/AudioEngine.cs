@@ -1,4 +1,5 @@
-﻿using Osmo.UI;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.UI;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,11 @@ namespace Osmo.Core
                 }
                 else
                 {
-                    MessageBox.Show("Unable to play the selected audio file!");
+                    var msgBox = MaterialMessageBox.Show("Invalid audio file",
+                        "Unable to play the selected audio file!",
+                        MessageBoxButton.OK);
+
+                    DialogHost.Show(msgBox);
                     return false;
                 }
             }

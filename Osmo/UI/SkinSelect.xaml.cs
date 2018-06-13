@@ -65,16 +65,15 @@ namespace Osmo.UI
             }
         }
 
-        private void SkinDelete_Click(object sender, RoutedEventArgs e)
+        private async void SkinDelete_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace "Delete" MessageBox with MaterialDesign dialog
-            var result = MessageBox.Show("Are you sure you want to delete this skin?",
-                "Delete skin?",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Exclamation,
-                MessageBoxResult.No);
+            var msgBox = MaterialMessageBox.Show("Delete skin?",
+                "Are you sure you want to delete this skin?",
+                MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            await DialogHost.Show(msgBox);
+
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 (DataContext as OsmoViewModel).SkinManager.DeleteSkin((sender as Button).Tag.ToString());
             }
@@ -100,11 +99,8 @@ namespace Osmo.UI
         {
             if (lv_skins.SelectedIndex == 0)
             {
-                //TODO: Implement "New skin" 
-                btn_newSkin.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
-                //if (DialogHost.OpenDialogCommand.CanExecute(null, null))
-                //    DialogHost.OpenDialogCommand.Execute(null, null);
+                if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, null))
+                    DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, null);
             }
         }
 
