@@ -1,6 +1,6 @@
 # OSMO - A skin manager for osu!
 
- OSMO stands for "*O*pen *S*kin *M*anager for *o*su!" and builds upon the old [Skin Manager](http://https://osu.ppy.sh/community/forums/topics/231747 "Skin Manager") from 2014. It uses the [Material Design In XAML Toolkit](https://github.com/ButchersBoy/MaterialDesignInXamlToolkit "Material Design In XAML Toolkit") to give you a clean and easy to navigate UI.
+ OSMO stands for "**O**pen **S**kin **M**anager for **o**su!" and builds upon the old [Skin Manager](http://https://osu.ppy.sh/community/forums/topics/231747 "Skin Manager") from 2014. It uses the [Material Design In XAML Toolkit](https://github.com/ButchersBoy/MaterialDesignInXamlToolkit "Material Design In XAML Toolkit") to give you a clean and easy to navigate UI.
 
 ### Status
 
