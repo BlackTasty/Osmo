@@ -133,6 +133,7 @@ namespace Osmo.ViewModel
                 new SidebarEntry("Skin Wizard", MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance),
                 new SidebarEntry("Skin Editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, false),
                 new SidebarEntry("Skin Mixer", MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, false),
+                new SidebarEntry("Template Manager", MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance),
                 new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
                 new SidebarEntry("About", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance)
             };

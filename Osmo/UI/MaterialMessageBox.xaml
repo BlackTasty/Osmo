@@ -5,24 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Osmo.UI"
+             xmlns:vm="clr-namespace:Osmo.ViewModel"
              mc:Ignorable="d" Width="300" Height="Auto" Margin="16">
+    <DockPanel.DataContext>
+        <vm:MessageBoxViewModel/>
+    </DockPanel.DataContext>
     <DockPanel.Resources>
         <converter:StringNotEmptyConverter x:Key="StringNotEmpty"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
     </DockPanel.Resources>
     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button Content="{Binding ElementName=dialog, Path=ButtonOneText, FallbackValue=_CANCEL}"
+        <Button Content="{Binding ButtonOneText, FallbackValue=_CANCEL}"
+                Visibility="{Binding ButtonOneVisible, Converter={StaticResource BoolToVisibility}}"
                  Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonOne_Click"
                  Command="material:DialogHost.CloseDialogCommand"/>
-        <Button Content="{Binding ElementName=dialog, Path=ButtonTwoText, FallbackValue=_NO}" Margin="8,0,0,0"
+        <Button Content="{Binding ButtonTwoText, FallbackValue=_NO}" Margin="8,0,0,0"
+                Visibility="{Binding ButtonTwoVisible, Converter={StaticResource BoolToVisibility}}"
                  Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonTwo_Click"
-                 Command="material:DialogHost.CloseDialogCommand"
-                Visibility="{Binding ElementName=dialog, Path=ButtonTwoText, Converter={StaticResource StringNotEmpty}, ConverterParameter=Visibility}"/>
-        <Button Content="{Binding ElementName=dialog, Path=ButtonThreeText, FallbackValue=_YES}" Margin="8,0,0,0"
+                 Command="material:DialogHost.CloseDialogCommand"/>
+        <Button Content="{Binding ButtonThreeText, FallbackValue=_YES}" Margin="8,0,0,0"
                  Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonThree_Click"
-                Visibility="{Binding ElementName=dialog, Path=ButtonThreeText, Converter={StaticResource StringNotEmpty}, ConverterParameter=Visibility}"
                  Command="material:DialogHost.CloseDialogCommand"/>
     </StackPanel>
-    <TextBlock Text="{Binding ElementName=dialog, Path=Title}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0,0,0,8" DockPanel.Dock="Top"/>
-    <TextBlock Text="{Binding ElementName=dialog, Path=Description}" TextWrapping="Wrap" DockPanel.Dock="Top" Margin="0,0,0,16"/>
+    <TextBlock Text="{Binding Title}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0,0,0,8" DockPanel.Dock="Top"/>
+    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" DockPanel.Dock="Top" Margin="0,0,0,16"/>
 </DockPanel>

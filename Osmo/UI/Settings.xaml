@@ -34,6 +34,7 @@
                     <RowDefinition Height="42"/>
                     <RowDefinition Height="16"/>
                     <RowDefinition Height="42"/>
+                    <RowDefinition Height="16"/>
                 </Grid.RowDefinitions>
                 <material:PackIcon Kind="Folder" Foreground="{Binding ElementName=txt_osuPath, Path=BorderBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" />
                 <TextBox  x:Name="txt_osuPath" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -52,19 +53,18 @@
                             ToolTip="Start searching your osu! directory" Width="130" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click" Tag="osu">_SELECT</Button>
                 <material:PackIcon Grid.Row="2" Kind="FolderAccount" Foreground="{Binding ElementName=txt_backupPath, Path=BorderBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" />
                 <TextBox Grid.Row="2" x:Name="txt_backupPath" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    material:HintAssist.Hint="{Binding Configuration.DefaultBackupDirectory, ElementName=container}" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    material:HintAssist.Hint="Temporary directory (Osmo saves changes to skins into this directory)" Grid.Column="1" Grid.ColumnSpan="2"/>
 
                 <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"  Tag="backup"
                             ToolTip="Start searching your osu! directory" Width="130" Grid.Row="2" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click">_SELECT</Button>
-                <TextBlock Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Center">
-                    <Run Text="Backup folder size: "/>
-                    <Run Text="{Binding BackupDirectorySize, FallbackValue=0}"/>
-                    <Run Text="MB"/>
-                </TextBlock>
-                <Border BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" />
-                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" 
-                            ToolTip="Start searching your osu! directory" Width="130" Grid.Row="4" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click">_CLEAR</Button>
+                <material:PackIcon Grid.Row="4" Kind="FolderStar" Foreground="{Binding ElementName=txt_templatePath, Path=BorderBrush}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" />
+                <TextBox Grid.Row="4" x:Name="txt_templatePath" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    material:HintAssist.Hint="Template directory" Grid.Column="1" Grid.ColumnSpan="2"/>
 
+                <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"  Tag="template"
+                            ToolTip="Start searching your osu! directory" Width="130" Grid.Row="4" Grid.Column="3" Margin="10,5" Click="SelectDirectory_Click">_SELECT</Button>
+                <Border BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Grid.Row="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" />
+                
             </Grid>
         </material:Card>
         <TextBlock Text="Editor" Margin="0,8"/>

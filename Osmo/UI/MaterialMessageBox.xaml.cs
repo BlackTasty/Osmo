@@ -1,4 +1,5 @@
 ﻿using Osmo.Core.Objects;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,70 +23,6 @@ namespace Osmo.UI
     /// </summary>
     public partial class MaterialMessageBox : DockPanel
     {
-        #region Title
-        [Category("Message Box")]
-        [Description("A string that specifies the title to display")]
-        public string Title
-        {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(MaterialMessageBox), new PropertyMetadata(""));
-        #endregion
-
-        #region Description
-        [Category("Message Box")]
-        [Description("A string that specifies the text to display")]
-        public string Description
-        {
-            get { return (string)GetValue(DescriptionProperty); }
-            set { SetValue(DescriptionProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DescriptionProperty =
-            DependencyProperty.Register("Description", typeof(string), typeof(MaterialMessageBox), new PropertyMetadata(""));
-        #endregion
-
-        #region ButtonOneTtext
-        public string ButtonOneText
-        {
-            get { return (string)GetValue(ButtonOneTextProperty); }
-            set { SetValue(ButtonOneTextProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ButtonOneText.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ButtonOneTextProperty =
-            DependencyProperty.Register("ButtonOneText", typeof(string), typeof(MaterialMessageBox), new PropertyMetadata("Yes"));
-        #endregion
-
-        #region ButtonTwoText
-        public string ButtonTwoText
-        {
-            get { return (string)GetValue(ButtonTwoTextProperty); }
-            set { SetValue(ButtonTwoTextProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ButtonTwoText.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ButtonTwoTextProperty =
-            DependencyProperty.Register("ButtonTwoText", typeof(string), typeof(MaterialMessageBox), new PropertyMetadata("No"));
-        #endregion
-
-        #region ButtonThreeText
-        public string ButtonThreeText
-        {
-            get { return (string)GetValue(ButtonThreeTextProperty); }
-            set { SetValue(ButtonThreeTextProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ButtonThreeText.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ButtonThreeTextProperty =
-            DependencyProperty.Register("ButtonThreeText", typeof(string), typeof(MaterialMessageBox), new PropertyMetadata("Cancel"));
-        #endregion
-
         #region Buttons
         [Category("Message Box")]
         [Description("Sets the available buttons")]
@@ -95,27 +32,28 @@ namespace Osmo.UI
             set
             {
                 SetValue(ButtonsProperty, value);
+                MessageBoxViewModel vm = DataContext as MessageBoxViewModel;
                 switch (value)
                 {
                     case MessageBoxButton.OK:
-                        ButtonOneText = "";
-                        ButtonTwoText = "";
-                        ButtonThreeText = "OK";
+                        vm.ButtonOneText = "";
+                        vm.ButtonTwoText = "";
+                        vm.ButtonThreeText = "OK";
                         break;
                     case MessageBoxButton.OKCancel:
-                        ButtonOneText = "";
-                        ButtonTwoText = "Cancel";
-                        ButtonThreeText = "OK";
+                        vm.ButtonOneText = "";
+                        vm.ButtonTwoText = "Cancel";
+                        vm.ButtonThreeText = "OK";
                         break;
                     case MessageBoxButton.YesNo:
-                        ButtonOneText = "";
-                        ButtonTwoText = "No";
-                        ButtonThreeText = "Yes";
+                        vm.ButtonOneText = "";
+                        vm.ButtonTwoText = "No";
+                        vm.ButtonThreeText = "Yes";
                         break;
                     case MessageBoxButton.YesNoCancel:
-                        ButtonOneText = "Cancel";
-                        ButtonTwoText = "No";
-                        ButtonThreeText = "Yes";
+                        vm.ButtonOneText = "Cancel";
+                        vm.ButtonTwoText = "No";
+                        vm.ButtonThreeText = "Yes";
                         break;
                 }
             }
@@ -140,18 +78,19 @@ namespace Osmo.UI
             DependencyProperty.Register("Result", typeof(MessageBoxResult), typeof(MaterialMessageBox), new PropertyMetadata(MessageBoxResult.None));
         #endregion
 
-        private MaterialMessageBox()
+        private MaterialMessageBox(string title, string description)
         {
             InitializeComponent();
+            MessageBoxViewModel vm = DataContext as MessageBoxViewModel;
+            vm.Title = title;
+            vm.Description = description;
         }
 
         //TODO: Implement a property which selects a default choice
         public static MaterialMessageBox Show(string title, string description, MessageBoxButton buttons)
         {
-            return new MaterialMessageBox()
+            return new MaterialMessageBox(title, description)
             {
-                Title = title,
-                Description = description,
                 Buttons = buttons
             }; ;
         }

@@ -26,6 +26,12 @@ namespace Osmo.Core.Configuration
         public event EventHandler<EventArgs> SettingsSaved;
 
         #region Properties
+        private string mBackupDirectory;
+        private string mDefaultBackupDirectory;
+
+        private string mTemplateDirectory;
+        private string mDefaultTemplateDirectory;
+
         public bool IsValid
         {
             get
@@ -35,14 +41,19 @@ namespace Osmo.Core.Configuration
             }
         }
 
-        public string DefaultBackupDirectory
-        {
-            get => "[Installation folder]\\Backups\\";
-        }
-
         public string OsuDirectory { get; set; }
 
-        public string BackupDirectory { get; set; }
+        public string BackupDirectory {
+            get => !string.IsNullOrWhiteSpace(mBackupDirectory) ? 
+                mBackupDirectory : mDefaultBackupDirectory;
+            set => mBackupDirectory = value; }
+
+        public string TemplateDirectory
+        {
+            get => !string.IsNullOrWhiteSpace(mTemplateDirectory) ?
+                mTemplateDirectory : mDefaultTemplateDirectory;
+            set => mTemplateDirectory = value;
+        }
 
         public bool BackupBeforeMixing { get; set; }
 
@@ -63,7 +74,8 @@ namespace Osmo.Core.Configuration
             BackgroundEditor = Colors.Black;
             ReopenLastSkin = true;
             PlaySoundWhenHovering = false;
-            BackupDirectory = AppDomain.CurrentDomain.BaseDirectory + "Backups";
+            mDefaultBackupDirectory = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
+            mDefaultTemplateDirectory = AppDomain.CurrentDomain.BaseDirectory + "Templates\\";
             OsuDirectory = "";
             Volume = .8;
 
@@ -76,6 +88,7 @@ namespace Osmo.Core.Configuration
             Content = new string[]
             {
                 "OsuDirectory:" + OsuDirectory,
+                "TemplateDirectory:" + TemplateDirectory,
                 "BackupBeforeMixing:"+ BackupBeforeMixing,
                 "BackgroundEditor:" + BackgroundEditor.ToString(),
                 "ReopenLastSkin:" + ReopenLastSkin,
@@ -102,6 +115,14 @@ namespace Osmo.Core.Configuration
                     {
                         case "OsuDirectory":
                             OsuDirectory = property[1];
+                            break;
+
+                        case "BackupDirectory":
+                            BackupDirectory = property[1];
+                            break;
+
+                        case "TemplateDirectory":
+                            TemplateDirectory = property[1];
                             break;
 
                         case "BackupBeforeMixing":

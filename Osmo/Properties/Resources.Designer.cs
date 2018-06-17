@@ -89,6 +89,40 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [b]- General[/b]
+        ///Skin-Name: [NAME]
+        ///Author: [AUTHOR]
+        ///Skin-Version: [VERSION]
+        ///Size: [SIZE]
+        ///Supported Gammemodes: (osu!, osu!mania, ctb, taiko)
+        ///Tags: 
+        ///
+        ///[box=Changelog]
+        ///[list]
+        ///[*] [DATE]: First release[/list]
+        ///[/box]
+        ///
+        ///[b]- Screenshots[/b]
+        ///[box=Menu]
+        ///[/box]
+        ///
+        ///[box=In-Game]
+        ///[/box]
+        ///
+        ///[b]- Download-Mirrors[/b]
+        ///
+        ///
+        ///[b](Last Update: [DATE])[/b]
+        ///
+        ///Additional Text here....
+        /// </summary>
+        internal static string DefaultTemplate {
+            get {
+                return ResourceManager.GetString("DefaultTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap emptyImage {
@@ -121,12 +155,12 @@ namespace Osmo.Properties {
         ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
         ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description|Flags
         ///#
         ///# Note: Only the name and supported formats are required. 
         ///#       If you want to use different values for different versions, write it like this:
         ///#       ranking-graph|.png|1.0:min308x156;min308x148
-        ///#       You can speci [rest of string was truncated]&quot;;.
+        ///#       You can [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningCatch {
             get {
@@ -138,12 +172,12 @@ namespace Osmo.Properties {
         ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
         ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description|Flags
         ///#
         ///# Note: Only the name and supported formats are required. 
         ///#       If you want to use different values for different versions, write it like this:
         ///#       ranking-graph|.png|1.0:min308x156;min308x148
-        ///#       You can speci [rest of string was truncated]&quot;;.
+        ///#       You can [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningInterface {
             get {
@@ -155,12 +189,12 @@ namespace Osmo.Properties {
         ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
         ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description|Flags
         ///#
         ///# Note: Only the name and supported formats are required. 
         ///#       If you want to use different values for different versions, write it like this:
         ///#       ranking-graph|.png|1.0:min308x156;min308x148
-        ///#       You can speci [rest of string was truncated]&quot;;.
+        ///#       You can [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningMania {
             get {
@@ -190,12 +224,12 @@ namespace Osmo.Properties {
         ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
         ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description|Flags|Flags
         ///#
         ///# Note: Only the name and supported formats are required. 
         ///#       If you want to use different values for different versions, write it like this:
         ///#       ranking-graph|.png|1.0:min308x156;min308x148
-        ///#       You can speci [rest of string was truncated]&quot;;.
+        ///#       Y [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningStandard {
             get {
@@ -207,12 +241,12 @@ namespace Osmo.Properties {
         ///   Looks up a localized string similar to # This files is based on the official wiki entry for Skinning: https://osu.ppy.sh/help/wiki/Skinning/Interface
         ///# Date: 03.06.2018
         ///# Entries are split like this:
-        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description
+        ///#    Name|Supported formats|Suggested SD size|Animatable;Contains hyphen;Maximum frames;Frame order|Version|Description|Flags
         ///#
         ///# Note: Only the name and supported formats are required. 
         ///#       If you want to use different values for different versions, write it like this:
         ///#       ranking-graph|.png|1.0:min308x156;min308x148
-        ///#       You can speci [rest of string was truncated]&quot;;.
+        ///#       You can [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkinningTaiko {
             get {

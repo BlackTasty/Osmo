@@ -1,0 +1,26 @@
+[b]- General[/b]
+Skin-Name: [NAME]
+Author: [AUTHOR]
+Skin-Version: [VERSION]
+Size: [SIZE]
+Supported Gammemodes: (osu!, osu!mania, ctb, taiko)
+Tags: 
+
+[box=Changelog]
+[list]
+[*] [DATE]: First release[/list]
+[/box]
+
+[b]- Screenshots[/b]
+[box=Menu]
+[/box]
+
+[box=In-Game]
+[/box]
+
+[b]- Download-Mirrors[/b]
+
+
+[b](Last Update: [DATE])[/b]
+
+Additional Text here...

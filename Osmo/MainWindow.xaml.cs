@@ -8,6 +8,7 @@ using Osmo.UI;
 using Osmo.ViewModel;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,6 +30,13 @@ namespace Osmo
             configuration.SettingsSaved += Configuration_SettingsSaved;
             FixedValues.InitializeReader();
             SkinCreationWizard.Instance.ApplyMasterViewModel(DataContext as OsmoViewModel);
+            
+            if (!Directory.Exists(AppConfiguration.GetInstance().TemplateDirectory))
+            {
+                Directory.CreateDirectory(AppConfiguration.GetInstance().TemplateDirectory);
+                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default template.oft", 
+                    Properties.Resources.DefaultTemplate);
+            }
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)

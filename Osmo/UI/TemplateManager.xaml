@@ -1,0 +1,87 @@
+﻿<Grid x:Class="Osmo.UI.TemplateManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:Osmo.ViewModel"
+             xmlns:converter="clr-namespace:Osmo.Converters"
+             xmlns:local="clr-namespace:Osmo.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
+    </Grid.Resources>
+    <Grid.DataContext>
+        <vm:TemplateManagerViewModel/>
+    </Grid.DataContext>
+    <ListView x:Name="lv_templates" ItemsSource="{Binding Templates}" Grid.ColumnSpan="4"
+              PreviewMouseDoubleClick="Templates_PreviewMouseDoubleClick"  PreviewMouseLeftButtonUp="Templates_PreviewMouseLeftButtonUp">
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Header="Name" Width="200">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <material:PackIcon Kind="Plus" Foreground="{DynamicResource PrimaryHueMidBrush}" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}" Margin="0,0,8,0"/>
+                                <TextBlock Text="{Binding Name}" x:Name="txt_name">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsEmpty}" Value="True">
+                                                    <Setter Property="TextBlock.Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsEmpty}" Value="True">
+                                    <Setter TargetName="txt_name" Property="Text" Value="New template"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn Header="Delete" Width="80">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="16" Width="16" Click="TemplateDelete_Click"
+                                    ToolTip="Delete template" Padding="0" Tag="{Binding Name}"
+                                    Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <material:PackIcon
+                                                    Kind="Delete"
+                                                    Height="16"
+                                                    Width="16" 
+                                                />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <material:PackIcon
+                                                            Kind="DeleteEmpty"
+                                                            Height="16"
+                                                            Width="16" 
+                                                        />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+            </GridView>
+        </ListView.View>
+    </ListView>
+</Grid>
