@@ -174,7 +174,7 @@ namespace Osmo.UI
             switch (fileType)
             {
                 case FileType.Audio:
-                    return "Supported audio files|*.mp3;*.wav;*.ogg";
+                    return "Supported audio files|*.mp3;*.wav|Partially supported audio files|*.ogg";
                 case FileType.Configuration:
                     return "Supported configuration files|*.ini";
                 case FileType.Image:

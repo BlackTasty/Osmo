@@ -1,11 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core;
 using Osmo.Core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -33,6 +28,7 @@ namespace Osmo.ViewModel
             set
             {
                 mSkinLeft = value;
+                SelectedElementLeft = new SkinElement();
                 (Application.Current.MainWindow.DataContext as OsmoViewModel).IsMixerEnabled = value != null;
                 InvokePropertyChanged("SkinLeft");
             }
@@ -44,6 +40,7 @@ namespace Osmo.ViewModel
             set
             {
                 mSkinRight = value;
+                SelectedElementRight = new SkinElement();
                 InvokePropertyChanged("SkinRight");
             }
         }

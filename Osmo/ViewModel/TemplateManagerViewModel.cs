@@ -18,6 +18,13 @@ namespace Osmo.ViewModel
         public TemplateManagerViewModel()
         {
             Templates.Add(new ForumTemplate());
+
+            if (!Directory.Exists(AppConfiguration.GetInstance().TemplateDirectory))
+            {
+                Directory.CreateDirectory(AppConfiguration.GetInstance().TemplateDirectory);
+                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default template.oft",
+                    Properties.Resources.DefaultTemplate);
+            }
             LoadTemplates();
         }
 

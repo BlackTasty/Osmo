@@ -22,6 +22,7 @@
     </Window.DataContext>
     <Window.Resources>
         <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
+        <converter:DebugConverter x:Key="Debug"/>
     </Window.Resources>
     <metro:MetroWindow.WindowButtonCommands>
         <metro:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"/>
@@ -45,19 +46,23 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <material:PackIcon Kind="{Binding Icon}" Width="32" Height="32" Margin="16,0,0,0"/>
-                                    <TextBlock Text="{Binding Name}" Margin="16 0 16 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Name}"  Margin="16 0 16 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" 
+                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                                <Setter Property="IsHitTestVisible" Value="True"/>
-                                <Setter Property="IsEnabled" Value="True"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Content.IsEnabled}" Value="False">
+                                    <DataTrigger Binding="{Binding Content.IsEnabled, Converter={StaticResource Debug}}" Value="False">
                                         <Setter Property="IsHitTestVisible" Value="False"/>
                                         <Setter Property="IsEnabled" Value="False"/>
                                     </DataTrigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                                    </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </ListBox.ItemContainerStyle>

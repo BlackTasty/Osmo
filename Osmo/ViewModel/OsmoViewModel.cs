@@ -44,7 +44,7 @@ namespace Osmo.ViewModel
             }
         }
 
-        public VeryObservableCollection<Skin> Skins { get => SkinManager != null? SkinManager.Skins : null; }
+        public VeryObservableCollection<Skin> Skins { get => SkinManager?.Skins; }
 
         public SidebarEntry[] Items { get => mSidebarItems; }
 

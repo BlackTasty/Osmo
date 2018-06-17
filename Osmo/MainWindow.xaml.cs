@@ -30,13 +30,6 @@ namespace Osmo
             configuration.SettingsSaved += Configuration_SettingsSaved;
             FixedValues.InitializeReader();
             SkinCreationWizard.Instance.ApplyMasterViewModel(DataContext as OsmoViewModel);
-            
-            if (!Directory.Exists(AppConfiguration.GetInstance().TemplateDirectory))
-            {
-                Directory.CreateDirectory(AppConfiguration.GetInstance().TemplateDirectory);
-                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default template.oft", 
-                    Properties.Resources.DefaultTemplate);
-            }
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)
@@ -53,13 +46,10 @@ namespace Osmo
 
         private void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            (SkinEditor.Instance.DataContext as SkinViewModel).SelectedElement = new SkinElement();
-
             if (sidebarMenu.SelectedIndex != FixedValues.CONFIG_INDEX && !configuration.IsValid)
             {
                 sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
             }
-
 
             //until we had a StaysOpen glag to Drawer, this will help with scroll bars
             var dependencyObject = Mouse.Captured as DependencyObject;

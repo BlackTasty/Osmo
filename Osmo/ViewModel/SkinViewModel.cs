@@ -38,7 +38,8 @@ namespace Osmo.ViewModel
                 mLoadedSkin = value;
                 //if (AppConfiguration.GetInstance().BackupBeforeMixing)
                 //    mLoadedSkin.BackupSkin(AppConfiguration.GetInstance().BackupDirectory, true);
-                
+
+                SelectedElement = new SkinElement();
                 (Application.Current.MainWindow.DataContext as OsmoViewModel).IsEditorEnabled = value != null;
                 InvokePropertyChanged("LoadedSkin");
                 InvokePropertyChanged("Elements");
