@@ -124,7 +124,7 @@
             <RowDefinition Height="44"/>
         </Grid.RowDefinitions>
         <material:ColorZone VerticalAlignment="Stretch" Mode="Dark" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <Grid>
+            <Grid Margin="0,48,0,0">
                 <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}"/>
                 <material:PackIcon Kind="{Binding Icon}" Visibility="{Binding ShowIcon, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
             </Grid>
@@ -280,5 +280,7 @@
             </StackPanel>
         </material:PopupBox>
     </Grid>
+    <material:Snackbar MessageQueue="{material:MessageQueue}"
+                                                 x:Name="snackbar" Grid.ColumnSpan="3"/>
     <local:AnimationHelper Grid.ColumnSpan="3" x:Name="animationHelper" Visibility="Collapsed"/>
 </Grid>

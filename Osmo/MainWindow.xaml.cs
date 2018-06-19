@@ -29,7 +29,8 @@ namespace Osmo
             InitializeComponent();
             configuration.SettingsSaved += Configuration_SettingsSaved;
             FixedValues.InitializeReader();
-            SkinCreationWizard.Instance.ApplyMasterViewModel(DataContext as OsmoViewModel);
+            SkinCreationWizard.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
+            TemplateManager.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)
@@ -123,44 +124,23 @@ namespace Osmo
 
         private void SaveSkin_Click(object sender, RoutedEventArgs e)
         {
-            if (sidebarMenu.SelectedIndex == 2)
+            if (sidebarMenu.SelectedIndex == FixedValues.EDITOR_INDEX)
             {
                 SkinEditor.Instance.SaveSkin();
             }
-            else if (sidebarMenu.SelectedIndex == 3)
+            else if (sidebarMenu.SelectedIndex == FixedValues.MIXER_INDEX)
             {
                 SkinMixer.Instance.SaveSkin();
             }
+            else if (sidebarMenu.SelectedIndex == FixedValues.TEMPLATE_EDITOR_INDEX)
+            {
+                TemplateEditor.Instance.SaveTemplate();
+            }
         }
 
-        private async void ExportSkin_Click(object sender, RoutedEventArgs e)
+        private void ExportSkin_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Save changes first?",
-                "Do you wish to save your skin first?",
-                MessageBoxButton.YesNoCancel);
-
-            await DialogHost.Show(msgBox);
-
-            if (msgBox.Result != MessageBoxResult.Cancel)
-            {
-                using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
-                {
-                    Description = "Select the directory you want to export your skin to"
-                })
-                {
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        if (sidebarMenu.SelectedIndex == 2)
-                        {
-                            SkinEditor.Instance.ExportSkin(dlg.SelectedPath, msgBox.Result == MessageBoxResult.Yes);
-                        }
-                        else if (sidebarMenu.SelectedIndex == 3)
-                        {
-                            SkinMixer.Instance.ExportSkin(dlg.SelectedPath, msgBox.Result == MessageBoxResult.Yes);
-                        }
-                    }
-                }
-            }
+            Helper.ExportSkin(sidebarMenu.SelectedIndex);
         }
 
         private void OpenInFileExplorer_OnClick(object sender, RoutedEventArgs e)

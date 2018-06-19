@@ -23,6 +23,7 @@ using System.Linq;
 using Osmo.Core.Reader;
 using MaterialDesignThemes.Wpf.Transitions;
 using MaterialDesignThemes.Wpf;
+using System.Diagnostics;
 
 namespace Osmo.UI
 {
@@ -83,6 +84,9 @@ namespace Osmo.UI
         public void SaveSkin()
         {
             ((SkinViewModel)DataContext).SaveSkin();
+            
+            snackbar.MessageQueue.Enqueue("Your skin has been saved!", "Export now",
+                param => Helper.ExportSkin(FixedValues.EDITOR_INDEX, true), false, true);
         }
 
         public void ExportSkin(string targetDir, bool alsoSave)
@@ -93,6 +97,8 @@ namespace Osmo.UI
             }
 
             ((SkinViewModel)DataContext).ExportSkin(targetDir, alsoSave);
+            snackbar.MessageQueue.Enqueue("Export successful!", "Open folder",
+                param => Process.Start(targetDir), false, true);
         }
 
         private void Elements_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -112,14 +118,14 @@ namespace Osmo.UI
                 switch (vm.SelectedElement.FileType)
                 {
                     case FileType.Audio:
-                        vm.Icon = MaterialDesignThemes.Wpf.PackIconKind.FileMusic;
+                        vm.Icon = PackIconKind.FileMusic;
                         break;
                     case FileType.Configuration:
-                        vm.Icon = MaterialDesignThemes.Wpf.PackIconKind.FileXml;
+                        vm.Icon = PackIconKind.FileXml;
                         LoadConfigFile(vm.SelectedElement.Path);
                         break;
                     case FileType.Unknown:
-                        vm.Icon = MaterialDesignThemes.Wpf.PackIconKind.File;
+                        vm.Icon = PackIconKind.File;
                         break;
                 }
             }
@@ -301,12 +307,13 @@ namespace Osmo.UI
 
         private void TextArea_TextEntered(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            if (!isEnteringProperty && (DataContext as SkinViewModel).SelectedElement.Name.Equals("skin.ini", 
+            if ((DataContext as SkinViewModel).SelectedElement.Name.Equals("skin.ini", 
                 StringComparison.InvariantCultureIgnoreCase))
             {
+                //TODO: More intelligent code completion by using the group which is above the current line (for example [Colours])
                 completionWindow = new CompletionWindow(textEditor.TextArea);
                 IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-                string line = GetTextAtCurrentLine();
+                string line = Helper.GetTextAtCurrentLine(textEditor);
                 foreach (CompletionData item in skinIniCompletion)
                 {
                     if (item.Text.Contains(line))
@@ -325,32 +332,13 @@ namespace Osmo.UI
             }
         }
 
-        private string GetTextAtCurrentLine()
-        {
-            int offset = textEditor.CaretOffset;
-            DocumentLine line = textEditor.Document.GetLineByOffset(offset);
-            return textEditor.Document.GetText(line.Offset, line.Length);
-        }
-
         private void TextArea_TextEntering(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            if (!isEnteringProperty && e.Text == ":")
+            if (completionWindow != null && !char.IsLetterOrDigit(e.Text[0]))
             {
-                isEnteringProperty = true;
-            }
-            else if (isEnteringProperty && e.Text == "\n")
-            {
-                isEnteringProperty = false;
-            }
-
-            if (completionWindow != null)
-            {
-                if (!char.IsLetterOrDigit(e.Text[0]))
-                {
-                    // Whenever a non-letter is typed while the completion window is open,
-                    // insert the currently selected element.
-                    completionWindow.CompletionList.RequestInsertion(e);
-                }
+                // Whenever a non-letter is typed while the completion window is open,
+                // insert the currently selected element.
+                completionWindow.CompletionList.RequestInsertion(e);
             }
         }
 

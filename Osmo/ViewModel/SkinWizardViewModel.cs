@@ -16,8 +16,7 @@ namespace Osmo.ViewModel
             "2.2",
             "2.3",
             "2.4",
-            "2.5",
-            "latest"
+            "2.5"
         };
 
         private bool mComponentInterface = true;

@@ -10,16 +10,15 @@ namespace Osmo.Core.Objects
     /// <summary>
     /// The main class which contains name, path and content of a template. File extension: .oft
     /// </summary>
-    class ForumTemplate //Extension: .oft
+    public class ForumTemplate //Extension: .oft
     {
         private FileInfo fileInfo;
-
-        private string name;
-        private string[] lines;
-
-        public string Name { get => fileInfo?.Name; }
+        
+        public string Name { get; private set; }
 
         public string Path { get => fileInfo?.FullName; }
+
+        public string Content { get; set; }
 
         public bool IsEmpty { get; private set; }
 
@@ -31,16 +30,22 @@ namespace Osmo.Core.Objects
         public ForumTemplate(string path)
         {
             fileInfo = new FileInfo(path);
-            name = fileInfo.Name.Replace(fileInfo.Extension, "");
-            lines = File.ReadAllLines(Path);
+            Name = fileInfo.Name.Replace(fileInfo.Extension, "");
+            Content = File.ReadAllText(Path);
         }
 
         public void Rename(string newName)
         {
-            if (!name.Equals(newName))
+            if (!Name.Equals(newName))
             {
                 fileInfo?.MoveTo(fileInfo.DirectoryName + "\\" + newName + fileInfo.Extension);
             }
+        }
+
+        public void Save(string newContent)
+        {
+            Content = newContent;
+            File.WriteAllText(Path, Content);
         }
     }
 }

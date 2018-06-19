@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Osmo.ViewModel
 {
@@ -135,7 +136,8 @@ namespace Osmo.ViewModel
                 new SidebarEntry("Skin Mixer", MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, false),
                 new SidebarEntry("Template Manager", MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance),
                 new SidebarEntry("Settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
-                new SidebarEntry("About", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance)
+                new SidebarEntry("About", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance),
+                new SidebarEntry("Template Editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, Visibility.Hidden)
             };
         }
         

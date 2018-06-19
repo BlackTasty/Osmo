@@ -5,6 +5,7 @@ using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,8 @@ namespace Osmo.UI
         internal void SaveSkin()
         {
             ((SkinMixerViewModel)DataContext).SkinLeft.Save();
+            snackbar.MessageQueue.Enqueue("Your skin has been saved!", "Export now",
+                param => Helper.ExportSkin(FixedValues.MIXER_INDEX, true), false, true);
         }
 
         internal void ExportSkin(string targetDir, bool alsoSave)
@@ -70,6 +73,10 @@ namespace Osmo.UI
             }
 
             ((SkinMixerViewModel)DataContext).SkinLeft.Export(targetDir);
+
+            ((SkinViewModel)DataContext).ExportSkin(targetDir, alsoSave);
+            snackbar.MessageQueue.Enqueue("Export successful!", "Open folder",
+                param => Process.Start(targetDir), false, true);
         }
 
         private void LeftSkin_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -22,9 +22,11 @@ namespace Osmo.Core
                 readerSounds = new SkinSoundReader(Properties.Resources.SkinningSounds);
         }
 
+        internal const int WIZARD_INDEX = 1;
         internal const int EDITOR_INDEX = 2;
         internal const int MIXER_INDEX = 3;
         internal const int CONFIG_INDEX = 5;
+        internal const int TEMPLATE_EDITOR_INDEX = 7;
         
         internal static SkinElementReader readerInterface;
         internal static SkinElementReader readerStandard;
@@ -32,6 +34,17 @@ namespace Osmo.Core
         internal static SkinElementReader readerMania;
         internal static SkinElementReader readerTaiko;
         internal static SkinSoundReader readerSounds;
+
+        internal static readonly List<CompletionData> templateCompletionData =
+            new List<CompletionData>()
+            {
+                new CompletionData("[NAME]", "This is the placeholder for your skin's name"),
+                new CompletionData("[AUTHOR]", "This is the placeholder for your name (taken from skin.ini)"),
+                new CompletionData("[VERSION]", "This is the placeholder for your skin's version (taken from skin.ini"),
+                new CompletionData("[SIZE]", "This is the placeholder for your skin folder size"),
+                new CompletionData("[DATE]", "This is the placeholder for todays date")
+            };
+
 
         internal static readonly List<CompletionData> skinIniGeneralCompletionData =
             new List<CompletionData>() {

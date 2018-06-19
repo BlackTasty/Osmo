@@ -39,7 +39,7 @@ namespace Osmo.UI
             InitializeComponent();
         }
 
-        internal void ApplyMasterViewModel(OsmoViewModel vm)
+        internal void SetMasterViewModel(OsmoViewModel vm)
         {
             (DataContext as SkinWizardViewModel).Master = vm;
         }
@@ -90,8 +90,8 @@ namespace Osmo.UI
             if (vm.ComponentSounds)
                 vm.FilesToCreate += FixedValues.readerSounds.FileCount;
 
-            string skinDirectory = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + vm.Name;
-            Directory.CreateDirectory(skinDirectory);
+            string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + vm.Name;
+            Directory.CreateDirectory(skinPath);
             bool spinnerNewChecked = (bool)cb_spinnerNew.IsChecked;
             bool catcherNewChecked = (bool)cb_catcherNew.IsChecked;
 
@@ -99,27 +99,27 @@ namespace Osmo.UI
             {
                 if (vm.ComponentInterface)
                 {
-                    WriteFilesFromReader(vm, FixedValues.readerInterface, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerInterface, skinPath);
                 }
                 if (vm.ComponentOsu)
                 {
-                    WriteFilesFromReader(vm, FixedValues.readerStandard, skinDirectory, spinnerNewChecked);
+                    WriteFilesFromReader(vm, FixedValues.readerStandard, skinPath, spinnerNewChecked);
                 }
                 if (vm.ComponentMania)
                 {
-                    WriteFilesFromReader(vm, FixedValues.readerMania, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerMania, skinPath);
                 }
                 if (vm.ComponentCTB)
                 {
-                    WriteFilesFromReader(vm, FixedValues.readerCatch, skinDirectory, catcherNewChecked);
+                    WriteFilesFromReader(vm, FixedValues.readerCatch, skinPath, catcherNewChecked);
                 }
                 if (vm.ComponentTaiko)
                 {
-                    WriteFilesFromReader(vm, FixedValues.readerTaiko, skinDirectory);
+                    WriteFilesFromReader(vm, FixedValues.readerTaiko, skinPath);
                 }
                 if (vm.ComponentSounds)
                 {
-                    WriteSoundsFromReader(vm, FixedValues.readerSounds, skinDirectory);
+                    WriteSoundsFromReader(vm, FixedValues.readerSounds, skinPath);
                 }
             }).Start();
 
@@ -128,9 +128,9 @@ namespace Osmo.UI
                 .Replace("[AUTHOR]", vm.Author)
                 .Replace("[VERSION]", combo_version.Text);
 
-            File.WriteAllText(Path.Combine(skinDirectory, "skin.ini"), skinIniRaw);
+            File.WriteAllText(Path.Combine(skinPath, "skin.ini"), skinIniRaw);
             vm.IsCreating = false;
-            Skin skin = new Skin(skinDirectory);
+            Skin skin = new Skin(skinPath);
             vm.Master.Skins.Add(skin);
             SkinEditor.Instance.LoadSkin(skin);
             vm.Master.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;

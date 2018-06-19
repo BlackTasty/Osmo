@@ -247,5 +247,7 @@
             Style="{StaticResource MaterialDesignFloatingActionAccentButton}" >
         <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
     </Button>
+    <material:Snackbar MessageQueue="{material:MessageQueue}"
+                                                 x:Name="snackbar" Grid.ColumnSpan="3" Grid.Row="3"/>
     <local:SkinMixerSelect x:Name="skinSelect" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Hidden"/>
 </Grid>

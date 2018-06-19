@@ -2,6 +2,7 @@
 using Osmo.Core.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +56,9 @@ namespace Osmo.UI
             config.ReopenLastSkin = (bool)cb_reopenLastSkin.IsChecked;
             config.Save();
 
-            snackbar.MessageQueue.Enqueue("Your settings have been saved!");
+            string message = "Your settings have been saved!";
+            snackbar.MessageQueue.Enqueue(message, "OK", 
+                param => Trace.WriteLine("Actioned: " + param), message, false, true);
             //Task.Factory.StartNew(() => snackbar.MessageQueue.Enqueue("Your settings have been saved!"));
         }
 

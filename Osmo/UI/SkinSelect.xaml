@@ -18,8 +18,8 @@
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="150"/>
         <ColumnDefinition Width="298*"/>
-        <ColumnDefinition Width="170"/>
-        <ColumnDefinition Width="130"/>
+        <ColumnDefinition Width="150"/>
+        <ColumnDefinition Width="150"/>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition/>
@@ -125,7 +125,7 @@
                                     ToolTip="Export skin" Padding="0" Tag="{Binding Name}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                 <material:PackIcon
-                                                    Kind="Export"
+                                                    Kind="PackageDown"
                                                     Height="16"
                                                     Width="16" 
                                                 />
@@ -139,14 +139,14 @@
     <!--<material:Snackbar MessageQueue="{material:MessageQueue}" x:Name="MainSnackbar"
                                             Grid.Row="1" />-->
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="LoadSkin_Click"
-                            ToolTip="Open the selected skin in the editor" Width="140" Grid.Row="2" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}" Margin="5">_LOAD SKIN</Button>
+                            ToolTip="Open the selected skin in the editor" Grid.Row="2" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}" Margin="5">_LOAD SKIN</Button>
 
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{x:Static material:DialogHost.OpenDialogCommand}"
-                            x:Name="btn_newSkin" ToolTip="Create a blank skin" Width="160" Grid.Column="2" Grid.Row="2" Margin="5">_NEW SKIN
+                            x:Name="btn_newSkin" ToolTip="Create a blank skin" Grid.Column="2" Grid.Row="2" Margin="5">_NEW SKIN
         <Button.CommandParameter>
             <local:NewSkinDialog Margin="16"/>
         </Button.CommandParameter>
     </Button>
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="MixSkins_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
-                            ToolTip="Combine two or more skins together" Width="120" Grid.Column="3" Grid.Row="2" Margin="5">_MIX SKINS</Button>
+                            ToolTip="Combine two or more skins together" Grid.Column="3" Grid.Row="2" Margin="5">_MIX SKINS</Button>
 </Grid>
