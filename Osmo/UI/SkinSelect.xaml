@@ -33,7 +33,7 @@
               PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" PreviewMouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
         <ListView.View>
             <GridView>
-                <GridViewColumn Header="Name" Width="200">
+                <GridViewColumn Header="{DynamicResource name}" Width="200">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -52,13 +52,13 @@
                             </StackPanel>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsEmpty}" Value="True">
-                                    <Setter TargetName="txt_name" Property="Text" Value="New skin"/>
+                                    <Setter TargetName="txt_name" Property="Text" Value="{DynamicResource newSkin_title}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="Author" Width="200">
+                <GridViewColumn Header="{DynamicResource creator}" Width="200">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Author}" x:Name="txt_author"/>
@@ -70,7 +70,7 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="Elements" Width="100">
+                <GridViewColumn Header="{DynamicResource header_elements}" Width="100">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding ElementCount}" x:Name="txt_count"/>
@@ -82,11 +82,11 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="Delete" Width="80">
+                <GridViewColumn Header="{DynamicResource delete}" Width="80">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <Button Height="16" Width="16" Click="SkinDelete_Click"
-                                    ToolTip="Delete skin" Padding="0" Tag="{Binding Name}"
+                                    ToolTip="{DynamicResource tip_skinSelect_delete}" Padding="0" Tag="{Binding Name}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
@@ -118,11 +118,11 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="Export" Width="80">
+                <GridViewColumn Header="{DynamicResource export}" Width="80">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <Button Height="16" Width="16" Click="Export_Click" Style="{StaticResource MaterialDesignFlatButton}"
-                                    ToolTip="Export skin" Padding="0" Tag="{Binding Name}"
+                                    ToolTip="{DynamicResource tip_skinSelect_export}" Padding="0" Tag="{Binding Name}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                 <material:PackIcon
                                                     Kind="PackageDown"
@@ -138,15 +138,15 @@
     </ListView>
     <!--<material:Snackbar MessageQueue="{material:MessageQueue}" x:Name="MainSnackbar"
                                             Grid.Row="1" />-->
-    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="LoadSkin_Click"
-                            ToolTip="Open the selected skin in the editor" Grid.Row="2" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}" Margin="5">_LOAD SKIN</Button>
+    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="LoadSkin_Click" Content="{DynamicResource loadSkin}"
+                            ToolTip="{DynamicResource tip_skinSelect_load}" Grid.Row="2" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}" Margin="5"/>
 
-    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{x:Static material:DialogHost.OpenDialogCommand}"
-                            x:Name="btn_newSkin" ToolTip="Create a blank skin" Grid.Column="2" Grid.Row="2" Margin="5">_NEW SKIN
+    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{x:Static material:DialogHost.OpenDialogCommand}" Content="{DynamicResource newSkin}"
+                            x:Name="btn_newSkin" ToolTip="{DynamicResource tip_skinSelect_new}" Grid.Column="2" Grid.Row="2" Margin="5">
         <Button.CommandParameter>
             <local:NewSkinDialog Margin="16"/>
         </Button.CommandParameter>
     </Button>
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="MixSkins_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
-                            ToolTip="Combine two or more skins together" Grid.Column="3" Grid.Row="2" Margin="5">_MIX SKINS</Button>
+                            ToolTip="{DynamicResource tip_skinSelect_mix}" Grid.Column="3" Grid.Row="2" Margin="5" Content="{DynamicResource mixSkins}"/>
 </Grid>

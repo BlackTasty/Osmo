@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Osmo.Core;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -120,8 +121,8 @@ namespace Osmo.UI
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "Executable skin file.|*.osk",
-                Title = "Select an osu skin file to import..."
+                Filter = string.Format("{0}|*.osk", Helper.FindString("dragDrop_filter")),
+                Title = Helper.FindString("dragDrop_title")
             };
 
             if (openFileDialog.ShowDialog() == true)

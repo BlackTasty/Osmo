@@ -32,7 +32,7 @@
     <ListView x:Name="lv_elementsLeft" Grid.Row="1" ItemsSource="{Binding SkinLeft.Elements}" SelectionChanged="LeftSkin_SelectionChanged">
         <ListView.View>
             <GridView>
-                <GridViewColumn Width="200" Header="Name">
+                <GridViewColumn Width="200" Header="{DynamicResource name}">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontStyle="{Binding FontStyle, UpdateSourceTrigger=PropertyChanged}" FontWeight="{Binding FontWeight, UpdateSourceTrigger=PropertyChanged}"/>
@@ -59,12 +59,12 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="Revert" Width="80">
+                <GridViewColumn Header="{DynamicResource header_revert}" Width="80">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <Button Height="24" Width="24" Style="{StaticResource MaterialDesignFlatButton}"
                                     Visibility="{Binding HasChanges, Converter={StaticResource BooleanToVisibility}}"
-                                        ToolTip="Revert changes" Padding="0" Click="ChangeList_Revert_Click" Tag="{Binding Name}">
+                                        ToolTip="{DynamicResource tip_revert}" Padding="0" Click="ChangeList_Revert_Click" Tag="{Binding Name}">
                                 <material:PackIcon
                                             Kind="UndoVariant"
                                             Height="16"
@@ -79,7 +79,7 @@
     <ListView x:Name="lv_elementsRight" Grid.Row="1" Grid.Column="2" ItemsSource="{Binding SkinRight.Elements}" SelectionChanged="RightSkin_SelectionChanged">
         <ListView.View>
             <GridView>
-                <GridViewColumn Width="200" Header="Name">
+                <GridViewColumn Width="200" Header="{DynamicResource name}">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontStyle="{Binding FontStyle, UpdateSourceTrigger=PropertyChanged}" FontWeight="{Binding FontWeight, UpdateSourceTrigger=PropertyChanged}"/>
@@ -114,7 +114,7 @@
             <Image Source="{Binding ImageLeft}"/>
             <material:PackIcon Kind="{Binding IconLeft}" Visibility="{Binding ShowIconLeft, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
             <Button Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="PlaybackToggleLeft_Click"
-                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledLeft}">
+                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledLeft}" ToolTip="{DynamicResource tip_play}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Background" Value="{x:Null}"/>
@@ -143,7 +143,7 @@
             <Image Source="{Binding ImageRight}"/>
             <material:PackIcon Kind="{Binding IconRight}" Visibility="{Binding ShowIconRight, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
             <Button Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="PlaybackToggleRight_Click"
-                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledRight}">
+                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledRight}" ToolTip="{DynamicResource tip_play}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                         <Setter Property="Background" Value="{x:Null}"/>
@@ -168,7 +168,7 @@
         </Grid>
     </material:ColorZone>
     <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">
-        <Button Padding="0" Margin="0,8" Click="MoveElement_Click"
+        <Button Padding="0" Margin="0,8" Click="MoveElement_Click" ToolTip="{DynamicResource tip_mixer_transfer}"
                     Height="48" Width="48" Foreground="{DynamicResource MaterialDesignToolTipBackground}">
             <Button.Style>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -189,7 +189,7 @@
             </Button.Style>
             <material:PackIcon Kind="ArrowLeft" Width="36" Height="36"/>
         </Button>
-        <Button Padding="0" Margin="0,8" Click="RevertSelected_Click"
+        <Button Padding="0" Margin="0,8" Click="RevertSelected_Click" ToolTip="{DynamicResource tip_revertSelected}"
                     Height="48" Width="48" Foreground="{DynamicResource MaterialDesignToolTipBackground}">
             <Button.Style>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -226,7 +226,7 @@
             <StackPanel Orientation="Horizontal" Grid.Column="5" VerticalAlignment="Center">
                 <ToggleButton x:Name="cb_mute" Click="Mute_Click"
                                 Style="{StaticResource MaterialDesignActionToggleButton}"
-                                ToolTip="MaterialDesignActionLightToggleButton">
+                                 ToolTip="{DynamicResource tip_mute}">
                     <ToggleButton.Content>
                         <material:PackIcon
                                         Kind="{Binding Value, ElementName=slider_volume, Converter={StaticResource VolumeToIcon}, FallbackValue=VolumeMedium}" />
@@ -243,7 +243,7 @@
         </Grid>
     </material:Card>
     <Button Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="0,16,16,16" VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Click="LoadRightSkin_Click"
+                       HorizontalAlignment="Right" Click="LoadRightSkin_Click" ToolTip="{DynamicResource tip_mixer_loadRightSkin}"
             Style="{StaticResource MaterialDesignFloatingActionAccentButton}" >
         <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
     </Button>

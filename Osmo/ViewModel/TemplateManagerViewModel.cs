@@ -22,7 +22,7 @@ namespace Osmo.ViewModel
             if (!Directory.Exists(AppConfiguration.GetInstance().TemplateDirectory))
             {
                 Directory.CreateDirectory(AppConfiguration.GetInstance().TemplateDirectory);
-                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default template.oft",
+                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default.oft",
                     Properties.Resources.DefaultTemplate);
             }
             LoadTemplates();

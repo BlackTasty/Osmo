@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Osmo.Core;
 using Osmo.Core.Configuration;
 using System;
 using System.Collections.Generic;
@@ -52,12 +53,11 @@ namespace Osmo.UI
             config.BackupBeforeMixing = (bool)cb_backupSkin.IsChecked;
             config.BackupDirectory = txt_backupPath.Text;
             config.OsuDirectory = txt_osuPath.Text;
-            config.PlaySoundWhenHovering = (bool)cb_playSoundOnHover.IsChecked;
             config.ReopenLastSkin = (bool)cb_reopenLastSkin.IsChecked;
             config.Save();
 
-            string message = "Your settings have been saved!";
-            snackbar.MessageQueue.Enqueue(message, "OK", 
+            string message = Helper.FindString("snackbar_settingsSavedText");
+            snackbar.MessageQueue.Enqueue(message, Helper.FindString("ok"), 
                 param => Trace.WriteLine("Actioned: " + param), message, false, true);
             //Task.Factory.StartNew(() => snackbar.MessageQueue.Enqueue("Your settings have been saved!"));
         }
@@ -68,7 +68,7 @@ namespace Osmo.UI
             //TODO: Add message box asking the user if the folder should be automatically detected
             using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
             {
-                Description = "Select your osu! directory"
+                Description = Helper.FindString("settings_selectOsuDirectory")
             })
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -98,7 +98,6 @@ namespace Osmo.UI
             cb_backupSkin.IsChecked = config.BackupBeforeMixing;
             txt_backupPath.Text = config.BackupDirectory;
             txt_osuPath.Text = config.OsuDirectory;
-            cb_playSoundOnHover.IsChecked = config.PlaySoundWhenHovering;
             cb_reopenLastSkin.IsChecked = config.ReopenLastSkin;
         }
 

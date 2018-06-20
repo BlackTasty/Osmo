@@ -67,8 +67,8 @@ namespace Osmo.UI
 
         private async void SkinDelete_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Delete skin?",
-                "Are you sure you want to delete this skin?",
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("skinSelect_deleteTitle"),
+                Helper.FindString("skinSelect_deleteDescription"),
                 MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
@@ -84,7 +84,7 @@ namespace Osmo.UI
             //TODO: Replace OpenFolderDialog with custom FilePicker control (and remove Winforms dependency)
             using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
             {
-                Description = "Select the directory you want to export your skin to"
+                Description = Helper.FindString("skinSelect_exportTitle")
             })
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)

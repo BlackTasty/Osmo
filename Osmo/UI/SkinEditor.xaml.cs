@@ -85,7 +85,8 @@ namespace Osmo.UI
         {
             ((SkinViewModel)DataContext).SaveSkin();
             
-            snackbar.MessageQueue.Enqueue("Your skin has been saved!", "Export now",
+            snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_saveText"), 
+                Helper.FindString("snackbar_saveButton"),
                 param => Helper.ExportSkin(FixedValues.EDITOR_INDEX, true), false, true);
         }
 
@@ -97,7 +98,8 @@ namespace Osmo.UI
             }
 
             ((SkinViewModel)DataContext).ExportSkin(targetDir, alsoSave);
-            snackbar.MessageQueue.Enqueue("Export successful!", "Open folder",
+            snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_exportText"),
+                Helper.FindString("snackbar_exportButton"),
                 param => Process.Start(targetDir), false, true);
         }
 
@@ -154,7 +156,7 @@ namespace Osmo.UI
             {
                 Filter = GetFileFilter(vm.SelectedElement.FileType),
                 InitialDirectory = vm.LoadedSkin.Path,
-                Title = "Select a file as a replacement..."
+                Title = Helper.FindString("edit_replaceTitle")
             };
 
             if (!string.IsNullOrWhiteSpace(lastPath))
@@ -180,11 +182,14 @@ namespace Osmo.UI
             switch (fileType)
             {
                 case FileType.Audio:
-                    return "Supported audio files|*.mp3;*.wav|Partially supported audio files|*.ogg";
+                    return string.Format("{0}|*.mp3;*.wav|{1}|*.ogg",
+                        Helper.FindString("edit_replaceFilterAudio1"), Helper.FindString("edit_replaceFilterAudio2"));
                 case FileType.Configuration:
-                    return "Supported configuration files|*.ini";
+                    return string.Format("{0}|*.ini",
+                        Helper.FindString("edit_replaceFilterConfig"));
                 case FileType.Image:
-                    return "Supported image files|*.jpg;*.jpeg;*.png";
+                    return string.Format("{0}|*.jpg;*.jpeg;*.png",
+                        Helper.FindString("edit_replaceFilterImage"));
                 default:
                     return "";
             }
@@ -192,8 +197,8 @@ namespace Osmo.UI
 
         private async void Revert_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Revert changes?",
-                "Do you really want to revert all changes made to this element?",
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
+                Helper.FindString("edit_revertDescription"),
                 MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
@@ -213,8 +218,8 @@ namespace Osmo.UI
 
         private async void Erase_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Erase element?",
-                "Do you really want to erase this element?",
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_eraseTitle"),
+                Helper.FindString("edit_eraseDescription"),
                 MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
@@ -233,8 +238,8 @@ namespace Osmo.UI
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Delete element?",
-                "Do you really want to delete this element?",
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_deleteTitle"),
+                Helper.FindString("edit_deleteDescription"),
                 MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
@@ -379,8 +384,8 @@ namespace Osmo.UI
 
         private async void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Revert changes?",
-                "Do you really want to revert all changes made to this element?",
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
+                Helper.FindString("edit_revertDescription"),
                 MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);

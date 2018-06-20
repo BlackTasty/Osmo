@@ -44,8 +44,8 @@ namespace Osmo.Core
 
             if (!skipDialog)
             {
-                var msgBox = MaterialMessageBox.Show("Save changes first?",
-                    "Do you wish to save your skin first?",
+                var msgBox = MaterialMessageBox.Show(FindString("export_saveFirstTitle"),
+                    FindString("export_saveFirstDescription"),
                     MessageBoxButton.YesNoCancel);
 
                 await DialogHost.Show(msgBox);
@@ -60,7 +60,7 @@ namespace Osmo.Core
             {
                 using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
                 {
-                    Description = "Select the directory you want to export your skin to"
+                    Description = FindString("export_selectDirectory")
                 })
                 {
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -81,6 +81,18 @@ namespace Osmo.Core
         public static void ExportSkin(int selectedIndex)
         {
             ExportSkin(selectedIndex, false);
+        }
+
+        public static string FindString(string targetName)
+        {
+            try
+            {
+                return (string)Application.Current.FindResource(targetName);
+            }
+            catch
+            {
+                return "NO STRING FOUND!";
+            }
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Osmo.UI
         internal void SaveSkin()
         {
             ((SkinMixerViewModel)DataContext).SkinLeft.Save();
-            snackbar.MessageQueue.Enqueue("Your skin has been saved!", "Export now",
+            snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_saveText"), Helper.FindString("snackbar_saveButton"),
                 param => Helper.ExportSkin(FixedValues.MIXER_INDEX, true), false, true);
         }
 
@@ -75,7 +75,7 @@ namespace Osmo.UI
             ((SkinMixerViewModel)DataContext).SkinLeft.Export(targetDir);
 
             ((SkinViewModel)DataContext).ExportSkin(targetDir, alsoSave);
-            snackbar.MessageQueue.Enqueue("Export successful!", "Open folder",
+            snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_exportText"), Helper.FindString("snackbar_exportButton"),
                 param => Process.Start(targetDir), false, true);
         }
 
@@ -117,9 +117,8 @@ namespace Osmo.UI
 
         private async void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Revert changes?",
-                "Do you really want to revert all changes made to this element?",
-                MessageBoxButton.YesNo);
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
+                Helper.FindString("edit_revertDescription"), MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
@@ -249,9 +248,8 @@ namespace Osmo.UI
 
         private async void RevertSelected_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Revert changes?",
-                "Do you really want to revert all changes made to this element?",
-                MessageBoxButton.YesNo);
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
+                Helper.FindString("edit_revertDescription"), MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 

@@ -27,7 +27,7 @@
     <ListView x:Name="lv_elements" ItemsSource="{Binding LoadedSkin.Elements}" SelectionChanged="Elements_SelectionChanged">
         <ListView.View>
             <GridView>
-                <GridViewColumn Width="200" Header="Name">
+                <GridViewColumn Width="200" Header="{DynamicResource name}">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontStyle="{Binding FontStyle, UpdateSourceTrigger=PropertyChanged}" FontWeight="{Binding FontWeight, UpdateSourceTrigger=PropertyChanged}"/>
@@ -59,7 +59,7 @@
     </ListView>
     <material:Card Margin="8,0" VerticalAlignment="Bottom" 
                        Background="{DynamicResource MaterialDesignBackground}">
-        <Expander Header="Summary of changes" ExpandDirection="Up">
+        <Expander Header="{DynamicResource edit_expander_changes}" ExpandDirection="Up">
             <ListView MaxHeight="300" x:Name="lv_changes" ItemsSource="{Binding LoadedSkin.Elements}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
@@ -70,19 +70,16 @@
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
 
                                     <Border SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    Background="{TemplateBinding Background}">
-
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        Background="{TemplateBinding Background}">
                                         <Grid>
-
                                             <!-- This is used when GridView is put inside the ListView -->
                                             <GridViewRowPresenter Content="{TemplateBinding ContentControl.Content}"
-                                          HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
-                                          SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
+                                            HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
                                         </Grid>
-
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -91,12 +88,12 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="200" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Revert" Width="80">
+                        <GridViewColumn Width="200" Header="{DynamicResource name}" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="{DynamicResource header_revert}" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Height="24" Width="24" Style="{StaticResource MaterialDesignFlatButton}"
-                                        ToolTip="Revert changes" Padding="0" Click="ChangeList_Revert_Click" Tag="{Binding Name}">
+                                        ToolTip="{DynamicResource tip_revertSelected}" Padding="0" Click="ChangeList_Revert_Click" Tag="{Binding Name}">
                                         <material:PackIcon
                                             Kind="UndoVariant"
                                             Height="16"
@@ -130,12 +127,12 @@
             </Grid>
         </material:ColorZone>
         <material:Card Grid.ColumnSpan="4" Margin="8,0">
-            <Expander Header="Element details">
+            <Expander Header="{DynamicResource edit_expander_details}">
                 <StackPanel Margin="8">
                     <TextBlock>
-                    <Run Text="Selected element:"/> <Run Text="{Binding SelectedElement.Name}"/>
+                    <Run Text="{DynamicResource edit_selectedElement}"/> <Run Text="{Binding SelectedElement.Name}"/>
                     </TextBlock>
-                    <TextBlock Text="Tips:" Margin="0,8,0,0"
+                    <TextBlock Text="{DynamicResource edit_tips}" Margin="0,8,0,0"
                                Visibility="{Binding SelectedElement.ElementDetails.Description, Converter={StaticResource StringNotEmpty}, ConverterParameter=Visibility, TargetNullValue=Collapsed, FallbackValue=Collapsed}"/>
                     <TextBlock Margin="8,0,0,0" TextWrapping="Wrap" Text="{Binding SelectedElement.ElementDetails.Description, Mode=OneWay}"
                                Visibility="{Binding SelectedElement.ElementDetails.Description, Converter={StaticResource StringNotEmpty}, ConverterParameter=Visibility, TargetNullValue=Collapsed, FallbackValue=Collapsed}"/>
@@ -157,7 +154,7 @@
                 <material:ColorZone Height="44" Mode="Dark" VerticalAlignment="Bottom">
                     <Button Padding="0"
                             HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
-                            ToolTip="Play selected file" Click="Play_Click"
+                            ToolTip="{DynamicResource tip_play}" Click="Play_Click"
                                     Command="{x:Static material:Transitioner.MoveNextCommand}" Margin="16,0,0,0" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
                         <material:PackIcon
                             Kind="Play"
@@ -189,7 +186,7 @@
                             </Grid.ColumnDefinitions>
                             <Button Padding="0" Grid.Column="1"
                             HorizontalAlignment="Left"
-                            ToolTip="Pause playback" Click="Pause_Click"
+                            ToolTip="{DynamicResource tip_pause}" Click="Pause_Click"
                                     Command="{x:Static material:Transitioner.MovePreviousCommand}" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
                                 <material:PackIcon
                             Kind="Pause"
@@ -198,7 +195,7 @@
                             </Button>
                             <Button Padding="0" Grid.Column="3"
                             HorizontalAlignment="Left"
-                            ToolTip="Pause playback" Click="Stop_Click"
+                            ToolTip="{DynamicResource tip_stop}" Click="Stop_Click"
                                     Command="{x:Static material:Transitioner.MovePreviousCommand}" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
                                 <material:PackIcon
                             Kind="Stop"
@@ -209,7 +206,7 @@
                                 <ToggleButton x:Name="cb_mute"
                                           Click="Mute_Click"
                                 Style="{StaticResource MaterialDesignActionToggleButton}"
-                                ToolTip="MaterialDesignActionLightToggleButton">
+                                ToolTip="{DynamicResource tip_mute}">
                                     <ToggleButton.Content>
                                         <material:PackIcon
                                         Kind="{Binding Value, ElementName=slider_volume, Converter={StaticResource VolumeToIcon}, FallbackValue=VolumeMedium}" />
@@ -230,8 +227,7 @@
                                     Value="{Binding AudioPosition}" Margin="0,0,88,0" ValueChanged="Slider_Audio_ValueChanged"
                                     PreviewMouseDown="Slider_Audio_MouseDown" PreviewMouseUp="Slider_Audio_MouseUp" Grid.RowSpan="2"/>
                     <TextBlock VerticalAlignment="Bottom" Margin="16,4" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
-                        <Run Text="Currently playing: "/>
-                        <Run Text="{Binding SelectedElement.Name}"/>
+                        <Run Text="{DynamicResource edit_currentlyPlaying}"/> <Run Text="{Binding SelectedElement.Name}"/>
                     </TextBlock>
                 </Grid>
             </material:TransitionerSlide>
@@ -247,31 +243,31 @@
                     Height="24" />
             </material:PopupBox.ToggleCheckedContent>
             <StackPanel>
-                <Button ToolTip="Animate" Click="Animate_Click" Margin="4" IsEnabled="{Binding AnimationEnabled}">
+                <Button ToolTip="{DynamicResource edit_btn_animate}" Click="Animate_Click" Margin="4" IsEnabled="{Binding AnimationEnabled}">
                     <material:PackIcon
                     Kind="Animation"
                     Width="24"
                     Height="24" />
                 </Button>
-                <Button ToolTip="Replace" Click="Replace_Click">
+                <Button ToolTip="{DynamicResource edit_btn_replace}" Click="Replace_Click">
                     <material:PackIcon
                     Kind="FindReplace"
                     Width="24"
                     Height="24" />
                 </Button>
-                <Button ToolTip="Erase" Click="Erase_Click">
+                <Button ToolTip="{DynamicResource edit_btn_erase}" Click="Erase_Click">
                     <material:PackIcon
                     Kind="EraserVariant"
                     Width="24"
                     Height="24" />
                 </Button>
-                <Button ToolTip="Revert" Click="Revert_Click" IsEnabled="{Binding ResetEnabled}">
+                <Button ToolTip="{DynamicResource tip_revert}" Click="Revert_Click" IsEnabled="{Binding ResetEnabled}">
                     <material:PackIcon
                     Kind="UndoVariant"
                     Width="24"
                     Height="24" />
                 </Button>
-                <Button ToolTip="Delete" Click="Delete_Click">
+                <Button ToolTip="{DynamicResource edit_btn_delete}" Click="Delete_Click">
                     <material:PackIcon
                     Kind="Delete"
                     Width="24"

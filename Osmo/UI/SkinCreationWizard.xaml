@@ -30,7 +30,7 @@
     </Grid.ColumnDefinitions>
     <material:Card Background="{DynamicResource MaterialDesignBackground}" Grid.ColumnSpan="4" Margin="8">
         <StackPanel>
-            <Expander Header="1. Basic configuration" IsExpanded="{Binding ConfigurationOpen}">
+            <Expander Header="{DynamicResource expander_basicConfig}" IsExpanded="{Binding ConfigurationOpen}">
                 <Grid Margin="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="230*"/>
@@ -44,7 +44,7 @@
                         <RowDefinition Height="18"/>
                     </Grid.RowDefinitions>
                     <TextBox x:Name="txt_name" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        material:HintAssist.Hint="Skin name" TextChanged="Name_TextChanged"
+                        material:HintAssist.Hint="{DynamicResource skinName}" TextChanged="Name_TextChanged"
                              VerticalAlignment="Top" Margin="0,2.5,0,0">
                         <TextBox.Text>
                             <Binding Path="Name"
@@ -56,7 +56,7 @@
                         </TextBox.Text>
                     </TextBox>
                     <TextBox x:Name="txt_author" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="2"
-                        material:HintAssist.Hint="Creator" TextChanged="Author_TextChanged"
+                        material:HintAssist.Hint="{DynamicResource creator}" TextChanged="Author_TextChanged"
                              VerticalAlignment="Top" Margin="0,2.5,0,0">
                         <TextBox.Text>
                             <Binding Path="Author"
@@ -68,7 +68,7 @@
                         </TextBox.Text>
                     </TextBox>
 
-                    <ComboBox x:Name="combo_version" material:HintAssist.Hint="Version"
+                    <ComboBox x:Name="combo_version" material:HintAssist.Hint="{DynamicResource version}"
                         SelectedIndex="6" Grid.Column="4" ItemsSource="{Binding Versions}"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                         VerticalAlignment="Top" SelectionChanged="Version_SelectionChanged">
@@ -79,7 +79,7 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <CheckBox Content="Add placeholder files" Grid.Row="1" IsChecked="{Binding AddDummyFiles}"/>
+                    <CheckBox Content="{DynamicResource cb_placeholderFiles}" Grid.Row="1" IsChecked="{Binding AddDummyFiles}"/>
                 </Grid>
             </Expander>
             <Border
@@ -87,30 +87,30 @@
                 Height="1"
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="True" />
-            <Expander Header="2. Components" IsExpanded="{Binding ComponentsOpen}">
+            <Expander Header="{DynamicResource expander_components}" IsExpanded="{Binding ComponentsOpen}">
                 <StackPanel Margin="8,8,8,0">
-                    <TextBlock Text="Select which element sets you want to include:"
+                    <TextBlock Text="{DynamicResource txt_componentsTitle}"
                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
                     <UniformGrid Margin="8">
-                        <CheckBox Content="Interface" IsChecked="{Binding ComponentInterface}"/>
-                        <CheckBox Content="Sounds" IsChecked="{Binding ComponentSounds}"/>
+                        <CheckBox Content="{DynamicResource cb_interface}" IsChecked="{Binding ComponentInterface}"/>
+                        <CheckBox Content="{DynamicResource cb_sounds}" IsChecked="{Binding ComponentSounds}"/>
                         <CheckBox Content="Osu!" IsChecked="{Binding ComponentOsu}"/>
                         <CheckBox Content="CTB" IsChecked="{Binding ComponentCTB}"/>
                         <CheckBox Content="Taiko" IsChecked="{Binding ComponentTaiko}"/>
                         <CheckBox Content="Mania" IsChecked="{Binding ComponentMania}"/>
                     </UniformGrid>
-                    <TextBlock Text="osu! specific components:"
+                    <TextBlock Text="{DynamicResource txt_osuComponentsTitle}"
                                Style="{StaticResource MaterialDesignBody2TextBlock}"/>
                     <UniformGrid Margin="8" IsEnabled="{Binding ComponentOsu}">
-                        <RadioButton Content="Old spinner" x:Name="cb_spinnerOld"/>
-                        <RadioButton Content="New spinner (version 2.0 and above)" IsChecked="True"  x:Name="cb_spinnerNew"
+                        <RadioButton Content="{DynamicResource cb_osu_oldSpinner}" x:Name="cb_spinnerOld"/>
+                        <RadioButton Content="{DynamicResource cb_osu_newSpinner}" IsChecked="True"  x:Name="cb_spinnerNew"
                                      IsEnabled="{Binding ElementName=combo_version, Path=Text, Converter={StaticResource DoubleToBool}, ConverterParameter=2.0}"/>
                     </UniformGrid>
-                    <TextBlock Text="CTB specific components:"
+                    <TextBlock Text="{DynamicResource txt_ctbComponentsTitle}"
                                Style="{StaticResource MaterialDesignBody2TextBlock}"/>
                     <UniformGrid Margin="8,8,8,0" IsEnabled="{Binding ComponentCTB}">
-                        <RadioButton Content="Old fruit catcher" x:Name="cb_catcherOld"/>
-                        <RadioButton Content="New fruit catcher (version 2.3 and above)" IsChecked="True"  x:Name="cb_catcherNew"
+                        <RadioButton Content="{DynamicResource cb_ctb_oldCatcher}" x:Name="cb_catcherOld"/>
+                        <RadioButton Content="{DynamicResource cb_ctb_newCatcher}" IsChecked="True"  x:Name="cb_catcherNew"
                                      IsEnabled="{Binding ElementName=combo_version, Path=Text, Converter={StaticResource DoubleToBool}, ConverterParameter=2.3}"/>
                     </UniformGrid>
                 </StackPanel>
@@ -120,7 +120,7 @@
                 Height="1"
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="True" />
-            <Expander Header="3. Summary" IsExpanded="{Binding SummaryOpen}">
+            <Expander Header="{DynamicResource expander_summary}" IsExpanded="{Binding SummaryOpen}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         <BulletDecorator>
@@ -128,7 +128,7 @@
                                 <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Margin="8,0,0,0">
-                            <Run Text="Skin name:"/> <Run Text="{Binding ElementName=txt_name, Path=Text}"/>
+                            <Run Text="{DynamicResource skinName}"/><Run Text=":"/> <Run Text="{Binding ElementName=txt_name, Path=Text}"/>
                             </TextBlock>
                         </BulletDecorator>
                         <BulletDecorator>
@@ -136,7 +136,7 @@
                                 <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Margin="8,0,0,0">
-                            <Run Text="Creator:"/> <Run Text="{Binding ElementName=txt_author, Path=Text}"/>
+                            <Run Text="{DynamicResource creator}"/><Run Text=":"/> <Run Text="{Binding ElementName=txt_author, Path=Text}"/>
                             </TextBlock>
                         </BulletDecorator>
                         <BulletDecorator>
@@ -144,49 +144,51 @@
                                 <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <TextBlock Margin="8,0,0,0">
-                            <Run Text="Selected version:"/> <Run Text="{Binding SelectedValue, ElementName=combo_version}"/>
+                            <Run Text="{DynamicResource version}"/><Run Text=":"/> <Run Text="{Binding SelectedValue, ElementName=combo_version}"/>
                             </TextBlock>
                         </BulletDecorator>
                         <BulletDecorator>
                             <BulletDecorator.Bullet>
                                 <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
-                            <TextBlock Margin="8,0,0,0">
-                            <Run Text="Placeholder files will be added:"/> <Run Text="{Binding AddDummyFiles}"/>
+                            <TextBlock Margin="8,0,0,0" Visibility="{Binding AddDummyFiles, Converter={StaticResource BoolToVisibility}}">
+                            <Run Text="{DynamicResource txt_placeholderFiles}"/>
                             </TextBlock>
                         </BulletDecorator>
                         <BulletDecorator>
                             <BulletDecorator.Bullet>
                                 <Ellipse Width="6" Height="6" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
-                            <TextBlock Text="Selected components:" Margin="8,0,0,0"/>
+                            <TextBlock Text="{DynamicResource txt_selectedComponents}" Margin="8,0,0,0"/>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentInterface, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
                                 <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
-                            <TextBlock Text="Interface" Margin="10,0,0,0"/>
+                            <TextBlock Text="{DynamicResource cb_interface}" Margin="10,0,0,0"/>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentSounds, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
                                 <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
-                            <TextBlock Text="Sounds" Margin="10,0,0,0"/>
+                            <TextBlock Text="{DynamicResource cb_sounds}" Margin="10,0,0,0"/>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentOsu, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
                                 <Ellipse Width="4" Height="4" Stroke="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
-                            <TextBlock Text="osu! (gamemode)" Margin="10,0,0,0"/>
+                            <TextBlock Text="{DynamicResource txt_componentSummaryOsu}" Margin="10,0,0,0"/>
                         </BulletDecorator>
                         <BulletDecorator Margin="24,0,0,0" Visibility="{Binding ComponentOsu, Converter={StaticResource BoolToVisibility}}">
                             <BulletDecorator.Bullet>
                                 <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                <TextBlock Text="Spinner style: "/>
-                                <TextBlock Text="New style" Visibility="{Binding ElementName=cb_spinnerNew, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
-                                <TextBlock Text="Old style" Visibility="{Binding ElementName=cb_spinnerOld, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                <TextBlock>
+                                    <Run Text="{DynamicResource txt_spinnerStyle}"/><Run Text=": "/>
+                                </TextBlock>
+                                <TextBlock Text="{DynamicResource txt_newStyle}" Visibility="{Binding ElementName=cb_spinnerNew, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                <TextBlock Text="{DynamicResource txt_oldStyle}" Visibility="{Binding ElementName=cb_spinnerOld, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
                             </StackPanel>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentCTB, Converter={StaticResource BoolToVisibility}}">
@@ -200,9 +202,11 @@
                                 <Rectangle Width="4" Height="4" Fill="{DynamicResource MaterialDesignBody}"/>
                             </BulletDecorator.Bullet>
                             <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                                <TextBlock Text="Catcher style: "/>
-                                <TextBlock Text="New style" Visibility="{Binding ElementName=cb_catcherNew, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
-                                <TextBlock Text="Old style" Visibility="{Binding ElementName=cb_catcherOld, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                <TextBlock>
+                                    <Run Text="{DynamicResource txt_catcherStyle}"/><Run Text=": "/>
+                                    </TextBlock>
+                                <TextBlock Text="{DynamicResource txt_newStyle}" Visibility="{Binding ElementName=cb_catcherNew, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
+                                <TextBlock Text="{DynamicResource txt_oldStyle}" Visibility="{Binding ElementName=cb_catcherOld, Path=IsChecked, Converter={StaticResource BoolToVisibility}}"/>
                             </StackPanel>
                         </BulletDecorator>
                         <BulletDecorator Margin="12,0,0,0" Visibility="{Binding ComponentTaiko, Converter={StaticResource BoolToVisibility}}">
@@ -224,10 +228,10 @@
     </material:Card>
     <DockPanel Grid.Row="2" Visibility="{Binding IsCreating, Converter={StaticResource BoolToVisibility}}">
         <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" DockPanel.Dock="Top">
-            <Run Text="Creating file:"/> <Run Text="{Binding CurrentFileName}"/>
+            <Run Text="{DynamicResource txt_creatingFile}"/> <Run Text="{Binding CurrentFileName}"/>
         </TextBlock>
         <ProgressBar Value="{Binding CurrentFileCount}" Maximum="{Binding FilesToCreate}"/>
     </DockPanel>
-    <Button Grid.Column="1" Grid.Row="2" Width="142" Click="Abort_Click">_ABORT</Button>
-    <Button Grid.Column="3" Grid.Row="2" Width="142" Click="Confirm_Click" IsEnabled="{Binding IsConfirmEnabled}">_CONFIRM</Button>
+    <Button Grid.Column="1" Grid.Row="2" Width="142" Click="Abort_Click" Content="{DynamicResource abort}" ToolTip="{DynamicResource tip_wizard_abort}"/>
+    <Button Grid.Column="3" Grid.Row="2" Width="142" Click="Confirm_Click" Content="{DynamicResource confirm}" ToolTip="{DynamicResource tip_wizard_save}" IsEnabled="{Binding IsConfirmEnabled}"/>
 </Grid>

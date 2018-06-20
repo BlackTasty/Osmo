@@ -48,8 +48,8 @@ namespace Osmo.Core
                 }
                 else
                 {
-                    var msgBox = MaterialMessageBox.Show("Invalid audio file",
-                        "Unable to play the selected audio file!",
+                    var msgBox = MaterialMessageBox.Show(Helper.FindString("dlg_invalidAudioTitle"),
+                        Helper.FindString("dlg_invalidAudioDescription"),
                         MessageBoxButton.OK);
 
                     DialogHost.Show(msgBox);

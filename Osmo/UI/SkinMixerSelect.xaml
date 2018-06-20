@@ -25,18 +25,18 @@
               PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick">
         <ListView.View>
             <GridView>
-                <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}"/>
-                <GridViewColumn Header="Author" Width="200" DisplayMemberBinding="{Binding Author}"/>
-                <GridViewColumn Header="Elements" Width="100" DisplayMemberBinding="{Binding ElementCount}"/>
+                <GridViewColumn Header="{DynamicResource name}" Width="200" DisplayMemberBinding="{Binding Name}"/>
+                <GridViewColumn Header="{DynamicResource creator}" Width="200" DisplayMemberBinding="{Binding Author}"/>
+                <GridViewColumn Header="{DynamicResource header_elements}" Width="100" DisplayMemberBinding="{Binding ElementCount}"/>
             </GridView>
         </ListView.View>
     </ListView>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Abort_Click"
-                            ToolTip="Load the selected skin" Width="120" Margin="5">_ABORT</Button>
-        
+        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Abort_Click" Content="{DynamicResource abort}"
+                            ToolTip="{DynamicResource tip_skinMixerSelect_abort}" Width="120" Margin="5"/>
+
         <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="SelectSkin_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
-                            ToolTip="Load the selected skin" Width="120" Margin="5">_SELECT SKIN</Button>
+                            ToolTip="{DynamicResource tip_skinMixerSelect_load}" Width="120" Margin="5" Content="{DynamicResource loadSkin}"/>
 
     </StackPanel>
 </Grid>

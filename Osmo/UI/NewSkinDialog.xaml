@@ -12,9 +12,9 @@
     <DockPanel.DataContext>
         <vm:NewSkinViewModel/>
     </DockPanel.DataContext>
-    <TextBlock DockPanel.Dock="Top" Text="Create a new skin" Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+    <TextBlock DockPanel.Dock="Top" Text="{DynamicResource newSkin_title}" Style="{StaticResource MaterialDesignTitleTextBlock}"/>
     <TextBox x:Name="txt_name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" DockPanel.Dock="Top" Margin="0,8,0,0"
-             material:HintAssist.Hint="Skin name" TextChanged="TextBox_TextChanged">
+             material:HintAssist.Hint="{DynamicResource skinName}" TextChanged="TextBox_TextChanged">
         <TextBox.Text>
             <Binding Path="Name"
                      UpdateSourceTrigger="PropertyChanged">
@@ -25,7 +25,7 @@
         </TextBox.Text>
     </TextBox>
     <TextBox x:Name="txt_author" Style="{StaticResource MaterialDesignFloatingHintTextBox}" DockPanel.Dock="Top" Margin="0,12,0,0"
-             material:HintAssist.Hint="Creator" TextChanged="TextBox_TextChanged">
+             material:HintAssist.Hint="{DynamicResource creator}" TextChanged="TextBox_TextChanged">
         <TextBox.Text>
             <Binding Path="Author"
                      UpdateSourceTrigger="PropertyChanged">
@@ -35,10 +35,12 @@
             </Binding>
         </TextBox.Text>
     </TextBox>
-    <CheckBox Content="Add placeholder files" DockPanel.Dock="Top" Margin="0,20" IsChecked="{Binding AddDummyFiles}"/>
+    <CheckBox Content="{DynamicResource cb_placeholderFiles}" DockPanel.Dock="Top" Margin="0,20" IsChecked="{Binding AddDummyFiles}"/>
 
-    <Button x:Name="btn_create" IsEnabled="False" Width="90" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="_CREATE" DockPanel.Dock="Right"
-                                        Command="material:DialogHost.CloseDialogCommand" Click="Create_Click"/>
-    <Button Width="90" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="_CANCEL" DockPanel.Dock="Right"
-                                        Margin="0,0,8,0" Command="material:DialogHost.CloseDialogCommand"/>
+    <Button x:Name="btn_create" IsEnabled="False" Width="90" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="{DynamicResource create}" DockPanel.Dock="Right"
+            Command="material:DialogHost.CloseDialogCommand" Click="Create_Click"
+            ToolTip="{DynamicResource tip_newSkin_create}"/>
+    <Button Width="90" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="{DynamicResource cancel}" DockPanel.Dock="Right"
+            Margin="0,0,8,0" Command="material:DialogHost.CloseDialogCommand"
+            ToolTip="{DynamicResource tip_newSkin_cancel}"/>
 </DockPanel>

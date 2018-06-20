@@ -39,17 +39,5 @@ namespace Osmo.Core
             else
                 return defaultValue;
         }
-
-        //public static Point TryParse(string value, Point defaultValue)
-        //{
-        //    string[] values = value.Split(';');
-        //    if (values.Length >= 2)
-        //        return new Point(TryParse(values[0], (int)defaultValue.X), TryParse(values[1], (int)defaultValue.Y));
-        //    else if (values.Length == 1)
-        //        return new Point(TryParse(values[0], (int)defaultValue.X), (int)defaultValue.Y);
-        //    else
-        //        return defaultValue;
-
-        //}
     }
 }

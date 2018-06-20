@@ -71,8 +71,8 @@ namespace Osmo.UI
 
         private async void TemplateDelete_Click(object sender, RoutedEventArgs e)
         {
-            var msgBox = MaterialMessageBox.Show("Delete template?",
-                "Are you sure you want to delete this template?",
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("templateManager_deleteTitle"),
+                Helper.FindString("templateManager_deleteDescription"),
                 MessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);

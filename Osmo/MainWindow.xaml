@@ -78,30 +78,30 @@
                         <material:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="8,0,0,0"
                                             Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}">
                             <StackPanel>
-                                <Button Content="Revert all changes" Click="RevertAll_Click"/>
-                                <Button Content="Open skin in file explorer" Click="OpenInFileExplorer_OnClick"/>
-                                <Button Content="Show skin in Skin Mixer" Click="OpenInSkinMixer_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2}"/>
-                                <Button Content="Show skin in Skin Editor" Click="OpenInSkinEditor_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>
+                                <Button Content="{DynamicResource main_revertAll}" Click="RevertAll_Click"/>
+                                <Button Content="{DynamicResource main_openInExplorer}" Click="OpenInFileExplorer_OnClick"/>
+                                <Button Content="{DynamicResource main_openInMixer}" Click="OpenInSkinMixer_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2}"/>
+                                <Button Content="{DynamicResource main_openInEditor}" Click="OpenInSkinEditor_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>
                                 <Separator/>
-                                <Button Content="Exit" Click="Close_Click"/>
+                                <Button Content="{DynamicResource main_exit}" Click="Close_Click"/>
                             </StackPanel>
                         </material:PopupBox>
                         <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;7}"
-                            ToolTip="Save all changes" Click="SaveSkin_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="{DynamicResource main_saveAll}" Click="SaveSkin_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
                             <material:PackIcon
                             Kind="ContentSave"
                             Height="28"
                             Width="28" />
                         </Button>
                         <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
-                            ToolTip="Export your skin" Click="ExportSkin_Click" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="{DynamicResource main_exportSkin}" Click="ExportSkin_Click" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
                             <material:PackIcon
                             Kind="PackageDown"
                             Height="28"
                             Width="28" />
                         </Button>
                         <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
-                            ToolTip="Import a skin" x:Name="btn_import" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
+                            ToolTip="{DynamicResource main_importSkin}" x:Name="btn_import" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
                                  Command="{x:Static material:DialogHost.OpenDialogCommand}">
                             <material:PackIcon
                             Kind="PackageUp"

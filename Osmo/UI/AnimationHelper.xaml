@@ -23,7 +23,7 @@
     <ListView VerticalAlignment="Stretch" ItemsSource="{Binding Animation}" SelectedIndex="{Binding CurrentFrame, Mode=OneWayToSource}" SelectionChanged="ListView_SelectionChanged">
         <ListView.View>
             <GridView>
-                <GridViewColumn Width="Auto" Header="Element" DisplayMemberBinding="{Binding BindsDirectlyToSource=True, Converter={StaticResource PathToFileName}}">
+                <GridViewColumn Width="Auto" Header="{DynamicResource header_element}" DisplayMemberBinding="{Binding BindsDirectlyToSource=True, Converter={StaticResource PathToFileName}}">
                 </GridViewColumn>
             </GridView>
         </ListView.View>
@@ -38,9 +38,9 @@
             </Grid.RowDefinitions>
             <material:Card VerticalAlignment="Stretch" Margin="8,0">
                 <DockPanel LastChildFill="False" Margin="8,0">
-                    <TextBlock Text="FPS" DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>
+                    <TextBlock Text="{DynamicResource animator_fps}" DockPanel.Dock="Left" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>
                     <ComboBox Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-                        material:HintAssist.Hint="FPS"
+                        material:HintAssist.Hint="{DynamicResource animator_fps}"
                         MinWidth="50"
                         Margin="16,0"
                         VerticalAlignment="Center"
@@ -60,7 +60,7 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Center">
-                        <Run Text="Current frame:"/> <Run Text="{Binding CurrentFrame}"/>
+                        <Run Text="{DynamicResource animator_currentFrame}"/> <Run Text="{Binding CurrentFrame}"/>
                     </TextBlock>
                     <Button Padding="0" Width="32" DockPanel.Dock="Right" IsEnabled="{Binding PlayEnabled}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                             ToolTip="Close animation helper" Click="Close_Click"  Background="{x:Null}" BorderBrush="{x:Null}">
@@ -75,7 +75,7 @@
             <DockPanel Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Center">
                 <Button Padding="0" DockPanel.Dock="Left" Margin="8,0"
                             HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
-                            ToolTip="Previous frame" Click="PreviousFrame_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="{DynamicResource tip_animator_prevFrame}" Click="PreviousFrame_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                     <material:PackIcon
                             Kind="StepBackward"
                             Height="32"
@@ -88,7 +88,7 @@
                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                             <Setter Property="Background" Value="{x:Null}"/>
                             <Setter Property="BorderBrush" Value="{x:Null}"/>
-                            <Setter Property="ToolTip" Value="Start animation"/>
+                            <Setter Property="ToolTip" Value="{DynamicResource tip_animator_play}"/>
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <material:PackIcon
@@ -100,7 +100,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsAnimationPlaying}" Value="True">
                                     <DataTrigger.Setters>
-                                        <Setter Property="ToolTip" Value="Pause animation"/>
+                                        <Setter Property="ToolTip" Value="{DynamicResource tip_animator_pause}"/>
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <material:PackIcon
@@ -117,14 +117,13 @@
                 </Button>
                 <Button Padding="0" DockPanel.Dock="Left" Margin="8,0"
                             HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabled}"
-                            ToolTip="Next frame" Click="NextFrame_Click" Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="{DynamicResource tip_animator_nextFrame}" Click="NextFrame_Click" Background="{x:Null}" BorderBrush="{x:Null}">
                     <material:PackIcon
                             Kind="StepForward"
                             Height="32"
                             Width="32" />
                 </Button>
             </DockPanel>
-            <!--<Button Grid.Row="1" Click="StartAnimation_Click" Width="180" HorizontalAlignment="Left">_START ANIMATION</Button>-->
         </Grid>
     </material:ColorZone>
 </Grid>

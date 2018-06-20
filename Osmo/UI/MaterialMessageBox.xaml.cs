@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core;
+using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -38,22 +39,22 @@ namespace Osmo.UI
                     case MessageBoxButton.OK:
                         vm.ButtonOneText = "";
                         vm.ButtonTwoText = "";
-                        vm.ButtonThreeText = "OK";
+                        vm.ButtonThreeText = Helper.FindString("ok");
                         break;
                     case MessageBoxButton.OKCancel:
                         vm.ButtonOneText = "";
-                        vm.ButtonTwoText = "Cancel";
-                        vm.ButtonThreeText = "OK";
+                        vm.ButtonTwoText = Helper.FindString("cancel");
+                        vm.ButtonThreeText = Helper.FindString("ok");
                         break;
                     case MessageBoxButton.YesNo:
                         vm.ButtonOneText = "";
-                        vm.ButtonTwoText = "No";
-                        vm.ButtonThreeText = "Yes";
+                        vm.ButtonTwoText = Helper.FindString("no");
+                        vm.ButtonThreeText = Helper.FindString("yes");
                         break;
                     case MessageBoxButton.YesNoCancel:
-                        vm.ButtonOneText = "Cancel";
-                        vm.ButtonTwoText = "No";
-                        vm.ButtonThreeText = "Yes";
+                        vm.ButtonOneText = Helper.FindString("cancel");
+                        vm.ButtonTwoText = Helper.FindString("no");
+                        vm.ButtonThreeText = Helper.FindString("yes");
                         break;
                 }
             }

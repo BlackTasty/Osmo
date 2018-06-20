@@ -28,15 +28,17 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
             <material:PackIcon Kind="GithubCircle" Height="22" Width="22"/>
-            <TextBlock Margin="8,0,0,0" Text="Osmo is open source! " VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-            <TextBlock Text="Click here" TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown"/>
-            <TextBlock Text=" to go to the GitHub repo." VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
+            <TextBlock Margin="8,0,0,0" Text="{DynamicResource about_openSource1}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
+            <TextBlock Text="Click here" TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown">
+                <Run Text=" "/><Run Text="{DynamicResource about_openSource2}"/><Run Text=" "/>
+            </TextBlock>
+            <TextBlock Text="{DynamicResource about_openSource3}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
         </StackPanel>
 
         <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
         <StackPanel Orientation="Horizontal">
             <material:PackIcon Kind="Gift" Height="22" Width="22"/>
-            <TextBlock Text="Donate" Margin="8,0,0,0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"/>
+            <TextBlock Text="{DynamicResource donate}" Margin="8,0,0,0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"/>
 
             </StackPanel>
         </Button>

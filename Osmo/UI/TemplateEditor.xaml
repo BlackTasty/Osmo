@@ -15,7 +15,7 @@
     <avalon:TextEditor x:Name="textEditor" ShowLineNumbers="True" Loaded="TextEditor_Loaded"/>
     <Button
         Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Margin="0,16,16,16"
-        ToolTip="Preview" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        ToolTip="{DynamicResource tip_templateEditor_preview}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
         <material:PackIcon
             Kind="Compare"
             Height="24"
