@@ -4,7 +4,17 @@
 
 ### Status
 
-*CURRENTLY UNDER DEVELOPMENT*!
+[![Gitter](https://img.shields.io/badge/Gitter-Join%20Chat-green.svg?style=flat-square)](https://gitter.im/OsmoChat/Lobby)
+![GitHub issues](https://img.shields.io/github/issues/BlackTasty/Osmo.svg?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/BlackTasty/Osmo.svg?style=flat-square)
+![GitHub commits](https://img.shields.io/github/commits-since/BlackTasty/Osmo/0.0.1.50-alpha.svg?style=flat-square)
+
+![GitHub release](https://img.shields.io/github/release/BlackTasty/Osmo.svg?style=flat-square)
+![GitHub Release Date](https://img.shields.io/github/release-date/BlackTasty/Osmo.svg?style=flat-square)
+
+![GitHub (pre-)release](https://img.shields.io/github/release/BlackTasty/Osmo/all.svg?style=flat-square&label=pre-release)
+![Github Pre-Releases](https://img.shields.io/github/downloads-pre/BlackTasty/Osmo/latest/total.svg?style=flat-square&colorB=f57b40)
+![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/BlackTasty/Osmo.svg?style=flat-square&label=pre-release%20date&colorB=f57b40)
 
 ### First stable release ToDo
 
