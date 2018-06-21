@@ -5,6 +5,11 @@
 
     <!--<system:String o:Freeze="True" x:Key=""></system:String>-->
 
+    <!--Alpha Disclaimer-->
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_title">Osmo Alpha information</system:String>
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description1">Osmo is currently in an Alpha state. This build should be stable, but that doesn't mean that bugs won't occur. If any bugs occur be sure to open an issue on the GitHub page :)</system:String>
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description2">If you are okay with this, click Yes.</system:String>
+
     <!--Basics-->
     <system:String o:Freeze="True" x:Key="close">Close</system:String>
     <system:String o:Freeze="True" x:Key="minimize">Minimize</system:String>
@@ -60,6 +65,10 @@
     <system:String o:Freeze="True" x:Key="main_saveAll">Save all changes</system:String>
     <system:String o:Freeze="True" x:Key="main_exportSkin">Export your skin</system:String>
     <system:String o:Freeze="True" x:Key="main_importSkin">Import a skin</system:String>
+    <system:String o:Freeze="True" x:Key="main_unsavedChangesTitle">You have unsaved changes!</system:String>
+    <system:String o:Freeze="True" x:Key="main_unsavedChangesDescription">You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)</system:String>
+    <system:String o:Freeze="True" x:Key="main_revertAllTitle">Revert all changes?</system:String>
+    <system:String o:Freeze="True" x:Key="main_revertAllDescription">Do you really want to revert all changes made to this skin? This cannot be undone!</system:String>
 
     <!--Skin.cs-->
     <system:String o:Freeze="True" x:Key="skin_importTitle">Skin exists already!</system:String>

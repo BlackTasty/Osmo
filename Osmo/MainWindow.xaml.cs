@@ -38,7 +38,10 @@ namespace Osmo
             OsmoViewModel vm = DataContext as OsmoViewModel;
 
             vm.BackupDirectory = configuration.BackupDirectory;
-            vm.OsuDirectory = configuration.OsuDirectory;
+            if (!string.IsNullOrWhiteSpace(configuration.OsuDirectory))
+            {
+                vm.OsuDirectory = configuration.OsuDirectory;
+            }
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -63,6 +66,7 @@ namespace Osmo
             MenuToggleButton.IsChecked = false;
         }
 
+#if DEBUG
         private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
         {
             if (!configuration.IsValid)
@@ -70,6 +74,34 @@ namespace Osmo
 
             dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
         }
+#else
+        private async void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!AppConfiguration.GetInstance().DisclaimerRead)
+            {
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("alpha_disclaimer_title"),
+                    string.Format("{0}\n\n{1}", Helper.FindString("alpha_disclaimer_description1"), Helper.FindString("alpha_disclaimer_description2")),
+                    MessageBoxButton.YesNo);
+
+                await DialogHost.Show(msgBox);
+
+                if (msgBox.Result == MessageBoxResult.Yes)
+                {
+                    AppConfiguration.GetInstance().DisclaimerRead = true;
+                    AppConfiguration.GetInstance().Save();
+                }
+                else
+                {
+                    Environment.Exit(0);
+                }
+            }
+
+            if (!configuration.IsValid)
+                sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
+
+            dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
+        }
+#endif
 
         private async void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -83,8 +115,8 @@ namespace Osmo
             if (skinVm.UnsavedChanges)
             {
                 vm.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
-                var msgBox = MaterialMessageBox.Show("You have unsaved changes!",
-                    "You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
+                    Helper.FindString("main_unsavedChangesDescription"),
                     MessageBoxButton.YesNoCancel);
 
                 await DialogHost.Show(msgBox);
@@ -103,8 +135,8 @@ namespace Osmo
             if (mixerVm.UnsavedChanges)
             {
                 vm.SelectedSidebarIndex = FixedValues.MIXER_INDEX;
-                var msgBox = MaterialMessageBox.Show("You have unsaved changes!",
-                    "You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)",
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
+                    Helper.FindString("main_unsavedChangesDescription"),
                     MessageBoxButton.YesNoCancel);
 
                 await DialogHost.Show(msgBox);
@@ -156,10 +188,14 @@ namespace Osmo
             }
         }
 
-        private void RevertAll_Click(object sender, RoutedEventArgs e)
+        private async void RevertAll_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Do you really want to revert all changes made to this skin? This cannot be undone!",
-                "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.None, MessageBoxResult.No) == MessageBoxResult.Yes)
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("main_revertAllTitle"),
+                Helper.FindString("main_revertAllDescription"),
+                MessageBoxButton.YesNoCancel);
+
+            await DialogHost.Show(msgBox);
+            if (msgBox.Result == MessageBoxResult.Yes)
             {
                 OsmoViewModel vm = DataContext as OsmoViewModel;
                 if (vm.SelectedSidebarIndex == FixedValues.EDITOR_INDEX)

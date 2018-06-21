@@ -41,6 +41,8 @@ namespace Osmo.Core.Configuration
             }
         }
 
+        public bool DisclaimerRead { get; set; }
+
         public string OsuDirectory { get; set; }
 
         public string BackupDirectory {
@@ -90,7 +92,8 @@ namespace Osmo.Core.Configuration
                 "BackgroundEditor:" + BackgroundEditor.ToString(),
                 "ReopenLastSkin:" + ReopenLastSkin,
                 "Volume:" + Volume,
-                "IsMuted:" + IsMuted
+                "IsMuted:" + IsMuted,
+                "DisclaimerRead:" + DisclaimerRead
             };
             #endregion
 
@@ -139,6 +142,10 @@ namespace Osmo.Core.Configuration
 
                         case "IsMuted":
                             IsMuted = Parser.TryParse(property[1], false);
+                            break;
+
+                        case "DisclaimerRead":
+                            DisclaimerRead = Parser.TryParse(property[1], false);
                             break;
                     }
                 }
