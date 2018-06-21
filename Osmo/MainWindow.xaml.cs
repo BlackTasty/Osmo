@@ -50,9 +50,13 @@ namespace Osmo
 
         private void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sidebarMenu.SelectedIndex != FixedValues.CONFIG_INDEX && !configuration.IsValid)
+            if (sidebarMenu.SelectedIndex != FixedValues.ABOUT_INDEX)
             {
-                sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
+                if (sidebarMenu.SelectedIndex != FixedValues.CONFIG_INDEX &&
+                    !configuration.IsValid)
+                {
+                    sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
+                }
             }
 
             //until we had a StaysOpen glag to Drawer, this will help with scroll bars

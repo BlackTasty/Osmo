@@ -23,13 +23,13 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <material:PackIcon Kind="Application" Height="80" Width="80"/>
-            <TextBlock x:Name="txt_header" Text="Osmo " Style="{StaticResource MaterialDesignDisplay3TextBlock}"/>
+            <TextBlock x:Name="txt_header" Text="Osmo Alpha " Style="{StaticResource MaterialDesignDisplay3TextBlock}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
             <material:PackIcon Kind="GithubCircle" Height="22" Width="22"/>
             <TextBlock Margin="8,0,0,0" Text="{DynamicResource about_openSource1}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-            <TextBlock Text="Click here" TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown">
+            <TextBlock TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown">
                 <Run Text=" "/><Run Text="{DynamicResource about_openSource2}"/><Run Text=" "/>
             </TextBlock>
             <TextBlock Text="{DynamicResource about_openSource3}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>

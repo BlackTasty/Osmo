@@ -24,6 +24,8 @@ namespace Osmo.UI
     {
         private static About instance;
 
+        private bool versionAdded;
+
         public static About Instance
         {
             get
@@ -46,7 +48,11 @@ namespace Osmo.UI
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            txt_header.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            if (!versionAdded)
+            {
+                txt_header.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                versionAdded = true;
+            }
         }
     }
 }
