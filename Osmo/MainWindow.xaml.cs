@@ -31,6 +31,7 @@ namespace Osmo
             FixedValues.InitializeReader();
             SkinCreationWizard.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             TemplateManager.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
+            LoadUISettings();
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)
@@ -42,6 +43,7 @@ namespace Osmo
             {
                 vm.OsuDirectory = configuration.OsuDirectory;
             }
+            LoadUISettings();
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -234,6 +236,11 @@ namespace Osmo
         {
             SkinEditor.Instance.LoadSkin((SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft);
             (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+        }
+
+        private void LoadUISettings()
+        {
+            Settings.ChangeLanguage(configuration.Language);
         }
     }
 }

@@ -57,7 +57,7 @@
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Template Editor</system:String>
 
     <!--MainWindow-->
-    <system:String o:Freeze="True" x:Key="main_revertAll">Template Editor</system:String>
+    <system:String o:Freeze="True" x:Key="main_revertAll">Revert all changes</system:String>
     <system:String o:Freeze="True" x:Key="main_openInExplorer">Open skin in file explorer</system:String>
     <system:String o:Freeze="True" x:Key="main_openInMixer">Show skin in Skin Mixer</system:String>
     <system:String o:Freeze="True" x:Key="main_openInEditor">Show skin in Skin Editor</system:String>
@@ -112,6 +112,7 @@
     <system:String o:Freeze="True" x:Key="settings_hint_osuDirectory">osu! directory</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_tempDirectory">Temporary directory (Osmo saves changes to skins in this directory)</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_templateDirectory">Template directory</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_language">Language</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_createBackup">Create a backup before merging skins</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Open the last skin you have edited at startup</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_general">General</system:String>
@@ -119,7 +120,7 @@
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Executable skin file</system:String>
-    <system:String o:Freeze="True" x:Key="dragDrop_title">Select an osu skin file to import...</system:String>
+    <system:String o:Freeze="True" x:Key="dragDrop_title">Select an osu! skin file to import...</system:String>
     <system:String o:Freeze="True" x:Key="dragDrop_areaTitle">Drag and Drop an .osk file here or click!</system:String>
 
     <!--TemplateManager-->
@@ -127,6 +128,7 @@
     <system:String o:Freeze="True" x:Key="templateManager_deleteDescription">Are you sure you want to delete this template?</system:String>
 
     <!--SkinSelect-->
+    <system:String o:Freeze="True" x:Key="skinSelect_mySkins">My skins</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_deleteTitle">Delete skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">Are you sure you want to delete this skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Select the directory you want to export your skin to</system:String>
@@ -173,7 +175,7 @@
     <system:String o:Freeze="True" x:Key="tip_mixer_transfer">Override the selected element on the left with the selected element on the right</system:String>
     <system:String o:Freeze="True" x:Key="tip_mixer_loadRightSkin">Opens the skin selector where you can load a skin into the right list</system:String>
     <system:String o:Freeze="True" x:Key="tip_revertSelected">Revert changes on the selected element</system:String>
-    <system:String o:Freeze="True" x:Key="tip_mute">Mute/unmute playback</system:String>
+    <system:String o:Freeze="True" x:Key="tip_mute">Mute/Unmute playback</system:String>
     <system:String o:Freeze="True" x:Key="tip_play">Play selected file</system:String>
     <system:String o:Freeze="True" x:Key="tip_pause">Pause playback</system:String>
     <system:String o:Freeze="True" x:Key="tip_stop">Stop playback</system:String>
@@ -199,7 +201,7 @@
     <system:String o:Freeze="True" x:Key="txt_osuComponentsTitle">osu! specific components:</system:String>
     <system:String o:Freeze="True" x:Key="cb_osu_oldSpinner">Old spinner</system:String>
     <system:String o:Freeze="True" x:Key="cb_osu_newSpinner">New spinner (version 2.0 and above)</system:String>
-    <system:String o:Freeze="True" x:Key="txt_ctbComponentsTitle">CTB specific components</system:String>
+    <system:String o:Freeze="True" x:Key="txt_ctbComponentsTitle">CTB specific components:</system:String>
     <system:String o:Freeze="True" x:Key="cb_ctb_oldCatcher">Old fruit catcher</system:String>
     <system:String o:Freeze="True" x:Key="cb_ctb_newCatcher">New fruit catcher (version 2.3 and above)</system:String>
     <system:String o:Freeze="True" x:Key="txt_placeholderFiles">Placeholder files will be added</system:String>
@@ -228,7 +230,7 @@
     <system:String o:Freeze="True" x:Key="completion_skin_cursorCentre">Should the cursor have an origin at the centre of the image?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_cursorExpand">Should the cursor expand when clicked?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_cursorRotate">Should the cursor sprite rotate constantly?</system:String>
-    <system:String o:Freeze="True" x:Key="completion_skin_cursorTrailRotate">Should the cursor sprite rotate constantly?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_cursorTrailRotate">Should the cursor trail sprite rotate constantly?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_customComboSounds">On which combo counts should the comboburst sounds be played?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_hitCircleOverlayAboveNumber">Should the hitcircleoverlay be drawn above the numbers?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_layeredHitsounds">Should the hitnormal sounds always be played?</system:String>

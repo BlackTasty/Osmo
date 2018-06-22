@@ -6,7 +6,7 @@
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Tag="About">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Tag="{DynamicResource sidebar_about}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="16"/>
@@ -28,11 +28,13 @@
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
             <material:PackIcon Kind="GithubCircle" Height="22" Width="22"/>
-            <TextBlock Margin="8,0,0,0" Text="{DynamicResource about_openSource1}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
-            <TextBlock TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown">
-                <Run Text=" "/><Run Text="{DynamicResource about_openSource2}"/><Run Text=" "/>
+            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+            <Run Text="{DynamicResource about_openSource1}"/><Run Text=" "/>
             </TextBlock>
-            <TextBlock Text="{DynamicResource about_openSource3}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
+            <TextBlock Text="{DynamicResource about_openSource2}" TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown"/>
+            <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+            <Run Text=" "/><Run Text="{DynamicResource about_openSource3}"/>
+            </TextBlock>
         </StackPanel>
 
         <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">

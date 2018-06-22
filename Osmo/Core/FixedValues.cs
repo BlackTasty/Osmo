@@ -167,5 +167,7 @@ namespace Osmo.Core
             new CompletionData("Hit200", Helper.FindString("completion_skin_hit200")),
             new CompletionData("Hit300", Helper.FindString("completion_skin_hit300")),
             new CompletionData("Hit300g", Helper.FindString("completion_skin_hit300g")) };
+
+        public const string URI_BASE_LOCALIZATION = "pack://application:,,,/Osmo;component/Localisation/";
     }
 }

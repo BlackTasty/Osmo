@@ -37,10 +37,10 @@
     </TextBox>
     <CheckBox Content="{DynamicResource cb_placeholderFiles}" DockPanel.Dock="Top" Margin="0,20" IsChecked="{Binding AddDummyFiles}"/>
 
-    <Button x:Name="btn_create" IsEnabled="False" Width="90" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="{DynamicResource create}" DockPanel.Dock="Right"
+    <Button x:Name="btn_create" IsEnabled="False" Width="105" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="{DynamicResource create}" DockPanel.Dock="Right"
             Command="material:DialogHost.CloseDialogCommand" Click="Create_Click"
             ToolTip="{DynamicResource tip_newSkin_create}"/>
-    <Button Width="90" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="{DynamicResource cancel}" DockPanel.Dock="Right"
+    <Button Width="105" Style="{StaticResource MaterialDesignFlatButton}" VerticalAlignment="Bottom" Content="{DynamicResource cancel}" DockPanel.Dock="Right"
             Margin="0,0,8,0" Command="material:DialogHost.CloseDialogCommand"
             ToolTip="{DynamicResource tip_newSkin_cancel}"/>
 </DockPanel>

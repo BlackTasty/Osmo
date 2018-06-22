@@ -7,7 +7,7 @@
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700" Tag="My skins" Loaded="Grid_Loaded">
+             d:DesignHeight="300" d:DesignWidth="700" Tag="{DynamicResource skinSelect_mySkins}" Loaded="Grid_Loaded">
     <Grid.Resources>
         <converter:SelectSkinSelector x:Key="SkinOptionSelector"/>
         
@@ -70,7 +70,7 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="{DynamicResource header_elements}" Width="100">
+                <GridViewColumn Header="{DynamicResource header_elements}" Width="105">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding ElementCount}" x:Name="txt_count"/>
@@ -118,7 +118,7 @@
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="{DynamicResource export}" Width="80">
+                <GridViewColumn Header="{DynamicResource export}" Width="95">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <Button Height="16" Width="16" Click="Export_Click" Style="{StaticResource MaterialDesignFlatButton}"

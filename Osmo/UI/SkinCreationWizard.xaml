@@ -7,7 +7,7 @@
         xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
         xmlns:converter="clr-namespace:Osmo.Converters"
         xmlns:vm="clr-namespace:Osmo.ViewModel"
-        mc:Ignorable="d" Tag="Skin Wizard"
+        mc:Ignorable="d" Tag="{DynamicResource sidebar_wizard}"
         d:DesignHeight="450" d:DesignWidth="800">
     <Grid.DataContext>
         <vm:SkinWizardViewModel/>

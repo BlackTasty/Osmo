@@ -1,47 +1,58 @@
-﻿<Grid x:Class="Osmo.UI.TemplateManager"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:vm="clr-namespace:Osmo.ViewModel"
-             xmlns:converter="clr-namespace:Osmo.Converters"
-             xmlns:local="clr-namespace:Osmo.UI"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="700" Tag="Template Manager">
+﻿<Grid
+    x:Class="Osmo.UI.TemplateManager"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:Osmo.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Osmo.UI"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Osmo.ViewModel"
+    d:DesignHeight="300"
+    d:DesignWidth="700"
+    Tag="{DynamicResource sidebar_templateManager}"
+    mc:Ignorable="d">
     <Grid.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
-        <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
-        <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility" />
+        <converter:IntToBooleanConverter x:Key="IntToBoolean" />
     </Grid.Resources>
     <Grid.DataContext>
-        <vm:TemplateManagerViewModel/>
+        <vm:TemplateManagerViewModel />
     </Grid.DataContext>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="150"/>
-        <ColumnDefinition Width="298*"/>
-        <ColumnDefinition Width="150"/>
+        <ColumnDefinition Width="190" />
+        <ColumnDefinition />
+        <ColumnDefinition Width="190" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition Height="12"/>
-        <RowDefinition Height="42"/>
+        <RowDefinition />
+        <RowDefinition Height="12" />
+        <RowDefinition Height="42" />
     </Grid.RowDefinitions>
-    <ListView x:Name="lv_templates" ItemsSource="{Binding Templates}" Grid.ColumnSpan="4"
-              PreviewMouseDoubleClick="Templates_PreviewMouseDoubleClick"  PreviewMouseLeftButtonUp="Templates_PreviewMouseLeftButtonUp">
+    <ListView
+        x:Name="lv_templates"
+        Grid.ColumnSpan="3"
+        ItemsSource="{Binding Templates}"
+        PreviewMouseDoubleClick="Templates_PreviewMouseDoubleClick"
+        PreviewMouseLeftButtonUp="Templates_PreviewMouseLeftButtonUp">
         <ListView.View>
             <GridView>
-                <GridViewColumn Header="{DynamicResource name}" Width="200">
+                <GridViewColumn Width="200" Header="{DynamicResource name}">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <material:PackIcon Kind="Plus" Foreground="{DynamicResource PrimaryHueMidBrush}" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}" Margin="0,0,8,0"/>
-                                <TextBlock Text="{Binding Name}" x:Name="txt_name">
+                                <material:PackIcon
+                                    Margin="0,0,8,0"
+                                    Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                    Kind="Plus"
+                                    Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}" />
+                                <TextBlock x:Name="txt_name" Text="{Binding Name}">
                                     <TextBlock.Style>
                                         <Style>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding IsEmpty}" Value="True">
-                                                    <Setter Property="TextBlock.Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                                                    <Setter Property="TextBlock.Foreground" Value="{DynamicResource PrimaryHueMidBrush}" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -50,27 +61,31 @@
                             </StackPanel>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsEmpty}" Value="True">
-                                    <Setter TargetName="txt_name" Property="Text" Value="{DynamicResource newTemplate_title}"/>
+                                    <Setter TargetName="txt_name" Property="Text" Value="{DynamicResource newTemplate_title}" />
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
-                <GridViewColumn Header="{DynamicResource delete}" Width="80">
+                <GridViewColumn Width="80" Header="{DynamicResource delete}">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Height="16" Width="16" Click="TemplateDelete_Click"
-                                    ToolTip="Delete template" Padding="0" Tag="{Binding Name}"
-                                    Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
+                            <Button
+                                Width="16"
+                                Height="16"
+                                Padding="0"
+                                Click="TemplateDelete_Click"
+                                Tag="{Binding Name}"
+                                ToolTip="Delete template"
+                                Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                 <Button.Style>
-                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                                    <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <material:PackIcon
-                                                    Kind="Delete"
+                                                    Width="16"
                                                     Height="16"
-                                                    Width="16" 
-                                                />
+                                                    Kind="Delete" />
                                             </Setter.Value>
                                         </Setter>
                                         <Style.Triggers>
@@ -78,10 +93,9 @@
                                                 <Setter Property="Content">
                                                     <Setter.Value>
                                                         <material:PackIcon
-                                                            Kind="DeleteEmpty"
+                                                            Width="16"
                                                             Height="16"
-                                                            Width="16" 
-                                                        />
+                                                            Kind="DeleteEmpty" />
                                                     </Setter.Value>
                                                 </Setter>
                                             </Trigger>
@@ -96,14 +110,28 @@
         </ListView.View>
     </ListView>
 
-    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="EditTemplate_Click" Content="{DynamicResource loadTemplate}"
-                            ToolTip="{DynamicResource tip_templateManager_load}" Grid.Row="2" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_templates}" Margin="5"/>
+    <Button
+        Grid.Row="2"
+        Height="Auto"
+        Margin="5"
+        Click="EditTemplate_Click"
+        Content="{DynamicResource loadTemplate}"
+        IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_templates}"
+        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+        ToolTip="{DynamicResource tip_templateManager_load}" />
 
-    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{x:Static material:DialogHost.OpenDialogCommand}"
-            x:Name="btn_newTemplate" ToolTip="{DynamicResource tip_templateManager_new}" Grid.Column="2" Grid.Row="2" Margin="5"
-            Content="{DynamicResource newTemplate}">
+    <Button
+        x:Name="btn_newTemplate"
+        Grid.Row="2"
+        Grid.Column="2"
+        Height="Auto"
+        Margin="5"
+        Command="{x:Static material:DialogHost.OpenDialogCommand}"
+        Content="{DynamicResource newTemplate}"
+        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+        ToolTip="{DynamicResource tip_templateManager_new}">
         <Button.CommandParameter>
-            <local:NewTemplateDialog Margin="16" TemplateCreated="Dialog_TemplateCreated"/>
+            <local:NewTemplateDialog Margin="16" TemplateCreated="Dialog_TemplateCreated" />
         </Button.CommandParameter>
     </Button>
 </Grid>
