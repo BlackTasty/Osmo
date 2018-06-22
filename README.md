@@ -19,6 +19,7 @@
 ### First stable release ToDo
 
 - [ ] Implement a forum template manager (with autofill) <- **Currently in development**
+- [ ] Add keyboard shortcuts
 - [ ] Simulator -> Test how your skin would look like in-game without starting osu!
 - [ ] Auto-Updater
 - [ ] Implement custom titlebar and remove MahApps.Metro dependency
