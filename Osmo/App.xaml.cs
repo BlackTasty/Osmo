@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -61,6 +62,28 @@ namespace Osmo
             };
             LibraryValidator.ValidateLibraries(libraries);
             return LibraryValidator.LibrariesMissing;
+        }
+
+        public void ChangeLanguage(Language lang)
+        {
+            ResourceDictionary localisation = new ResourceDictionary();
+            string threadLang = "en";
+
+            switch (lang)
+            {
+                case Language.Spanish:
+                    localisation.Source = new Uri(@"Localisation\StringResources.es.xaml", UriKind.Relative);
+                    threadLang = "es";
+                    break;
+                default:
+                    localisation.Source = new Uri(@"Localisation\StringResources.xaml", UriKind.Relative);
+                    threadLang = "en";
+                    break;
+            }
+
+            Thread.CurrentThread.CurrentUICulture =
+               new System.Globalization.CultureInfo(threadLang);
+            Resources.MergedDictionaries[2] = localisation;
         }
     }
 }

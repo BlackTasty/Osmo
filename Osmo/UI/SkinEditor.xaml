@@ -89,7 +89,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="200" Header="{DynamicResource name}" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="{DynamicResource header_revert}" Width="80">
+                        <GridViewColumn Header="{DynamicResource header_revert}" Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Height="24" Width="24" Style="{StaticResource MaterialDesignFlatButton}"

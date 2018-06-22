@@ -25,7 +25,11 @@
         <converter:DebugConverter x:Key="Debug"/>
     </Window.Resources>
     <metro:MetroWindow.WindowButtonCommands>
-        <metro:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"/>
+        <metro:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"
+                                    Minimize="{DynamicResource minimize}"
+                                    Maximize="{DynamicResource maximize}"
+                                    Restore="{DynamicResource restore}"
+                                    Close="{DynamicResource close}"/>
     </metro:MetroWindow.WindowButtonCommands>
 
     <!--SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"-->

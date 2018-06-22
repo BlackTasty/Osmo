@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Configuration;
+using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -54,6 +55,9 @@ namespace Osmo.UI
             config.BackupDirectory = txt_backupPath.Text;
             config.OsuDirectory = txt_osuPath.Text;
             config.ReopenLastSkin = (bool)cb_reopenLastSkin.IsChecked;
+            config.Language = (Language)combo_language.SelectedIndex;
+
+
             config.Save();
 
             string message = Helper.FindString("snackbar_settingsSavedText");
@@ -86,6 +90,11 @@ namespace Osmo.UI
             }
         }
 
+        public static void ChangeLanguage(Language lang)
+        {
+            ((App)Application.Current).ChangeLanguage(lang);
+        }
+
         private void Settings_Loaded(object sender, RoutedEventArgs e)
         {
             LoadSettings();
@@ -99,6 +108,7 @@ namespace Osmo.UI
             txt_backupPath.Text = config.BackupDirectory;
             txt_osuPath.Text = config.OsuDirectory;
             cb_reopenLastSkin.IsChecked = config.ReopenLastSkin;
+            combo_language.SelectedIndex = (int)config.Language;
         }
 
         private void Abort_Click(object sender, RoutedEventArgs e)

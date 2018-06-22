@@ -26,16 +26,16 @@
         </material:ColorZone>
         <Grid VerticalAlignment="Bottom" Height="32" Margin="4">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="69"/>
+                <ColumnDefinition Width="105"/>
                 <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="69"/>
+                <ColumnDefinition Width="105"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="32"/>
             </Grid.ColumnDefinitions>
-            <Button Style="{StaticResource MaterialDesignFlatButton}" DockPanel.Dock="Left">_LOAD</Button>
+            <Button Style="{StaticResource MaterialDesignFlatButton}" DockPanel.Dock="Left" Content="_LOAD"/>
             <Button Style="{StaticResource MaterialDesignFlatButton}" DockPanel.Dock="Left" Grid.Column="2">_MIX</Button>
             <Button Height="24" Width="24" DockPanel.Dock="Right" Grid.Column="4" Foreground="{DynamicResource MaterialDesignToolTipBackground}"
-                                    ToolTip="Delete skin" Padding="0" Tag="{Binding Name}">
+                                    ToolTip="{DynamicResource tip_skinSelect_delete}" Padding="0" Tag="{Binding Name}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                         <Setter Property="Content">

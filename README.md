@@ -24,6 +24,7 @@
 - [ ] Implement custom titlebar and remove MahApps.Metro dependency
 - [ ] Translation files
  - <s>English</s>
+ - <s>Spanish</s>
  - German
 - [ ] Implement a custom file picker with Material Design style (and get rid of the default Win32 file picker)
 - [ ] Skin element resize tool (for example create SD elements from HD elements)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.Core.Objects;
+using System;
 
 namespace Osmo.Core
 {
@@ -38,6 +39,11 @@ namespace Osmo.Core
                 return result;
             else
                 return defaultValue;
+        }
+
+        public static Language TryParse(string value, Language defaultValue)
+        {
+            return (Language)TryParse(value, (int)defaultValue);
         }
     }
 }

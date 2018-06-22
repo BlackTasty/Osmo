@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.Core.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -66,6 +67,8 @@ namespace Osmo.Core.Configuration
         public double Volume { get; set; }
 
         public bool IsMuted { get; set; }
+
+        public Language Language { get; set; }
         #endregion
 
         private AppConfiguration() : base("settings")
@@ -77,6 +80,7 @@ namespace Osmo.Core.Configuration
             mDefaultTemplateDirectory = AppDomain.CurrentDomain.BaseDirectory + "Templates\\";
             OsuDirectory = "";
             Volume = .8;
+            Language = Language.Default;
 
             Load();
         }
@@ -93,6 +97,7 @@ namespace Osmo.Core.Configuration
                 "ReopenLastSkin:" + ReopenLastSkin,
                 "Volume:" + Volume,
                 "IsMuted:" + IsMuted,
+                "Language:" + (int)Language,
                 "DisclaimerRead:" + DisclaimerRead
             };
             #endregion
@@ -142,6 +147,10 @@ namespace Osmo.Core.Configuration
 
                         case "IsMuted":
                             IsMuted = Parser.TryParse(property[1], false);
+                            break;
+
+                        case "Language":
+                            Language = Parser.TryParse(property[1], Language.Default);
                             break;
 
                         case "DisclaimerRead":
