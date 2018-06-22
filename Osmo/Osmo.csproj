@@ -96,6 +96,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\TemplatePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Resources\SkinningMania.txt" />
     <Resource Include="Resources\SkinningSounds.txt" />
     <Resource Include="Resources\SkinningTaiko.txt" />
@@ -203,6 +207,9 @@
     </Compile>
     <Compile Include="UI\TemplateManager.xaml.cs">
       <DependentUpon>TemplateManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TemplatePreview.xaml.cs">
+      <DependentUpon>TemplatePreview.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AnimationViewModel.cs" />
     <Compile Include="ViewModel\AudioViewModel.cs" />

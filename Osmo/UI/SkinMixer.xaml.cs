@@ -232,10 +232,10 @@ namespace Osmo.UI
             }
         }
 
-        private void LoadRightSkin_Click(object sender, RoutedEventArgs e)
-        {
-            skinSelect.Visibility = Visibility.Visible;
-        }
+        //private void LoadRightSkin_Click(object sender, RoutedEventArgs e)
+        //{
+        //    skinSelect.Visibility = Visibility.Visible;
+        //}
 
         private void MoveElement_Click(object sender, RoutedEventArgs e)
         {

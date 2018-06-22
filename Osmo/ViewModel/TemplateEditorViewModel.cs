@@ -10,6 +10,7 @@ namespace Osmo.ViewModel
     class TemplateEditorViewModel : ViewModelBase
     {
         private ForumTemplate mTemplate;
+        private string mPreviewText;
 
         public ForumTemplate Template
         {
@@ -18,6 +19,21 @@ namespace Osmo.ViewModel
             {
                 mTemplate = value;
                 InvokePropertyChanged("Template");
+            }
+        }
+
+        public Skin TargetSkin
+        {
+            get;set;
+        }
+
+        public string PreviewText
+        {
+            get => mPreviewText;
+            set
+            {
+                mPreviewText = value;
+                InvokePropertyChanged("PreviewText");
             }
         }
 

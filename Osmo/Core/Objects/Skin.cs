@@ -16,6 +16,8 @@ namespace Osmo.Core.Objects
     public class Skin
     {
         private FileSystemWatcher mWatcher;
+        private FileInfo skinIniHandle;
+
         #region Properties
         /// <summary>
         /// The visible name of this <see cref="Skin"/> object.
@@ -45,6 +47,14 @@ namespace Osmo.Core.Objects
         /// This returns the amount of elements this <see cref="Skin"/> object contains.
         /// </summary>
         public int ElementCount { get => Elements.Count; }
+
+        public string Version
+        {
+            get
+            {
+                return GetSkinIniProperty("Version")?.Trim() ?? "1.0";
+            }
+        }
         #endregion
         
         internal Skin()
@@ -169,17 +179,18 @@ namespace Osmo.Core.Objects
                 Elements.Add(new SkinElement(fi, Name));
                 if (fi.Name.Equals("skin.ini", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    GetAuthor(fi.FullName);
+                    skinIniHandle = fi;
+                    Author = GetSkinIniProperty("Author");
                 }
             }
         }
 
-        private void GetAuthor(string skinIniPath)
+        private string GetSkinIniProperty(string propertyName)
         {
-            string[] content = File.ReadAllLines(skinIniPath);
-            string authorLine = content.FirstOrDefault(x => x.StartsWith("Author:",
+            string[] content = File.ReadAllLines(skinIniHandle.FullName);
+            string propertyLine = content.FirstOrDefault(x => x.StartsWith(propertyName + ":",
                     StringComparison.InvariantCultureIgnoreCase));
-            Author = authorLine?.Trim().Substring(authorLine.IndexOf(':') + 1);
+            return propertyLine?.Trim().Substring(propertyLine.IndexOf(':') + 1);
         }
 
         #region Watcher Events

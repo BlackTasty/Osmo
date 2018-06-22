@@ -99,5 +99,23 @@ namespace Osmo.UI
                 completionWindow.CompletionList.RequestInsertion(e);
             }
         }
+
+        private void Preview_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        public void MakePreview(Skin skin)
+        {
+            TemplateEditorViewModel vm = DataContext as TemplateEditorViewModel;
+            vm.TargetSkin = skin;
+            if (vm.TargetSkin != null)
+            {
+                vm.PreviewText = textEditor.Text.Replace("[NAME]", vm.TargetSkin.Name)
+                    .Replace("[AUTHOR]", vm.TargetSkin.Author)
+                    .Replace("[DATE]", Helper.GetDate())
+                    .Replace("[SIZE]", Helper.GetDirectorySize(vm.TargetSkin.Path).ToString())
+                    .Replace("[VERSION]", vm.TargetSkin.Version);
+            }
+        }
     }
 }

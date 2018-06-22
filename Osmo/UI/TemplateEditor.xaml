@@ -9,13 +9,23 @@
              xmlns:vm="clr-namespace:Osmo.ViewModel"
              mc:Ignorable="d"  Tag="{Binding Template.Name}"
              d:DesignHeight="300" d:DesignWidth="700">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="200"/>
+        <ColumnDefinition Width="5"/>
+        <ColumnDefinition MinWidth="200"/>
+    </Grid.ColumnDefinitions>
     <Grid.DataContext>
         <vm:TemplateEditorViewModel/>
     </Grid.DataContext>
     <avalon:TextEditor x:Name="textEditor" ShowLineNumbers="True" Loaded="TextEditor_Loaded"/>
+    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+    <TextBlock Text="{Binding PreviewText}" Grid.Column="2"/>
     <Button
-        Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Margin="0,16,16,16"
-        ToolTip="{DynamicResource tip_templateEditor_preview}" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Margin="0,0,16,16" Command="{x:Static material:DialogHost.OpenDialogCommand}"
+        ToolTip="{DynamicResource tip_templateEditor_preview}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2">
+        <Button.CommandParameter>
+            <local:SkinMixerSelect Margin="8" Tag="template"/>
+        </Button.CommandParameter>
         <material:PackIcon
             Kind="Compare"
             Height="24"

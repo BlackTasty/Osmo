@@ -2,7 +2,7 @@
 Skin-Name: [NAME]
 Author: [AUTHOR]
 Skin-Version: [VERSION]
-Size: [SIZE]
+Size: [SIZE] MB
 Supported Gammemodes: (osu!, osu!mania, ctb, taiko)
 Tags: 
 

@@ -102,6 +102,7 @@
     <system:String o:Freeze="True" x:Key="edit_btn_replace">Reemplazar con otro archivo</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_erase">Borrar elemento</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_delete">Eliminar elemento</system:String>
+    <system:String o:Freeze="True" x:Key="mixer_selectRightSkin">Select a skin</system:String>
 
     <!--Animation helper-->
     <system:String o:Freeze="True" x:Key="animator_fps">FPS</system:String>

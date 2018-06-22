@@ -52,7 +52,6 @@ namespace Osmo.UI
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Collapsed;
             (DataContext as AnimationViewModel).StopAnimation();
         }
 

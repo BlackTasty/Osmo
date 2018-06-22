@@ -243,11 +243,13 @@
         </Grid>
     </material:Card>
     <Button Grid.Row="2" Grid.RowSpan="2" Grid.Column="2" Margin="0,16,16,16" VerticalAlignment="Bottom"
-                       HorizontalAlignment="Right" Click="LoadRightSkin_Click" ToolTip="{DynamicResource tip_mixer_loadRightSkin}"
+                       HorizontalAlignment="Right" Command="{x:Static material:DialogHost.OpenDialogCommand}" ToolTip="{DynamicResource tip_mixer_loadRightSkin}"
             Style="{StaticResource MaterialDesignFloatingActionAccentButton}" >
+        <Button.CommandParameter>
+            <local:SkinMixerSelect Margin="8" Tag="mixer"/>
+        </Button.CommandParameter>
         <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
     </Button>
     <material:Snackbar MessageQueue="{material:MessageQueue}"
                                                  x:Name="snackbar" Grid.ColumnSpan="3" Grid.Row="3"/>
-    <local:SkinMixerSelect x:Name="skinSelect" Grid.ColumnSpan="3" Grid.RowSpan="4" Visibility="Hidden"/>
 </Grid>

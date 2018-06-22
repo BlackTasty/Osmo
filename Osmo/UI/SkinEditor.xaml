@@ -243,11 +243,15 @@
                     Height="24" />
             </material:PopupBox.ToggleCheckedContent>
             <StackPanel>
-                <Button ToolTip="{DynamicResource edit_btn_animate}" Click="Animate_Click" Margin="4" IsEnabled="{Binding AnimationEnabled}">
+                <Button ToolTip="{DynamicResource edit_btn_animate}" Click="Animate_Click" Margin="4" IsEnabled="{Binding AnimationEnabled}"
+                         Command="{x:Static material:DialogHost.OpenDialogCommand}">
+                    <Button.CommandParameter>
+                        <local:AnimationHelper x:Name="animationHelper" />
+                    </Button.CommandParameter>
                     <material:PackIcon
                     Kind="Animation"
                     Width="24"
-                    Height="24" />
+                    Height="24"/>
                 </Button>
                 <Button ToolTip="{DynamicResource edit_btn_replace}" Click="Replace_Click">
                     <material:PackIcon
@@ -278,5 +282,4 @@
     </Grid>
     <material:Snackbar MessageQueue="{material:MessageQueue}"
                                                  x:Name="snackbar" Grid.ColumnSpan="3"/>
-    <local:AnimationHelper Grid.ColumnSpan="3" x:Name="animationHelper" Visibility="Collapsed"/>
 </Grid>

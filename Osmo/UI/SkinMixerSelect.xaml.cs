@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace Osmo.UI
         private void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             LoadSkin();
+
+            if (DialogHost.CloseDialogCommand.CanExecute(null, null))
+                DialogHost.CloseDialogCommand.Execute(null, null);
         }
 
         private void SelectSkin_Click(object sender, RoutedEventArgs e)
@@ -38,13 +42,18 @@ namespace Osmo.UI
 
         private void LoadSkin()
         {
-            SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, false);
-            Visibility = Visibility.Hidden;
-        }
-
-        private void Abort_Click(object sender, RoutedEventArgs e)
-        {
-            Visibility = Visibility.Hidden;
+            if (Tag != null)
+            {
+                string target = Tag.ToString();
+                if (target.Equals("mixer"))
+                {
+                    SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, false);
+                }
+                else if (target.Equals("template"))
+                {
+                    TemplateEditor.Instance.MakePreview(lv_skins.SelectedItem as Skin);
+                }
+            }
         }
     }
 }

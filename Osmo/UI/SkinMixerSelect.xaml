@@ -8,7 +8,7 @@
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             MinHeight="400" MinWidth="700"
              Background="{DynamicResource MaterialDesignPaper}">
     <Grid.DataContext>
         <vm:SkinSelectViewModel/>
@@ -17,12 +17,16 @@
         <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
     </Grid.Resources>
     <Grid.RowDefinitions>
+        <RowDefinition Height="27"/>
+        <RowDefinition Height="8"/>
         <RowDefinition/>
         <RowDefinition Height="12"/>
         <RowDefinition Height="42"/>
     </Grid.RowDefinitions>
-    <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}" Grid.ColumnSpan="4"
-              PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick">
+    <TextBlock Text="{DynamicResource mixer_selectRightSkin}" Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+
+    <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}"
+              PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" Grid.Row="2">
         <ListView.View>
             <GridView>
                 <GridViewColumn Header="{DynamicResource name}" Width="200" DisplayMemberBinding="{Binding Name}"/>
@@ -31,12 +35,13 @@
             </GridView>
         </ListView.View>
     </ListView>
-    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Abort_Click" Content="{DynamicResource abort}"
-                            ToolTip="{DynamicResource tip_skinMixerSelect_abort}" Width="120" Margin="5"/>
+    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="{DynamicResource abort}"
+                 ToolTip="{DynamicResource tip_skinMixerSelect_abort}" Width="120" Margin="5"
+                 Command="material:DialogHost.CloseDialogCommand"/>
 
         <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="SelectSkin_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
-                            ToolTip="{DynamicResource tip_skinMixerSelect_load}" Width="120" Margin="5" Content="{DynamicResource loadSkin}"/>
-
+                 ToolTip="{DynamicResource tip_skinMixerSelect_load}" Width="120" Margin="5" Content="{DynamicResource loadSkin}"
+                 Command="material:DialogHost.CloseDialogCommand"/>
     </StackPanel>
 </Grid>

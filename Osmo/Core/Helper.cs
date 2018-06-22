@@ -2,6 +2,7 @@
 using ICSharpCode.AvalonEdit.Document;
 using MaterialDesignThemes.Wpf;
 using Osmo.UI;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,6 +37,22 @@ namespace Osmo.Core
             int offset = textEditor.CaretOffset;
             DocumentLine line = textEditor.Document.GetLineByOffset(offset);
             return textEditor.Document.GetText(line.Offset, line.Length);
+        }
+
+        public static string GetDate(char splitter = '.')
+        {
+            return DateTime.Now.ToString(string.Format("dd{0}MM{0}yyyy", splitter));
+        }
+
+        public static double GetDirectorySize(string directory)
+        {
+            double size = 0;
+            foreach (FileInfo fi in new DirectoryInfo(directory).GetFiles())
+            {
+                size += fi.Length;
+            }
+
+            return Math.Round((size / 1024) /1024, 1);
         }
 
         public static async void ExportSkin(int selectedIndex, bool skipDialog)

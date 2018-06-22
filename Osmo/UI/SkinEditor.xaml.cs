@@ -411,7 +411,6 @@ namespace Osmo.UI
         private void Animate_Click(object sender, RoutedEventArgs e)
         {
             animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
-            animationHelper.Visibility = Visibility.Visible;
         }
     }
 }
