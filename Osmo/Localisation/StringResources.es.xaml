@@ -43,6 +43,7 @@
     <system:String o:Freeze="True" x:Key="loadSkin">_CARGAR SKIN</system:String>
     <system:String o:Freeze="True" x:Key="newSkin">_NUEVO SKIN</system:String>
     <system:String o:Freeze="True" x:Key="mixSkins">_MEZCLAR SKINS</system:String>
+    <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
     <system:String o:Freeze="True" x:Key="donate">Donar</system:String>
 
 
@@ -128,6 +129,9 @@
     <system:String o:Freeze="True" x:Key="templateManager_deleteTitle">¿Eliminar plantilla?</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteDescription">¿Seguro que desea eliminar esta plantilla?</system:String>
 
+    <!--TemplateManager-->
+    <system:String o:Freeze="True" x:Key="hint_templatePreviewSelect">Select a template</system:String>
+    
     <!--SkinSelect-->
     <system:String o:Freeze="True" x:Key="skinSelect_mySkins">Mis skins</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_deleteTitle">¿Eliminar skin?</system:String>

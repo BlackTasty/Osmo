@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using MaterialDesignThemes.Wpf;
+using Osmo.Core.Objects;
 using Osmo.UI;
 using System;
 using System.IO;
@@ -53,6 +54,27 @@ namespace Osmo.Core
             }
 
             return Math.Round((size / 1024) /1024, 1);
+        }
+
+        public static string ApplyForumTemplate(ForumTemplate template, Skin skin)
+        {
+            return ApplyForumTemplate(template.Content, skin);
+        }
+
+        public static string ApplyForumTemplate(string templateText, Skin skin)
+        {
+            if (skin != null && !skin.IsEmpty)
+            {
+                return templateText.Replace("[NAME]", skin.Name)
+                           .Replace("[AUTHOR]", skin.Author)
+                           .Replace("[DATE]", GetDate())
+                           .Replace("[SIZE]", GetDirectorySize(skin.Path).ToString())
+                           .Replace("[VERSION]", skin.Version);
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public static async void ExportSkin(int selectedIndex, bool skipDialog)

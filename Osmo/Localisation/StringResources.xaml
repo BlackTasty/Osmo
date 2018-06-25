@@ -7,7 +7,7 @@
 
     <!--Alpha Disclaimer-->
     <system:String o:Freeze="True" x:Key="alpha_disclaimer_title">Osmo Alpha information</system:String>
-    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description1">Osmo is currently in an Alpha state. This build should be stable, but that doesn't mean that bugs won't occur. If any bugs occur be sure to open an issue on the GitHub page :)</system:String>
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description1">Osmo is currently in an Alpha state and therefore in an unfinished state. This build should be stable, but that doesn't mean that bugs won't occur. If any bugs occur be sure to open an issue on the GitHub page :)</system:String>
     <system:String o:Freeze="True" x:Key="alpha_disclaimer_description2">If you are okay with this, click Yes.</system:String>
 
     <!--Basics-->
@@ -43,6 +43,7 @@
     <system:String o:Freeze="True" x:Key="loadSkin">_LOAD SKIN</system:String>
     <system:String o:Freeze="True" x:Key="newSkin">_NEW SKIN</system:String>
     <system:String o:Freeze="True" x:Key="mixSkins">_MIX SKINS</system:String>
+    <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
     <system:String o:Freeze="True" x:Key="donate">Donate</system:String>
 
 
@@ -127,6 +128,9 @@
     <!--TemplateManager-->
     <system:String o:Freeze="True" x:Key="templateManager_deleteTitle">Delete template?</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteDescription">Are you sure you want to delete this template?</system:String>
+
+    <!--TemplateManager-->
+    <system:String o:Freeze="True" x:Key="hint_templatePreviewSelect">Select a template</system:String>
 
     <!--SkinSelect-->
     <system:String o:Freeze="True" x:Key="skinSelect_mySkins">My skins</system:String>

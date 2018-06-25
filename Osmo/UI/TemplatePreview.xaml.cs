@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,20 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for TemplatePreview.xaml
     /// </summary>
-    public partial class TemplatePreview : UserControl
+    public partial class TemplatePreview : Grid
     {
         public TemplatePreview()
         {
             InitializeComponent();
+        }
+
+        private void Copy_Click(object sender, RoutedEventArgs e)
+        {
+            TemplatePreviewViewModel vm = DataContext as TemplatePreviewViewModel;
+            if (!string.IsNullOrWhiteSpace(vm.PreviewText))
+            {
+                Clipboard.SetText(vm.PreviewText);
+            }
         }
     }
 }

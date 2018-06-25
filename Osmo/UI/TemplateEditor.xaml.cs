@@ -108,14 +108,7 @@ namespace Osmo.UI
         {
             TemplateEditorViewModel vm = DataContext as TemplateEditorViewModel;
             vm.TargetSkin = skin;
-            if (vm.TargetSkin != null)
-            {
-                vm.PreviewText = textEditor.Text.Replace("[NAME]", vm.TargetSkin.Name)
-                    .Replace("[AUTHOR]", vm.TargetSkin.Author)
-                    .Replace("[DATE]", Helper.GetDate())
-                    .Replace("[SIZE]", Helper.GetDirectorySize(vm.TargetSkin.Path).ToString())
-                    .Replace("[VERSION]", vm.TargetSkin.Version);
-            }
+            vm.PreviewText = Helper.ApplyForumTemplate(textEditor.Text, vm.TargetSkin);
         }
     }
 }

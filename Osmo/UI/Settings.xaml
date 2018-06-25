@@ -23,9 +23,10 @@
         <RowDefinition Height="42" />
     </Grid.RowDefinitions>
 
-    <StackPanel Grid.ColumnSpan="3" Margin="8">
+    <ScrollViewer Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="8">
         <TextBlock Margin="0,0,0,8" Text="{DynamicResource settings_header_general}" />
-        <material:Card Height="240">
+        <material:Card>
             <Grid Margin="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="24" />
@@ -39,8 +40,9 @@
                     <RowDefinition Height="42" />
                     <RowDefinition Height="16" />
                     <RowDefinition Height="42" />
-                    <RowDefinition Height="16" />
-                    <RowDefinition Height="42" />
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="8" />
+                        <RowDefinition Height="42" />
 
                 </Grid.RowDefinitions>
                 <material:PackIcon
@@ -127,7 +129,7 @@
                     ToolTip="{DynamicResource tip_searchTemplateDirectory}" />
 
                 <material:PackIcon
-                    Grid.Row="6"
+                    Grid.Row="7"
                     Margin="0,0,0,8"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
@@ -135,7 +137,7 @@
                     Kind="Flag" />
                 <ComboBox
                     x:Name="combo_language"
-                    Grid.Row="6"
+                    Grid.Row="7"
                     Grid.Column="1"
                     Grid.ColumnSpan="3"
                     VerticalAlignment="Stretch"
@@ -203,7 +205,7 @@
             </Grid>
         </material:Card>
     </StackPanel>
-
+    </ScrollViewer>
     <Button
         Grid.Row="2"
         Grid.Column="1"

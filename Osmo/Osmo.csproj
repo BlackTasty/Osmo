@@ -225,6 +225,7 @@
     <Compile Include="ViewModel\SkinWizardViewModel.cs" />
     <Compile Include="ViewModel\TemplateEditorViewModel.cs" />
     <Compile Include="ViewModel\TemplateManagerViewModel.cs" />
+    <Compile Include="ViewModel\TemplatePreviewViewModel.cs" />
     <Compile Include="ViewModel\Validation\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModel\Validation\PathValidationRule.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
