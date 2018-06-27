@@ -76,10 +76,9 @@ namespace Osmo.UI
         {
             completionWindow = new CompletionWindow(textEditor.TextArea);
             IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
-            string line = Helper.GetTextAtCurrentLine(textEditor);
             foreach (CompletionData item in FixedValues.templateCompletionData)
             {
-                if (item.Text.Contains(line))
+                if (item.Text.Contains(e.Text.ToUpper()))
                     data.Add(item);
             }
 
@@ -92,7 +91,7 @@ namespace Osmo.UI
 
         private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)
         {
-            if (completionWindow != null && !char.IsLetterOrDigit(e.Text[0]))
+            if (completionWindow != null)
             {
                 // Whenever a non-letter is typed while the completion window is open,
                 // insert the currently selected element.

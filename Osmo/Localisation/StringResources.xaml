@@ -59,6 +59,7 @@
 
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Revert all changes</system:String>
+    <system:String o:Freeze="True" x:Key="main_createForumEntry">Create forum post from template</system:String>
     <system:String o:Freeze="True" x:Key="main_openInExplorer">Open skin in file explorer</system:String>
     <system:String o:Freeze="True" x:Key="main_openInMixer">Show skin in Skin Mixer</system:String>
     <system:String o:Freeze="True" x:Key="main_openInEditor">Show skin in Skin Editor</system:String>

@@ -47,5 +47,10 @@ namespace Osmo.Core.Objects
             Content = newContent;
             File.WriteAllText(Path, Content);
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

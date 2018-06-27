@@ -19,7 +19,7 @@
     </Grid.DataContext>
     <avalon:TextEditor x:Name="textEditor" ShowLineNumbers="True" Loaded="TextEditor_Loaded"/>
     <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-    <TextBlock Text="{Binding PreviewText}" Grid.Column="2"/>
+    <TextBox Text="{Binding PreviewText}" Grid.Column="2" Style="{DynamicResource LabelTextbox}"/>
     <Button
         Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Margin="0,0,16,16" Command="{x:Static material:DialogHost.OpenDialogCommand}"
         ToolTip="{DynamicResource tip_templateEditor_preview}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="2">

@@ -83,6 +83,12 @@
                                             Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}">
                             <StackPanel>
                                 <Button Content="{DynamicResource main_revertAll}" Click="RevertAll_Click"/>
+                                <Button Content="{DynamicResource main_createForumEntry}" Click="CreateForumEntry_Click"
+                                         Command="{x:Static material:DialogHost.OpenDialogCommand}">
+                                    <Button.CommandParameter>
+                                        <ui:TemplatePreview x:Name="templatePreview" Margin="8"/>
+                                    </Button.CommandParameter>
+                                </Button>
                                 <Button Content="{DynamicResource main_openInExplorer}" Click="OpenInFileExplorer_OnClick"/>
                                 <Button Content="{DynamicResource main_openInMixer}" Click="OpenInSkinMixer_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2}"/>
                                 <Button Content="{DynamicResource main_openInEditor}" Click="OpenInSkinEditor_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>

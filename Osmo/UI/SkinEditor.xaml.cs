@@ -63,6 +63,8 @@ namespace Osmo.UI
             DependencyProperty.Register("AudioPosition", typeof(double), typeof(SkinEditor), new PropertyMetadata(0d));
         #endregion
 
+        public Skin LoadedSkin { get => (DataContext as SkinViewModel).LoadedSkin; }
+
         //public double AudioPosition { get => audio != null ? audio.AudioPosition : 0; }
 
         private SkinEditor()

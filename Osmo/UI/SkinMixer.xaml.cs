@@ -40,6 +40,8 @@ namespace Osmo.UI
             }
         }
 
+        public Skin LoadedSkin { get => (DataContext as SkinMixerViewModel).SkinLeft; }
+
         private SkinMixer()
         {
             InitializeComponent();

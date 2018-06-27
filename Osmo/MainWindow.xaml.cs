@@ -242,5 +242,20 @@ namespace Osmo
         {
             Settings.ChangeLanguage(configuration.Language);
         }
+
+        private void CreateForumEntry_Click(object sender, RoutedEventArgs e)
+        {
+            OsmoViewModel vm = DataContext as OsmoViewModel;
+            TemplatePreviewViewModel templateVm = templatePreview.DataContext as TemplatePreviewViewModel;
+            templateVm.LoadTemplates();
+            if (vm.SelectedSidebarIndex == FixedValues.EDITOR_INDEX)
+            {
+                templateVm.Skin = SkinEditor.Instance.LoadedSkin;
+            }
+            else if (vm.SelectedSidebarIndex == FixedValues.MIXER_INDEX)
+            {
+                templateVm.Skin = SkinMixer.Instance.LoadedSkin;
+            }
+        }
     }
 }
