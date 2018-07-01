@@ -30,7 +30,7 @@
         <RowDefinition Height="12" />
         <RowDefinition Height="42" />
     </Grid.RowDefinitions>
-    <ListView
+    <ListView SelectionMode="Single"
         x:Name="lv_templates"
         Grid.ColumnSpan="3"
         ItemsSource="{Binding Templates}"

@@ -7,7 +7,7 @@
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
              mc:Ignorable="d" 
-             MinHeight="400" MinWidth="700"
+             Height="400" Width="700"
              Background="{DynamicResource MaterialDesignPaper}">
     <Grid.DataContext>
         <vm:AnimationViewModel/>
@@ -20,7 +20,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*" MinWidth="200"/>
     </Grid.ColumnDefinitions>
-    <ListView VerticalAlignment="Stretch" ItemsSource="{Binding Animation}" SelectedIndex="{Binding CurrentFrame, Mode=OneWayToSource}" SelectionChanged="ListView_SelectionChanged">
+    <ListView VerticalAlignment="Stretch" SelectionMode="Single" ItemsSource="{Binding Animation}" SelectedIndex="{Binding CurrentFrame, Mode=OneWayToSource}" SelectionChanged="ListView_SelectionChanged">
         <ListView.View>
             <GridView>
                 <GridViewColumn Width="Auto" Header="{DynamicResource header_element}" DisplayMemberBinding="{Binding BindsDirectlyToSource=True, Converter={StaticResource PathToFileName}}">

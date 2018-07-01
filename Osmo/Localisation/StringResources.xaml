@@ -46,6 +46,18 @@
     <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
     <system:String o:Freeze="True" x:Key="donate">Donate</system:String>
 
+    <!--Shortcuts cheat sheet-->
+    <system:String o:Freeze="True" x:Key="shortcuts_animate">Ctrl + Shift + A</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_replaceElement">Ctrl + H</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_deleteElement">Del</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_eraseElement">Ctrl + Del</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_revertChanges">Ctrl + Z</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_revertAllChanges">Ctrl + Shift + Z</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_exportSkin">Ctrl + E</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_save">Ctrl + S</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerTransfer">Ctrl + T</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkin">Ctrl + O</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Load a skin into the right list</system:String>
 
     <!--Sidebar (OsmoViewModel.cs)-->
     <system:String o:Freeze="True" x:Key="sidebar_home">Home</system:String>
@@ -120,6 +132,8 @@
     <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Open the last skin you have edited at startup</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_general">General</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_editor">Editor</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Keyboard shortcuts</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcutsCheatSheet">Cheat sheet</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Executable skin file</system:String>

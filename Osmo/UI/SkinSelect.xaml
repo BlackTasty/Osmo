@@ -29,7 +29,7 @@
     <!--<ScrollViewer Grid.ColumnSpan="4" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <UniformGrid x:Name="uniGrid_skins" Margin="4"/>
     </ScrollViewer>-->
-    <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}" Grid.ColumnSpan="4"
+    <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding Skins}" Grid.ColumnSpan="4"
               PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" PreviewMouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
         <ListView.View>
             <GridView>

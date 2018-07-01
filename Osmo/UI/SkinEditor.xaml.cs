@@ -24,13 +24,15 @@ using Osmo.Core.Reader;
 using MaterialDesignThemes.Wpf.Transitions;
 using MaterialDesignThemes.Wpf;
 using System.Diagnostics;
+using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace Osmo.UI
 {
     /// <summary>
     /// Interaction logic for SkinEditor.xaml
     /// </summary>
-    public partial class SkinEditor : Grid
+    public partial class SkinEditor : Grid, IShortcutHelper
     {
         private static SkinEditor instance;
         private string lastPath = null;
@@ -66,6 +68,49 @@ namespace Osmo.UI
         public Skin LoadedSkin { get => (DataContext as SkinViewModel).LoadedSkin; }
 
         //public double AudioPosition { get => audio != null ? audio.AudioPosition : 0; }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            SkinViewModel vm = DataContext as SkinViewModel;
+            if (vm.IsFABEnabled)
+            {
+                if (Keyboard.Modifiers == ModifierKeys.Control)
+                {
+                    switch (e.Key)
+                    {
+                        case Key.H:
+                            Replace_Click(null, null);
+                            return true;
+                        case Key.Delete:
+                            Erase_Click(null, null);
+                            return true;
+                        case Key.Z:
+                            if ((DataContext as SkinViewModel).ResetEnabled)
+                            {
+                                Revert_Click(null, null);
+                            }
+                            return true;
+                    }
+                }
+                else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.A)
+                {
+                    if (vm.AnimationEnabled)
+                    {
+                        animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
+                        if (DialogHost.OpenDialogCommand.CanExecute(btn_animate.CommandParameter, btn_animate))
+                            DialogHost.OpenDialogCommand.Execute(btn_animate.CommandParameter, btn_animate);
+                    }
+                    return true;
+                }
+                else if (e.Key == Key.Delete)
+                {
+                    Delete_Click(null, null);
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         private SkinEditor()
         {
@@ -413,6 +458,21 @@ namespace Osmo.UI
         private void Animate_Click(object sender, RoutedEventArgs e)
         {
             animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
+        }
+
+        private void container_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+            ForwardKeyboardInput(e);
+
+            //if (e.Key == Key.A && (Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
+            //{
+            //    MessageBox.Show("Show animation helper!");
+            //}
+            //else if (e.Key == Key.H && Keyboard.Modifiers == ModifierKeys.Control)
+            //{
+            //    MessageBox.Show("Replace with another file!");
+            //}
         }
     }
 }

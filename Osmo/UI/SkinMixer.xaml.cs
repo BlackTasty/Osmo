@@ -24,7 +24,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinMixer.xaml
     /// </summary>
-    public partial class SkinMixer : Grid
+    public partial class SkinMixer : Grid, IShortcutHelper
     {
         private static SkinMixer instance;
         AudioEngine audio;
@@ -41,6 +41,34 @@ namespace Osmo.UI
         }
 
         public Skin LoadedSkin { get => (DataContext as SkinMixerViewModel).SkinLeft; }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                switch (e.Key)
+                {
+                    case Key.T:
+                        if (btn_transfer.IsEnabled)
+                        {
+                            MoveElement_Click(null, null);
+                        }
+                        return true;
+                    case Key.O:
+                        if (DialogHost.OpenDialogCommand.CanExecute(btn_loadRight.CommandParameter, btn_loadRight))
+                            DialogHost.OpenDialogCommand.Execute(btn_loadRight.CommandParameter, btn_loadRight);
+                        return true;
+                    case Key.Z:
+                        if (btn_revert.IsEnabled)
+                        {
+                            RevertSelected_Click(null, null);
+                        }
+                        return true;
+                }
+            }
+
+            return false;
+        }
 
         private SkinMixer()
         {
@@ -265,6 +293,12 @@ namespace Osmo.UI
                 File.Copy(path + vm.SelectedElement.Name, vm.SelectedElement.Path, true);*/
                 vm.RefreshImage();
             }
+        }
+
+        private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+            ForwardKeyboardInput(e);
         }
     }
 }

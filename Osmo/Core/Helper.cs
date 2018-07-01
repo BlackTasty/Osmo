@@ -104,11 +104,11 @@ namespace Osmo.Core
                 {
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        if (selectedIndex == 2)
+                        if (selectedIndex == FixedValues.EDITOR_INDEX)
                         {
                             SkinEditor.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
                         }
-                        else if (selectedIndex == 3)
+                        else if (selectedIndex == FixedValues.MIXER_INDEX)
                         {
                             SkinMixer.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
                         }
@@ -119,7 +119,17 @@ namespace Osmo.Core
 
         public static void ExportSkin(int selectedIndex)
         {
-            ExportSkin(selectedIndex, false);
+            bool skipDialog = false;
+            if (selectedIndex == FixedValues.EDITOR_INDEX)
+            {
+                skipDialog = !SkinEditor.Instance.LoadedSkin.UnsavedChanges;
+            }
+            else if (selectedIndex == FixedValues.MIXER_INDEX)
+            {
+                skipDialog = !SkinMixer.Instance.LoadedSkin.UnsavedChanges;
+            }
+
+            ExportSkin(selectedIndex, skipDialog);
         }
 
         public static string FindString(string targetName)

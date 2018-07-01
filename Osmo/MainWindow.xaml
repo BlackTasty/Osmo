@@ -16,7 +16,8 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14" AllowDrop="True"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-    Closing="MetroWindow_Closing" DragEnter="MetroWindow_DragEnter">
+    Closing="MetroWindow_Closing" DragEnter="MetroWindow_DragEnter"
+    PreviewKeyUp="MetroWindow_PreviewKeyUp">
     <Window.DataContext>
         <vm:OsmoViewModel/>
     </Window.DataContext>
@@ -41,7 +42,7 @@
             <material:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
                     <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
-                                    DockPanel.Dock="Top"
+                                    DockPanel.Dock="Top" 
                                     HorizontalAlignment="Right" Margin="16"
                                     IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                     <ListBox x:Name="sidebarMenu" Margin="0 16 0 16" SelectedIndex="{Binding SelectedSidebarIndex}"                         
@@ -97,7 +98,7 @@
                             </StackPanel>
                         </material:PopupBox>
                         <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;7}"
-                            ToolTip="{DynamicResource main_saveAll}" Click="SaveSkin_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="{DynamicResource main_saveAll}" Click="SaveSkinOrTemplate_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
                             <material:PackIcon
                             Kind="ContentSave"
                             Height="28"

@@ -7,8 +7,8 @@
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:avalon="http://icsharpcode.net/sharpdevelop/avalonedit"
-             xmlns:local="clr-namespace:Osmo.UI"
-             mc:Ignorable="d" IsEnabled="{Binding IsSkinLoaded}"
+             xmlns:local="clr-namespace:Osmo.UI" Focusable="True"
+             mc:Ignorable="d" IsEnabled="{Binding IsSkinLoaded}" PreviewKeyUp="container_PreviewKeyUp"
              d:DesignHeight="450" d:DesignWidth="800" Loaded="Container_Loaded" Tag="{Binding LoadedSkin.Name}">
     <Grid.DataContext>
         <vm:SkinViewModel/>
@@ -24,7 +24,7 @@
         <ColumnDefinition Width="5"/>
         <ColumnDefinition Width="*" MinWidth="200"/>
     </Grid.ColumnDefinitions>
-    <ListView x:Name="lv_elements" ItemsSource="{Binding LoadedSkin.Elements}" SelectionChanged="Elements_SelectionChanged">
+    <ListView x:Name="lv_elements" SelectionMode="Single" ItemsSource="{Binding LoadedSkin.Elements}" SelectionChanged="Elements_SelectionChanged">
         <ListView.View>
             <GridView>
                 <GridViewColumn Width="200" Header="{DynamicResource name}">
@@ -244,7 +244,7 @@
             </material:PopupBox.ToggleCheckedContent>
             <StackPanel>
                 <Button ToolTip="{DynamicResource edit_btn_animate}" Click="Animate_Click" Margin="4" IsEnabled="{Binding AnimationEnabled}"
-                         Command="{x:Static material:DialogHost.OpenDialogCommand}">
+                         Command="{x:Static material:DialogHost.OpenDialogCommand}" x:Name="btn_animate">
                     <Button.CommandParameter>
                         <local:AnimationHelper x:Name="animationHelper" />
                     </Button.CommandParameter>

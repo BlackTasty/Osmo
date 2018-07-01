@@ -99,8 +99,8 @@ namespace Osmo.UI
         {
             if (lv_skins.SelectedIndex == 0)
             {
-                if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, null))
-                    DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, null);
+                if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, btn_newSkin))
+                    DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, btn_newSkin);
             }
         }
 

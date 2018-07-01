@@ -64,8 +64,8 @@ namespace Osmo.UI
         {
             if (lv_templates.SelectedIndex == 0)
             {
-                if (DialogHost.OpenDialogCommand.CanExecute(btn_newTemplate.CommandParameter, null))
-                    DialogHost.OpenDialogCommand.Execute(btn_newTemplate.CommandParameter, null);
+                if (DialogHost.OpenDialogCommand.CanExecute(btn_newTemplate.CommandParameter, btn_newTemplate))
+                    DialogHost.OpenDialogCommand.Execute(btn_newTemplate.CommandParameter, btn_newTemplate);
             }
         }
 

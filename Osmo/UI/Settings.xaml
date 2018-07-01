@@ -6,6 +6,7 @@
     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
+    xmlns:ui="clr-namespace:Osmo.UI"
     x:Name="container"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -165,7 +166,7 @@
 
             </Grid>
         </material:Card>
-        <TextBlock Margin="0,8" Text="Editor" />
+            <TextBlock Margin="0,8" Text="{DynamicResource settings_header_editor}" />
         <material:Card>
             <Grid Margin="8">
                 <Grid.ColumnDefinitions>
@@ -204,6 +205,13 @@
                     ToolTip="" />
             </Grid>
         </material:Card>
+
+            <TextBlock Margin="0,8" Text="{DynamicResource settings_header_shortcuts}" />
+            <material:Card>
+                <Expander Header="{DynamicResource settings_header_shortcutsCheatSheet}">
+                    <ui:ShortcutCheatSheet/>
+                </Expander>
+            </material:Card>
     </StackPanel>
     </ScrollViewer>
     <Button

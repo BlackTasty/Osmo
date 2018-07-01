@@ -1,0 +1,71 @@
+﻿<WrapPanel x:Class="Osmo.UI.ShortcutCheatSheet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Osmo.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="767">
+    <StackPanel Margin="8">
+        <TextBlock Text="{DynamicResource sidebar_editor}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0,0,0,8"/>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource edit_btn_animate}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_animate}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource edit_btn_replace}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_replaceElement}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource edit_btn_delete}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_deleteElement}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource edit_btn_erase}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_eraseElement}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_revertSelected}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_revertChanges}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource main_revertAll}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_revertAllChanges}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource main_saveAll}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_save}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_skinSelect_export}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_exportSkin}" FontWeight="Bold"/>
+        </TextBlock>
+    </StackPanel>
+    <StackPanel Margin="8">
+        <TextBlock Text="{DynamicResource sidebar_mixer}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0,0,0,8"/>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_mixer_transfer}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_mixerTransfer}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource shortcuts_mixerLoadSkinText}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_mixerLoadSkin}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_revertSelected}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_revertChanges}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource main_revertAll}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_revertAllChanges}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource main_saveAll}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_save}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_skinSelect_export}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_exportSkin}" FontWeight="Bold"/>
+        </TextBlock>
+    </StackPanel>
+</WrapPanel>

@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
       <HintPath>..\_DLL\Bass.Net.dll</HintPath>
@@ -88,6 +91,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\ShortcutCheatSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\TemplateEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,6 +131,7 @@
     <Compile Include="Converters\SelectSkinSelector.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
+    <Compile Include="Core\IShortcutHelper.cs" />
     <Compile Include="Core\LibraryValidator.cs" />
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\NaturalStringComparer.cs" />
@@ -183,6 +191,9 @@
     </Compile>
     <Compile Include="UI\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ShortcutCheatSheet.xaml.cs">
+      <DependentUpon>ShortcutCheatSheet.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\SkinCard.xaml.cs">
       <DependentUpon>SkinCard.xaml</DependentUpon>
@@ -324,6 +335,9 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <None Include="Resources\DefaultTemplate.txt" />
     <None Include="Resources\DefaulSkinIni.txt" />
     <None Include="Resources\emptySound.wav" />

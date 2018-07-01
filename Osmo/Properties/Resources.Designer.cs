@@ -93,7 +93,7 @@ namespace Osmo.Properties {
         ///Skin-Name: [NAME]
         ///Author: [AUTHOR]
         ///Skin-Version: [VERSION]
-        ///Size: [SIZE]
+        ///Size: [SIZE] MB
         ///Supported Gammemodes: (osu!, osu!mania, ctb, taiko)
         ///Tags: 
         ///
@@ -138,6 +138,16 @@ namespace Osmo.Properties {
         internal static System.IO.UnmanagedMemoryStream emptySound {
             get {
                 return ResourceManager.GetStream("emptySound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon icon {
+            get {
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

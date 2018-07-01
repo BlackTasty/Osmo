@@ -25,7 +25,7 @@
     </Grid.RowDefinitions>
     <TextBlock Text="{DynamicResource mixer_selectRightSkin}" Style="{StaticResource MaterialDesignTitleTextBlock}"/>
 
-    <ListView x:Name="lv_skins" ItemsSource="{Binding Skins}"
+    <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding Skins}"
               PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" Grid.Row="2">
         <ListView.View>
             <GridView>

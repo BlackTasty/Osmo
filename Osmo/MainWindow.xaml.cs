@@ -160,7 +160,7 @@ namespace Osmo
             Environment.Exit(0);
         }
 
-        private void SaveSkin_Click(object sender, RoutedEventArgs e)
+        private void SaveSkinOrTemplate_Click(object sender, RoutedEventArgs e)
         {
             if (sidebarMenu.SelectedIndex == FixedValues.EDITOR_INDEX)
             {
@@ -178,7 +178,10 @@ namespace Osmo
 
         private void ExportSkin_Click(object sender, RoutedEventArgs e)
         {
-            Helper.ExportSkin(sidebarMenu.SelectedIndex);
+            if (sidebarMenu.SelectedIndex == FixedValues.EDITOR_INDEX || sidebarMenu.SelectedIndex == FixedValues.MIXER_INDEX)
+            {
+                Helper.ExportSkin(sidebarMenu.SelectedIndex);
+            }
         }
 
         private void OpenInFileExplorer_OnClick(object sender, RoutedEventArgs e)
@@ -222,8 +225,8 @@ namespace Osmo
 
         private void MetroWindow_DragEnter(object sender, DragEventArgs e)
         {
-            if (DialogHost.OpenDialogCommand.CanExecute(btn_import.CommandParameter, null))
-                DialogHost.OpenDialogCommand.Execute(btn_import.CommandParameter, null);
+            if (DialogHost.OpenDialogCommand.CanExecute(btn_import.CommandParameter, btn_import))
+                DialogHost.OpenDialogCommand.Execute(btn_import.CommandParameter, btn_import);
         }
 
         private void OpenInSkinMixer_Click(object sender, RoutedEventArgs e)
@@ -255,6 +258,32 @@ namespace Osmo
             else if (vm.SelectedSidebarIndex == FixedValues.MIXER_INDEX)
             {
                 templateVm.Skin = SkinMixer.Instance.LoadedSkin;
+            }
+        }
+
+        private void MetroWindow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (content.Content is IShortcutHelper target)
+            {
+                if (!target.ForwardKeyboardInput(e))
+                {
+                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    {
+                        switch (e.Key)
+                        {
+                            case Key.S:
+                                SaveSkinOrTemplate_Click(null, null);
+                                break;
+                            case Key.E:
+                                ExportSkin_Click(null, null);
+                                break;
+                        }
+                    }
+                    else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.Z)
+                    {
+                        RevertAll_Click(null, null);
+                    }
+                }
             }
         }
     }
