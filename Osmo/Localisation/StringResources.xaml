@@ -58,6 +58,10 @@
     <system:String o:Freeze="True" x:Key="shortcuts_mixerTransfer">Ctrl + T</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkin">Ctrl + O</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Load a skin into the right list</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Skin select</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Load the selected skin into the skin mixer</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixer">Ctrl + Shift + O</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectNewSkin">Ctrl + N</system:String>
 
     <!--Sidebar (OsmoViewModel.cs)-->
     <system:String o:Freeze="True" x:Key="sidebar_home">Home</system:String>
@@ -192,7 +196,7 @@
     <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_load">Load the selected skin</system:String>
     <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_abort">Closes the selection</system:String>
     <system:String o:Freeze="True" x:Key="tip_revert">Revert changes</system:String>
-    <system:String o:Freeze="True" x:Key="tip_mixer_transfer">Override the selected element on the left with the selected element on the right</system:String>
+    <system:String o:Freeze="True" x:Key="tip_mixer_transfer">Override the left element with the element on the right</system:String>
     <system:String o:Freeze="True" x:Key="tip_mixer_loadRightSkin">Opens the skin selector where you can load a skin into the right list</system:String>
     <system:String o:Freeze="True" x:Key="tip_revertSelected">Revert changes on the selected element</system:String>
     <system:String o:Freeze="True" x:Key="tip_mute">Mute/Unmute playback</system:String>

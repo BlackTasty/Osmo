@@ -49,16 +49,19 @@ namespace Osmo.UI
                 switch (e.Key)
                 {
                     case Key.T:
+                        e.Handled = true;
                         if (btn_transfer.IsEnabled)
                         {
                             MoveElement_Click(null, null);
                         }
                         return true;
                     case Key.O:
+                        e.Handled = true;
                         if (DialogHost.OpenDialogCommand.CanExecute(btn_loadRight.CommandParameter, btn_loadRight))
                             DialogHost.OpenDialogCommand.Execute(btn_loadRight.CommandParameter, btn_loadRight);
                         return true;
                     case Key.Z:
+                        e.Handled = true;
                         if (btn_revert.IsEnabled)
                         {
                             RevertSelected_Click(null, null);

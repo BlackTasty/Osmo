@@ -24,7 +24,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinSelect.xaml
     /// </summary>
-    public partial class SkinSelect : Grid
+    public partial class SkinSelect : Grid, IShortcutHelper
     {
         private static SkinSelect instance;
 
@@ -65,7 +65,12 @@ namespace Osmo.UI
             }
         }
 
-        private async void SkinDelete_Click(object sender, RoutedEventArgs e)
+        private void SkinDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteSkin((sender as Button).Tag.ToString());
+        }
+
+        private async void DeleteSkin(string name)
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("skinSelect_deleteTitle"),
                 Helper.FindString("skinSelect_deleteDescription"),
@@ -75,11 +80,16 @@ namespace Osmo.UI
 
             if (msgBox.Result == MessageBoxResult.Yes)
             {
-                (DataContext as OsmoViewModel).SkinManager.DeleteSkin((sender as Button).Tag.ToString());
+                (DataContext as OsmoViewModel).SkinManager.DeleteSkin(name);
             }
         }
 
         private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            ExportSkin((sender as Button).Tag.ToString());
+        }
+
+        private void ExportSkin(string name)
         {
             //TODO: Replace OpenFolderDialog with custom FilePicker control (and remove Winforms dependency)
             using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
@@ -89,7 +99,7 @@ namespace Osmo.UI
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    (DataContext as OsmoViewModel).SkinManager.ExportSkin((sender as Button).Tag.ToString(), 
+                    (DataContext as OsmoViewModel).SkinManager.ExportSkin(name,
                         dlg.SelectedPath);
                 }
             }
@@ -110,6 +120,56 @@ namespace Osmo.UI
             //{
             //    uniGrid_skins.Children.Add(new SkinCard().InitializeSkin(skin));
             //}
+        }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                switch (e.Key)
+                {
+                    case Key.N:
+                        e.Handled = true;
+                        if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, btn_newSkin))
+                            DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, btn_newSkin);
+                        return true;
+                    case Key.O:
+                        e.Handled = true;
+                        if (lv_skins.SelectedIndex > 0)
+                        {
+                            SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
+                            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                        }
+                        return true;
+                    case Key.E:
+                        if (lv_skins.SelectedIndex > 0)
+                        {
+                            ExportSkin((lv_skins.SelectedItem as Skin).Name);
+                        }
+                        return true;
+                }
+            }
+            else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.O)
+            {
+                e.Handled = true;
+                if (lv_skins.SelectedIndex > 0)
+                {
+                    SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true);
+                    (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+                }
+                return true;
+            }
+            else if (e.Key == Key.Delete)
+            {
+                e.Handled = true;
+                if (lv_skins.SelectedIndex > 0)
+                {
+                    DeleteSkin((lv_skins.SelectedItem as Skin).Name);
+                }
+                return true;
+            }
+
+            return false;
         }
     }
 }

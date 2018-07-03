@@ -68,4 +68,27 @@
             <Run Text="{DynamicResource shortcuts_exportSkin}" FontWeight="Bold"/>
         </TextBlock>
     </StackPanel>
+    <StackPanel Margin="8">
+        <TextBlock Text="{DynamicResource shortcuts_skinSelectTitle}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="0,0,0,8"/>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_skinSelect_new}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_skinSelectNewSkin}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_skinSelect_load}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_mixerLoadSkin}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource shortcuts_skinSelectMixerText}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_skinSelectMixer}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_skinSelect_export}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_exportSkin}" FontWeight="Bold"/>
+        </TextBlock>
+        <TextBlock Margin="8,0,0,0">
+            <Run Text="{DynamicResource tip_skinSelect_delete}"/><Run Text=":"/>
+            <Run Text="{DynamicResource shortcuts_deleteElement}" FontWeight="Bold"/>
+        </TextBlock>
+    </StackPanel>
 </WrapPanel>

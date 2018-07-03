@@ -79,12 +79,15 @@ namespace Osmo.UI
                     switch (e.Key)
                     {
                         case Key.H:
+                            e.Handled = true;
                             Replace_Click(null, null);
                             return true;
                         case Key.Delete:
+                            e.Handled = true;
                             Erase_Click(null, null);
                             return true;
                         case Key.Z:
+                            e.Handled = true;
                             if ((DataContext as SkinViewModel).ResetEnabled)
                             {
                                 Revert_Click(null, null);
@@ -94,6 +97,7 @@ namespace Osmo.UI
                 }
                 else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.A)
                 {
+                    e.Handled = true;
                     if (vm.AnimationEnabled)
                     {
                         animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
@@ -104,6 +108,7 @@ namespace Osmo.UI
                 }
                 else if (e.Key == Key.Delete)
                 {
+                    e.Handled = true;
                     Delete_Click(null, null);
                     return true;
                 }

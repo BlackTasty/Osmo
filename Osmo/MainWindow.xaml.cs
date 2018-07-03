@@ -267,6 +267,7 @@ namespace Osmo
             {
                 if (!target.ForwardKeyboardInput(e))
                 {
+                    e.Handled = true;
                     if (Keyboard.Modifiers == ModifierKeys.Control)
                     {
                         switch (e.Key)
