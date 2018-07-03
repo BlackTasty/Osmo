@@ -22,7 +22,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for TemplateManager.xaml
     /// </summary>
-    public partial class TemplateManager : Grid
+    public partial class TemplateManager : Grid, IShortcutHelper
     {
         #region Singleton implementation
         private static TemplateManager instance;
@@ -69,7 +69,12 @@ namespace Osmo.UI
             }
         }
 
-        private async void TemplateDelete_Click(object sender, RoutedEventArgs e)
+        private void TemplateDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteTemplate((sender as Button).Tag.ToString());
+        }
+
+        private async void DeleteTemplate(string name)
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("templateManager_deleteTitle"),
                 Helper.FindString("templateManager_deleteDescription"),
@@ -79,7 +84,7 @@ namespace Osmo.UI
 
             if (msgBox.Result == MessageBoxResult.Yes)
             {
-                (DataContext as TemplateManagerViewModel).DeleteTemplate((sender as Button).Tag.ToString());
+                (DataContext as TemplateManagerViewModel).DeleteTemplate(name);
             }
         }
 
@@ -100,6 +105,44 @@ namespace Osmo.UI
         private void NewTemplateDialog_Loaded(object sender, RoutedEventArgs e)
         {
             (sender as NewTemplateDialog).TemplateCreated += Dialog_TemplateCreated;
+        }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                switch (e.Key)
+                {
+                    case Key.N:
+                        e.Handled = true;
+                        if (DialogHost.OpenDialogCommand.CanExecute(btn_newTemplate.CommandParameter, btn_newTemplate))
+                            DialogHost.OpenDialogCommand.Execute(btn_newTemplate.CommandParameter, btn_newTemplate);
+                        break;
+                    case Key.O:
+                        e.Handled = true;
+                        if (lv_templates.SelectedIndex > 0)
+                        {
+                            TemplateEditor.Instance.LoadTemplate(lv_templates.SelectedItem as ForumTemplate);
+                            master.SelectedSidebarIndex = FixedValues.TEMPLATE_EDITOR_INDEX;
+                        }
+                        break;
+                }
+            }
+            else if (e.Key == Key.Delete)
+            {
+                e.Handled = true;
+                if (lv_templates.SelectedIndex > 0)
+                {
+                    DeleteTemplate((lv_templates.SelectedItem as Skin).Name);
+                }
+            }
+
+            return e.Handled;
+        }
+
+        private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ForwardKeyboardInput(e);
         }
     }
 }

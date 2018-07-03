@@ -1,5 +1,6 @@
 ﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
+using MaterialDesignThemes.Wpf;
 using Osmo.Core;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
@@ -24,7 +25,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for TemplateEditor.xaml
     /// </summary>
-    public partial class TemplateEditor : Grid
+    public partial class TemplateEditor : Grid, IShortcutHelper
     {
         private static TemplateEditor instance;
 
@@ -64,6 +65,7 @@ namespace Osmo.UI
         public void SaveTemplate()
         {
             (DataContext as TemplateEditorViewModel).Template.Save(textEditor.Text);
+            snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_templateEditor_saveText"));
         }
 
         private void TextEditor_Loaded(object sender, RoutedEventArgs e)
@@ -99,15 +101,37 @@ namespace Osmo.UI
             }
         }
 
-        private void Preview_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         public void MakePreview(Skin skin)
         {
             TemplateEditorViewModel vm = DataContext as TemplateEditorViewModel;
             vm.TargetSkin = skin;
             vm.PreviewText = Helper.ApplyForumTemplate(textEditor.Text, vm.TargetSkin);
+        }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                switch (e.Key)
+                {
+                    case Key.P:
+                        e.Handled = true;
+                        if (DialogHost.OpenDialogCommand.CanExecute(btn_preview.CommandParameter, btn_preview))
+                            DialogHost.OpenDialogCommand.Execute(btn_preview.CommandParameter, btn_preview);
+                        break;
+                    case Key.S:
+                        e.Handled = true;
+                        SaveTemplate();
+                        break;
+                }
+            }
+
+            return e.Handled;
+        }
+
+        private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ForwardKeyboardInput(e);
         }
     }
 }

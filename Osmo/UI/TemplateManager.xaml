@@ -10,6 +10,7 @@
     xmlns:vm="clr-namespace:Osmo.ViewModel"
     d:DesignHeight="300"
     d:DesignWidth="700"
+    PreviewKeyUp="Grid_PreviewKeyUp"
     Tag="{DynamicResource sidebar_templateManager}"
     mc:Ignorable="d">
     <Grid.Resources>
@@ -76,7 +77,7 @@
                                 Padding="0"
                                 Click="TemplateDelete_Click"
                                 Tag="{Binding Name}"
-                                ToolTip="Delete template"
+                                ToolTip="{DynamicResource hint_deleteTemplate}"
                                 Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                 <Button.Style>
                                     <Style BasedOn="{StaticResource MaterialDesignFlatButton}" TargetType="{x:Type Button}">

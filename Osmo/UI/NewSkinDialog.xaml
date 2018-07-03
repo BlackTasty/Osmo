@@ -7,7 +7,7 @@
              xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
              xmlns:local="clr-namespace:Osmo.UI"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" PreviewKeyUp="DockPanel_PreviewKeyUp"
              Height="210" Width="240" LastChildFill="False">
     <DockPanel.DataContext>
         <vm:NewSkinViewModel/>

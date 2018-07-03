@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinMixerSelect.xaml
     /// </summary>
-    public partial class SkinMixerSelect : Grid
+    public partial class SkinMixerSelect : Grid, IShortcutHelper
     {
         public SkinMixerSelect()
         {
@@ -29,18 +30,15 @@ namespace Osmo.UI
 
         private void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            LoadSkin();
-
-            if (DialogHost.CloseDialogCommand.CanExecute(null, null))
-                DialogHost.CloseDialogCommand.Execute(null, null);
+            LoadSkin(true);
         }
 
         private void SelectSkin_Click(object sender, RoutedEventArgs e)
         {
-            LoadSkin();
+            LoadSkin(false);
         }
 
-        private void LoadSkin()
+        private void LoadSkin(bool closeDialog)
         {
             if (Tag != null)
             {
@@ -54,6 +52,34 @@ namespace Osmo.UI
                     TemplateEditor.Instance.MakePreview(lv_skins.SelectedItem as Skin);
                 }
             }
+
+            if (closeDialog)
+            {
+                if (DialogHost.CloseDialogCommand.CanExecute(null, null))
+                    DialogHost.CloseDialogCommand.Execute(null, null);
+            }
+        }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.O && lv_skins.SelectedIndex != -1)
+            {
+                e.Handled = true;
+                LoadSkin(true);
+            }
+            else if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+                if (DialogHost.CloseDialogCommand.CanExecute(null, null))
+                    DialogHost.CloseDialogCommand.Execute(null, null);
+            }
+
+            return e.Handled;
+        }
+
+        private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ForwardKeyboardInput(e);
         }
     }
 }

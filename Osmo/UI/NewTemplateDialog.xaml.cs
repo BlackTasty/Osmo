@@ -1,4 +1,5 @@
-﻿using Osmo.Core;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
@@ -23,7 +24,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for NewTemplateDialog.xaml
     /// </summary>
-    public partial class NewTemplateDialog : DockPanel
+    public partial class NewTemplateDialog : DockPanel, IShortcutHelper
     {
         public static readonly RoutedEvent TemplateCreatedEvent = EventManager.RegisterRoutedEvent("TemplateCreated",
             RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NewTemplateDialog));
@@ -60,6 +61,23 @@ namespace Osmo.UI
             File.WriteAllText(templatePath, "");
 
             RaiseTemplateCreatedEvent(new ForumTemplate(templatePath));
+        }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+                if (DialogHost.CloseDialogCommand.CanExecute(null, null))
+                    DialogHost.CloseDialogCommand.Execute(null, null);
+            }
+
+            return e.Handled;
+        }
+
+        private void DockPanel_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ForwardKeyboardInput(e);
         }
     }
 }

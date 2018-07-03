@@ -6,7 +6,7 @@
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" PreviewKeyUp="DockPanel_PreviewKeyUp"
              d:DesignHeight="130" d:DesignWidth="240" LastChildFill="False">
     <DockPanel.DataContext>
         <vm:NewTemplateViewModel/>

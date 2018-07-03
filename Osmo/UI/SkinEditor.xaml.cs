@@ -81,18 +81,18 @@ namespace Osmo.UI
                         case Key.H:
                             e.Handled = true;
                             Replace_Click(null, null);
-                            return true;
+                            break;
                         case Key.Delete:
                             e.Handled = true;
                             Erase_Click(null, null);
-                            return true;
+                            break;
                         case Key.Z:
                             e.Handled = true;
                             if ((DataContext as SkinViewModel).ResetEnabled)
                             {
                                 Revert_Click(null, null);
                             }
-                            return true;
+                            break;
                     }
                 }
                 else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.A)
@@ -104,17 +104,15 @@ namespace Osmo.UI
                         if (DialogHost.OpenDialogCommand.CanExecute(btn_animate.CommandParameter, btn_animate))
                             DialogHost.OpenDialogCommand.Execute(btn_animate.CommandParameter, btn_animate);
                     }
-                    return true;
                 }
                 else if (e.Key == Key.Delete)
                 {
                     e.Handled = true;
                     Delete_Click(null, null);
-                    return true;
                 }
             }
 
-            return false;
+            return e.Handled;
         }
 
         private SkinEditor()

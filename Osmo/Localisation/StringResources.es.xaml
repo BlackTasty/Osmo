@@ -46,6 +46,26 @@
     <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
     <system:String o:Freeze="True" x:Key="donate">Donar</system:String>
 
+    <!--Shortcuts cheat sheet-->
+    <system:String o:Freeze="True" x:Key="shortcuts_animate">Ctrl + Shift + A</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_replaceElement">Ctrl + H</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_deleteElement">Del</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_eraseElement">Ctrl + Del</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_revertChanges">Ctrl + Z</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_revertAllChanges">Ctrl + Shift + Z</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_exportSkin">Ctrl + E</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_save">Ctrl + S</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerTransfer">Ctrl + T</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkin">Ctrl + O</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Load a skin into the right list</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Skin select</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Load the selected skin in skin mixer</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixer">Ctrl + Shift + O</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectNewSkin">Ctrl + N</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogs">Dialogs</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogCloseTitle">Close the current dialog</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogClose">Escape</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogSkinMixerSelect">Skin select - mixer</system:String>
 
     <!--Sidebar (OsmoViewModel.cs)-->
     <system:String o:Freeze="True" x:Key="sidebar_home">Inicio</system:String>
@@ -59,6 +79,7 @@
 
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Revertir todos los cambios</system:String>
+    <system:String o:Freeze="True" x:Key="main_createForumEntry">Create forum post from template</system:String>
     <system:String o:Freeze="True" x:Key="main_openInExplorer">Abrir skin en el explorador de archivos</system:String>
     <system:String o:Freeze="True" x:Key="main_openInMixer">Mostrar skin en el Mezclador de skin</system:String>
     <system:String o:Freeze="True" x:Key="main_openInEditor">Mostrar skin en el Editor de skin</system:String>
@@ -119,6 +140,8 @@
     <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Abrir al inicio el último skin que haya editado</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_general">General</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_editor">Editor</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Keyboard shortcuts</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcutsCheatSheet">Cheat sheet</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Archivo skin ejecutable</system:String>
@@ -126,11 +149,13 @@
     <system:String o:Freeze="True" x:Key="dragDrop_areaTitle">¡Arrastre y suelte un archivo .osk o haga clic aquí!</system:String>
 
     <!--TemplateManager-->
+    <system:String o:Freeze="True" x:Key="hint_deleteTemplate">Delete template</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteTitle">¿Eliminar plantilla?</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteDescription">¿Seguro que desea eliminar esta plantilla?</system:String>
-
-    <!--TemplateManager-->
     <system:String o:Freeze="True" x:Key="hint_templatePreviewSelect">Select a template</system:String>
+
+    <!--TemplateEditor-->
+    <system:String o:Freeze="True" x:Key="snackbar_templateEditor_saveText">Your template has been saved!</system:String>
     
     <!--SkinSelect-->
     <system:String o:Freeze="True" x:Key="skinSelect_mySkins">Mis skins</system:String>

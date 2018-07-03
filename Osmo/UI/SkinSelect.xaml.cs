@@ -132,7 +132,7 @@ namespace Osmo.UI
                         e.Handled = true;
                         if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, btn_newSkin))
                             DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, btn_newSkin);
-                        return true;
+                        break;
                     case Key.O:
                         e.Handled = true;
                         if (lv_skins.SelectedIndex > 0)
@@ -140,13 +140,13 @@ namespace Osmo.UI
                             SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
                             (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
                         }
-                        return true;
+                        break;
                     case Key.E:
                         if (lv_skins.SelectedIndex > 0)
                         {
                             ExportSkin((lv_skins.SelectedItem as Skin).Name);
                         }
-                        return true;
+                        break;
                 }
             }
             else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.O)
@@ -157,7 +157,6 @@ namespace Osmo.UI
                     SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true);
                     (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
                 }
-                return true;
             }
             else if (e.Key == Key.Delete)
             {
@@ -166,10 +165,14 @@ namespace Osmo.UI
                 {
                     DeleteSkin((lv_skins.SelectedItem as Skin).Name);
                 }
-                return true;
             }
 
-            return false;
+            return e.Handled;
+        }
+
+        private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ForwardKeyboardInput(e);
         }
     }
 }

@@ -59,9 +59,13 @@
     <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkin">Ctrl + O</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Load a skin into the right list</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Skin select</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Load the selected skin into the skin mixer</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Load the selected skin in skin mixer</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixer">Ctrl + Shift + O</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_skinSelectNewSkin">Ctrl + N</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogs">Dialogs</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogCloseTitle">Close the current dialog</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogClose">Escape</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogSkinMixerSelect">Skin select - mixer</system:String>
 
     <!--Sidebar (OsmoViewModel.cs)-->
     <system:String o:Freeze="True" x:Key="sidebar_home">Home</system:String>
@@ -145,11 +149,13 @@
     <system:String o:Freeze="True" x:Key="dragDrop_areaTitle">Drag and Drop an .osk file here or click!</system:String>
 
     <!--TemplateManager-->
+    <system:String o:Freeze="True" x:Key="hint_deleteTemplate">Delete template</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteTitle">Delete template?</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteDescription">Are you sure you want to delete this template?</system:String>
-
-    <!--TemplateManager-->
     <system:String o:Freeze="True" x:Key="hint_templatePreviewSelect">Select a template</system:String>
+
+    <!--TemplateEditor-->
+    <system:String o:Freeze="True" x:Key="snackbar_templateEditor_saveText">Your template has been saved!</system:String>
 
     <!--SkinSelect-->
     <system:String o:Freeze="True" x:Key="skinSelect_mySkins">My skins</system:String>

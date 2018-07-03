@@ -1,4 +1,6 @@
-﻿using Osmo.ViewModel;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for NewSkinDialog.xaml
     /// </summary>
-    public partial class NewSkinDialog : DockPanel
+    public partial class NewSkinDialog : DockPanel, IShortcutHelper
     {
         public NewSkinDialog()
         {
@@ -40,6 +42,23 @@ namespace Osmo.UI
         {
             SkinCreationWizard.Instance.ApplyData(DataContext as NewSkinViewModel);
             (DataContext as NewSkinViewModel).Master.SelectedSidebarIndex = 1;
+        }
+
+        public bool ForwardKeyboardInput(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+                if (DialogHost.CloseDialogCommand.CanExecute(null, null))
+                    DialogHost.CloseDialogCommand.Execute(null, null);
+            }
+
+            return e.Handled;
+        }
+
+        private void DockPanel_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ForwardKeyboardInput(e);
         }
     }
 }
