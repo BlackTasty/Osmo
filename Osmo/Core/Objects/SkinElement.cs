@@ -16,6 +16,7 @@ namespace Osmo.Core.Objects
         private FileType fileType;
         private string extension;
         private string mPath;
+        private bool mIsResizeSelected;
         private FontStyle fontStyle = FontStyles.Normal;
         private FontWeight fontWeight = FontWeights.Normal;
         string backupPath = Directory.GetParent(AppConfiguration.GetInstance().BackupDirectory).FullName +
@@ -65,6 +66,18 @@ namespace Osmo.Core.Objects
         public bool IsEmpty { get => string.IsNullOrWhiteSpace(mPath); }
 
         public Size ImageSize { get; private set; }
+
+        /// <summary>
+        /// This value is currently only used in Resize Tool
+        /// </summary>
+        public bool IsResizeSelected {
+            get => mIsResizeSelected;
+            set
+            {
+                mIsResizeSelected = value;
+                InvokePropertyChanged("IsResizeSelected");
+            }
+        }
 
         internal SkinElement(FileInfo fi, string skinName)
         {

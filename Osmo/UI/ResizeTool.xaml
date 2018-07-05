@@ -13,7 +13,8 @@
         <vm:ResizeToolViewModel/>
     </Grid.DataContext>
     <Grid.Resources>
-        <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
+        <converter:ExactIntToBooleanConverter x:Key="ExactIntToBoolean"/>
+        <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
@@ -21,50 +22,80 @@
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
+    <DockPanel>
+        <ComboBox Margin="8" ItemsSource="{Binding Skins}" SelectedIndex="{Binding SelectedSkinIndex}" DisplayMemberPath="Name" SelectedValuePath="Name" DockPanel.Dock="Top"/>
+        <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding SelectedSkin.Elements}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                    <!--<Setter Property="Visibility" Value="{Binding FileType, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"/>-->
+                    <Setter Property="Height" Value="41"/>
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
 
-    <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding SelectedSkin.Elements}">
-        <ListView.ItemContainerStyle>
-            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
-                <Setter Property="Visibility" Value="{Binding FileType, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"/>
-                <Setter Property="Height" Value="41"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-
-                            <Border SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+                                <Border SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         Background="{TemplateBinding Background}">
-                                <Grid>
-                                    <!-- This is used when GridView is put inside the ListView -->
-                                    <GridViewRowPresenter Content="{TemplateBinding ContentControl.Content}"
+                                    <Grid>
+                                        <!-- This is used when GridView is put inside the ListView -->
+                                        <GridViewRowPresenter Content="{TemplateBinding ContentControl.Content}"
                                             HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
                                             VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
                                             SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </ListView.ItemContainerStyle>
-        <ListView.View>
-            <GridView>
-                <GridViewColumn Header="{DynamicResource header_resize}">
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
-                <GridViewColumn Header="{DynamicResource name}" DisplayMemberBinding="{Binding Name}" Width="150"/>
-                <GridViewColumn Header="{DynamicResource header_dimensionWidth}" DisplayMemberBinding="{Binding Size.Width}" Width="105"/>
-                <GridViewColumn Header="{DynamicResource header_dimensionHeight}" DisplayMemberBinding="{Binding Size.Height}" Width="105"/>
-            </GridView>
-        </ListView.View>
-    </ListView>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ImageSize.Width, ConverterParameter=2, Converter={StaticResource IntToBoolean}}" Value="True"/>
+                                <Condition Binding="{Binding ImageSize.Height, ConverterParameter=2, Converter={StaticResource IntToBoolean}}" Value="True"/>
+                                <Condition Binding="{Binding FileType, ConverterParameter=0, Converter={StaticResource ExactIntToBoolean}}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{DynamicResource header_resize}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsResizeSelected}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{DynamicResource name}" DisplayMemberBinding="{Binding Name}" Width="150"/>
+                    <GridViewColumn Header="{DynamicResource header_dimensionWidth}" DisplayMemberBinding="{Binding ImageSize.Width}" Width="105"/>
+                    <GridViewColumn Header="{DynamicResource header_dimensionHeight}" DisplayMemberBinding="{Binding ImageSize.Height}" Width="105"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
 
-    <StackPanel Orientation="Vertical">
+    <DockPanel Grid.Column="2" Margin="8" LastChildFill="False">
+        <TextBlock Text="Auto-select" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
+        <StackPanel Margin="8" DockPanel.Dock="Top">
+            <RadioButton Content="Select all elements" Margin="0,4" Checked="Select_AllElements_Checked"/>
+            <RadioButton Content="Select all HD elements" Margin="0,4" Checked="Select_HDElements_Checked"/>
+            <RadioButton Content="Select all non-HD elements" Margin="0,4" Checked="Select_NonHDElements_Checked"/>
+            <RadioButton Content="Deselect all elements" Margin="0,4" Checked="Select_NoElement_Checked" IsChecked="True"/>
+        </StackPanel>
+        <TextBlock Text="Resize options" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
+        <StackPanel Margin="8" DockPanel.Dock="Top">
+            <RadioButton Content="Resize elements to optional size" Margin="0,4" IsChecked="True"/>
+            <RadioButton Content="Halve element size" Margin="0,4"/>
+        </StackPanel>
 
-    </StackPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+            <Button Content="_ABORT" Margin="8"/>
+            <Button Content="_START RESIZE" Margin="8"/>
+        </StackPanel>
+        <TextBlock Text="Note: Elements with dimensions of 1x1 are not shown" DockPanel.Dock="Bottom" Margin="8"/>
+    </DockPanel>
 </Grid>

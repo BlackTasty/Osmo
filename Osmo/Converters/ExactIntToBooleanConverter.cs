@@ -1,11 +1,15 @@
 ﻿using Osmo.Core;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Osmo.Converters
 {
-    public class IntToBooleanConverter : IValueConverter
+    class ExactIntToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -14,7 +18,7 @@ namespace Osmo.Converters
                 var underlyingType = Enum.GetUnderlyingType(value.GetType());
                 value = System.Convert.ChangeType(value, underlyingType);
             }
-            return Parser.TryParse(value.ToString(), -1) >= Parser.TryParse(parameter.ToString(), -1);
+            return Parser.TryParse(value.ToString(), -1) == Parser.TryParse(parameter.ToString(), -1);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

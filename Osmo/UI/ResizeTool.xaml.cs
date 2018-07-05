@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core;
+using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -42,9 +43,53 @@ namespace Osmo.UI
             InitializeComponent();
         }
 
-        public void SetSkin(Skin skin)
+        public void SelectSkin(Skin skin)
         {
             (DataContext as ResizeToolViewModel).SelectedSkin = skin;
+        }
+
+        private void Select_AllElements_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (SkinElement item in lv_skins.Items)
+            {
+                if (item.FileType == FileType.Image && item.ImageSize.Width > 1 && item.ImageSize.Height > 1)
+                {
+                    item.IsResizeSelected = true;
+                }
+            }
+        }
+
+        private void Select_HDElements_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (SkinElement item in lv_skins.Items)
+            {
+                if (item.FileType == FileType.Image && item.ImageSize.Width > 1 && item.ImageSize.Height > 1)
+                {
+                    item.IsResizeSelected = item.IsHighDefinition;
+                }
+            }
+        }
+
+        private void Select_NonHDElements_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (SkinElement item in lv_skins.Items)
+            {
+                if (item.FileType == FileType.Image && item.ImageSize.Width > 1 && item.ImageSize.Height > 1)
+                {
+                    item.IsResizeSelected = !item.IsHighDefinition;
+                }
+            }
+        }
+
+        private void Select_NoElement_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach (SkinElement item in lv_skins.Items)
+            {
+                if (item.FileType == FileType.Image)
+                {
+                    item.IsResizeSelected = false;
+                }
+            }
         }
     }
 }
