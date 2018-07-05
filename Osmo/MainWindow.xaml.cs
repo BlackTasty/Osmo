@@ -61,6 +61,11 @@ namespace Osmo
                 }
             }
 
+            if (sidebarMenu.SelectedIndex == FixedValues.RESIZE_TOOL_INDEX)
+            {
+                ResizeTool.Instance.SetSkin(new Skin(@"D:\Program Files\osu!\Skins\Default osu! skin 2"));
+            }
+
             //until we had a StaysOpen glag to Drawer, this will help with scroll bars
             var dependencyObject = Mouse.Captured as DependencyObject;
             while (dependencyObject != null)

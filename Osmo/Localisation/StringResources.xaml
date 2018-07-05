@@ -75,6 +75,7 @@
     <system:String o:Freeze="True" x:Key="sidebar_templateManager">Template Manager</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_settings">Settings</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_about">About</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Resize Tool</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Template Editor</system:String>
 
     <!--MainWindow-->
@@ -163,6 +164,11 @@
     <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">Are you sure you want to delete this skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Select the directory you want to export your skin to</system:String>
 
+    <!--ResizeTool-->
+    <system:String o:Freeze="True" x:Key="header_dimensionWidth">Width</system:String>
+    <system:String o:Freeze="True" x:Key="header_dimensionHeight">Height</system:String>
+    <system:String o:Freeze="True" x:Key="header_resize">Resize</system:String>
+    
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Click here</system:String>

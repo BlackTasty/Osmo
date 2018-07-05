@@ -9,6 +9,12 @@ namespace Osmo.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value is Enum)
+            {
+                var underlyingType = Enum.GetUnderlyingType(value.GetType());
+                value = System.Convert.ChangeType(value, underlyingType);
+            }
+
             string parameterParsed = parameter?.ToString() ?? "";
             if (!string.IsNullOrEmpty(parameterParsed))
             {

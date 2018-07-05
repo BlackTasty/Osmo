@@ -137,6 +137,7 @@ namespace Osmo.ViewModel
                 new SidebarEntry(Helper.FindString("sidebar_templateManager"), MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_settings"), MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_about"), MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance),
+                new SidebarEntry(Helper.FindString("sidebar_resizeTool"), MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_templateEditor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, Visibility.Hidden)
             };
         }

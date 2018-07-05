@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace Osmo.Core.Objects
 {
@@ -63,6 +64,8 @@ namespace Osmo.Core.Objects
 
         public bool IsEmpty { get => string.IsNullOrWhiteSpace(mPath); }
 
+        public Size ImageSize { get; private set; }
+
         internal SkinElement(FileInfo fi, string skinName)
         {
             Path = fi.FullName;
@@ -80,6 +83,9 @@ namespace Osmo.Core.Objects
                     FixedValues.readerCatch.FindElement(Name) ??
                     FixedValues.readerMania.FindElement(Name) ??
                     FixedValues.readerTaiko.FindElement(Name);
+
+                var bitmapFrame = BitmapFrame.Create(new Uri(Path, UriKind.Absolute), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
+                ImageSize = new Size(bitmapFrame.PixelWidth, bitmapFrame.PixelHeight);
             }
             else if (fileType == FileType.Audio)
             {
@@ -101,6 +107,8 @@ namespace Osmo.Core.Objects
             fileType = copyFrom.FileType;
             extension = copyFrom.extension;
             backupPath = copyFrom.backupPath;
+            ElementDetails = copyFrom.ElementDetails;
+            ImageSize = copyFrom.ImageSize;
         }
 
         internal SkinElement()
