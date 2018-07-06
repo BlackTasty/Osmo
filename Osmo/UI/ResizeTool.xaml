@@ -91,6 +91,11 @@
             <RadioButton Content="Resize elements to optional size" Margin="0,4" IsChecked="True"/>
             <RadioButton Content="Halve element size" Margin="0,4"/>
         </StackPanel>
+        <TextBlock Text="File options" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
+        <StackPanel Margin="8" DockPanel.Dock="Top">
+            <RadioButton Content="Keep original elements after resize" Margin="0,4" IsChecked="True"/>
+            <RadioButton Content="Apply resize directly to elements" Margin="0,4"/>
+        </StackPanel>
 
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
             <Button Content="_ABORT" Margin="8"/>
