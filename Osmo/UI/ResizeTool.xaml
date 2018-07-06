@@ -79,28 +79,28 @@
     </DockPanel>
 
     <DockPanel Grid.Column="2" Margin="8" LastChildFill="False">
-        <TextBlock Text="Auto-select" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
+        <TextBlock Text="{DynamicResource resize_title_select}" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
         <StackPanel Margin="8" DockPanel.Dock="Top">
-            <RadioButton Content="Select all elements" Margin="0,4" Checked="Select_AllElements_Checked"/>
-            <RadioButton Content="Select all HD elements" Margin="0,4" Checked="Select_HDElements_Checked"/>
-            <RadioButton Content="Select all non-HD elements" Margin="0,4" Checked="Select_NonHDElements_Checked"/>
-            <RadioButton Content="Deselect all elements" Margin="0,4" Checked="Select_NoElement_Checked" IsChecked="True"/>
+            <RadioButton Content="{DynamicResource resize_select_all}" Margin="0,4" Checked="Select_AllElements_Checked"/>
+            <RadioButton Content="{DynamicResource resize_select_hdOnly}" Margin="0,4" Checked="Select_HDElements_Checked"/>
+            <RadioButton Content="{DynamicResource resize_select_nonHdOnly}" Margin="0,4" Checked="Select_NonHDElements_Checked"/>
+            <RadioButton Content="{DynamicResource resize_select_none}" Margin="0,4" Checked="Select_NoElement_Checked" IsChecked="True"/>
         </StackPanel>
-        <TextBlock Text="Resize options" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
+        <TextBlock Text="{DynamicResource resize_title_resize}" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
         <StackPanel Margin="8" DockPanel.Dock="Top">
-            <RadioButton Content="Resize elements to optional size" Margin="0,4" IsChecked="True"/>
-            <RadioButton Content="Halve element size" Margin="0,4"/>
+            <RadioButton Content="{DynamicResource resize_optimalSize}" Margin="0,4" IsChecked="{Binding ResizeOption_OptimalSize, FallbackValue=True}"/>
+            <RadioButton Content="{DynamicResource resize_halveSize}" Margin="0,4" IsChecked="{Binding ResizeOption_HalveSize}"/>
         </StackPanel>
-        <TextBlock Text="File options" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
+        <TextBlock Text="{DynamicResource resize_title_file}" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
         <StackPanel Margin="8" DockPanel.Dock="Top">
-            <RadioButton Content="Keep original elements after resize" Margin="0,4" IsChecked="True"/>
-            <RadioButton Content="Apply resize directly to elements" Margin="0,4"/>
+            <RadioButton Content="{DynamicResource resize_file_keepOriginal}" Margin="0,4" IsChecked="{Binding FileOption_keepOriginal, FallbackValue=True}"/>
+            <RadioButton Content="{DynamicResource resize_file_overrideOriginal}" Margin="0,4" IsChecked="{Binding FileOption_overrideOriginal}"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
-            <Button Content="_ABORT" Margin="8"/>
-            <Button Content="_START RESIZE" Margin="8"/>
+            <Button Content="{DynamicResource abort}" Margin="8"/>
+            <Button Content="{DynamicResource startResize}" Margin="8" Click="Rezize_Click"/>
         </StackPanel>
-        <TextBlock Text="Note: Elements with dimensions of 1x1 are not shown" DockPanel.Dock="Bottom" Margin="8"/>
+        <TextBlock Text="{DynamicResource resize_note}" DockPanel.Dock="Bottom" Margin="8"/>
     </DockPanel>
 </Grid>

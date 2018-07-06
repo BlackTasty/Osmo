@@ -114,25 +114,25 @@ namespace Osmo.Core.Reader
             return string.Format("{0} ({1})", Name, Description);
         }
 
-        public static bool operator ==(SkinningEntry entry, string name)
-        {
-            return entry.Name.Equals(name);
-        }
+        //public static bool operator ==(SkinningEntry entry, string name)
+        //{
+        //    return entry.Name.Equals(name);
+        //}
 
-        public static bool operator !=(SkinningEntry entry, string name)
-        {
-            return !entry.Name.Equals(name);
-        }
+        //public static bool operator !=(SkinningEntry entry, string name)
+        //{
+        //    return !entry.Name.Equals(name);
+        //}
 
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
+        //public override int GetHashCode()
+        //{
+        //    return Name.GetHashCode();
+        //}
 
-        public override bool Equals(object obj)
-        {
-            return Name.Equals((obj as SkinningEntry).Name);
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    return Name.Equals((obj as SkinningEntry).Name);
+        //}
 
         public string GetRegexName()
         {

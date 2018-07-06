@@ -45,6 +45,7 @@
     <system:String o:Freeze="True" x:Key="mixSkins">_MIX SKINS</system:String>
     <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
     <system:String o:Freeze="True" x:Key="donate">Donate</system:String>
+    <system:String o:Freeze="True" x:Key="startResize">_START RESIZE</system:String>
 
     <!--Shortcuts cheat sheet-->
     <system:String o:Freeze="True" x:Key="shortcuts_animate">Ctrl + Shift + A</system:String>
@@ -168,6 +169,18 @@
     <system:String o:Freeze="True" x:Key="header_dimensionWidth">Width</system:String>
     <system:String o:Freeze="True" x:Key="header_dimensionHeight">Height</system:String>
     <system:String o:Freeze="True" x:Key="header_resize">Resize</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_select">Auto-select</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_all">Select all elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_hdOnly">Select all HD elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_nonHdOnly">Select all non-HD elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_none">Deselect all elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_resize">Resize options</system:String>
+    <system:String o:Freeze="True" x:Key="resize_optimalSize">Resize elements to optimal size</system:String>
+    <system:String o:Freeze="True" x:Key="resize_halveSize">Halve element size</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_file">File options</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_keepOriginal">Keep original elements after resize</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_overrideOriginal">Apply resize to original elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_note">Note: Elements with dimensions of 1x1 are not shown</system:String>
     
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>

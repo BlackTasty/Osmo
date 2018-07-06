@@ -14,7 +14,6 @@ namespace Osmo.Core.Objects
     public class SkinElement : ViewModelBase
     {
         private FileType fileType;
-        private string extension;
         private string mPath;
         private bool mIsResizeSelected;
         private FontStyle fontStyle = FontStyles.Normal;
@@ -79,11 +78,13 @@ namespace Osmo.Core.Objects
             }
         }
 
+        public string Extension { get; private set; }
+
         internal SkinElement(FileInfo fi, string skinName)
         {
             Path = fi.FullName;
             Name = fi.Name;
-            extension = fi.Extension;
+            Extension = fi.Extension;
             backupPath += skinName + "\\";
 
             fileType = GetFileType(fi.Extension);
@@ -118,7 +119,7 @@ namespace Osmo.Core.Objects
             Path = copyFrom.Path;
             Name = copyFrom.Name;
             fileType = copyFrom.FileType;
-            extension = copyFrom.extension;
+            Extension = copyFrom.Extension;
             backupPath = copyFrom.backupPath;
             ElementDetails = copyFrom.ElementDetails;
             ImageSize = copyFrom.ImageSize;
