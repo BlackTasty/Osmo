@@ -79,16 +79,38 @@ namespace Osmo.UI
             audio = new AudioEngine((AudioViewModel)DataContext);
         }
 
-        internal void LoadSkin(Skin skin, bool isLeft)
+        internal async Task<bool> LoadSkin(Skin skin, bool isLeft)
         {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+
             if (isLeft)
             {
-                (DataContext as SkinMixerViewModel).SkinLeft = skin;
+                if (LoadedSkin != null && !LoadedSkin.Equals(new Skin()) && LoadedSkin != skin && LoadedSkin.UnsavedChanges)
+                {
+                    var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
+                        Helper.FindString("main_unsavedChangesDescription"),
+                        OsmoMessageBoxButton.YesNoCancel);
+
+                    await DialogHost.Show(msgBox);
+
+                    if (msgBox.Result == OsmoMessageBoxResult.Cancel)
+                    {
+                        return false;
+                    }
+                    else if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                    {
+                        vm.SkinLeft.Save();
+                    }
+                }
+
+                vm.SkinLeft = skin;
             }
             else
             {
-                (DataContext as SkinMixerViewModel).SkinRight = skin;
+                vm.SkinRight = skin;
             }
+
+            return true;
         }
 
         internal void SaveSkin()
@@ -100,14 +122,15 @@ namespace Osmo.UI
 
         internal void ExportSkin(string targetDir, bool alsoSave)
         {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
             if (alsoSave)
             {
-                ((SkinMixerViewModel)DataContext).SkinLeft.Save();
+                vm.SkinLeft.Save();
             }
 
-            ((SkinMixerViewModel)DataContext).SkinLeft.Export(targetDir);
+            vm.SkinLeft.Export(targetDir);
 
-            ((SkinViewModel)DataContext).ExportSkin(targetDir, alsoSave);
+            vm.ExportSkin(targetDir, alsoSave);
             snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_exportText"), Helper.FindString("snackbar_exportButton"),
                 param => Process.Start(targetDir), false, true);
         }

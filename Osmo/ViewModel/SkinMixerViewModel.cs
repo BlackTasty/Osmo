@@ -203,5 +203,15 @@ namespace Osmo.ViewModel
             mImageLeft = RefreshImage(SelectedElementLeft);
             InvokePropertyChanged("ImageLeft");
         }
+
+        internal void ExportSkin(string targetDir, bool alsoSave)
+        {
+            if (alsoSave)
+            {
+                SkinLeft.Save();
+            }
+
+            SkinLeft.Export(targetDir);
+        }
     }
 }

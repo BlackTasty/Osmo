@@ -24,7 +24,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinSelect.xaml
     /// </summary>
-    public partial class SkinSelect : Grid, IShortcutHelper
+    public partial class SkinSelect : Grid, IAsyncShortcutHelper
     {
         private static SkinSelect instance;
 
@@ -44,24 +44,30 @@ namespace Osmo.UI
             FixedValues.InitializeReader();
         }
 
-        private void LoadSkin_Click(object sender, RoutedEventArgs e)
+        private async void LoadSkin_Click(object sender, RoutedEventArgs e)
         {
-            SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
+            {
+                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            }
         }
 
-        private void MixSkins_Click(object sender, RoutedEventArgs e)
+        private async void MixSkins_Click(object sender, RoutedEventArgs e)
         {
-            SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true);
-            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+            if (await SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true))
+            {
+                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+            }
         }
 
-        private void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (lv_skins.SelectedIndex > 0)
             {
-                SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
+                {
+                    (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                }
             }
         }
 
@@ -122,7 +128,7 @@ namespace Osmo.UI
             //}
         }
 
-        public bool ForwardKeyboardInput(KeyEventArgs e)
+        public async Task<bool> ForwardKeyboardInput(KeyEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control)
             {
@@ -137,8 +143,10 @@ namespace Osmo.UI
                         e.Handled = true;
                         if (lv_skins.SelectedIndex > 0)
                         {
-                            SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin);
-                            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                            if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
+                            {
+                                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                            }
                         }
                         break;
                     case Key.E:
@@ -154,8 +162,10 @@ namespace Osmo.UI
                 e.Handled = true;
                 if (lv_skins.SelectedIndex > 0)
                 {
-                    SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true);
-                    (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+                    if (await SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true))
+                    {
+                        (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+                    }
                 }
             }
             else if (e.Key == Key.Delete)
@@ -170,9 +180,9 @@ namespace Osmo.UI
             return e.Handled;
         }
 
-        private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
+        private async void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            ForwardKeyboardInput(e);
+            await ForwardKeyboardInput(e);
         }
     }
 }

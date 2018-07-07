@@ -134,10 +134,10 @@ namespace Osmo.ViewModel
                 new SidebarEntry(Helper.FindString("sidebar_wizard"), MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_editor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, false),
                 new SidebarEntry(Helper.FindString("sidebar_mixer"), MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, false),
+                new SidebarEntry(Helper.FindString("sidebar_resizeTool"), MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_templateManager"), MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_settings"), MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_about"), MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_resizeTool"), MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance),
                 new SidebarEntry(Helper.FindString("sidebar_templateEditor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, Visibility.Hidden)
             };
         }
@@ -180,7 +180,7 @@ namespace Osmo.ViewModel
         {
             if (Skins != null && System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory)
             {
-                Skin renamed = Skins.First(x => x == e.Path);
+                Skin renamed = Skins.First(x => x.Path == e.Path);
                 if (renamed != null)
                     Skins[Skins.IndexOf(renamed)].Path = e.Path;
             }

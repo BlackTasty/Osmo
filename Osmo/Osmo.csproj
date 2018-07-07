@@ -137,6 +137,7 @@
     <Compile Include="Converters\SelectSkinSelector.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
+    <Compile Include="Core\IAsyncShortcutHelper.cs" />
     <Compile Include="Core\IShortcutHelper.cs" />
     <Compile Include="Core\LibraryValidator.cs" />
     <Compile Include="Core\Logger.cs" />

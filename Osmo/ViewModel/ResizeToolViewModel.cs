@@ -22,7 +22,12 @@ namespace Osmo.ViewModel
         private bool mSelect_all;
         private bool mSelect_hdElements;
         private bool mSelect_nonHdElements;
-        private bool mSelect_none;
+        private bool mSelect_none = true;
+
+        private bool mIsResizing;
+        private string mCurrentFile;
+        private double mElementsResizeMaximum;
+        private double mElementsResizeValue;
 
         public ResizeToolViewModel()
         {
@@ -168,6 +173,50 @@ namespace Osmo.ViewModel
             }
         }
 
+        public bool IsResizing
+        {
+            get => mIsResizing;
+            set
+            {
+                mIsResizing = value;
+                InvokePropertyChanged("IsResizing");
+                InvokePropertyChanged("ControlsEnabled");
+            }
+        }
 
+        public bool ControlsEnabled
+        {
+            get => !mIsResizing;
+        }
+
+        public string CurrentFile
+        {
+            get => mCurrentFile;
+            set
+            {
+                mCurrentFile = value;
+                InvokePropertyChanged("CurrentFile");
+            }
+        }
+
+        public double ElementsResizeMaximum
+        {
+            get => mElementsResizeMaximum;
+            set
+            {
+                mElementsResizeMaximum = value;
+                InvokePropertyChanged("ElementsResizeMaximum");
+            }
+        }
+
+        public double ElementsResizeValue
+        {
+            get => mElementsResizeValue;
+            set
+            {
+                mElementsResizeValue = value;
+                InvokePropertyChanged("ElementsResizeValue");
+            }
+        }
     }
 }

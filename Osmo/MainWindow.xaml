@@ -92,7 +92,8 @@
                                 </Button>
                                 <Button Content="{DynamicResource main_openInExplorer}" Click="OpenInFileExplorer_OnClick"/>
                                 <Button Content="{DynamicResource main_openInMixer}" Click="OpenInSkinMixer_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2}"/>
-                                <Button Content="{DynamicResource main_openInEditor}" Click="OpenInSkinEditor_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>
+                                <Button Content="{DynamicResource main_openInEditor}" Click="OpenInSkinEditor_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>
+                                <Button Content="{DynamicResource sidebar_resizeTool}" Click="OpenInResizeTool_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"/>
                                 <Separator/>
                                 <Button Content="{DynamicResource main_exit}" Click="Close_Click"/>
                             </StackPanel>

@@ -37,7 +37,6 @@ namespace Osmo.UI
         private static SkinEditor instance;
         private string lastPath = null;
         private AudioEngine audio;
-        private bool isEnteringProperty;
 
         private CompletionWindow completionWindow;
 
@@ -126,9 +125,30 @@ namespace Osmo.UI
             skinIniCompletion.AddRange(FixedValues.skinIniManiaCompletionData);
         }
 
-        public void LoadSkin(Skin skin)
+        public async Task<bool> LoadSkin(Skin skin)
         {
-            ((SkinViewModel)DataContext).LoadedSkin = skin;
+            SkinViewModel vm = DataContext as SkinViewModel;
+            
+            if (LoadedSkin != null && !LoadedSkin.Equals(new Skin()) && LoadedSkin != skin && LoadedSkin.UnsavedChanges)
+            {
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
+                       Helper.FindString("main_unsavedChangesDescription"),
+                       OsmoMessageBoxButton.YesNoCancel);
+
+                await DialogHost.Show(msgBox);
+
+                if (msgBox.Result == OsmoMessageBoxResult.Cancel)
+                {
+                    return false;
+                }
+                else if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                {
+                    vm.LoadedSkin.Save();
+                }
+            }
+            
+            vm.LoadedSkin = skin;
+            return true;
         }
 
         public void SaveSkin()

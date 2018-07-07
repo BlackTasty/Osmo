@@ -233,35 +233,35 @@ namespace Osmo.Core.Objects
         #endregion
 
         #region Method and operator overrides
-        public static bool operator ==(Skin skin, string path)
-        {
-            if (path != null)
-                return skin.Path.Contains(path);
-            else
-                return false;
-        }
+        //public static bool operator ==(Skin skin, string path)
+        //{
+        //    if (path != null)
+        //        return skin.Path.Contains(path);
+        //    else
+        //        return false;
+        //}
 
-        public static bool operator !=(Skin skin, string path)
-        {
-            if (path != null)
-                return !skin.Path.Contains(path);
-            else
-                return true;
-        }
+        //public static bool operator !=(Skin skin, string path)
+        //{
+        //    if (path != null)
+        //        return !skin.Path.Contains(path);
+        //    else
+        //        return true;
+        //}
 
-        public override bool Equals(object obj)
-        {
-            if (obj != null && obj != BindingOperations.DisconnectedSource && 
-                Path != null && (obj as Skin).Path != null)
-                return Path.Contains((obj as Skin).Path);
-            else
-                return false;
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj != null && obj != BindingOperations.DisconnectedSource && 
+        //        Path != null && (obj as Skin).Path != null)
+        //        return Path.Contains((obj as Skin).Path);
+        //    else
+        //        return false;
+        //}
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        //public override int GetHashCode()
+        //{
+        //    return base.GetHashCode();
+        //}
 
         public override string ToString()
         {

@@ -229,16 +229,20 @@ namespace Osmo
                 DialogHost.OpenDialogCommand.Execute(btn_import.CommandParameter, btn_import);
         }
 
-        private void OpenInSkinMixer_Click(object sender, RoutedEventArgs e)
+        private async void OpenInSkinMixer_Click(object sender, RoutedEventArgs e)
         {
-            SkinMixer.Instance.LoadSkin((SkinEditor.Instance.DataContext as SkinViewModel).LoadedSkin, true);
-            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+            if (await SkinMixer.Instance.LoadSkin(SkinEditor.Instance.LoadedSkin, true))
+            {
+                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+            }
         }
 
-        private void OpenInSkinEditor_Click(object sender, RoutedEventArgs e)
+        private async void OpenInSkinEditor_Click(object sender, RoutedEventArgs e)
         {
-            SkinEditor.Instance.LoadSkin((SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft);
-            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            if (await SkinEditor.Instance.LoadSkin(SkinMixer.Instance.LoadedSkin))
+            {
+                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            }
         }
 
         private void LoadUISettings()
@@ -261,31 +265,53 @@ namespace Osmo
             }
         }
 
-        private void MetroWindow_PreviewKeyUp(object sender, KeyEventArgs e)
+        private async void MetroWindow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
+            bool inputHandled = false;
+
             if (content.Content is IShortcutHelper target)
             {
-                if (!target.ForwardKeyboardInput(e))
+                inputHandled = target.ForwardKeyboardInput(e);
+            }
+            else if (content.Content is IAsyncShortcutHelper asyncTarget)
+            {
+                inputHandled = await asyncTarget.ForwardKeyboardInput(e);
+            }
+
+            if (inputHandled)
+            {
+                e.Handled = true;
+                if (Keyboard.Modifiers == ModifierKeys.Control)
                 {
-                    e.Handled = true;
-                    if (Keyboard.Modifiers == ModifierKeys.Control)
+                    switch (e.Key)
                     {
-                        switch (e.Key)
-                        {
-                            case Key.S:
-                                SaveSkinOrTemplate_Click(null, null);
-                                break;
-                            case Key.E:
-                                ExportSkin_Click(null, null);
-                                break;
-                        }
-                    }
-                    else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.Z)
-                    {
-                        RevertAll_Click(null, null);
+                        case Key.S:
+                            SaveSkinOrTemplate_Click(null, null);
+                            break;
+                        case Key.E:
+                            ExportSkin_Click(null, null);
+                            break;
                     }
                 }
+                else if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift) && e.Key == Key.Z)
+                {
+                    RevertAll_Click(null, null);
+                }
             }
+        }
+
+        private void OpenInResizeTool_Click(object sender, RoutedEventArgs e)
+        {
+            OsmoViewModel vm = DataContext as OsmoViewModel;
+            if (vm.SelectedSidebarIndex == FixedValues.EDITOR_INDEX)
+            {
+                ResizeTool.Instance.LoadSkin(SkinEditor.Instance.LoadedSkin);
+            }
+            else
+            {
+                ResizeTool.Instance.LoadSkin(SkinMixer.Instance.LoadedSkin);
+            }
+            (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.RESIZE_TOOL_INDEX;
         }
     }
 }

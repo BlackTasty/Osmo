@@ -69,7 +69,7 @@ namespace Osmo.UI
             (DataContext as SkinWizardViewModel).Master.SelectedSidebarIndex = 0;
         }
 
-        private void Confirm_Click(object sender, RoutedEventArgs e)
+        private async void Confirm_Click(object sender, RoutedEventArgs e)
         {
             SkinWizardViewModel vm = DataContext as SkinWizardViewModel;
             vm.IsCreating = true;
@@ -132,8 +132,10 @@ namespace Osmo.UI
             vm.IsCreating = false;
             Skin skin = new Skin(skinPath);
             vm.Master.Skins.Add(skin);
-            SkinEditor.Instance.LoadSkin(skin);
-            vm.Master.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            if (await SkinEditor.Instance.LoadSkin(skin))
+            {
+                vm.Master.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            }
         }
 
         /// <summary>

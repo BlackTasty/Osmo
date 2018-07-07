@@ -38,14 +38,14 @@ namespace Osmo.UI
             LoadSkin(false);
         }
 
-        private void LoadSkin(bool closeDialog)
+        private async void LoadSkin(bool closeDialog)
         {
             if (Tag != null)
             {
                 string target = Tag.ToString();
                 if (target.Equals("mixer"))
                 {
-                    SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, false);
+                    await SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, false);
                 }
                 else if (target.Equals("template"))
                 {
