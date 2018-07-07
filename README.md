@@ -20,8 +20,8 @@
 
 - [x] Implement a forum template manager (with autofill)
 - [x] Add keyboard shortcuts
-- [ ] Skin element resize tool (for example create SD elements from HD elements) -> **Currently in development**
-- [ ] Implement a custom file picker with Material Design style (and get rid of the default Win32 file picker)
+- [x] Skin element resize tool (for example create SD elements from HD elements)
+- [ ] Implement a custom file picker with Material Design style (and get rid of the default Win32 file picker) -> **Currently in development**
 - [ ] Simulator -> Test how your skin would look like in-game without starting osu!
 - [ ] Auto-Updater
 - [ ] Implement custom titlebar and remove MahApps.Metro dependency
