@@ -48,16 +48,25 @@ Also please follow these guidelines:
 ### Screenshots
 
 Home Screen
-![Home Screen](https://i.ppy.sh/3355c94f3fcad37f00f9b516e7129d7d0f09dfa7/68747470733a2f2f7075752e73682f417a3255632f636665393337643333662e6a7067 "Home Screen")
+![Home Screen](https://puu.sh/ASsxu/a53008ee66.jpg "Home Screen")
 
 Skin Wizard
-![Skin Wizard](https://i.ppy.sh/2cf56be9724b86760c13684467017ee8e7ee757c/68747470733a2f2f7075752e73682f417a3259522f386631643037633034352e6a7067 "Skin Wizard")
+![Skin Wizard](https://puu.sh/Az2YR/8f1d07c045.jpg "Skin Wizard")
 
 Skin Editor
-![Skin Editor](https://i.ppy.sh/3780c698ed84648aa1fe4fca3dd7bf58edb72e5c/68747470733a2f2f7075752e73682f417a3330582f306436386364396162302e6a7067 "Skin Editor")
+![Skin Editor](https://puu.sh/ASsAP/6ce83fc85a.jpg "Skin Editor")
 
 Skin Mixer
-![Skin Mixer](https://i.ppy.sh/c89807d0d7f17859c748f05b40c6d269260401e7/68747470733a2f2f7075752e73682f41415434372f653434626530633132352e6a7067 "Skin Mixer")
+![Skin Mixer](https://puu.sh/ASsBW/a04543558f.jpg "Skin Mixer")
 
 Animation preview 
 https://puu.sh/Az35a/171fdbfb7a.mp4
+
+Template Manager
+![Template Manager](https://puu.sh/ASsCI/e2bebb7620.jpg "Template Manager")
+
+Template Editor
+![Template Editor](https://puu.sh/ASsFe/be19d4ae3b.jpg "Template Editor")
+
+Resize Tool
+![Resize Tool](https://puu.sh/ASsFP/fcce8783ef.jpg "Resize Tool")
