@@ -148,6 +148,8 @@
     <Compile Include="Core\Objects\ForumTemplate.cs" />
     <Compile Include="Core\Objects\Language.cs" />
     <Compile Include="Core\Objects\Library.cs" />
+    <Compile Include="Core\Objects\OsmoMessageBoxResult.cs" />
+    <Compile Include="Core\Objects\OsmoMessageBoxButton.cs" />
     <Compile Include="Core\Objects\SidebarEntry.cs" />
     <Compile Include="Core\Objects\Skin.cs" />
     <Compile Include="Core\Objects\SkinChangedEventArgs.cs" />

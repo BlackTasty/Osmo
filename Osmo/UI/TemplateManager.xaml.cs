@@ -78,11 +78,11 @@ namespace Osmo.UI
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("templateManager_deleteTitle"),
                 Helper.FindString("templateManager_deleteDescription"),
-                MessageBoxButton.YesNo);
+                OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 (DataContext as TemplateManagerViewModel).DeleteTemplate(name);
             }

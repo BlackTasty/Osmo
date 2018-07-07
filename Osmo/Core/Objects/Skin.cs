@@ -98,23 +98,23 @@ namespace Osmo.Core.Objects
         {
             string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + oskPath.Name.Replace(oskPath.Extension, "");
 
-            MessageBoxResult result = MessageBoxResult.OK;
+            OsmoMessageBoxResult result = OsmoMessageBoxResult.OK;
             if (Directory.Exists(skinPath))
             {
                 var msgBox = MaterialMessageBox.Show("Skin exists already!",
                     "A skin with the name \"" + oskPath.Name + "\" exists already! Would you like to overwrite it?",
-                    MessageBoxButton.OKCancel);
+                    OsmoMessageBoxButton.OKCancel);
 
                 await DialogHost.Show(msgBox);
 
                 result = msgBox.Result;
-                if (result == MessageBoxResult.OK)
+                if (result == OsmoMessageBoxResult.OK)
                 {
                     Directory.Delete(skinPath, true);
                 }
             }
 
-            if (result == MessageBoxResult.OK)
+            if (result == OsmoMessageBoxResult.OK)
             {
                 Directory.CreateDirectory(skinPath);
                 ZipFile.ExtractToDirectory(oskPath.FullName, skinPath);

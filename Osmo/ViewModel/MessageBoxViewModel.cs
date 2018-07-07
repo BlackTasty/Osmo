@@ -13,6 +13,7 @@ namespace Osmo.ViewModel
         private string mButtonOneText = "_CANCEL";
         private string mButtonTwoText = "_NO";
         private string mButtonThreeText = "_YES";
+        private double mWidth = 300;
 
         public string Title
         {
@@ -73,6 +74,16 @@ namespace Osmo.ViewModel
             {
                 mButtonThreeText = value;
                 InvokePropertyChanged("ButtonThreeText");
+            }
+        }
+
+        public double Width
+        {
+            get => mWidth;
+            set
+            {
+                mWidth = value;
+                InvokePropertyChanged("Width");
             }
         }
     }

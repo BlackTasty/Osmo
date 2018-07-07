@@ -24,37 +24,46 @@ namespace Osmo.UI
     /// </summary>
     public partial class MaterialMessageBox : DockPanel
     {
+        string buttonOneCustomText,
+            buttonTwoCustomText,
+            buttonThreeCustomText;
+
         #region Buttons
         [Category("Message Box")]
         [Description("Sets the available buttons")]
-        public MessageBoxButton Buttons
+        public OsmoMessageBoxButton Buttons
         {
-            get { return (MessageBoxButton)GetValue(ButtonsProperty); }
+            get { return (OsmoMessageBoxButton)GetValue(ButtonsProperty); }
             set
             {
                 SetValue(ButtonsProperty, value);
                 MessageBoxViewModel vm = DataContext as MessageBoxViewModel;
                 switch (value)
                 {
-                    case MessageBoxButton.OK:
+                    case OsmoMessageBoxButton.OK:
                         vm.ButtonOneText = "";
                         vm.ButtonTwoText = "";
                         vm.ButtonThreeText = Helper.FindString("ok");
                         break;
-                    case MessageBoxButton.OKCancel:
+                    case OsmoMessageBoxButton.OKCancel:
                         vm.ButtonOneText = "";
                         vm.ButtonTwoText = Helper.FindString("cancel");
                         vm.ButtonThreeText = Helper.FindString("ok");
                         break;
-                    case MessageBoxButton.YesNo:
+                    case OsmoMessageBoxButton.YesNo:
                         vm.ButtonOneText = "";
                         vm.ButtonTwoText = Helper.FindString("no");
                         vm.ButtonThreeText = Helper.FindString("yes");
                         break;
-                    case MessageBoxButton.YesNoCancel:
+                    case OsmoMessageBoxButton.YesNoCancel:
                         vm.ButtonOneText = Helper.FindString("cancel");
                         vm.ButtonTwoText = Helper.FindString("no");
                         vm.ButtonThreeText = Helper.FindString("yes");
+                        break;
+                    case OsmoMessageBoxButton.Custom:
+                        vm.ButtonOneText = buttonOneCustomText;
+                        vm.ButtonTwoText = buttonTwoCustomText;
+                        vm.ButtonThreeText = buttonThreeCustomText;
                         break;
                 }
             }
@@ -62,21 +71,21 @@ namespace Osmo.UI
 
         // Using a DependencyProperty as the backing store for Buttons.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ButtonsProperty =
-            DependencyProperty.Register("Buttons", typeof(MessageBoxButton), typeof(MaterialMessageBox), new PropertyMetadata(MessageBoxButton.YesNoCancel));
+            DependencyProperty.Register("Buttons", typeof(OsmoMessageBoxButton), typeof(MaterialMessageBox), new PropertyMetadata(OsmoMessageBoxButton.YesNoCancel));
         #endregion
 
         #region Result
         [Category("Message Box")]
         [Description("Gets the result of the message box")]
-        public MessageBoxResult Result
+        public OsmoMessageBoxResult Result
         {
-            get { return (MessageBoxResult)GetValue(ResultProperty); }
+            get { return (OsmoMessageBoxResult)GetValue(ResultProperty); }
             set { SetValue(ResultProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Result.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ResultProperty =
-            DependencyProperty.Register("Result", typeof(MessageBoxResult), typeof(MaterialMessageBox), new PropertyMetadata(MessageBoxResult.None));
+            DependencyProperty.Register("Result", typeof(OsmoMessageBoxResult), typeof(MaterialMessageBox), new PropertyMetadata(OsmoMessageBoxResult.None));
         #endregion
 
         private MaterialMessageBox(string title, string description)
@@ -87,20 +96,65 @@ namespace Osmo.UI
             vm.Description = description;
         }
 
+        private MaterialMessageBox(string title, string description, double width) : this(title, description)
+        {
+            MessageBoxViewModel vm = DataContext as MessageBoxViewModel;
+            vm.Width = width;
+        }
+
         //TODO: Implement a property which selects a default choice
-        public static MaterialMessageBox Show(string title, string description, MessageBoxButton buttons)
+        /// <summary>
+        /// Shows a new message box with the given title, description and pre-defined button labels.
+        /// </summary>
+        /// <param name="title">The title of the message box.</param>
+        /// <param name="description">The description text of the message box.</param>
+        /// <param name="buttons">Select one of the pre-defined button templates.</param>
+        /// <returns></returns>
+        public static MaterialMessageBox Show(string title, string description, OsmoMessageBoxButton buttons)
         {
             return new MaterialMessageBox(title, description)
             {
                 Buttons = buttons
-            }; ;
+            };
+        }
+
+        //TODO: Implement a property which selects a default choice
+        /// <summary>
+        /// Shows a new message box with the given title, description and custom button labels.
+        /// </summary>
+        /// <param name="title">The title of the message box.</param>
+        /// <param name="description">The description text of the message box.</param>
+        /// <param name="buttonRightText">The custom text for the right button.</param>
+        /// <param name="buttonMiddleText">Optional: The custom text for the middle button. Provide null to hide this button</param>
+        /// <param name="buttonLeftText">Optional: The custom text for the left button. Provide null to hide this button</param>
+        /// <param name="width">Optional: Custom width for the window</param>
+        /// <returns></returns>
+        public static MaterialMessageBox Show(string title, string description, string buttonRightText, 
+            string buttonMiddleText = null, string buttonLeftText = null, double width = 300)
+        {
+            if (buttonRightText == null)
+            {
+                throw new ArgumentNullException("buttonRightText", "This property cannot be null!");
+            }
+
+            return new MaterialMessageBox(title, description, width)
+            {
+                buttonOneCustomText = buttonLeftText,
+                buttonTwoCustomText = buttonMiddleText,
+                buttonThreeCustomText = buttonRightText,
+                Buttons = OsmoMessageBoxButton.Custom
+            };
         }
 
         private void ButtonOne_Click(object sender, RoutedEventArgs e)
         {
-            if (Buttons == MessageBoxButton.YesNoCancel)
+            if (Buttons == OsmoMessageBoxButton.YesNoCancel)
             {
-                Result = MessageBoxResult.Cancel;
+                Result = OsmoMessageBoxResult.Cancel;
+            }
+            else
+            {
+                Result = OsmoMessageBoxResult.CustomActionLeft;
             }
         }
 
@@ -108,12 +162,15 @@ namespace Osmo.UI
         {
             switch (Buttons)
             {
-                case MessageBoxButton.OKCancel:
-                    Result = MessageBoxResult.Cancel;
+                case OsmoMessageBoxButton.OKCancel:
+                    Result = OsmoMessageBoxResult.Cancel;
                     break;
-                case MessageBoxButton.YesNo:
-                case MessageBoxButton.YesNoCancel:
-                    Result = MessageBoxResult.No;
+                case OsmoMessageBoxButton.YesNo:
+                case OsmoMessageBoxButton.YesNoCancel:
+                    Result = OsmoMessageBoxResult.No;
+                    break;
+                case OsmoMessageBoxButton.Custom:
+                    Result = OsmoMessageBoxResult.CustomActionMiddle;
                     break;
             }
         }
@@ -122,13 +179,16 @@ namespace Osmo.UI
         {
             switch (Buttons)
             {
-                case MessageBoxButton.OK:
-                case MessageBoxButton.OKCancel:
-                    Result = MessageBoxResult.OK;
+                case OsmoMessageBoxButton.OK:
+                case OsmoMessageBoxButton.OKCancel:
+                    Result = OsmoMessageBoxResult.OK;
                     break;
-                case MessageBoxButton.YesNo:
-                case MessageBoxButton.YesNoCancel:
-                    Result = MessageBoxResult.Yes;
+                case OsmoMessageBoxButton.YesNo:
+                case OsmoMessageBoxButton.YesNoCancel:
+                    Result = OsmoMessageBoxResult.Yes;
+                    break;
+                case OsmoMessageBoxButton.Custom:
+                    Result = OsmoMessageBoxResult.CustomActionRight;
                     break;
             }
         }

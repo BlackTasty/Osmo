@@ -181,6 +181,12 @@
     <system:String o:Freeze="True" x:Key="resize_file_keepOriginal">Keep original elements after resize</system:String>
     <system:String o:Freeze="True" x:Key="resize_file_overrideOriginal">Apply resize to original elements</system:String>
     <system:String o:Freeze="True" x:Key="resize_note">Note: Elements with dimensions of 1x1 are not shown</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageTitle">Image distortion warning!</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription1">The file "</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription2">" could get distorted if you resize it with the selected resize option. Select an option below to proceed.</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageProceed">_PROCEED</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageUseHalveSize">_HALVE SIZE</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageSkip">_SKIP</system:String>
     
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>

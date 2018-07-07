@@ -1,4 +1,5 @@
-﻿using Osmo.Core;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
@@ -51,55 +52,14 @@ namespace Osmo.UI
             vm.SelectedSkinIndex = vm.Skins.IndexOf(skin);
         }
 
-        private void Select_AllElements_Checked(object sender, RoutedEventArgs e)
+        private async void Rezize_Click(object sender, RoutedEventArgs e)
         {
-            foreach (SkinElement item in lv_skins.Items)
-            {
-                if (item.FileType == FileType.Image && item.ImageSize.Width > 1 && item.ImageSize.Height > 1)
-                {
-                    item.IsResizeSelected = true;
-                }
-            }
-        }
+            ResizeToolViewModel vm = DataContext as ResizeToolViewModel;
+            bool keepOriginalFiles = vm.FileOption_keepOriginal;
+            bool optimalSize = vm.ResizeOption_OptimalSize;
+            string version = vm.SelectedSkin.Version;
 
-        private void Select_HDElements_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (SkinElement item in lv_skins.Items)
-            {
-                if (item.FileType == FileType.Image && item.ImageSize.Width > 1 && item.ImageSize.Height > 1)
-                {
-                    item.IsResizeSelected = item.IsHighDefinition;
-                }
-            }
-        }
-
-        private void Select_NonHDElements_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (SkinElement item in lv_skins.Items)
-            {
-                if (item.FileType == FileType.Image && item.ImageSize.Width > 1 && item.ImageSize.Height > 1)
-                {
-                    item.IsResizeSelected = !item.IsHighDefinition;
-                }
-            }
-        }
-
-        private void Select_NoElement_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (SkinElement item in lv_skins.Items)
-            {
-                if (item.FileType == FileType.Image)
-                {
-                    item.IsResizeSelected = false;
-                }
-            }
-        }
-
-        private void Rezize_Click(object sender, RoutedEventArgs e)
-        {
-            bool keepOriginalFiles = (DataContext as ResizeToolViewModel).FileOption_keepOriginal;
-            bool optimalSize = (DataContext as ResizeToolViewModel).ResizeOption_OptimalSize;
-            foreach (SkinElement item in lv_skins.Items)
+            foreach (SkinElement item in vm.SelectedSkin.Elements)
             {
                 string newPath = null;
                 if (item.IsResizeSelected)
@@ -120,7 +80,27 @@ namespace Osmo.UI
                         newPath = item.Path;
                     }
 
-                    TransformedBitmap source = ResizeImage(item, optimalSize);
+                    TransformedBitmap source = ResizeImage(item, optimalSize, version, out bool isDistorted);
+                    
+                    if (isDistorted)
+                    {
+                        var msgBox = MaterialMessageBox.Show(Helper.FindString("dlg_distortedImageTitle"),
+                            string.Format("{0}{1}{2}", Helper.FindString("dlg_distortedImageDescription1"), item.Name, Helper.FindString("dlg_distortedImageDescription2")),
+                            Helper.FindString("dlg_distortedImageUseHalveSize"),
+                            Helper.FindString("dlg_distortedImageProceed"),
+                            Helper.FindString("dlg_distortedImageSkip"), 450);
+
+                        await DialogHost.Show(msgBox);
+
+                        if (msgBox.Result == OsmoMessageBoxResult.CustomActionLeft) //Skip the current element
+                        {
+                            continue;
+                        }
+                        else if (msgBox.Result == OsmoMessageBoxResult.CustomActionRight) //Resize the image again but halve image size
+                        {
+                            source = ResizeImage(item, false, version, out isDistorted);
+                        }
+                    }
 
                     if (item.Extension.Contains("png"))
                     {
@@ -134,7 +114,8 @@ namespace Osmo.UI
             }
         }
 
-        private TransformedBitmap ResizeImage(SkinElement element, bool resize_optimalSize)
+        private TransformedBitmap ResizeImage(SkinElement element, bool resize_optimalSize, string skinVersion,
+            out bool isDistorted)
         {
             BitmapSource image = new BitmapImage(new Uri(element.Path, UriKind.Absolute));
             Size targetSize;
@@ -143,18 +124,24 @@ namespace Osmo.UI
             if (resize_optimalSize && entry != null && 
                 entry.SuggestedSDSize != null && !entry.SuggestedSDSize.Equals(new Size()))
             {
-                targetSize = entry.SuggestedSDSize;
+                targetSize = entry.GetSuggestedSizeForVersion(skinVersion);
             }
             else
             {
-                targetSize = new Size(element.ImageSize.Width / 2, element.ImageSize.Height / 2);
+                targetSize = new Size(Math.Round(element.ImageSize.Width / 2), Math.Round(element.ImageSize.Height / 2));
             }
+
+            double scaleX = targetSize.Width / image.PixelWidth,
+                scaleY = targetSize.Height / image.PixelHeight;
+
+            double distortionFactor = scaleX - scaleY;
+
+            isDistorted = distortionFactor > 0.2 || distortionFactor < -0.2;
 
             return new TransformedBitmap(image,
                 new ScaleTransform(
-                    targetSize.Width / image.PixelWidth,
-                    targetSize.Height / image.PixelHeight));
-            
+                    scaleX,
+                    scaleY));
         }
 
         private bool TransformedBitmapToFile<T>(string targetPath, BitmapSource source) where T : BitmapEncoder, new()

@@ -151,11 +151,11 @@ namespace Osmo.UI
         private async void ChangeList_Revert_Click(object sender, RoutedEventArgs e)
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
-                Helper.FindString("edit_revertDescription"), MessageBoxButton.YesNo);
+                Helper.FindString("edit_revertDescription"), OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 StopAudio(true);
                 SkinMixerViewModel vm = (SkinMixerViewModel)DataContext;
@@ -282,11 +282,11 @@ namespace Osmo.UI
         private async void RevertSelected_Click(object sender, RoutedEventArgs e)
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
-                Helper.FindString("edit_revertDescription"), MessageBoxButton.YesNo);
+                Helper.FindString("edit_revertDescription"), OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 StopAudio(true);
                 SkinMixerViewModel vm = (SkinMixerViewModel)DataContext;

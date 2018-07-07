@@ -7,7 +7,7 @@ namespace Osmo.ViewModel
         #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void InvokePropertyChanged(string propertyName)
+        protected void InvokePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

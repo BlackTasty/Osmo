@@ -249,11 +249,11 @@ namespace Osmo.UI
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
                 Helper.FindString("edit_revertDescription"),
-                MessageBoxButton.YesNo);
+                OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 SkinViewModel vm = (SkinViewModel)DataContext;
                 vm.SelectedElement.Reset();
@@ -270,13 +270,13 @@ namespace Osmo.UI
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_eraseTitle"),
                 Helper.FindString("edit_eraseDescription"),
-                MessageBoxButton.YesNo);
+                OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
             string path = ((SkinViewModel)DataContext).SelectedElement.ReplaceBackup(null);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 SkinElement current = ((SkinViewModel)DataContext).SelectedElement;
                 StopAudio();
@@ -290,11 +290,11 @@ namespace Osmo.UI
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_deleteTitle"),
                 Helper.FindString("edit_deleteDescription"),
-                MessageBoxButton.YesNo);
+                OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 SkinElement element = ((SkinViewModel)DataContext).SelectedElement;
                 if (lv_elements.SelectedIndex < lv_elements.Items.Count - 1)
@@ -436,11 +436,11 @@ namespace Osmo.UI
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
                 Helper.FindString("edit_revertDescription"),
-                MessageBoxButton.YesNo);
+                OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 SkinViewModel vm = (SkinViewModel)DataContext;
                 SkinElement element = vm.LoadedSkin.Elements.FirstOrDefault(x => x.Name.Equals(

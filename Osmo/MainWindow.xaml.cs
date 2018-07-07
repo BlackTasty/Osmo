@@ -123,15 +123,15 @@ namespace Osmo
                 vm.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
                 var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
                     Helper.FindString("main_unsavedChangesDescription"),
-                    MessageBoxButton.YesNoCancel);
+                    OsmoMessageBoxButton.YesNoCancel);
 
                 await DialogHost.Show(msgBox);
 
-                if (msgBox.Result == MessageBoxResult.Cancel)
+                if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
                     return;
                 }
-                else if (msgBox.Result == MessageBoxResult.Yes)
+                else if (msgBox.Result == OsmoMessageBoxResult.Yes)
                 {
                     skinVm.LoadedSkin.Save();
                 }
@@ -143,15 +143,15 @@ namespace Osmo
                 vm.SelectedSidebarIndex = FixedValues.MIXER_INDEX;
                 var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
                     Helper.FindString("main_unsavedChangesDescription"),
-                    MessageBoxButton.YesNoCancel);
+                    OsmoMessageBoxButton.YesNoCancel);
 
                 await DialogHost.Show(msgBox);
 
-                if (msgBox.Result == MessageBoxResult.Cancel)
+                if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
                     return;
                 }
-                else if (msgBox.Result == MessageBoxResult.Yes)
+                else if (msgBox.Result == OsmoMessageBoxResult.Yes)
                 {
                     mixerVm.SkinLeft.Save();
                 }
@@ -201,10 +201,10 @@ namespace Osmo
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("main_revertAllTitle"),
                 Helper.FindString("main_revertAllDescription"),
-                MessageBoxButton.YesNoCancel);
+                OsmoMessageBoxButton.YesNoCancel);
 
             await DialogHost.Show(msgBox);
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 OsmoViewModel vm = DataContext as OsmoViewModel;
                 if (vm.SelectedSidebarIndex == FixedValues.EDITOR_INDEX)

@@ -12,12 +12,22 @@ namespace Osmo.ViewModel
     {
         private Skin mSelectedSkin;
         private int mSelectedSkinIndex = -1;
-        private SkinManager mSkinManager = SkinManager.GetInstance();
+        private SkinManager mSkinManager;
 
         private bool mResizeOption_optimalSize = true;
         private bool mResizeOption_halveSize;
         private bool mFileOption_keepOriginal = true;
         private bool mFileOption_overrideOriginal;
+
+        private bool mSelect_all;
+        private bool mSelect_hdElements;
+        private bool mSelect_nonHdElements;
+        private bool mSelect_none;
+
+        public ResizeToolViewModel()
+        {
+            mSkinManager = SkinManager.GetInstance();
+        }
 
         public List<Skin> Skins
         {
@@ -72,6 +82,79 @@ namespace Osmo.ViewModel
             {
                 mFileOption_overrideOriginal = value;
                 InvokePropertyChanged("FileOption_overrideOriginal");
+            }
+        }
+
+        public bool Select_All
+        {
+            get => mSelect_all;
+            set
+            {
+                if (value)
+                {
+                    foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image && x.ImageSize.Width > 1 && x.ImageSize.Height > 1))
+                    {
+                        item.IsResizeSelected = true;
+                    }
+                }
+
+                mSelect_all = value;
+                InvokePropertyChanged("Select_All");
+            }
+        }
+
+        public bool Select_HdElements
+        {
+            get => mSelect_hdElements;
+            set
+            {
+
+                if (value)
+                {
+                    foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image && x.ImageSize.Width > 1 && x.ImageSize.Height > 1))
+                    {
+                        item.IsResizeSelected = item.IsHighDefinition;
+                    }
+                }
+
+                mSelect_hdElements = value;
+                InvokePropertyChanged("Select_HdElements");
+            }
+        }
+
+        public bool Select_NonHdElements
+        {
+            get => mSelect_nonHdElements;
+            set
+            {
+                if (value)
+                {
+                    foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image && x.ImageSize.Width > 1 && x.ImageSize.Height > 1))
+                    {
+                        item.IsResizeSelected = !item.IsHighDefinition;
+                    }
+                }
+
+                mSelect_nonHdElements = value;
+                InvokePropertyChanged("Select_NonHdElements");
+            }
+        }
+
+        public bool Select_None
+        {
+            get => mSelect_none;
+            set
+            {
+                if (value)
+                {
+                    foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image))
+                    {
+                        item.IsResizeSelected = false;
+                    }
+                }
+
+                mSelect_none = value;
+                InvokePropertyChanged("Select_None");
             }
         }
 

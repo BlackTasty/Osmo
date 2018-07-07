@@ -203,6 +203,10 @@ namespace Osmo.Core.Objects
             return TempPath;
         }
 
+        internal void Rename(string newName)
+        {
+        }
+
         internal void Reset()
         {
             if (File.Exists(TempPath))

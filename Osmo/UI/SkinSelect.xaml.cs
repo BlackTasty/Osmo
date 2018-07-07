@@ -74,11 +74,11 @@ namespace Osmo.UI
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("skinSelect_deleteTitle"),
                 Helper.FindString("skinSelect_deleteDescription"),
-                MessageBoxButton.YesNo);
+                OsmoMessageBoxButton.YesNo);
 
             await DialogHost.Show(msgBox);
 
-            if (msgBox.Result == MessageBoxResult.Yes)
+            if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 (DataContext as OsmoViewModel).SkinManager.DeleteSkin(name);
             }

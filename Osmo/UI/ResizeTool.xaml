@@ -81,10 +81,10 @@
     <DockPanel Grid.Column="2" Margin="8" LastChildFill="False">
         <TextBlock Text="{DynamicResource resize_title_select}" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
         <StackPanel Margin="8" DockPanel.Dock="Top">
-            <RadioButton Content="{DynamicResource resize_select_all}" Margin="0,4" Checked="Select_AllElements_Checked"/>
-            <RadioButton Content="{DynamicResource resize_select_hdOnly}" Margin="0,4" Checked="Select_HDElements_Checked"/>
-            <RadioButton Content="{DynamicResource resize_select_nonHdOnly}" Margin="0,4" Checked="Select_NonHDElements_Checked"/>
-            <RadioButton Content="{DynamicResource resize_select_none}" Margin="0,4" Checked="Select_NoElement_Checked" IsChecked="True"/>
+            <RadioButton Content="{DynamicResource resize_select_all}" Margin="0,4" IsChecked="{Binding Select_All}"/>
+            <RadioButton Content="{DynamicResource resize_select_hdOnly}" Margin="0,4" IsChecked="{Binding Select_HdElements}"/>
+            <RadioButton Content="{DynamicResource resize_select_nonHdOnly}" Margin="0,4" IsChecked="{Binding Select_NonHdElements}"/>
+            <RadioButton Content="{DynamicResource resize_select_none}" Margin="0,4" IsChecked="{Binding Select_None, FallbackValue=True}"/>
         </StackPanel>
         <TextBlock Text="{DynamicResource resize_title_resize}" Style="{StaticResource MaterialDesignHeadlineTextBlock}" DockPanel.Dock="Top"/>
         <StackPanel Margin="8" DockPanel.Dock="Top">

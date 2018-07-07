@@ -1,12 +1,8 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core.Objects;
 using Osmo.UI;
 using Osmo.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Un4seen.Bass;
 
 namespace Osmo.Core
@@ -50,7 +46,7 @@ namespace Osmo.Core
                 {
                     var msgBox = MaterialMessageBox.Show(Helper.FindString("dlg_invalidAudioTitle"),
                         Helper.FindString("dlg_invalidAudioDescription"),
-                        MessageBoxButton.OK);
+                        OsmoMessageBoxButton.OK);
 
                     DialogHost.Show(msgBox);
                     return false;

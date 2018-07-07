@@ -2,15 +2,11 @@
 {
     class ElementReader
     {
-        private string version;
-        private bool versionEqualOrLower; //Is set to true if a - is found in the version column
-        private bool versionEqualOrHigher; //Is set to true if a + is found in the version column
+        protected string Version { get; private set; }
 
-        protected string Version => version;
+        protected bool VersionEqualOrHigher { get; private set; } //Is set to true if a + is found in the version column
 
-        protected bool VersionEqualOrHigher => versionEqualOrHigher;
-
-        protected bool VersionEqualOrLower => versionEqualOrLower;
+        protected bool VersionEqualOrLower { get; private set; } //Is set to true if a - is found in the version column
 
         protected string[] ReadLine(string line)
         {
@@ -19,22 +15,22 @@
 
         protected void SetVersion(string version)
         {
-            versionEqualOrHigher = version.EndsWith("+");
-            versionEqualOrLower = version.EndsWith("-");
-            this.version = version.Replace("+", "").Replace("-", "");
+            VersionEqualOrHigher = version.EndsWith("+");
+            VersionEqualOrLower = version.EndsWith("-");
+            Version = version.Replace("+", "").Replace("-", "");
         }
 
         internal bool VersionMatches(string version)
         {
-            if (!string.IsNullOrWhiteSpace(this.version))
+            if (!string.IsNullOrWhiteSpace(Version))
             {
                 double targetVersion = Parser.TryParse(version, 1.0);
-                double entryVersion = Parser.TryParse(this.version, 1.0);
+                double entryVersion = Parser.TryParse(Version, 1.0);
 
-                if (versionEqualOrHigher)
+                if (VersionEqualOrHigher)
                     return targetVersion >= entryVersion;
 
-                if (versionEqualOrLower)
+                if (VersionEqualOrLower)
                     return targetVersion <= entryVersion;
 
                 return targetVersion == entryVersion;

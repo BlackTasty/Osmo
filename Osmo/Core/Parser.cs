@@ -1,5 +1,6 @@
 ﻿using Osmo.Core.Objects;
 using System;
+using System.Globalization;
 
 namespace Osmo.Core
 {
@@ -35,7 +36,11 @@ namespace Osmo.Core
 
         public static double TryParse(string value, double defaultValue)
         {
-            if (double.TryParse(value, out double result))
+            var currentCulture = CultureInfo.InstalledUICulture;
+            var numberFormat = (NumberFormatInfo)currentCulture.NumberFormat.Clone();
+            numberFormat.NumberDecimalSeparator = ".";
+
+            if (double.TryParse(value, NumberStyles.Any, numberFormat, out double result))
                 return result;
             else
                 return defaultValue;

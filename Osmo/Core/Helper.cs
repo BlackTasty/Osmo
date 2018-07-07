@@ -79,23 +79,23 @@ namespace Osmo.Core
 
         public static async void ExportSkin(int selectedIndex, bool skipDialog)
         {
-            MessageBoxResult result;
+            OsmoMessageBoxResult result;
 
             if (!skipDialog)
             {
                 var msgBox = MaterialMessageBox.Show(FindString("export_saveFirstTitle"),
                     FindString("export_saveFirstDescription"),
-                    MessageBoxButton.YesNoCancel);
+                    OsmoMessageBoxButton.YesNoCancel);
 
                 await DialogHost.Show(msgBox);
                 result = msgBox.Result;
             }
             else
             {
-                result = MessageBoxResult.No;
+                result = OsmoMessageBoxResult.No;
             }
 
-            if (result != MessageBoxResult.Cancel)
+            if (result != OsmoMessageBoxResult.Cancel)
             {
                 using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
                 {
@@ -106,11 +106,11 @@ namespace Osmo.Core
                     {
                         if (selectedIndex == FixedValues.EDITOR_INDEX)
                         {
-                            SkinEditor.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
+                            SkinEditor.Instance.ExportSkin(dlg.SelectedPath, result == OsmoMessageBoxResult.Yes);
                         }
                         else if (selectedIndex == FixedValues.MIXER_INDEX)
                         {
-                            SkinMixer.Instance.ExportSkin(dlg.SelectedPath, result == MessageBoxResult.Yes);
+                            SkinMixer.Instance.ExportSkin(dlg.SelectedPath, result == OsmoMessageBoxResult.Yes);
                         }
                     }
                 }

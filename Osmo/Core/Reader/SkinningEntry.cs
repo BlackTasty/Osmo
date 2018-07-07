@@ -109,6 +109,11 @@ namespace Osmo.Core.Reader
             }
         }
 
+        public Size GetSuggestedSizeForVersion(string version)
+        {
+            return sizeDescriptors.FirstOrDefault(x => x.VersionMatches(version))?.SuggestedSDSize ?? new Size();
+        }
+
         public override string ToString()
         {
             return string.Format("{0} ({1})", Name, Description);
