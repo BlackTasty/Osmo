@@ -1,12 +1,66 @@
-﻿<UserControl x:Class="Osmo.UI.FilePicker"
+﻿<Grid x:Class="Osmo.UI.FilePicker"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:Osmo.ViewModel"
+             xmlns:fe="clr-namespace:Osmo.Core.FileExplorer"
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
-</UserControl>
+             MinHeight="400" MinWidth="700" MaxHeight="400" MaxWidth="700">
+    <Grid.DataContext>
+        <vm:FilePickerViewModel/>
+    </Grid.DataContext>
+    <Grid.Resources>
+        <fe:DisplayTemplateSelector x:Key="displaySelector" >
+            <fe:DisplayTemplateSelector.LoadedDirectoryTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type fe:FolderEntry}"
+                                  ItemsSource="{Binding SubDirectories}">
+                    <TextBlock Text="{Binding Name}"/>
+                </HierarchicalDataTemplate>
+            </fe:DisplayTemplateSelector.LoadedDirectoryTemplate>
+            <fe:DisplayTemplateSelector.UnloadedDirectoryTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type fe:UnloadedFolderEntry}"
+                                  ItemsSource="{Binding UnloadedSubDirectories}">
+                    <TextBlock Text="{Binding Name}"/>
+                </HierarchicalDataTemplate>
+            </fe:DisplayTemplateSelector.UnloadedDirectoryTemplate>
+        </fe:DisplayTemplateSelector>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="250"/>
+        <ColumnDefinition Width="5"/>
+        <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <TreeView ItemsSource="{Binding RootFolders}" TreeViewItem.Expanded="TreeViewItem_Expanded"
+                  TreeViewItem.Selected="TreeViewItem_Selected"
+                  ItemTemplateSelector="{DynamicResource displaySelector}">
+        </TreeView>
+    </ScrollViewer>
+
+    <DockPanel Grid.Column="2">
+        <TextBlock Text="{Binding SelectedFolder.Path}" DockPanel.Dock="Top" Margin="8,0,8,8"/>
+        <UniformGrid HorizontalAlignment="Right" DockPanel.Dock="Bottom" Rows="1">
+            <Button Content="{DynamicResource abort}" Margin="8" Style="{StaticResource MaterialDesignFlatButton}"
+                 Command="material:DialogHost.CloseDialogCommand"/>
+            <Button Content="{DynamicResource ok}" Margin="8" Style="{StaticResource MaterialDesignFlatButton}"
+                 Command="material:DialogHost.CloseDialogCommand"/>
+        </UniformGrid>
+        <ListView
+            ItemsSource="{Binding SelectedFolder.Files}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Name}"
+                        Header="{DynamicResource name}" Width="300" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Extension}"
+                        Header="{DynamicResource header_extension}" Width="100" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Grid>

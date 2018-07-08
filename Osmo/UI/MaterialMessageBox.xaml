@@ -6,7 +6,7 @@
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
-             mc:Ignorable="d" Width="{Binding Width}" Height="Auto" Margin="16">
+             mc:Ignorable="d" Width="{Binding Width, FallbackValue=300, TargetNullValue=300}" Height="Auto" Margin="16">
     <DockPanel.DataContext>
         <vm:MessageBoxViewModel/>
     </DockPanel.DataContext>

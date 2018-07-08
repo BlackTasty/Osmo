@@ -135,6 +135,11 @@
     <Compile Include="Core\Configuration\ConfigurationFile.Helper.cs" />
     <Compile Include="Core\Configuration\ConfigurationFile.cs" />
     <Compile Include="Converters\SelectSkinSelector.cs" />
+    <Compile Include="Core\FileExplorer\DisplayTemplateSelector.cs" />
+    <Compile Include="Core\FileExplorer\FileEntry.cs" />
+    <Compile Include="Core\FileExplorer\FolderEntry.cs" />
+    <Compile Include="Core\FileExplorer\IFolderEntry.cs" />
+    <Compile Include="Core\FileExplorer\UnloadedFolderEntry.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\IAsyncShortcutHelper.cs" />
@@ -237,6 +242,7 @@
     <Compile Include="ViewModel\AnimationViewModel.cs" />
     <Compile Include="ViewModel\AudioViewModel.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
+    <Compile Include="ViewModel\FilePickerViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NewSkinViewModel.cs" />
     <Compile Include="ViewModel\NewTemplateViewModel.cs" />

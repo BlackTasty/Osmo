@@ -58,7 +58,7 @@ namespace Osmo
                 new Library(AppDomain.CurrentDomain.BaseDirectory, "MaterialDesignColors.dll"),
                 new Library(AppDomain.CurrentDomain.BaseDirectory, "MaterialDesignThemes.MahApps.dll"),
                 new Library(AppDomain.CurrentDomain.BaseDirectory, "MaterialDesignThemes.Wpf.dll"),
-                new Library(AppDomain.CurrentDomain.BaseDirectory, "System.Windows.Interactivity.dll"),
+                new Library(AppDomain.CurrentDomain.BaseDirectory, "System.Windows.Interactivity.dll")
             };
             LibraryValidator.ValidateLibraries(libraries);
             return LibraryValidator.LibrariesMissing;

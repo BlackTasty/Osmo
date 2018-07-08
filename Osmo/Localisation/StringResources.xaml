@@ -188,7 +188,10 @@
     <system:String o:Freeze="True" x:Key="dlg_distortedImageUseHalveSize">_HALVE SIZE</system:String>
     <system:String o:Freeze="True" x:Key="dlg_distortedImageSkip">_SKIP</system:String>
     <system:String o:Freeze="True" x:Key="resize_resizingCurrent">Resizing file:</system:String>
-    
+
+    <!--FilePicker-->
+    <system:String o:Freeze="True" x:Key="header_extension">Extension</system:String>
+
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Click here</system:String>
