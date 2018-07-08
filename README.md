@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/BlackTasty/Osmo">
-    <img alt="Osmo" width="256" heigth="256" src="https://puu.sh/AT1Ij/338914e27a.png">
+    <img alt="Osmo" width="256" heigth="256" src="https://puu.sh/AT8lu/cb831fac69.png">
   </a>
 </p>
 
