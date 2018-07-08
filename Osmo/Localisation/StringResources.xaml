@@ -47,6 +47,10 @@
     <system:String o:Freeze="True" x:Key="donate">Donate</system:String>
     <system:String o:Freeze="True" x:Key="startResize">_START RESIZE</system:String>
 
+    <!--  Validation-->
+    <system:String o:Freeze="True" x:Key="validationError_directory">Invalid directory!</system:String>
+    <system:String o:Freeze="True" x:Key="validationError_file">This file doesn't exist!</system:String>
+
     <!--Shortcuts cheat sheet-->
     <system:String o:Freeze="True" x:Key="shortcuts_animate">Ctrl + Shift + A</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_replaceElement">Ctrl + H</system:String>
@@ -191,6 +195,11 @@
 
     <!--FilePicker-->
     <system:String o:Freeze="True" x:Key="header_extension">Extension</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displayDetails">Details</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySymbols">Symbols</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Display as</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFile">Selected file</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFolder">Selected directory</system:String>
 
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>
@@ -244,6 +253,7 @@
     <!--Folder browser dialog titles-->
     <system:String o:Freeze="True" x:Key="export_selectDirectory">Select the directory you want to export your skin to</system:String>
     <system:String o:Freeze="True" x:Key="settings_selectOsuDirectory">Select your osu! directory</system:String>
+    <system:String o:Freeze="True" x:Key="settings_selectBackupDirectory">Select your backup directory</system:String>
 
     <!--AudioCore-->
     <system:String o:Freeze="True" x:Key="dlg_invalidAudioTitle">Invalid audio file!</system:String>

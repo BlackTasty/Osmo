@@ -1,4 +1,5 @@
-﻿using Osmo.ViewModel;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Osmo.Core.FileExplorer
 {
-    public class FolderEntry : ViewModelBase
+    public class FolderEntry : ViewModelBase, IFilePickerEntry
     {
         private DirectoryInfo mDi;
         private UnloadedFolderEntry mUnloadedEntry;
@@ -19,13 +20,21 @@ namespace Osmo.Core.FileExplorer
 
         public string Path
         {
-            get => mDi.FullName;
+            get => mDi?.FullName ?? mUnloadedEntry.Path;
         }
 
         public string Name
         {
             get => mDi?.Name ?? mUnloadedEntry.Name;
         }
+
+        public bool IsFile { get => false; }
+
+        public bool IsRoot { get; private set; }
+
+        public PackIconKind Icon { get => PackIconKind.Folder; }
+
+        public FolderEntry Parent { get; private set; }
 
         public bool FoldersLoaded {
             get => mFoldersLoaded;
@@ -42,7 +51,22 @@ namespace Osmo.Core.FileExplorer
         public List<FolderEntry> SubDirectories { get; private set; } 
             = new List<FolderEntry>();
 
-        public FolderEntry(DirectoryInfo di)
+        public List<IFilePickerEntry> JoinedContent { get; private set; }
+            = new List<IFilePickerEntry>();
+
+        public FolderEntry(DirectoryInfo di, bool isRoot)
+        {
+            IsRoot = isRoot;
+            InitializeFolderStructure(di);
+        }
+
+        private FolderEntry(UnloadedFolderEntry unloadedEntry, FolderEntry parent)
+        {
+            mUnloadedEntry = unloadedEntry;
+            Parent = parent;
+        }
+
+        private void InitializeFolderStructure(DirectoryInfo di)
         {
             mDi = di;
 
@@ -51,20 +75,29 @@ namespace Osmo.Core.FileExplorer
                 try
                 {
                     subDi.EnumerateDirectories();
+                    FolderEntry entry = new FolderEntry(new UnloadedFolderEntry(subDi), this);
+                    SubDirectories.Add(entry);
                 }
                 catch (Exception)
                 {
-                    continue;
                 }
-                SubDirectories.Add(new FolderEntry(new UnloadedFolderEntry(subDi)));
             }
+
+            SubDirectories.Sort(new NaturalFilePickerEntryComparer());
+            JoinedContent.AddRange(SubDirectories);
 
             FoldersLoaded = true;
         }
 
-        private FolderEntry(UnloadedFolderEntry unloadedEntry)
+        public void LoadAllOnDemand()
         {
-            this.mUnloadedEntry = unloadedEntry;
+            if (!FoldersLoaded)
+            {
+                InitializeFolderStructure(mUnloadedEntry.DirectoryInfo);
+            }
+
+            LoadFoldersOnDemand();
+            LoadFilesOnDemand();
         }
 
         public void LoadFoldersOnDemand()
@@ -74,7 +107,7 @@ namespace Osmo.Core.FileExplorer
                 FolderEntry entry = SubDirectories[i];
                 if (!entry.FoldersLoaded)
                 {
-                    SubDirectories[i] = new FolderEntry(entry.mUnloadedEntry.DirectoryInfo);
+                    SubDirectories[i] = new FolderEntry(entry.mUnloadedEntry.DirectoryInfo, false);
                 }
             }
         }
@@ -85,8 +118,12 @@ namespace Osmo.Core.FileExplorer
             {
                 foreach (FileInfo fi in mDi.EnumerateFiles())
                 {
-                    Files.Add(new FileEntry(fi));
+                    FileEntry entry = new FileEntry(fi);
+                    Files.Add(entry);
                 }
+                Files.Sort(new NaturalFilePickerEntryComparer());
+                JoinedContent.AddRange(Files);
+                mFilesLoaded = true;
             }
         }
 

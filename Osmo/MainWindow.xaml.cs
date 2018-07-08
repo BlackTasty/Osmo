@@ -2,6 +2,7 @@
 using MaterialDesignThemes.Wpf;
 using Osmo.Core;
 using Osmo.Core.Configuration;
+using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.UI;
@@ -176,14 +177,6 @@ namespace Osmo
             }
         }
 
-        private void ExportSkin_Click(object sender, RoutedEventArgs e)
-        {
-            if (sidebarMenu.SelectedIndex == FixedValues.EDITOR_INDEX || sidebarMenu.SelectedIndex == FixedValues.MIXER_INDEX)
-            {
-                Helper.ExportSkin(sidebarMenu.SelectedIndex);
-            }
-        }
-
         private void OpenInFileExplorer_OnClick(object sender, RoutedEventArgs e)
         {
             OsmoViewModel vm = DataContext as OsmoViewModel;
@@ -289,7 +282,8 @@ namespace Osmo
                             SaveSkinOrTemplate_Click(null, null);
                             break;
                         case Key.E:
-                            ExportSkin_Click(null, null);
+                            if (DialogHost.OpenDialogCommand.CanExecute(btn_export.CommandParameter, btn_export))
+                                DialogHost.OpenDialogCommand.Execute(btn_export.CommandParameter, btn_export);
                             break;
                     }
                 }
@@ -312,6 +306,16 @@ namespace Osmo
                 ResizeTool.Instance.LoadSkin(SkinMixer.Instance.LoadedSkin);
             }
             (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.RESIZE_TOOL_INDEX;
+        }
+
+        private void FolderPicker_DialogClosed(object sender, RoutedEventArgs e)
+        {
+            FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
+
+            if (args.Path != null)
+            {
+                Helper.ExportSkin(args.Path, sidebarMenu.SelectedIndex);
+            }
         }
     }
 }

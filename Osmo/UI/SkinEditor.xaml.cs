@@ -26,6 +26,7 @@ using MaterialDesignThemes.Wpf;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using Osmo.Core.FileExplorer;
 
 namespace Osmo.UI
 {
@@ -35,7 +36,6 @@ namespace Osmo.UI
     public partial class SkinEditor : Grid, IShortcutHelper
     {
         private static SkinEditor instance;
-        private string lastPath = null;
         private AudioEngine audio;
 
         private CompletionWindow completionWindow;
@@ -157,7 +157,7 @@ namespace Osmo.UI
             
             snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_saveText"), 
                 Helper.FindString("snackbar_saveButton"),
-                param => Helper.ExportSkin(FixedValues.EDITOR_INDEX, true), false, true);
+                param => DialogHost.Show(FindResource("folderPicker") as FilePicker), false, true);
         }
 
         public void ExportSkin(string targetDir, bool alsoSave)
@@ -220,32 +220,42 @@ namespace Osmo.UI
 
         private void Replace_Click(object sender, RoutedEventArgs e)
         {
-            SkinViewModel vm = DataContext as SkinViewModel;
+            PreloadFilePickerProperties(Helper.FindString("edit_replaceTitle"),
+                GetFileFilter((DataContext as SkinViewModel).SelectedElement.FileType),
+                "replace");
+        }
 
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                Filter = GetFileFilter(vm.SelectedElement.FileType),
-                InitialDirectory = vm.LoadedSkin.Path,
-                Title = Helper.FindString("edit_replaceTitle")
-            };
+        private void PreloadFilePickerProperties(string title, string filter, string tag)
+        {
+            FilePicker fp = FindResource("filePicker") as FilePicker;
+            fp.Title = title;
+            fp.Filter = filter;
+            fp.Tag = tag;
+        }
 
-            if (!string.IsNullOrWhiteSpace(lastPath))
-            {
-                openFileDialog.InitialDirectory = lastPath;
-            }
-            
-            if (openFileDialog.ShowDialog() == true)
-            {
-                //File.Copy(openFileDialog.FileName, vm.SelectedElement.Path, true);
-                vm.SelectedElement.ReplaceBackup(new FileInfo(openFileDialog.FileName));
-                StopAudio();
-                vm.RefreshImage();
+        private void FilePicker_DialogClosed(object sender, RoutedEventArgs e)
+        {
+            if (sender is FilePicker fp) {
+                FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
 
-                //Save the last visited directory
-                lastPath = Path.GetDirectoryName(openFileDialog.FileName);
-                vm.ResetEnabled = true;
+                if (args.Path != null)
+                {
+                    SkinViewModel vm = DataContext as SkinViewModel;
+
+                    switch (fp.Tag)
+                    {
+                        case "replace":
+                            vm.SelectedElement.ReplaceBackup(new FileInfo(args.Path));
+                            StopAudio();
+                            vm.RefreshImage();
+
+                            vm.ResetEnabled = true;
+                            break;
+                    }
+                }
             }
         }
+
 
         private string GetFileFilter(FileType fileType)
         {
@@ -496,6 +506,16 @@ namespace Osmo.UI
             //{
             //    MessageBox.Show("Replace with another file!");
             //}
+        }
+
+        private void FolderPicker_DialogClosed(object sender, RoutedEventArgs e)
+        {
+            FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
+
+            if (args.Path != null)
+            {
+                Helper.ExportSkin(args.Path, FixedValues.EDITOR_INDEX, true);
+            }
         }
     }
 }

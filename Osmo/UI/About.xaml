@@ -22,8 +22,8 @@
             <RowDefinition Height="16"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <material:PackIcon Kind="Application" Height="80" Width="80"/>
-            <TextBlock x:Name="txt_header" Text="Osmo Alpha " Style="{StaticResource MaterialDesignDisplay3TextBlock}"/>
+            <Image Height="80" Width="80" Source="/Osmo;component/Resources/aboutIcon.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <TextBlock x:Name="txt_header" Text="Osmo Alpha " Style="{StaticResource MaterialDesignDisplay3TextBlock}" Margin="8,0,0,0"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">

@@ -28,11 +28,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="95.619513"
-     inkscape:cy="132.77884"
+     inkscape:zoom="2"
+     inkscape:cx="52.646708"
+     inkscape:cy="132.27182"
      inkscape:document-units="px"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="g1076"
      showgrid="true"
      inkscape:window-width="1680"
      inkscape:window-height="987"
@@ -48,7 +48,7 @@
      borderlayer="true"
      inkscape:showpageshadow="false"
      objecttolerance="20"
-     gridtolerance="10">
+     gridtolerance="10000">
     <sodipodi:guide
        position="84.145707,229.45615"
        orientation="0,1"
@@ -159,7 +159,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1194,20 +1194,74 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Text"
-     style="display:inline">
+     style="display:none">
     <flowRoot
        xml:space="preserve"
        id="flowRoot1048"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:122.66666412px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;fill:#ede7f6;fill-opacity:1;stroke:none"
-       transform="matrix(1.1401917,0,0,1.1289129,-7.9568839,-5.4708899)"><flowRegion
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:108.0602951px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;fill:#ede7f6;fill-opacity:1;stroke:none"
+       transform="matrix(1.1401917,0,0,1.0815642,-7.9568839,-0.43728529)"><flowRegion
          id="flowRegion1050"
-         style="font-size:122.66666412px;fill:#ede7f6;fill-opacity:1"><rect
+         style="font-size:108.0602951px;fill:#ede7f6;fill-opacity:1"><rect
            id="rect1052"
            width="106.66"
            height="138.658"
            x="37.331001"
            y="42.580002"
-           style="font-size:122.66666412px;fill:#ede7f6;fill-opacity:1" /></flowRegion><flowPara
+           style="font-size:108.0602951px;fill:#ede7f6;fill-opacity:1" /></flowRegion><flowPara
          id="flowPara1054"
-         style="font-size:122.66666412px;fill:#ede7f6;fill-opacity:1">O</flowPara></flowRoot>  </g>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:108.0602951px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ede7f6;fill-opacity:1">O</flowPara></flowRoot>  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer9"
+     inkscape:label="osu">
+    <circle
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ede7f6;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path1062"
+       cx="85.352356"
+       cy="112.64764"
+       r="45.852352" />
+    <circle
+       cy="112.49998"
+       cx="85.5"
+       id="circle1064"
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ede7f6;stroke-width:5.01526833;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       r="45.992367" />
+  </g>
+  <g
+     inkscape:label="osu Inner"
+     id="g1076"
+     inkscape:groupmode="layer">
+    <circle
+       r="44.904057"
+       cy="112.64764"
+       cx="85.352356"
+       id="circle1072"
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ede7f6;stroke-width:4.89659262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <ellipse
+       style="fill:#ede7f6;fill-opacity:1;fill-rule:nonzero;stroke:#ede7f6;stroke-width:3.56756234;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="circle1074"
+       cx="85.5"
+       cy="112.5"
+       rx="32.716221"
+       ry="32.716217" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer10"
+     inkscape:label="osu Inner Text">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot1087"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;line-height:1.25;font-family:'Roboto Condensed';-inkscape-font-specification:'Roboto Condensed, ';letter-spacing:0px;word-spacing:0px;fill:#6200ee;fill-opacity:1;stroke:none;"
+       transform="rotate(-15,93.92424,23.211137)"><flowRegion
+         id="flowRegion1089"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;font-family:'Roboto Condensed';-inkscape-font-specification:'Roboto Condensed, ';fill:#6200ee;fill-opacity:1;"><rect
+           id="rect1091"
+           width="74.662003"
+           height="74.662003"
+           x="47.997002"
+           y="74.578003"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;font-family:'Roboto Condensed';-inkscape-font-specification:'Roboto Condensed, ';fill:#6200ee;fill-opacity:1;" /></flowRegion><flowPara
+         id="flowPara1093"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;font-family:'Roboto Condensed';-inkscape-font-specification:'Roboto Condensed, ';fill:#6200ee;fill-opacity:1;">1</flowPara></flowRoot>  </g>
 </svg>

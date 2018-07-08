@@ -106,7 +106,11 @@
                             Width="28" />
                         </Button>
                         <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
-                            ToolTip="{DynamicResource main_exportSkin}" Click="ExportSkin_Click" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="{DynamicResource main_exportSkin}" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
+                            Command="{x:Static material:DialogHost.OpenDialogCommand}" x:Name="btn_export">
+                            <Button.CommandParameter>
+                                <ui:FilePicker IsFolderSelect="True" Title="{DynamicResource export_selectDirectory}" DialogClosed="FolderPicker_DialogClosed"/>
+                            </Button.CommandParameter>
                             <material:PackIcon
                             Kind="PackageDown"
                             Height="28"

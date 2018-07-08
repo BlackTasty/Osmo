@@ -27,7 +27,6 @@ namespace Osmo.Core.FileExplorer
         public UnloadedFolderEntry(DirectoryInfo di)
         {
             DirectoryInfo = di;
-            Console.WriteLine("{0}: Initializing folder content...", di.Name);
             foreach (DirectoryInfo subDi in di.EnumerateDirectories())
             {
                 try
@@ -36,12 +35,10 @@ namespace Osmo.Core.FileExplorer
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("{0}: This folder seems to be protected!", subDi.Name);
                     continue;
                 }
                 UnloadedSubDirectories.Add(subDi.Name);
             }
-            Console.WriteLine("{0}: Folder content initialized!", di.Name);
         }
 
         public override string ToString()

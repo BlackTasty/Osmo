@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Osmo.Core;
+using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -27,6 +28,7 @@ namespace Osmo.UI
     public partial class SkinSelect : Grid, IAsyncShortcutHelper
     {
         private static SkinSelect instance;
+        private string exportName; //Only used when exporting skins
 
         public static SkinSelect Instance
         {
@@ -97,17 +99,18 @@ namespace Osmo.UI
 
         private void ExportSkin(string name)
         {
-            //TODO: Replace OpenFolderDialog with custom FilePicker control (and remove Winforms dependency)
-            using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
+            exportName = name;
+        }
+
+        private void FolderPicker_DialogClosed(object sender, RoutedEventArgs e)
+        {
+            FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
+
+            if (args.Path != null)
             {
-                Description = Helper.FindString("skinSelect_exportTitle")
-            })
-            {
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    (DataContext as OsmoViewModel).SkinManager.ExportSkin(name,
-                        dlg.SelectedPath);
-                }
+                (DataContext as OsmoViewModel).SkinManager.ExportSkin(exportName,
+                    args.Path);
+                exportName = null;
             }
         }
 

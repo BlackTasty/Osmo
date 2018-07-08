@@ -13,6 +13,9 @@
     Loaded="Settings_Loaded"
     Tag="{DynamicResource sidebar_settings}"
     mc:Ignorable="d">
+    <Grid.Resources>
+        <ui:FilePicker x:Key="folderPicker" IsFolderSelect="True" DialogClosed="FilePicker_DialogClosed"/>
+    </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition />
         <ColumnDefinition Width="150" />
@@ -69,14 +72,8 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <Button
-                    Grid.Column="3"
-                    Height="Auto"
-                    Margin="10,6,10,5"
-                    Click="SelectDirectory_Click"
-                    Content="{DynamicResource select}"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    Tag="osu"
+                    <Button Grid.Column="3" Height="Auto" Margin="10,6,10,5" Click="SelectDirectory_Click"
+                    Content="{DynamicResource select}" Style="{StaticResource MaterialDesignRaisedDarkButton}" Tag="osu"
                     ToolTip="{DynamicResource tip_searchOsuDirectory}" />
                     <material:PackIcon
                     Grid.Row="2"

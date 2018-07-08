@@ -18,6 +18,9 @@
         <converter:VolumeToIconConverter x:Key="VolumeToIcon"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
         <converter:StringNotEmptyConverter x:Key="StringNotEmpty"/>
+
+        <local:FilePicker x:Key="filePicker" DialogClosed="FilePicker_DialogClosed" Margin="16"/>
+        <local:FilePicker x:Key="folderPicker" DialogClosed="FolderPicker_DialogClosed"  Margin="16" Title="{Binding export_selectDirectory}"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" MinWidth="200"/>
@@ -253,7 +256,11 @@
                     Width="24"
                     Height="24"/>
                 </Button>
-                <Button ToolTip="{DynamicResource edit_btn_replace}" Click="Replace_Click">
+                <Button ToolTip="{DynamicResource edit_btn_replace}" Click="Replace_Click"
+                        Command="{x:Static material:DialogHost.OpenDialogCommand}">
+                    <Button.CommandParameter>
+                        <ContentControl Content="{StaticResource filePicker}"/>
+                    </Button.CommandParameter>
                     <material:PackIcon
                     Kind="FindReplace"
                     Width="24"

@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core;
 using Osmo.Core.Configuration;
+using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -117,7 +118,7 @@ namespace Osmo.UI
         {
             ((SkinMixerViewModel)DataContext).SkinLeft.Save();
             snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_saveText"), Helper.FindString("snackbar_saveButton"),
-                param => Helper.ExportSkin(FixedValues.MIXER_INDEX, true), false, true);
+                param => DialogHost.Show(FindResource("folderPicker") as FilePicker), false, true);
         }
 
         internal void ExportSkin(string targetDir, bool alsoSave)
@@ -325,6 +326,16 @@ namespace Osmo.UI
         {
             e.Handled = true;
             ForwardKeyboardInput(e);
+        }
+
+        private void FolderPicker_DialogClosed(object sender, RoutedEventArgs e)
+        {
+            FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
+
+            if (args.Path != null)
+            {
+                Helper.ExportSkin(args.Path, FixedValues.EDITOR_INDEX, true);
+            }
         }
     }
 }

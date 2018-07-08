@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Osmo.Core;
+using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -27,6 +28,8 @@ namespace Osmo.UI
     public partial class DragDropArea : Grid
     {
         private FileInfo tempOskPath;
+        private double origWidth;
+        private double origHeight;
 
         public bool IsOskPathOkay
         {
@@ -119,23 +122,33 @@ namespace Osmo.UI
 
         private void Control_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                Filter = string.Format("{0}|*.osk", Helper.FindString("dragDrop_filter")),
-                Title = Helper.FindString("dragDrop_title")
-            };
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                tempOskPath = new FileInfo(openFileDialog.FileName);
-                OskPath = tempOskPath.Name;
-            }
+            origWidth = Width;
+            origHeight = Height;
+            Width = filePicker.Width;
+            Height = filePicker.Height;
+            filePicker.Visibility = Visibility.Visible;
+            filePicker.Filter = string.Format("{0}|*.osk", Helper.FindString("dragDrop_filter"));
         }
 
         private void CancelSkin_Click(object sender, RoutedEventArgs e)
         {
             tempOskPath = null;
             OskPath = null;
+        }
+
+        private void FilePicker_DialogClosed(object sender, RoutedEventArgs e)
+        {
+            Width = origWidth;
+            Height = origHeight;
+            filePicker.Visibility = Visibility.Hidden;
+
+            FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
+
+            if (args.Path != null)
+            {
+                tempOskPath = new FileInfo(args.Path);
+                OskPath = tempOskPath.Name;
+            }
         }
     }
 }

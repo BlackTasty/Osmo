@@ -2,7 +2,7 @@
 
 namespace Osmo.Core.Objects
 {
-    class TemplateCreatedEventArgs : RoutedEventArgs
+    public class TemplateCreatedEventArgs : RoutedEventArgs
     {
         private ForumTemplate template;
 

@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Osmo.Core.FileExplorer
 {
-    class DisplayTemplateSelector : DataTemplateSelector
+    class FolderTreeTemplateSelector : DataTemplateSelector
     {
         public DataTemplate UnloadedDirectoryTemplate { get; set; }
 

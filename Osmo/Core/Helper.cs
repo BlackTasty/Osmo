@@ -77,7 +77,7 @@ namespace Osmo.Core
             }
         }
 
-        public static async void ExportSkin(int selectedIndex, bool skipDialog)
+        public static async void ExportSkin(string exportPath, int selectedIndex, bool skipDialog)
         {
             OsmoMessageBoxResult result;
 
@@ -97,27 +97,18 @@ namespace Osmo.Core
 
             if (result != OsmoMessageBoxResult.Cancel)
             {
-                using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
+                if (selectedIndex == FixedValues.EDITOR_INDEX)
                 {
-                    Description = FindString("export_selectDirectory")
-                })
+                    SkinEditor.Instance.ExportSkin(exportPath, result == OsmoMessageBoxResult.Yes);
+                }
+                else if (selectedIndex == FixedValues.MIXER_INDEX)
                 {
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        if (selectedIndex == FixedValues.EDITOR_INDEX)
-                        {
-                            SkinEditor.Instance.ExportSkin(dlg.SelectedPath, result == OsmoMessageBoxResult.Yes);
-                        }
-                        else if (selectedIndex == FixedValues.MIXER_INDEX)
-                        {
-                            SkinMixer.Instance.ExportSkin(dlg.SelectedPath, result == OsmoMessageBoxResult.Yes);
-                        }
-                    }
+                    SkinMixer.Instance.ExportSkin(exportPath, result == OsmoMessageBoxResult.Yes);
                 }
             }
         }
 
-        public static void ExportSkin(int selectedIndex)
+        public static void ExportSkin(string exportPath, int selectedIndex)
         {
             bool skipDialog = false;
             if (selectedIndex == FixedValues.EDITOR_INDEX)
@@ -129,7 +120,7 @@ namespace Osmo.Core
                 skipDialog = !SkinMixer.Instance.LoadedSkin.UnsavedChanges;
             }
 
-            ExportSkin(selectedIndex, skipDialog);
+            ExportSkin(exportPath, selectedIndex, skipDialog);
         }
 
         public static string FindString(string targetName)

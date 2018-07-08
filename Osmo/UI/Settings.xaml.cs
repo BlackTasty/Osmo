@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Configuration;
+using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
@@ -68,25 +69,19 @@ namespace Osmo.UI
 
         private void SelectDirectory_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Replace OpenFolderDialog with custom FilePicker control (and remove Winforms dependency)
             //TODO: Add message box asking the user if the folder should be automatically detected
-            using (var dlg = new System.Windows.Forms.FolderBrowserDialog()
+            FilePicker folderPicker = FindResource("folderPicker") as FilePicker;
+            folderPicker.Tag = (sender as Button).Tag;
+
+
+            switch ((sender as Button).Tag)
             {
-                Description = Helper.FindString("settings_selectOsuDirectory")
-            })
-            {
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    switch((sender as Button).Tag)
-                    {
-                        case "osu":
-                            txt_osuPath.Text = dlg.SelectedPath;
-                            break;
-                        case "backup":
-                            txt_backupPath.Text = dlg.SelectedPath;
-                            break;
-                    }
-                }
+                case "osu":
+                    folderPicker.Title = Helper.FindString("settings_selectOsuDirectory");
+                    break;
+                case "backup":
+                    folderPicker.Title = Helper.FindString("settings_selectBackupDirectory");
+                    break;
             }
         }
 
@@ -114,6 +109,27 @@ namespace Osmo.UI
         private void Abort_Click(object sender, RoutedEventArgs e)
         {
             LoadSettings();
+        }
+
+        private void FolderPicker_DialogClosed(object sender, RoutedEventArgs e)
+        {
+            if (sender is FilePicker folderPicker)
+            {
+                FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
+
+                if (args.Path != null)
+                {
+                    switch (folderPicker.Tag)
+                    {
+                        case "osu":
+                            txt_osuPath.Text = args.Path;
+                            break;
+                        case "backup":
+                            txt_backupPath.Text = args.Path;
+                            break;
+                    }
+                }
+            }
         }
     }
 }

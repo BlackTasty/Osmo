@@ -33,8 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
@@ -128,6 +127,7 @@
     <Compile Include="Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\PathToFileNameConverter.cs" />
+    <Compile Include="Converters\StringLimitConverter.cs" />
     <Compile Include="Converters\StringNotEmptyConverter.cs" />
     <Compile Include="Converters\VolumeToIconConverter.cs" />
     <Compile Include="Core\AudioEngine.cs" />
@@ -135,10 +135,15 @@
     <Compile Include="Core\Configuration\ConfigurationFile.Helper.cs" />
     <Compile Include="Core\Configuration\ConfigurationFile.cs" />
     <Compile Include="Converters\SelectSkinSelector.cs" />
-    <Compile Include="Core\FileExplorer\DisplayTemplateSelector.cs" />
+    <Compile Include="Core\FileExplorer\FileFilter.cs" />
+    <Compile Include="Core\FileExplorer\FilePickerClosedEventArgs.cs" />
+    <Compile Include="Core\FileExplorer\FolderContentTemplateSelector.cs" />
+    <Compile Include="Core\FileExplorer\FolderTreeTemplateSelector.cs" />
     <Compile Include="Core\FileExplorer\FileEntry.cs" />
     <Compile Include="Core\FileExplorer\FolderEntry.cs" />
-    <Compile Include="Core\FileExplorer\IFolderEntry.cs" />
+    <Compile Include="Core\FileExplorer\IFilePickerEntry.cs" />
+    <Compile Include="Core\FileExplorer\NaturalFilePickerEntryComparer.cs" />
+    <Compile Include="Core\FileExplorer\RootFolderEntry.cs" />
     <Compile Include="Core\FileExplorer\UnloadedFolderEntry.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
@@ -354,6 +359,7 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\aboutIcon.png" />
     <Resource Include="Resources\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
