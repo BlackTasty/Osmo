@@ -12,7 +12,7 @@ namespace Osmo.ViewModel
 {
     class FilePickerViewModel : ViewModelBase
     {
-        private VeryObservableCollection<FolderEntry> mRootFolders = new VeryObservableCollection<FolderEntry>("RootFolders");
+        private SharedFileExplorer fileExplorer;
         private FolderEntry mSelectedFolder;
         private IFilePickerEntry mSelectedEntry;
         private int mDisplayOption;
@@ -20,12 +20,7 @@ namespace Osmo.ViewModel
 
         public VeryObservableCollection<FolderEntry> RootFolders
         {
-            get => mRootFolders;
-            set
-            {
-                mRootFolders = value;
-                InvokePropertyChanged("RootFolders");
-            }
+            get => fileExplorer.RootFolders;
         }
 
         public FolderEntry SelectedFolder
@@ -97,7 +92,8 @@ namespace Osmo.ViewModel
 
         public bool IsSelectEnabled
         {
-            get => IsFolderSelect ? !mSelectedEntry?.IsFile ?? false : mSelectedEntry?.IsFile ?? false;
+            get => IsFolderSelect ? (!mSelectedEntry?.IsFile ?? false) || (!mSelectedFolder?.IsFile ?? false) : 
+                mSelectedEntry?.IsFile ?? false;
         }
 
         public bool IsRoot
@@ -111,7 +107,7 @@ namespace Osmo.ViewModel
 
         public FilePickerViewModel()
         {
-            LoadDrives(true);
+            fileExplorer = SharedFileExplorer.Instance;
         }
 
         public void SetFilters(string filtersRaw)
@@ -126,48 +122,7 @@ namespace Osmo.ViewModel
 
         public void RefreshDrives()
         {
-            LoadDrives(false);
-        }
-
-        private void LoadDrives(bool isInit)
-        {
-            new Thread(() =>
-            {
-                List<RootFolderEntry> rootFolders = new List<RootFolderEntry>();
-                foreach (FolderEntry existingEntry in RootFolders)
-                {
-                    rootFolders.Add(new RootFolderEntry(existingEntry));
-                }
-
-                //entries.Add(new FolderEntry(new DirectoryInfo(@"D:\Android")));
-                foreach (var drive in DriveInfo.GetDrives().Where(x => x.IsReady))
-                {
-                    RootFolderEntry root = rootFolders.FirstOrDefault(x => x.Root.Path.Equals(drive.RootDirectory.FullName));
-                    if (root != null) //Check if drive is already added
-                    {
-                        root.DriveState = true;
-                    }
-                    else
-                    {
-                        rootFolders.Add(new RootFolderEntry(new FolderEntry(drive.RootDirectory, true), false));
-                    }
-                }
-
-                App.Current.Dispatcher.Invoke(() =>
-                {
-                    foreach (RootFolderEntry root in rootFolders)
-                    {
-                        if (root.DriveState == false)
-                        {
-                            RootFolders.Add(root.Root);
-                        }
-                        else if (root.DriveState == null)
-                        {
-                            RootFolders.Remove(root.Root);
-                        }
-                    }
-                });
-            }).Start();
+            fileExplorer.LoadDrives(false);
         }
     }
 }

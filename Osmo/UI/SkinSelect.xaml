@@ -16,7 +16,7 @@
         <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
 
         <local:FilePicker x:Key="folderPicker" Title="{DynamicResource skinSelect_exportTitle}" IsFolderSelect="True"
-                          DialogClosed="FolderPicker_DialogClosed" Margin="16"/>
+                          DialogClosed="FolderPicker_DialogClosed"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="150"/>

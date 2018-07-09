@@ -144,7 +144,7 @@ namespace Osmo.UI
         private TransformedBitmap ResizeImage(SkinElement element, bool resize_optimalSize, string skinVersion,
             out bool isDistorted)
         {
-            BitmapSource image = new BitmapImage(new Uri(element.Path, UriKind.Absolute));
+            BitmapSource image = Helper.LoadImage(element.Path);
             Size targetSize;
             SkinningEntry entry = element.ElementDetails as SkinningEntry;
 
@@ -188,7 +188,7 @@ namespace Osmo.UI
                     encoder.Save(fs);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

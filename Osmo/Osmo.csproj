@@ -144,6 +144,7 @@
     <Compile Include="Core\FileExplorer\IFilePickerEntry.cs" />
     <Compile Include="Core\FileExplorer\NaturalFilePickerEntryComparer.cs" />
     <Compile Include="Core\FileExplorer\RootFolderEntry.cs" />
+    <Compile Include="Core\FileExplorer\SharedFileExplorer.cs" />
     <Compile Include="Core\FileExplorer\UnloadedFolderEntry.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />

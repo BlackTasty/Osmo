@@ -98,7 +98,7 @@
                                 <Button Content="{DynamicResource main_exit}" Click="Close_Click"/>
                             </StackPanel>
                         </material:PopupBox>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;7}"
+                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;8}"
                             ToolTip="{DynamicResource main_saveAll}" Click="SaveSkinOrTemplate_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
                             <material:PackIcon
                             Kind="ContentSave"
@@ -124,7 +124,7 @@
                             Height="28"
                             Width="28" />
                             <Button.CommandParameter>
-                                <ui:DragDropArea Margin="16"/>
+                                <ui:DragDropArea/>
                             </Button.CommandParameter>
                         </Button>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{Binding Content.Tag, ElementName=content}"/>

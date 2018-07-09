@@ -62,6 +62,18 @@ namespace Osmo.UI
                 new FrameworkPropertyMetadata("", new PropertyChangedCallback(OnFilterChanged)));
         #endregion
 
+        #region SuppressCloseCommand
+        public bool SuppressCloseCommand
+        {
+            get { return (bool)GetValue(SuppressCloseCommandProperty); }
+            set { SetValue(SuppressCloseCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SuppressCloseCommanf.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SuppressCloseCommandProperty =
+            DependencyProperty.Register("SuppressCloseCommand", typeof(bool), typeof(FilePicker), new PropertyMetadata(false));
+        #endregion
+
         #region Title
         public string Title
         {
@@ -156,7 +168,8 @@ namespace Osmo.UI
                 else if (vm.SelectedEntry is FileEntry file)
                 {
                     RaiseDialogClosedEvent(file.Path);
-                    if (DialogHost.CloseDialogCommand.CanExecute(null, null))
+                    
+                    if (!SuppressCloseCommand && DialogHost.CloseDialogCommand.CanExecute(null, null))
                         DialogHost.CloseDialogCommand.Execute(null, null);
                 }
             }
@@ -164,7 +177,15 @@ namespace Osmo.UI
 
         private void Select_Click(object sender, RoutedEventArgs e)
         {
-            RaiseDialogClosedEvent((DataContext as FilePickerViewModel).SelectedEntry.Path);
+            FilePickerViewModel vm = DataContext as FilePickerViewModel;
+            if (vm.SelectedEntry != null)
+            {
+                RaiseDialogClosedEvent(vm.SelectedEntry.Path);
+            }
+            else if (vm.SelectedFolder != null)
+            {
+                RaiseDialogClosedEvent(vm.SelectedFolder.Path);
+            }
         }
 
         private void Abort_Click(object sender, RoutedEventArgs e)

@@ -124,9 +124,13 @@ namespace Osmo.UI
         {
             origWidth = Width;
             origHeight = Height;
-            Width = filePicker.Width;
-            Height = filePicker.Height;
             filePicker.Visibility = Visibility.Visible;
+            dragDrop.Margin = new Thickness(0);
+            Width = filePicker.ActualWidth + 32;
+            Height = filePicker.ActualHeight + 32;
+            dropArea.Visibility = Visibility.Hidden;
+            btn_cancel.Visibility = Visibility.Hidden;
+            btn_ok.Visibility = Visibility.Hidden;
             filePicker.Filter = string.Format("{0}|*.osk", Helper.FindString("dragDrop_filter"));
         }
 
@@ -141,6 +145,10 @@ namespace Osmo.UI
             Width = origWidth;
             Height = origHeight;
             filePicker.Visibility = Visibility.Hidden;
+            dragDrop.Margin = new Thickness(16);
+            dropArea.Visibility = Visibility.Visible;
+            btn_cancel.Visibility = Visibility.Visible;
+            btn_ok.Visibility = Visibility.Visible;
 
             FilePickerClosedEventArgs args = e as FilePickerClosedEventArgs;
 

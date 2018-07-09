@@ -10,7 +10,7 @@
              xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" 
-             MinHeight="400" MinWidth="700" MaxHeight="430" MaxWidth="700">
+             MinHeight="400" MinWidth="700" MaxHeight="430" MaxWidth="700" Margin="16">
     <Grid.DataContext>
         <vm:FilePickerViewModel/>
     </Grid.DataContext>
@@ -84,11 +84,33 @@
             <TextBlock Text="{Binding SelectedFolder.Path}" VerticalAlignment="Center"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Margin="8,0,0,0">
-            <Button Content="{DynamicResource abort}" Margin="0,8,0,0" Style="{StaticResource MaterialDesignFlatButton}"
-                 Command="material:DialogHost.CloseDialogCommand" DockPanel.Dock="Right" Click="Abort_Click"/>
-            <Button Content="{DynamicResource ok}" Margin="8,8,0,0" Style="{StaticResource MaterialDesignFlatButton}"
-                 Command="material:DialogHost.CloseDialogCommand" IsEnabled="{Binding IsSelectEnabled}" DockPanel.Dock="Right"
-                    Click="Select_Click"/>
+            <Button Content="{DynamicResource abort}" Margin="0,8,0,0"
+                 DockPanel.Dock="Right" Click="Abort_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Command" Value="material:DialogHost.CloseDialogCommand"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SuppressCloseCommand, ElementName=filePicker}" Value="True">
+                                <Setter Property="Command" Value=""/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="{DynamicResource ok}" Margin="8,8,0,0"
+                 IsEnabled="{Binding IsSelectEnabled}" DockPanel.Dock="Right"
+                    Click="Select_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Command" Value="material:DialogHost.CloseDialogCommand"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SuppressCloseCommand, ElementName=filePicker}" Value="True">
+                                <Setter Property="Command" Value=""/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <TextBox DockPanel.Dock="Bottom"
                      material:HintAssist.Hint="{DynamicResource hint_selectedFile}" IsReadOnly="True"
                      Text="{Binding SelectedEntry.Name, Mode=OneWay}">
