@@ -88,11 +88,11 @@ namespace Osmo
             {
                 var msgBox = MaterialMessageBox.Show(Helper.FindString("alpha_disclaimer_title"),
                     string.Format("{0}\n\n{1}", Helper.FindString("alpha_disclaimer_description1"), Helper.FindString("alpha_disclaimer_description2")),
-                    MessageBoxButton.YesNo);
+                    OsmoMessageBoxButton.YesNo);
 
                 await DialogHost.Show(msgBox);
 
-                if (msgBox.Result == MessageBoxResult.Yes)
+                if (msgBox.Result == OsmoMessageBoxResult.Yes)
                 {
                     AppConfiguration.GetInstance().DisclaimerRead = true;
                     AppConfiguration.GetInstance().Save();

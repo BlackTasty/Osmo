@@ -45,6 +45,11 @@
     <system:String o:Freeze="True" x:Key="mixSkins">_MEZCLAR SKINS</system:String>
     <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
     <system:String o:Freeze="True" x:Key="donate">Donar</system:String>
+    <system:String o:Freeze="True" x:Key="startResize">_START RESIZE</system:String>
+
+    <!--  Validation-->
+    <system:String o:Freeze="True" x:Key="validationError_directory">Invalid directory!</system:String>
+    <system:String o:Freeze="True" x:Key="validationError_file">This file doesn't exist!</system:String>
 
     <!--Shortcuts cheat sheet-->
     <system:String o:Freeze="True" x:Key="shortcuts_animate">Ctrl + Shift + A</system:String>
@@ -75,6 +80,7 @@
     <system:String o:Freeze="True" x:Key="sidebar_templateManager">Administrador de plantillas</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_settings">Configuración</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_about">Acerca de</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Resize Tool</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Editor de plantillas</system:String>
 
     <!--MainWindow-->
@@ -163,6 +169,38 @@
     <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">¿Seguro que desea eliminar este skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Seleccione el directorio al que desea exportar su skin</system:String>
 
+    <!--ResizeTool-->
+    <system:String o:Freeze="True" x:Key="header_dimensionWidth">Width</system:String>
+    <system:String o:Freeze="True" x:Key="header_dimensionHeight">Height</system:String>
+    <system:String o:Freeze="True" x:Key="header_resize">Resize</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_select">Auto-select</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_all">Select all elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_hdOnly">Select all HD elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_nonHdOnly">Select all non-HD elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_none">Deselect all elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_resize">Resize options</system:String>
+    <system:String o:Freeze="True" x:Key="resize_optimalSize">Resize elements to optimal size</system:String>
+    <system:String o:Freeze="True" x:Key="resize_halveSize">Halve element size</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_file">File options</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_keepOriginal">Keep original elements after resize</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_overrideOriginal">Apply resize to original elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_note">Note: Elements with dimensions of 1x1 are not shown</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageTitle">Image distortion warning!</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription1">The file "</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription2">" could get distorted if you resize it with the selected resize option. Select an option below to proceed.</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageProceed">_PROCEED</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageUseHalveSize">_HALVE SIZE</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageSkip">_SKIP</system:String>
+    <system:String o:Freeze="True" x:Key="resize_resizingCurrent">Resizing file:</system:String>
+
+    <!--FilePicker-->
+    <system:String o:Freeze="True" x:Key="header_extension">Extension</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displayDetails">Details</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySymbols">Symbols</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Display as</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFile">Selected file</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFolder">Selected directory</system:String>
+
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">¡Osmo es de código abierto!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Haga clic aquí</system:String>
@@ -215,6 +253,7 @@
     <!--Folder browser dialog titles-->
     <system:String o:Freeze="True" x:Key="export_selectDirectory">Seleccione el directorio al que desea exportar su skin</system:String>
     <system:String o:Freeze="True" x:Key="settings_selectOsuDirectory">Seleccione su directorio de osu!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_selectBackupDirectory">Select your backup directory</system:String>
 
     <!--AudioCore-->
     <system:String o:Freeze="True" x:Key="dlg_invalidAudioTitle">¡Archivo de audio no válido!</system:String>
