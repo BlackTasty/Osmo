@@ -22,7 +22,7 @@
         <RowDefinition Height="12"/>
         <RowDefinition Height="42"/>
     </Grid.RowDefinitions>
-    <local:FilePicker x:Name="filePicker" DialogClosed="filePicker_DialogClosed" Visibility="Hidden"
+    <local:FilePicker x:Name="filePicker" DialogClosed="FilePicker_DialogClosed" Visibility="Hidden"
                       Title="{DynamicResource dragDrop_title}"/>
     <Grid x:Name="dropArea" DragLeave="Control_DragLeave" Drop="Control_Drop" DragEnter="Control_DragEnter" MouseDown="Control_MouseDown" Cursor="Hand" AllowDrop="True" Grid.ColumnSpan="3">
         <Rectangle Stroke="{DynamicResource PrimaryHueMidBrush}" StrokeThickness="2" StrokeDashArray="3 3" Fill="{DynamicResource MaterialDesignChipBackground}"/>

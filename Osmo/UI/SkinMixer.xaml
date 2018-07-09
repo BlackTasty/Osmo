@@ -18,7 +18,7 @@
         <converter:VolumeToIconConverter x:Key="VolumeToIcon"/>
         <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
 
-        <local:FilePicker x:Key="folderPicker" DialogClosed="FilePicker_DialogClosed"  Margin="16" Title="{Binding export_selectDirectory}"/>
+        <local:FilePicker x:Key="folderPicker" DialogClosed="FolderPicker_DialogClosed"  Margin="16" Title="{Binding export_selectDirectory}"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="350*"/>
