@@ -28,8 +28,8 @@
 - [x] Add keyboard shortcuts
 - [x] Skin element resize tool (for example create SD elements from HD elements)
 - [x] Implement a custom file picker with Material Design style (and get rid of the default Win32 file picker)
-- [ ] Log file system -> **Currently in development**
-- [ ] Simulator -> Test how your skin would look like in-game without starting osu!
+- [x] Log file system
+- [ ] Simulator -> Test how your skin would look like in-game without starting osu! -> **Currently in development**
 - [ ] Auto-Updater
 - [ ] Implement custom titlebar and remove MahApps.Metro dependency
 - [ ] Translation system

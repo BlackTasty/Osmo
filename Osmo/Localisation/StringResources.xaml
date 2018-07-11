@@ -207,6 +207,8 @@
     <system:String o:Freeze="True" x:Key="about_openSource3">to go to the GitHub repo.</system:String>
     <system:String o:Freeze="True" x:Key="about_sessionId">Session id:</system:String>
     <system:String o:Freeze="True" x:Key="tip_sessionId">The session id is used inside your log files. This is especially useful if you have multiple instances of Osmo open and one of them crashes or generates errors.</system:String>
+    <system:String o:Freeze="True" x:Key="tip_copySessionId">Copy the session id to your clipboard.</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_sessionId">Session id copied to clipboard!</system:String>
 
     <!--New template dialog-->
     <system:String o:Freeze="True" x:Key="newTemplate_title">Create a new template</system:String>

@@ -24,6 +24,8 @@ namespace Osmo.ViewModel
                 Directory.CreateDirectory(AppConfiguration.GetInstance().TemplateDirectory);
                 File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default.oft",
                     Properties.Resources.DefaultTemplate);
+                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Official.oft",
+                    Properties.Resources.OfficialTemplate);
             }
             LoadTemplates();
         }

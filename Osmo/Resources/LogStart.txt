@@ -1,11 +1,14 @@
-########################################################
-## !!This application is copyrighted by bl8ckdr8gon!! ##
-##        Log created: [DATE] at [TIME].        ##
-##                                                    ##
-##   If you run into problems, please send this log   ##
-##    via pm on the osu! homepage or post it in the   ##
-##      thread: http://osu.ppy.sh/forum/t/362072      ##
-########################################################
+#########################################################
+##                    Osmo log file                    ##
+##        Log created: [DATE] at [TIME]          ##
+##                                                     ##
+##     If you run into problems, please open a new     ##
+##   issue on the GitHub repo or post it on the osu!   ##
+##                       thread.                       ##
+##                                                     ##
+##  GitHub: https://github.com/BlackTasty/Osmo/issues  ##
+##    osu! thread: http://osu.ppy.sh/forum/t/756318    ##
+#########################################################
 
 [INFO] [DATE], [TIME]: Initializing "[NAME]"...
 [INFO] [DATE], [TIME]: "[NAME]" created!

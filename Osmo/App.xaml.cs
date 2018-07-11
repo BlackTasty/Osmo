@@ -17,8 +17,10 @@ namespace Osmo
     /// </summary>
     public partial class App : Application
     {
-        public static int sessionId;
+        private static int sessionId;
         private static MainWindow window;
+
+        public static int SessionID { get => sessionId; }
 
         [STAThread()]
         //[DebuggerNonUserCode()]

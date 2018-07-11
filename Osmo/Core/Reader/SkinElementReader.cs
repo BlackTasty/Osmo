@@ -6,7 +6,7 @@ namespace Osmo.Core.Reader
 {
     class SkinElementReader : ElementGenerator
     {
-        public SkinElementReader(string list) : base(false)
+        public SkinElementReader(string list, string listName) : base(false)
         {
             string[] content = list.Split(new string[] { "\r\n" },
                 StringSplitOptions.RemoveEmptyEntries);
@@ -19,7 +19,7 @@ namespace Osmo.Core.Reader
                 }
             }
 
-            Logger.Instance.WriteLog("{0}: {1} element details have been loaded!", list, Files.Count);
+            Logger.Instance.WriteLog("{0}: {1} element details have been loaded!", listName, Files.Count);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core.Logging;
+using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -103,10 +104,14 @@ namespace Osmo.Core
 
         private SkinManager(string directory)
         {
+            Logger.Instance.WriteLog("Inititalizing Skin Manager...");
             if (!System.IO.Directory.Exists(directory))
+            {
                 System.IO.Directory.CreateDirectory(directory);
+            }
             Directory = directory;
             LoadSkins();
+            Logger.Instance.WriteLog("Skin Manager initialized!");
         }
 
         public void DeleteSkin(string name)
@@ -134,6 +139,7 @@ namespace Osmo.Core
                     Skins.Add(new Skin(di.FullName));
                 }
             }
+            Logger.Instance.WriteLog("{0} skins have been loaded!", Skins.Count);
         }
     }
 }

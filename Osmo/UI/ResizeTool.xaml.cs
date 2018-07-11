@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
@@ -190,6 +191,7 @@ namespace Osmo.UI
             }
             catch (Exception ex)
             {
+                Logger.Instance.WriteLog("Failed to save resized image! (Target path: {0})", ex, targetPath);
                 return false;
             }
 

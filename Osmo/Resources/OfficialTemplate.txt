@@ -1,0 +1,14 @@
+[centre][size=150][color=#cc5288][NAME][/color][/size]
+
+[size=150]{Write a short 1-3 sentence description of your skin here}[/size]
+
+[box=Screenshots]
+[size=150]Song selection
+[img]https://example.com/image-link-here.png[/img]
+Mod selection menu
+[img]https://example.com/image-link-here.png[/img]
+Ranking screen
+[img]https://example.com/image-link-here.png[/img]
+osu! gameplay
+[img]https://example.com/image-link-here.png[/img][/size][/box]
+[url=https://example.com/skin-download-link-here.osk]Download link[/url][/centre]

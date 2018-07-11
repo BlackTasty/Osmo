@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Osmo.UI.About"
+﻿<Grid x:Class="Osmo.UI.About"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,43 +7,52 @@
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Tag="{DynamicResource sidebar_about}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="16"/>
-            <ColumnDefinition Width="765*"/>
-            <ColumnDefinition Width="16"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="16"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="22"/>
-            <RowDefinition Height="16"/>
-        </Grid.RowDefinitions>
-        <TextBlock x:Name="txt_session" Text="{DynamicResource about_sessionId}" ToolTip="{DynamicResource tip_sessionId}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Height="80" Width="80" Source="/Osmo;component/Resources/aboutIcon.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-            <TextBlock x:Name="txt_header" Text="Osmo Alpha " Style="{StaticResource MaterialDesignDisplay3TextBlock}" Margin="8,0,0,0"/>
-        </StackPanel>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="16"/>
+        <ColumnDefinition Width="765*"/>
+        <ColumnDefinition Width="16"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="16"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="100"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="22"/>
+        <RowDefinition Height="16"/>
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+        <TextBlock x:Name="txt_session" Text="{DynamicResource about_sessionId}" ToolTip="{DynamicResource tip_sessionId}"/>
+        <Button Padding="0" Click="CopySessionID_Click" Margin="8,0,0,0"
+                    Foreground="{DynamicResource MaterialDesignToolTipBackground}"
+                    Height="16" Width="16" ToolTip="{DynamicResource tip_copySessionId}"
+                    Background="{x:Null}" BorderBrush="{x:Null}">
+            <material:PackIcon Kind="ContentCopy" Height="16" Width="16" />
+        </Button>
+    </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
-            <material:PackIcon Kind="GithubCircle" Height="22" Width="22"/>
-            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Height="80" Width="80" Source="/Osmo;component/Resources/aboutIcon.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <TextBlock x:Name="txt_header" Text="Osmo Alpha " Style="{StaticResource MaterialDesignDisplay3TextBlock}" Margin="8,0,0,0"/>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
+        <material:PackIcon Kind="GithubCircle" Height="22" Width="22"/>
+        <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}">
             <Run Text="{DynamicResource about_openSource1}"/><Run Text=" "/>
-            </TextBlock>
-            <TextBlock Text="{DynamicResource about_openSource2}" TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown"/>
-            <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}">
+        </TextBlock>
+        <TextBlock Text="{DynamicResource about_openSource2}" TextDecorations="Underline" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}" Cursor="Hand" PreviewMouseDown="GitHubLink_PreviewMouseDown"/>
+        <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubheadingTextBlock}">
             <Run Text=" "/><Run Text="{DynamicResource about_openSource3}"/>
-            </TextBlock>
-        </StackPanel>
+        </TextBlock>
+    </StackPanel>
 
-        <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+    <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}" Grid.Row="3" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
         <StackPanel Orientation="Horizontal">
             <material:PackIcon Kind="Gift" Height="22" Width="22"/>
             <TextBlock Text="{DynamicResource donate}" Margin="8,0,0,0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center"/>
 
-            </StackPanel>
-        </Button>
-    </Grid>
-</UserControl>
+        </StackPanel>
+    </Button>
+    <material:Snackbar MessageQueue="{material:MessageQueue}"
+                                                 x:Name="snackbar" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="3"/>
+</Grid>

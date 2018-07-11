@@ -1,4 +1,5 @@
 ﻿using Osmo.Core.Configuration;
+using Osmo.Core.Logging;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
 using System;
@@ -103,9 +104,10 @@ namespace Osmo.Core.Objects
                     var bitmapFrame = BitmapFrame.Create(new Uri(Path, UriKind.Absolute), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
                     ImageSize = new Size(bitmapFrame.PixelWidth, bitmapFrame.PixelHeight);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     ImageSize = new Size();
+                    Logger.Instance.WriteLog("Failed to retrieve image size for element {0}!", ex, Name);
                 }
             }
             else if (fileType == FileType.Audio)

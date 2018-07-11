@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.Core;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for About.xaml
     /// </summary>
-    public partial class About : UserControl
+    public partial class About : Grid
     {
         private static About instance;
 
@@ -51,9 +52,15 @@ namespace Osmo.UI
             if (!versionAdded)
             {
                 txt_header.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                txt_session.Text += 
+                txt_session.Text += App.SessionID;
                 versionAdded = true;
             }
+        }
+
+        private void CopySessionID_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(App.SessionID.ToString());
+            snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_sessionId"));
         }
     }
 }

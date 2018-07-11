@@ -152,21 +152,41 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ########################################################
-        ///## !!This application is copyrighted by bl8ckdr8gon!! ##
-        ///##        Log created: [DATE] at [TIME].        ##
-        ///##                                                    ##
-        ///##   If you run into problems, please send this log   ##
-        ///##    via pm on the osu! homepage or post it in the   ##
-        ///##      thread: http://osu.ppy.sh/forum/t/362072      ##
-        ///########################################################
-        ///
-        ///[INFO] [DATE], [TIME]: Initializing &quot;[NAME]&quot;...
-        ///[IN [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to #########################################################
+        ///##                    Osmo log file                    ##
+        ///##        Log created: [DATE] at [TIME]          ##
+        ///##                                                     ##
+        ///##     If you run into problems, please open a new     ##
+        ///##   issue on the GitHub repo or post it on the osu!   ##
+        ///##                       thread.                       ##
+        ///##                                                     ##
+        ///##  GitHub: https://github.com/BlackTasty/Osmo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LogStart {
             get {
                 return ResourceManager.GetString("LogStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [centre][size=150][color=#cc5288][NAME][/color][/size]
+        ///
+        ///[size=150]{Write a short 1-3 sentence description of your skin here}[/size]
+        ///
+        ///[box=Screenshots]
+        ///[size=150]Song selection
+        ///[img]https://example.com/image-link-here.png[/img]
+        ///Mod selection menu
+        ///[img]https://example.com/image-link-here.png[/img]
+        ///Ranking screen
+        ///[img]https://example.com/image-link-here.png[/img]
+        ///osu! gameplay
+        ///[img]https://example.com/image-link-here.png[/img][/size][/box]
+        ///[url=https://example.com/skin-download-link-here.osk]Downl [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string OfficialTemplate {
+            get {
+                return ResourceManager.GetString("OfficialTemplate", resourceCulture);
             }
         }
         
