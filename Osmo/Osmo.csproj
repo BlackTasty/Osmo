@@ -61,6 +61,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -151,7 +152,10 @@
     <Compile Include="Core\IAsyncShortcutHelper.cs" />
     <Compile Include="Core\IShortcutHelper.cs" />
     <Compile Include="Core\LibraryValidator.cs" />
-    <Compile Include="Core\Logger.cs" />
+    <Compile Include="Core\Logging\FrameworkLookup.cs" />
+    <Compile Include="Core\Logging\Logger.cs" />
+    <Compile Include="Core\Logging\LogType.cs" />
+    <Compile Include="Core\Logging\SystemInformation.cs" />
     <Compile Include="Core\NaturalStringComparer.cs" />
     <Compile Include="Core\Objects\ChangedFile.cs" />
     <Compile Include="Core\Objects\CompletionData.cs" />
@@ -360,6 +364,7 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\LogStart.txt" />
     <Resource Include="Resources\aboutIcon.png" />
     <Resource Include="Resources\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

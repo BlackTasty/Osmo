@@ -205,6 +205,8 @@
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Click here</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource3">to go to the GitHub repo.</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Session id:</system:String>
+    <system:String o:Freeze="True" x:Key="tip_sessionId">The session id is used inside your log files. This is especially useful if you have multiple instances of Osmo open and one of them crashes or generates errors.</system:String>
 
     <!--New template dialog-->
     <system:String o:Freeze="True" x:Key="newTemplate_title">Create a new template</system:String>
@@ -404,4 +406,15 @@
     <system:String o:Freeze="True" x:Key="completion_skin_hit200">What is the name of the hit200 image?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_hit300">What is the name of the hit300 image?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_hit300g">What is the name of the hit300g image?</system:String>
+
+    <!--Crash window-->
+    <system:String o:Freeze="True" x:Key="crash_title1">Mom's spaghetti!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title2">What the flipping fish sticks?</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title3">Holy guacamole!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title4">Bloody bugs have eaten Osmo!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title5">Yikes!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title6">What the fudge?!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title7">Bamboozled!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_description1">It seems like Osmo has crashed! A crash log has been created under "</system:String>
+    <system:String o:Freeze="True" x:Key="crash_description2">".</system:String>
 </ResourceDictionary>

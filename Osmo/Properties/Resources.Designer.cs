@@ -152,6 +152,25 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ########################################################
+        ///## !!This application is copyrighted by bl8ckdr8gon!! ##
+        ///##        Log created: [DATE] at [TIME].        ##
+        ///##                                                    ##
+        ///##   If you run into problems, please send this log   ##
+        ///##    via pm on the osu! homepage or post it in the   ##
+        ///##      thread: http://osu.ppy.sh/forum/t/362072      ##
+        ///########################################################
+        ///
+        ///[INFO] [DATE], [TIME]: Initializing &quot;[NAME]&quot;...
+        ///[IN [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LogStart {
+            get {
+                return ResourceManager.GetString("LogStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] SkinIniSyntax {

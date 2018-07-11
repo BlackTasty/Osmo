@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core.Configuration;
+using Osmo.Core.Logging;
 using Osmo.UI;
 using Osmo.ViewModel;
 using System;
@@ -66,6 +67,7 @@ namespace Osmo.Core.Objects
         {
             Path = path;
             Name = System.IO.Path.GetFileName(path);
+            Logger.Instance.WriteLog("Loading skin: {0}", Name);
 
             mWatcher = new FileSystemWatcher(path, "*.*")
             {
@@ -78,6 +80,7 @@ namespace Osmo.Core.Objects
             mWatcher.Created += Watcher_Created;
 
             ReadElements();
+            Logger.Instance.WriteLog("Skin \"{0}\" loaded!", Name);
         }
 
         internal Skin(NewSkinViewModel vm)
@@ -92,6 +95,7 @@ namespace Osmo.Core.Objects
             {
                 element.Save();
             }
+            Logger.Instance.WriteLog("Skin \"{0}\" saved!", Name);
         }
 
         public static async Task<Skin> Import(FileInfo oskPath)
@@ -116,8 +120,10 @@ namespace Osmo.Core.Objects
 
             if (result == OsmoMessageBoxResult.OK)
             {
+                Logger.Instance.WriteLog("Started importing skin...");
                 Directory.CreateDirectory(skinPath);
                 ZipFile.ExtractToDirectory(oskPath.FullName, skinPath);
+                Logger.Instance.WriteLog("Skin Import successful!");
 
                 return new Skin(skinPath);
             }
@@ -130,6 +136,7 @@ namespace Osmo.Core.Objects
         public void Export(string targetDir)
         {
             ZipFile.CreateFromDirectory(Path, targetDir + "\\" + Name + ".osk");
+            Logger.Instance.WriteLog("Skin \"{0}\" has been exported!", Name);
         }
 
         public void RevertAll()
@@ -170,6 +177,7 @@ namespace Osmo.Core.Objects
         {
             mWatcher.Dispose();
             Directory.Delete(Path, true);
+            Logger.Instance.WriteLog("Skin \"{0}\" has been deleted!");
         }
 
         private void ReadElements()

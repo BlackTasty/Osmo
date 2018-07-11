@@ -1,4 +1,5 @@
 ﻿using Osmo.Core;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
@@ -16,22 +17,29 @@ namespace Osmo
     /// </summary>
     public partial class App : Application
     {
+        public static int sessionId;
+        private static MainWindow window;
+
         [STAThread()]
         //[DebuggerNonUserCode()]
         public static void Main()
         {
             bool canRun = true;
+
+            Logger.Instance.WriteLog("Validating if all libraries exist...");
             if (ValidateLibraries())
             {
                 canRun = !LibraryValidator.RequiredLibrariesMissing;
 
                 if (canRun)
                 {
+                    Logger.Instance.WriteLog("There are missing libraries, but Osmo is still able to start! {0}", LogType.WARNING, LibraryValidator.GetFailedLibraries());
                     canRun = MessageBox.Show(string.Format("I've detected something is missing!\n{0}\n\nOsmo can be started, but only limited support is given!", LibraryValidator.GetFailedLibraries())
                         , "", MessageBoxButton.OKCancel) == MessageBoxResult.OK;
                 }
                 else
                 {
+                    Logger.Instance.WriteLog("There are missing libraries and Osmo cannot be started! {0}", LogType.ERROR, LibraryValidator.GetFailedLibraries());
                     MessageBox.Show(string.Format("I've detected something is missing!\n{0}\n\nOsmo can not be started!!", LibraryValidator.GetFailedLibraries())
                        , "", MessageBoxButton.OK);
                 }
@@ -39,12 +47,16 @@ namespace Osmo
 
             if (canRun)
             {
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                Logger.Instance.WriteLog("Initializing Osmo...");
+                sessionId = Logger.Instance.SessionID;
                 Un4seen.Bass.BassNet.Registration("raphael10@live.at", "2X373361752918");
                 App app = new App()
                 {
                     ShutdownMode = ShutdownMode.OnMainWindowClose
                 };
                 app.InitializeComponent();
+                window = (MainWindow)app.MainWindow;
                 app.Run();
             }
         }
@@ -62,6 +74,14 @@ namespace Osmo
             };
             LibraryValidator.ValidateLibraries(libraries);
             return LibraryValidator.LibrariesMissing;
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            //Logger logger = new Logger();
+
+            //logger.WriteLog("An error has occurred! See exception log for details!", Vibrance.Core.Enums.LoggingType.FATAL, (Exception)e.ExceptionObject);
+            SystemInformation.CreateCrashLog((Exception)e.ExceptionObject, window);
         }
 
         public void ChangeLanguage(Language lang)

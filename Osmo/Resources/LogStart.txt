@@ -1,0 +1,11 @@
+########################################################
+## !!This application is copyrighted by bl8ckdr8gon!! ##
+##        Log created: [DATE] at [TIME].        ##
+##                                                    ##
+##   If you run into problems, please send this log   ##
+##    via pm on the osu! homepage or post it in the   ##
+##      thread: http://osu.ppy.sh/forum/t/362072      ##
+########################################################
+
+[INFO] [DATE], [TIME]: Initializing "[NAME]"...
+[INFO] [DATE], [TIME]: "[NAME]" created!

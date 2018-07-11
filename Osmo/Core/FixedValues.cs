@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core.Logging;
+using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using System.Collections.Generic;
 
@@ -8,6 +9,7 @@ namespace Osmo.Core
     {
         internal static void InitializeReader()
         {
+            Logger.Instance.WriteLog("Loading skin element details...");
             if (readerInterface == null)
                 readerInterface = new SkinElementReader(Properties.Resources.SkinningInterface);
             if (readerStandard == null)
@@ -20,6 +22,7 @@ namespace Osmo.Core
                 readerTaiko = new SkinElementReader(Properties.Resources.SkinningTaiko);
             if (readerSounds == null)
                 readerSounds = new SkinSoundReader(Properties.Resources.SkinningSounds);
+            Logger.Instance.WriteLog("Skin element details loaded!");
         }
 
         internal const int WIZARD_INDEX = 1;

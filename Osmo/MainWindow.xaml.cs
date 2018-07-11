@@ -3,6 +3,7 @@ using MaterialDesignThemes.Wpf;
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.FileExplorer;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.UI;
@@ -33,6 +34,7 @@ namespace Osmo
             SkinCreationWizard.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             TemplateManager.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             LoadUISettings();
+            Logger.Instance.WriteLog("Osmo has been successfully initialized!");
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)
@@ -112,6 +114,7 @@ namespace Osmo
 
         private async void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Logger.Instance.WriteLog("Application shutdown initialized...");
             e.Cancel = true;
             
             configuration.Save();
@@ -130,6 +133,7 @@ namespace Osmo
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
+                    Logger.Instance.WriteLog("Application shutdown aborted by user!");
                     return;
                 }
                 else if (msgBox.Result == OsmoMessageBoxResult.Yes)
@@ -150,6 +154,7 @@ namespace Osmo
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
+                    Logger.Instance.WriteLog("Application shutdown aborted by user!");
                     return;
                 }
                 else if (msgBox.Result == OsmoMessageBoxResult.Yes)
@@ -158,6 +163,7 @@ namespace Osmo
                 }
             }
 
+            Logger.Instance.WriteLog("Application closed with code 0!");
             Environment.Exit(0);
         }
 
@@ -241,6 +247,7 @@ namespace Osmo
         private void LoadUISettings()
         {
             Settings.ChangeLanguage(configuration.Language);
+            Logger.Instance.WriteLog("UI specific settings loaded! Language: {0}", configuration.Language);
         }
 
         private void CreateForumEntry_Click(object sender, RoutedEventArgs e)

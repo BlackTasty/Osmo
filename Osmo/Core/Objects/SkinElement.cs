@@ -89,7 +89,7 @@ namespace Osmo.Core.Objects
 
             fileType = GetFileType(fi.Extension);
 
-            
+
             if (fileType == FileType.Image)
             {
                 ElementDetails = FixedValues.readerInterface.FindElement(Name) ??
@@ -98,8 +98,15 @@ namespace Osmo.Core.Objects
                     FixedValues.readerMania.FindElement(Name) ??
                     FixedValues.readerTaiko.FindElement(Name);
 
-                var bitmapFrame = BitmapFrame.Create(new Uri(Path, UriKind.Absolute), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
-                ImageSize = new Size(bitmapFrame.PixelWidth, bitmapFrame.PixelHeight);
+                try
+                {
+                    var bitmapFrame = BitmapFrame.Create(new Uri(Path, UriKind.Absolute), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
+                    ImageSize = new Size(bitmapFrame.PixelWidth, bitmapFrame.PixelHeight);
+                }
+                catch (Exception)
+                {
+                    ImageSize = new Size();
+                }
             }
             else if (fileType == FileType.Audio)
             {

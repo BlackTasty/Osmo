@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.Core.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace Osmo.Core.Reader
@@ -17,6 +18,8 @@ namespace Osmo.Core.Reader
                     Files.Add(new SkinningEntry(content[i]));
                 }
             }
+
+            Logger.Instance.WriteLog("{0}: {1} element details have been loaded!", list, Files.Count);
         }
     }
 }

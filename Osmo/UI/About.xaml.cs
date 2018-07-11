@@ -51,6 +51,7 @@ namespace Osmo.UI
             if (!versionAdded)
             {
                 txt_header.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                txt_session.Text += 
                 versionAdded = true;
             }
         }
