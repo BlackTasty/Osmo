@@ -31,12 +31,18 @@ namespace Osmo.ViewModel
 
         public ResizeToolViewModel()
         {
-            mSkinManager = SkinManager.GetInstance();
+            mSkinManager = SkinManager.Instance;
+            mSkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+        }
+
+        private void SkinManager_SkinDirectoryChanged(object sender, EventArgs e)
+        {
+            InvokePropertyChanged("Skins");
         }
 
         public List<Skin> Skins
         {
-            get => mSkinManager != null ? mSkinManager.Skins.SkipWhile(x => x.IsEmpty).ToList() : null;
+            get => mSkinManager != null && mSkinManager.IsValid ? mSkinManager.Skins.SkipWhile(x => x.IsEmpty).ToList() : null;
         }
 
         public int SelectedSkinIndex
@@ -95,7 +101,7 @@ namespace Osmo.ViewModel
             get => mSelect_all;
             set
             {
-                if (value)
+                if (value && mSkinManager.IsValid)
                 {
                     foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image && x.ImageSize.Width > 1 && x.ImageSize.Height > 1))
                     {
@@ -114,7 +120,7 @@ namespace Osmo.ViewModel
             set
             {
 
-                if (value)
+                if (value && mSkinManager.IsValid)
                 {
                     foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image && x.ImageSize.Width > 1 && x.ImageSize.Height > 1))
                     {
@@ -132,7 +138,7 @@ namespace Osmo.ViewModel
             get => mSelect_nonHdElements;
             set
             {
-                if (value)
+                if (value && mSkinManager.IsValid)
                 {
                     foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image && x.ImageSize.Width > 1 && x.ImageSize.Height > 1))
                     {
@@ -150,7 +156,7 @@ namespace Osmo.ViewModel
             get => mSelect_none;
             set
             {
-                if (value)
+                if (value && mSkinManager.IsValid)
                 {
                     foreach (SkinElement item in SelectedSkin.Elements.Where(x => x.FileType == FileType.Image))
                     {

@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Logging;
+﻿using Osmo.Core.Configuration;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -15,62 +16,99 @@ namespace Osmo.Core
         #region Singleton implementation
         private static SkinManager instance;
 
-        public static SkinManager GetInstance()
+        public static SkinManager Instance
         {
-            if (instance == null)
-                throw new NullReferenceException("You have to call MakeInstance(string) first!");
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SkinManager(AppConfiguration.GetInstance().OsuDirectory);
+                }
 
-            return instance;
-        }
-
-        public static SkinManager MakeInstance(string directory)
-        {
-            if (instance == null)
-                instance = new SkinManager(directory);
-
-            return instance;
+                return instance;
+            }
         }
         #endregion
 
         private FileSystemWatcher mSkinWatcher;
-        private string mDirectory;
+        private DirectoryInfo mDirectory;
 
         public event EventHandler<SkinChangedEventArgs> SkinChanged;
         public event EventHandler<SkinRenamedEventArgs> SkinRenamed;
+        public event EventHandler<EventArgs> SkinDirectoryChanged;
         
         public VeryObservableCollection<Skin> Skins { get; private set; } = new VeryObservableCollection<Skin>("Skins", new Skin());
 
-        internal string Directory
+        internal string SkinDirectory
         {
-            get => mDirectory;
-            set
+            get
             {
-                mDirectory = value;
-                if (mSkinWatcher == null) //Create a new FileSystemWatcher and register events
+                if (mDirectory != null && !string.IsNullOrWhiteSpace(mDirectory.FullName))
                 {
-                    if (mSkinWatcher != null)
+                    if (mDirectory.Parent.Name.Equals("osu!"))
                     {
-                        mSkinWatcher.Changed -= Watcher_Changed;
-                        mSkinWatcher.Created -= Watcher_Created;
-                        mSkinWatcher.Deleted -= Watcher_Deleted;
-                        mSkinWatcher.Renamed -= Watcher_Renamed;
+                        return mDirectory.FullName;
                     }
-
-                    //TODO: Filter may be reset to *.* in case the menu background isn't needed. Also remove IncludeSubDirectories!
-                    mSkinWatcher = new FileSystemWatcher(value)
+                    else
                     {
-                        EnableRaisingEvents = true
-                        //IncludeSubdirectories = true
-                    };
-                    mSkinWatcher.Changed += Watcher_Changed;
-                    mSkinWatcher.Created += Watcher_Created;
-                    mSkinWatcher.Deleted += Watcher_Deleted;
-                    mSkinWatcher.Renamed += Watcher_Renamed;
+                        string predictedPath = mDirectory.FullName + "\\Skins";
+                        if (Directory.Exists(predictedPath))
+                        {
+                            return predictedPath;
+                        }
+                        else
+                        {
+                            return mDirectory.FullName;
+                        }
+                    }
                 }
                 else
-                    mSkinWatcher.Path = value;
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                if (mSkinWatcher != null)
+                {
+                    mSkinWatcher.Changed -= Watcher_Changed;
+                    mSkinWatcher.Created -= Watcher_Created;
+                    mSkinWatcher.Deleted -= Watcher_Deleted;
+                    mSkinWatcher.Renamed -= Watcher_Renamed;
+                }
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    string oldValue = SkinDirectory;
+                    mDirectory = new DirectoryInfo(value);
+
+                    if (mSkinWatcher == null) //Create a new FileSystemWatcher and register events
+                    {
+
+                        //TODO: Filter may be reset to *.* in case the menu background isn't needed. Also remove IncludeSubDirectories!
+                        mSkinWatcher = new FileSystemWatcher(value)
+                        {
+                            EnableRaisingEvents = true
+                            //IncludeSubdirectories = true
+                        };
+                        mSkinWatcher.Changed += Watcher_Changed;
+                        mSkinWatcher.Created += Watcher_Created;
+                        mSkinWatcher.Deleted += Watcher_Deleted;
+                        mSkinWatcher.Renamed += Watcher_Renamed;
+                    }
+                    else
+                        mSkinWatcher.Path = value;
+
+                    if (oldValue != value)
+                    {
+                        LoadSkins();
+                        OnSkinDirectoryChanged();
+                    }
+                }
             }
         }
+
+        public bool IsValid { get => !string.IsNullOrWhiteSpace(SkinDirectory); }
 
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
@@ -102,16 +140,28 @@ namespace Osmo.Core
             SkinRenamed?.Invoke(this, new SkinRenamedEventArgs(pathBefore, pathAfter));
         }
 
+        protected virtual void OnSkinDirectoryChanged()
+        {
+            SkinDirectoryChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         private SkinManager(string directory)
         {
             Logger.Instance.WriteLog("Inititalizing Skin Manager...");
-            if (!System.IO.Directory.Exists(directory))
+            if (!string.IsNullOrWhiteSpace(directory))
             {
-                System.IO.Directory.CreateDirectory(directory);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                SkinDirectory = directory;
+                LoadSkins();
+                Logger.Instance.WriteLog("Skin Manager initialized!");
             }
-            Directory = directory;
-            LoadSkins();
-            Logger.Instance.WriteLog("Skin Manager initialized!");
+            else
+            {
+                Logger.Instance.WriteLog("Skin Manager uninitialized! (the skin directory is not configured yet!)");
+            }
         }
 
         public void DeleteSkin(string name)
@@ -132,9 +182,10 @@ namespace Osmo.Core
 
         private void LoadSkins()
         {
-            if (!string.IsNullOrWhiteSpace(Directory))
+            Skins.Clear();
+            if (!string.IsNullOrWhiteSpace(SkinDirectory))
             {
-                foreach (DirectoryInfo di in new DirectoryInfo(Directory + "\\Skins").EnumerateDirectories())
+                foreach (DirectoryInfo di in new DirectoryInfo(SkinDirectory).EnumerateDirectories())
                 {
                     Skins.Add(new Skin(di.FullName));
                 }

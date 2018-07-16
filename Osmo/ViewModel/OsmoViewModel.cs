@@ -71,13 +71,16 @@ namespace Osmo.ViewModel
 
         public string OsuDirectory
         {
-            get => SkinManager != null ? SkinManager.Directory : "";
+            get => SkinManager != null ? SkinManager.SkinDirectory : "";
             set
             {
                 if (SkinManager == null)
-                    SkinManager = SkinManager.MakeInstance(value);
+                {
+                    SkinManager = SkinManager.Instance;
+                    SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+                }
                 else
-                    SkinManager.Directory = value;
+                    SkinManager.SkinDirectory = value;
                 InvokePropertyChanged("OsuDirectory");
             }
         }
@@ -126,7 +129,10 @@ namespace Osmo.ViewModel
             string osuDir = AppConfiguration.GetInstance().OsuDirectory;
 
             if (!string.IsNullOrWhiteSpace(osuDir))
-                SkinManager = SkinManager.MakeInstance(osuDir);
+            {
+                SkinManager = SkinManager.Instance;
+                SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+            }
 
             mSidebarItems = new SidebarEntry[]
             {
@@ -141,7 +147,12 @@ namespace Osmo.ViewModel
                 new SidebarEntry(Helper.FindString("sidebar_templateEditor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, Visibility.Hidden)
             };
         }
-        
+
+        private void SkinManager_SkinDirectoryChanged(object sender, EventArgs e)
+        {
+            InvokePropertyChanged("Skins");
+        }
+
         private void MManager_SkinChanged(object sender, SkinChangedEventArgs e)
         {
             if (Skins != null)
