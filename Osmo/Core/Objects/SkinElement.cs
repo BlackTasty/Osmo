@@ -102,6 +102,7 @@ namespace Osmo.Core.Objects
                 try
                 {
                     var bitmapFrame = BitmapFrame.Create(new Uri(Path, UriKind.Absolute), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
+                    bitmapFrame.Freeze();
                     ImageSize = new Size(bitmapFrame.PixelWidth, bitmapFrame.PixelHeight);
                 }
                 catch (Exception ex)

@@ -145,6 +145,7 @@ namespace Osmo.UI
         private TransformedBitmap ResizeImage(SkinElement element, bool resize_optimalSize, string skinVersion,
             out bool isDistorted)
         {
+            try { 
             BitmapSource image = Helper.LoadImage(element.Path);
             Size targetSize;
             SkinningEntry entry = element.ElementDetails as SkinningEntry;
@@ -170,6 +171,13 @@ namespace Osmo.UI
                 new ScaleTransform(
                     scaleX,
                     scaleY));
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance.WriteLog("Error during resize!", LogType.ERROR, ex);
+                isDistorted = false;
+                return null;
+            }
         }
 
         private bool TransformedBitmapToFile<T>(string targetPath, BitmapSource source) where T : BitmapEncoder, new()
@@ -191,7 +199,7 @@ namespace Osmo.UI
             }
             catch (Exception ex)
             {
-                Logger.Instance.WriteLog("Failed to save resized image! (Target path: {0})", ex, targetPath);
+                Logger.Instance.WriteLog("Failed to save resized image! (Target path: {0})", LogType.ERROR, ex, targetPath);
                 return false;
             }
 

@@ -7,12 +7,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Osmo.Core
 {
-    public class SkinManager
+    public class SkinManager : ViewModelBase
     {
+        private int mSkinLoadCurrent;
+        private int mSkinLoadMaximum;
+        private string mSkinNameCurrent;
+        private bool mIsLoadingSkins;
+
+        //This is separate from the mIsLoadingSkins field. The reason is that mIsLoadingSkins controls the visibility of the loading bar
+        private bool loadSkinFlag;
+
         #region Singleton implementation
         private static SkinManager instance;
 
@@ -38,6 +47,54 @@ namespace Osmo.Core
         public event EventHandler<EventArgs> SkinDirectoryChanged;
         
         public VeryObservableCollection<Skin> Skins { get; private set; } = new VeryObservableCollection<Skin>("Skins", new Skin());
+
+        public int SkinLoadCurrent
+        {
+            get => mSkinLoadCurrent;
+            set
+            {
+                mSkinLoadCurrent = value;
+                InvokePropertyChanged("SkinLoadCurrent");
+                InvokePropertyChanged("SkinLoadStatusText");
+            }
+        }
+
+        public int SkinLoadMaximum
+        {
+            get => mSkinLoadMaximum;
+            set
+            {
+                mSkinLoadMaximum = value;
+                InvokePropertyChanged("SkinLoadMaximum");
+                InvokePropertyChanged("SkinLoadStatusText");
+            }
+        }
+
+        public string SkinLoadStatusText
+        {
+            get => string.Format("({1}/{2}) {0}", mSkinNameCurrent, SkinLoadCurrent, SkinLoadMaximum);
+        }
+
+        public string SkinNameCurrent
+        {
+            get => mSkinNameCurrent;
+            set
+            {
+                mSkinNameCurrent = value;
+                InvokePropertyChanged("SkinNameCurrent");
+                InvokePropertyChanged("SkinLoadStatusText");
+            }
+        }
+
+        public bool IsLoadingSkins
+        {
+            get => mIsLoadingSkins;
+            set
+            {
+                mIsLoadingSkins = value;
+                InvokePropertyChanged("IsLoadingSkins");
+            }
+        }
 
         internal string SkinDirectory
         {
@@ -102,7 +159,6 @@ namespace Osmo.Core
                     if (oldValue != value)
                     {
                         LoadSkins();
-                        OnSkinDirectoryChanged();
                     }
                 }
             }
@@ -140,6 +196,9 @@ namespace Osmo.Core
             SkinRenamed?.Invoke(this, new SkinRenamedEventArgs(pathBefore, pathAfter));
         }
 
+        /// <summary>
+        /// This is called if either the skin directory changes or a skin is removed
+        /// </summary>
         protected virtual void OnSkinDirectoryChanged()
         {
             SkinDirectoryChanged?.Invoke(this, EventArgs.Empty);
@@ -160,7 +219,7 @@ namespace Osmo.Core
             }
             else
             {
-                Logger.Instance.WriteLog("Skin Manager uninitialized! (the skin directory is not configured yet!)");
+                Logger.Instance.WriteLog("Skin Manager not initialized! (the skin directory is not configured yet!)", LogType.WARNING);
             }
         }
 
@@ -172,6 +231,7 @@ namespace Osmo.Core
             {
                 Skins.Remove(target);
                 target.Delete();
+                OnSkinDirectoryChanged();
             }
         }
 
@@ -182,15 +242,38 @@ namespace Osmo.Core
 
         private void LoadSkins()
         {
-            Skins.Clear();
-            if (!string.IsNullOrWhiteSpace(SkinDirectory))
+            if (!loadSkinFlag)
             {
-                foreach (DirectoryInfo di in new DirectoryInfo(SkinDirectory).EnumerateDirectories())
+                loadSkinFlag = true;
+                if (Skins.Count > 0)
                 {
-                    Skins.Add(new Skin(di.FullName));
+                    Skins.Clear();
                 }
+
+                new Thread(() =>
+                {
+                    if (!string.IsNullOrWhiteSpace(SkinDirectory))
+                    {
+                        IsLoadingSkins = true;
+                        SkinLoadMaximum = new DirectoryInfo(SkinDirectory).GetDirectories().Count();
+                        foreach (DirectoryInfo di in new DirectoryInfo(SkinDirectory).EnumerateDirectories())
+                        {
+                            mSkinNameCurrent = di.Name;
+                            SkinLoadCurrent++;
+                            Skin skin = new Skin(di.FullName);
+
+                            App.Current.Dispatcher.Invoke(() =>
+                            {
+                                Skins.Add(skin);
+                                OnSkinDirectoryChanged();
+                            });
+                        }
+                        IsLoadingSkins = false;
+                        loadSkinFlag = false;
+                        Logger.Instance.WriteLog("{0} skins have been loaded!", Skins.Count);
+                    }
+                }).Start();
             }
-            Logger.Instance.WriteLog("{0} skins have been loaded!", Skins.Count);
         }
     }
 }
