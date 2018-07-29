@@ -1,4 +1,5 @@
-﻿using Osmo.Core;
+﻿using MahApps.Metro.Controls;
+using Osmo.Core;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
@@ -24,9 +25,10 @@ namespace Osmo.UI
     /// </summary>
     public partial class MaterialMessageBox : DockPanel
     {
-        string buttonOneCustomText,
+        private string buttonOneCustomText,
             buttonTwoCustomText,
             buttonThreeCustomText;
+        
 
         #region Buttons
         [Category("Message Box")]
@@ -80,7 +82,10 @@ namespace Osmo.UI
         public OsmoMessageBoxResult Result
         {
             get { return (OsmoMessageBoxResult)GetValue(ResultProperty); }
-            set { SetValue(ResultProperty, value); }
+            set
+            {
+                SetValue(ResultProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Result.  This enables animation, styling, binding, etc...

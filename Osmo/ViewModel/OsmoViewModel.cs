@@ -17,13 +17,13 @@ namespace Osmo.ViewModel
     {
         private SkinManager mManager;
         
-        private SidebarEntry[] mSidebarItems;
-        
         private int mSelectedSkinIndex = -1;
         private int mSelectedSidebarIndex = 0;
         
         private string mBackupDirectory = "";
         private double mBackupDirectorySize = 0;
+
+        private bool mWindowButtonsEnabled = true;
 
         public SkinManager SkinManager
         {
@@ -45,9 +45,19 @@ namespace Osmo.ViewModel
             }
         }
 
+        public bool WindowButtonsEnabled
+        {
+            get => mWindowButtonsEnabled;
+            set
+            {
+                mWindowButtonsEnabled = value;
+                InvokePropertyChanged("WindowButtonsEnabled");
+            }
+        }
+
         public VeryObservableCollection<Skin> Skins { get => SkinManager?.Skins; }
 
-        public SidebarEntry[] Items { get => mSidebarItems; }
+        public SidebarEntry[] Items { get; private set; }
 
         public int SelectedSkinIndex
         {
@@ -109,7 +119,7 @@ namespace Osmo.ViewModel
         {
             set
             {
-                mSidebarItems[FixedValues.EDITOR_INDEX].IsEnabled = value;
+                Items[FixedValues.EDITOR_INDEX].IsEnabled = value;
                 InvokePropertyChanged("Items");
             }
         }
@@ -118,7 +128,7 @@ namespace Osmo.ViewModel
         {
             set
             {
-                mSidebarItems[FixedValues.MIXER_INDEX].IsEnabled = value;
+                Items[FixedValues.MIXER_INDEX].IsEnabled = value;
                 InvokePropertyChanged("Items");
             }
         }
@@ -126,7 +136,7 @@ namespace Osmo.ViewModel
         public OsmoViewModel()
         {
             FixedValues.InitializeReader();
-            string osuDir = AppConfiguration.GetInstance().OsuDirectory;
+            string osuDir = AppConfiguration.Instance.OsuDirectory;
 
             if (!string.IsNullOrWhiteSpace(osuDir))
             {
@@ -134,17 +144,17 @@ namespace Osmo.ViewModel
                 SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
             }
 
-            mSidebarItems = new SidebarEntry[]
+            Items = new SidebarEntry[]
             {
-                new SidebarEntry(Helper.FindString("sidebar_home"), MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_wizard"), MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_editor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, false),
-                new SidebarEntry(Helper.FindString("sidebar_mixer"), MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, false),
-                new SidebarEntry(Helper.FindString("sidebar_resizeTool"), MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_templateManager"), MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_settings"), MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_about"), MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_templateEditor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, Visibility.Hidden)
+                new SidebarEntry(Helper.FindString("sidebar_home"), MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance, 0),
+                new SidebarEntry(Helper.FindString("sidebar_wizard"), MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance, 1),
+                new SidebarEntry(Helper.FindString("sidebar_editor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, 2, false),
+                new SidebarEntry(Helper.FindString("sidebar_mixer"), MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, 3, false),
+                new SidebarEntry(Helper.FindString("sidebar_resizeTool"), MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance, 4),
+                new SidebarEntry(Helper.FindString("sidebar_templateManager"), MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance, 5),
+                new SidebarEntry(Helper.FindString("sidebar_settings"), MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance, 6),
+                new SidebarEntry(Helper.FindString("sidebar_about"), MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance, 7),
+                new SidebarEntry(Helper.FindString("sidebar_templateEditor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, 8, Visibility.Hidden)
             };
         }
 

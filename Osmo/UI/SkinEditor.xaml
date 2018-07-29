@@ -19,7 +19,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
         <converter:StringNotEmptyConverter x:Key="StringNotEmpty"/>
 
-        <local:FilePicker x:Key="filePicker" DialogClosed="FilePicker_DialogClosed"/>
+        <local:FilePicker x:Key="filePicker" DialogClosed="FilePicker_DialogClosed" DialogOpened="FilePicker_DialogOpened"/>
         <local:FilePicker x:Key="folderPicker" DialogClosed="FolderPicker_DialogClosed" Title="{Binding export_selectDirectory}"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>

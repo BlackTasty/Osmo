@@ -56,7 +56,7 @@ namespace Osmo.UI
             NewTemplateViewModel vm = DataContext as NewTemplateViewModel;
 
             string templatePath = string.Format("{0}\\{1}.oft",
-                AppConfiguration.GetInstance().TemplateDirectory, vm.Name);
+                AppConfiguration.Instance.TemplateDirectory, vm.Name);
 
             File.WriteAllText(templatePath, "");
 

@@ -19,7 +19,7 @@ namespace Osmo.Core.Objects
         private bool mIsResizeSelected;
         private FontStyle fontStyle = FontStyles.Normal;
         private FontWeight fontWeight = FontWeights.Normal;
-        string backupPath = Directory.GetParent(AppConfiguration.GetInstance().BackupDirectory).FullName +
+        string backupPath = Directory.GetParent(AppConfiguration.Instance.BackupDirectory).FullName +
             "\\Edited\\";
 
         public string Path
@@ -59,8 +59,7 @@ namespace Osmo.Core.Objects
         public FileType FileType { get => fileType; }
 
         public IEntry ElementDetails { get; private set; }
-
-        //TODO: Implement detection of HD elements (see https://osu.ppy.sh/help/wiki/Ranking_Criteria/Skin_Set_List/ for recommended sizes)
+        
         public bool IsHighDefinition { get => Name.Contains("@2x"); }
 
         public bool IsEmpty { get => string.IsNullOrWhiteSpace(mPath); }

@@ -35,17 +35,21 @@ namespace Osmo.Core.Objects
             }
         }
 
+        public int Index { get; private set; }
+
         /// <summary>
         /// Creates a new item for the sidebar.
         /// </summary>
         /// <param name="name">The name to display in the list</param>
         /// <param name="icon">The icon to display in the list</param>
         /// <param name="content">The content which should be displayed in a content presenter</param>
-        public SidebarEntry(string name, PackIconKind icon, object content)
+        /// <param name="index">The index of this entry</param>
+        public SidebarEntry(string name, PackIconKind icon, object content, int index)
         {
             Name = name;
             Icon = icon;
             Content = content;
+            Index = index;
         }
 
         /// <summary>
@@ -54,8 +58,9 @@ namespace Osmo.Core.Objects
         /// <param name="name">The name to display in the list</param>
         /// <param name="icon">The icon to display in the list</param>
         /// <param name="content">The content which should be displayed in a content presenter</param>
+        /// <param name="index">The index of this entry</param>
         /// <param name="isEnabled">Toggles whether this item is enabled by default or not</param>
-        public SidebarEntry(string name, PackIconKind icon, object content, bool isEnabled) : this(name, icon, content)
+        public SidebarEntry(string name, PackIconKind icon, object content, int index, bool isEnabled) : this(name, icon, content, index)
         {
             IsEnabled = isEnabled;
         }
@@ -66,8 +71,9 @@ namespace Osmo.Core.Objects
         /// <param name="name">The name to display in the list</param>
         /// <param name="icon">The icon to display in the list</param>
         /// <param name="content">The content which should be displayed in a content presenter</param>
+        /// <param name="index">The index of this entry</param>
         /// <param name="isGhost">Determines if this entry is visible or not in the sidebar</param>
-        public SidebarEntry(string name, PackIconKind icon, object content, Visibility isGhost) : this(name, icon, content)
+        public SidebarEntry(string name, PackIconKind icon, object content, int index, Visibility isGhost) : this(name, icon, content, index)
         {
             IsVisible = isGhost;
         }

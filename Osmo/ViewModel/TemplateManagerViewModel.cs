@@ -19,12 +19,12 @@ namespace Osmo.ViewModel
         {
             Templates.Add(new ForumTemplate());
 
-            if (!Directory.Exists(AppConfiguration.GetInstance().TemplateDirectory))
+            if (!Directory.Exists(AppConfiguration.Instance.TemplateDirectory))
             {
-                Directory.CreateDirectory(AppConfiguration.GetInstance().TemplateDirectory);
-                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default.oft",
+                Directory.CreateDirectory(AppConfiguration.Instance.TemplateDirectory);
+                File.WriteAllText(AppConfiguration.Instance.TemplateDirectory + "Default.oft",
                     Properties.Resources.DefaultTemplate);
-                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Official.oft",
+                File.WriteAllText(AppConfiguration.Instance.TemplateDirectory + "Official.oft",
                     Properties.Resources.OfficialTemplate);
             }
             LoadTemplates();
@@ -43,7 +43,7 @@ namespace Osmo.ViewModel
 
         private void LoadTemplates()
         {
-            foreach (FileInfo fi in new DirectoryInfo(AppConfiguration.GetInstance().TemplateDirectory).EnumerateFiles("*.oft"))
+            foreach (FileInfo fi in new DirectoryInfo(AppConfiguration.Instance.TemplateDirectory).EnumerateFiles("*.oft"))
             {
                 Templates.Add(new ForumTemplate(fi.FullName));
             }

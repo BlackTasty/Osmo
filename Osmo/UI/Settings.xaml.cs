@@ -1,11 +1,14 @@
-﻿using Microsoft.Win32;
+﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
+using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +31,6 @@ namespace Osmo.UI
     {
         private static Settings instance;
 
-        public AppConfiguration Configuration
-        {
-            get => AppConfiguration.GetInstance();
-        }
-
         public static Settings Instance
         {
             get
@@ -48,18 +46,9 @@ namespace Osmo.UI
             InitializeComponent();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        public void SaveSettings()
         {
-            AppConfiguration config = AppConfiguration.GetInstance();
-
-            config.BackupBeforeMixing = (bool)cb_backupSkin.IsChecked;
-            config.BackupDirectory = txt_backupPath.Text;
-            config.OsuDirectory = txt_osuPath.Text;
-            config.ReopenLastSkin = (bool)cb_reopenLastSkin.IsChecked;
-            config.Language = (Language)combo_language.SelectedIndex;
-
-
-            config.Save();
+            AppConfiguration.Instance.Save();
 
             string message = Helper.FindString("snackbar_settingsSavedText");
             snackbar.MessageQueue.Enqueue(message, Helper.FindString("ok"), 
@@ -67,20 +56,23 @@ namespace Osmo.UI
             //Task.Factory.StartNew(() => snackbar.MessageQueue.Enqueue("Your settings have been saved!"));
         }
 
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSettings();
+        }
+
         private void SelectDirectory_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Add message box asking the user if the folder should be automatically detected
-            FilePicker folderPicker = FindResource("folderPicker") as FilePicker;
-            folderPicker.Tag = (sender as Button).Tag;
+            FilePicker folderPicker = (sender as Button).CommandParameter as FilePicker;
 
-
-            switch ((sender as Button).Tag)
+            switch (folderPicker.Tag)
             {
                 case "osu":
-                    folderPicker.Title = Helper.FindString("settings_selectOsuDirectory");
+                    folderPicker.InitialDirectory = txt_osuPath.Text;
                     break;
                 case "backup":
-                    folderPicker.Title = Helper.FindString("settings_selectBackupDirectory");
+                    folderPicker.InitialDirectory = txt_backupPath.Text;
                     break;
             }
         }
@@ -90,25 +82,38 @@ namespace Osmo.UI
             ((App)Application.Current).ChangeLanguage(lang);
         }
 
-        private void Settings_Loaded(object sender, RoutedEventArgs e)
+        private async void Settings_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadSettings();
-        }
+            SettingsViewModel vm = DataContext as SettingsViewModel;
+            if (string.IsNullOrWhiteSpace(vm.OsuDirectory) || !Directory.Exists(vm.OsuDirectory))
+            {
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_autodetectOsu"),
+                    Helper.FindString("settings_descr_autodetectOsu"), OsmoMessageBoxButton.YesNo);
 
-        private void LoadSettings()
-        {
-            AppConfiguration config = AppConfiguration.GetInstance();
+                await DialogHelper.Instance.ShowDialog(msgBox);
 
-            cb_backupSkin.IsChecked = config.BackupBeforeMixing;
-            txt_backupPath.Text = config.BackupDirectory;
-            txt_osuPath.Text = config.OsuDirectory;
-            cb_reopenLastSkin.IsChecked = config.ReopenLastSkin;
-            combo_language.SelectedIndex = (int)config.Language;
+                if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                {
+                    string osuPath = Helper.FindOsuInstallation();
+
+                    if (!string.IsNullOrWhiteSpace(osuPath))
+                    {
+                        vm.OsuDirectory = osuPath;
+                    }
+                    else
+                    {
+                        msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_autodetectFailed"),
+                            Helper.FindString("settings_descr_autodetectFailed"), OsmoMessageBoxButton.OK);
+
+                        await DialogHelper.Instance.ShowDialog(msgBox);
+                    }
+                }
+            }
         }
 
         private void Abort_Click(object sender, RoutedEventArgs e)
         {
-            LoadSettings();
+            AppConfiguration.Instance.Load();
         }
 
         private void FolderPicker_DialogClosed(object sender, RoutedEventArgs e)
@@ -119,16 +124,36 @@ namespace Osmo.UI
 
                 if (args.Path != null)
                 {
+                    SettingsViewModel vm = DataContext as SettingsViewModel;
                     switch (folderPicker.Tag)
                     {
                         case "osu":
-                            txt_osuPath.Text = args.Path;
+                            vm.OsuDirectory = args.Path;
                             break;
                         case "backup":
-                            txt_backupPath.Text = args.Path;
+                            vm.BackupDirectory = args.Path;
+                            break;
+                        case "template":
+                            vm.TemplateDirectory = args.Path;
                             break;
                     }
                 }
+            }
+        }
+
+        private void FolderPicker_DialogOpened(object sender, RoutedEventArgs e)
+        {
+            switch ((sender as FilePicker).Tag)
+            {
+                case "osu":
+                    (sender as FilePicker).InitialDirectory = (DataContext as SettingsViewModel).OsuDirectory;
+                    break;
+                case "backup":
+                    (sender as FilePicker).InitialDirectory = (DataContext as SettingsViewModel).BackupDirectory;
+                    break;
+                case "template":
+                    (sender as FilePicker).InitialDirectory = (DataContext as SettingsViewModel).TemplateDirectory;
+                    break;
             }
         }
     }

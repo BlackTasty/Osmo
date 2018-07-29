@@ -7,14 +7,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
     xmlns:ui="clr-namespace:Osmo.UI"
+    xmlns:vm="clr-namespace:Osmo.ViewModel"
+    xmlns:converter="clr-namespace:Osmo.Converters"
     x:Name="container"
     d:DesignHeight="550"
     d:DesignWidth="800"
     Loaded="Settings_Loaded"
     Tag="{DynamicResource sidebar_settings}"
     mc:Ignorable="d">
+    <Grid.DataContext>
+        <vm:SettingsViewModel/>
+    </Grid.DataContext>
     <Grid.Resources>
-        <ui:FilePicker x:Key="folderPicker" IsFolderSelect="True" DialogClosed="FolderPicker_DialogClosed"/>
+        <converter:EnumToIntConverter x:Key="EnumToInt"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition />
@@ -55,19 +60,21 @@
                              material:HintAssist.Hint="{DynamicResource settings_hint_osuDirectory}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                         <TextBox.Text>
-                            <Binding Mode="OneWayToSource" Path="OsuDirectory" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Mode="TwoWay" Path="OsuDirectory" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:PathValidationRule ValidatesOnTargetUpdated="True" />
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    <Button Grid.Column="3" Height="Auto" Margin="10,6,10,5" Click="SelectDirectory_Click"
+                    <Button Grid.Column="3" Height="Auto" Margin="10,6,10,5"
                             Content="{DynamicResource select}" Style="{StaticResource MaterialDesignRaisedDarkButton}" Tag="osu"
                             ToolTip="{DynamicResource tip_searchOsuDirectory}"
                             Command="{x:Static material:DialogHost.OpenDialogCommand}">
                         <Button.CommandParameter>
-                            <ContentControl Content="{StaticResource folderPicker}"/>
+                            <ui:FilePicker IsFolderSelect="True" DialogClosed="FolderPicker_DialogClosed"
+                                           Title="{DynamicResource settings_selectOsuDirectory}" Tag="osu" 
+                                           DialogOpened="FolderPicker_DialogOpened"/>
                         </Button.CommandParameter>
                     </Button>
 
@@ -75,28 +82,34 @@
                                        Foreground="{Binding ElementName=txt_backupPath, Path=BorderBrush}" Kind="FolderAccount"/>
                     <TextBox x:Name="txt_backupPath" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
                              material:HintAssist.Hint="{DynamicResource settings_hint_tempDirectory}"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                             Text="{Binding BackupDirectory}"/>
 
-                    <Button Grid.Row="2" Grid.Column="3" Height="Auto" Margin="10,6,10,5" Click="SelectDirectory_Click"
+                    <Button Grid.Row="2" Grid.Column="3" Height="Auto" Margin="10,6,10,5"
                             Content="{DynamicResource select}" Style="{StaticResource MaterialDesignRaisedDarkButton}" 
                             Tag="backup" ToolTip="{DynamicResource tip_searchTempDirectory}"
                             Command="{x:Static material:DialogHost.OpenDialogCommand}">
                         <Button.CommandParameter>
-                            <ContentControl Content="{StaticResource folderPicker}"/>
+                            <ui:FilePicker IsFolderSelect="True" DialogClosed="FolderPicker_DialogClosed"
+                                           Title="{DynamicResource settings_selectBackupDirectory}" Tag="backup" 
+                                           DialogOpened="FolderPicker_DialogOpened"/>
                         </Button.CommandParameter>
                     </Button>
                     <material:PackIcon Grid.Row="4" Margin="0,0,0,8" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                                        Foreground="{Binding ElementName=txt_templatePath, Path=BorderBrush}" Kind="FolderStar"/>
                     <TextBox x:Name="txt_templatePath" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"
                              material:HintAssist.Hint="{DynamicResource settings_hint_templateDirectory}"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding TemplateDirectory}"/>
 
-                    <Button Grid.Row="4" Grid.Column="3" Height="Auto" Margin="10,6,10,5" Click="SelectDirectory_Click"
+                    <Button Grid.Row="4" Grid.Column="3" Height="Auto" Margin="10,6,10,5"
                             Content="{DynamicResource select}" Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             Tag="template" ToolTip="{DynamicResource tip_searchTemplateDirectory}"
                             Command="{x:Static material:DialogHost.OpenDialogCommand}">
                         <Button.CommandParameter>
-                            <ContentControl Content="{StaticResource folderPicker}"/>
+                            <ui:FilePicker IsFolderSelect="True" DialogClosed="FolderPicker_DialogClosed"
+                                           Title="{DynamicResource settings_selectBackupDirectory}" Tag="template"
+                                           DialogOpened="FolderPicker_DialogOpened"/>
                         </Button.CommandParameter>
                     </Button>
 
@@ -104,7 +117,7 @@
                                        Foreground="{Binding ElementName=combo_language, Path=BorderBrush}" Kind="Flag" />
                     <ComboBox x:Name="combo_language" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" 
                               VerticalAlignment="Stretch" material:HintAssist.Hint="{DynamicResource settings_hint_language}"
-                              SelectedIndex="0" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                              SelectedIndex="{Binding Language, Converter={StaticResource EnumToInt}}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem Content="English (Default)" />
                         <ComboBoxItem Content="Español" />
                     </ComboBox>
@@ -132,11 +145,11 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center"
                                Text="{DynamicResource settings_cb_createBackup}"/>
-                    <ToggleButton x:Name="cb_backupSkin" Grid.Column="3"
+                    <ToggleButton x:Name="cb_backupSkin" Grid.Column="3" IsChecked="{Binding BackupBeforeMixing}"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip=""/>
                     <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,7.02" VerticalAlignment="Center"
                                Text="{DynamicResource settings_cb_openLastSkin}"/>
-                    <ToggleButton x:Name="cb_reopenLastSkin" Grid.Row="4" Grid.Column="3" 
+                    <ToggleButton x:Name="cb_reopenLastSkin" Grid.Row="4" Grid.Column="3" IsChecked="{Binding ReopenLastSkin}"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip=""/>
                 </Grid>
             </material:Card>

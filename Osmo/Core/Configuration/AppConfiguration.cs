@@ -14,17 +14,21 @@ namespace Osmo.Core.Configuration
     {
         #region Singleton implementation
         private static AppConfiguration instance;
-        public static AppConfiguration GetInstance()
+        public static AppConfiguration Instance
         {
-            if (instance == null)
-                instance = new AppConfiguration();
+            get
+            {
+                if (instance == null)
+                    instance = new AppConfiguration();
 
-            return instance;
+                return instance;
+            }
         }
         #endregion
 
         //TODO: Append all changed settings to EventArgs (custom class required)
         public event EventHandler<EventArgs> SettingsSaved;
+        public event EventHandler<EventArgs> SettingsLoaded;
 
         #region Properties
         private string mBackupDirectory;
@@ -32,6 +36,12 @@ namespace Osmo.Core.Configuration
 
         private string mTemplateDirectory;
         private string mDefaultTemplateDirectory;
+
+        private string mOsuDirectory;
+        private Color mBackgroundEditor;
+        private bool mBackupBeforeMixing;
+        private bool mReopenLastSkin;
+        private Language mLanguage;
 
         public bool IsValid
         {
@@ -42,46 +52,81 @@ namespace Osmo.Core.Configuration
             }
         }
 
+        public bool UnsavedChanges { get; private set; }
+
         public bool DisclaimerRead { get; set; }
 
-        public string OsuDirectory { get; set; }
+        public string OsuDirectory
+        {
+            get => mOsuDirectory;
+            set
+            {
+                SetUnsavedChanges(mOsuDirectory, value);
+                mOsuDirectory = value;
+            }
+        }
 
         public string BackupDirectory {
             get => !string.IsNullOrWhiteSpace(mBackupDirectory) ? 
                 mBackupDirectory : mDefaultBackupDirectory;
-            set => mBackupDirectory = value; }
+            set
+            {
+                SetUnsavedChanges(mBackupDirectory, value);
+                mBackupDirectory = value;
+            }
+        }
 
         public string TemplateDirectory
         {
             get => !string.IsNullOrWhiteSpace(mTemplateDirectory) ?
                 mTemplateDirectory : mDefaultTemplateDirectory;
-            set => mTemplateDirectory = value;
+            set
+            {
+                SetUnsavedChanges(mTemplateDirectory, value);
+                mTemplateDirectory = value;
+            }
         }
 
-        public bool BackupBeforeMixing { get; set; }
+        public bool BackupBeforeMixing
+        {
+            get => mBackupBeforeMixing; set
+            {
+                SetUnsavedChanges(mBackupBeforeMixing, value);
+                mBackupBeforeMixing = value;
+            }
+        }
 
-        public Color BackgroundEditor { get; set; }
+        public Color BackgroundEditor
+        {
+            get => mBackgroundEditor;
+            set
+            {
+                SetUnsavedChanges(mBackgroundEditor, value);
+                mBackgroundEditor = value;
+            }
+        }
 
-        public bool ReopenLastSkin { get; set; }
+        public bool ReopenLastSkin
+        {
+            get => mReopenLastSkin;
+            set
+            {
+                SetUnsavedChanges(mReopenLastSkin, value);
+                mReopenLastSkin = value;
+            }
+        }
 
-        public double Volume { get; set; }
-
-        public bool IsMuted { get; set; }
-
-        public Language Language { get; set; }
+        public Language Language { get => mLanguage;
+            set
+            {
+                SetUnsavedChanges(mLanguage, value);
+                mLanguage = value;
+            }
+        }
         #endregion
 
         private AppConfiguration() : base("settings")
         {
-            BackupBeforeMixing = true;
-            BackgroundEditor = Colors.Black;
-            ReopenLastSkin = true;
-            mDefaultBackupDirectory = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
-            mDefaultTemplateDirectory = AppDomain.CurrentDomain.BaseDirectory + "Templates\\";
-            OsuDirectory = "";
-            Volume = .8;
-            Language = Language.Default;
-
             Load();
         }
 
@@ -91,18 +136,18 @@ namespace Osmo.Core.Configuration
             Content = new string[]
             {
                 "OsuDirectory:" + OsuDirectory,
+                "BackupDirectory:" + BackupDirectory,
                 "TemplateDirectory:" + TemplateDirectory,
                 "BackupBeforeMixing:"+ BackupBeforeMixing,
                 "BackgroundEditor:" + BackgroundEditor.ToString(),
                 "ReopenLastSkin:" + ReopenLastSkin,
-                "Volume:" + Volume,
-                "IsMuted:" + IsMuted,
                 "Language:" + (int)Language,
                 "DisclaimerRead:" + DisclaimerRead
             };
             #endregion
 
             base.Save(Content);
+            UnsavedChanges = false;
             OnSettingsSaved(EventArgs.Empty);
         }
 
@@ -118,52 +163,76 @@ namespace Osmo.Core.Configuration
                     switch (property[0])
                     {
                         case "OsuDirectory":
-                            OsuDirectory = property[1];
+                            mOsuDirectory = property[1];
                             break;
 
                         case "BackupDirectory":
-                            BackupDirectory = property[1];
+                            mBackupDirectory = property[1];
                             break;
 
                         case "TemplateDirectory":
-                            TemplateDirectory = property[1];
+                            mTemplateDirectory = property[1];
                             break;
 
                         case "BackupBeforeMixing":
-                            BackupBeforeMixing = Parser.TryParse(property[1], true);
+                            mBackupBeforeMixing = Parser.TryParse(property[1], true);
                             break;
 
                         case "BackgroundEditor":
-                            BackgroundEditor = (Color)ColorConverter.ConvertFromString(property[1]);
+                            mBackgroundEditor = (Color)ColorConverter.ConvertFromString(property[1]);
                             break;
 
                         case "ReopenLastSkin":
-                            ReopenLastSkin = Parser.TryParse(property[1], true);
-                            break;
-                            
-                        case "Volume":
-                            Volume = Parser.TryParse(property[1], .8);
-                            break;
-
-                        case "IsMuted":
-                            IsMuted = Parser.TryParse(property[1], false);
+                            mReopenLastSkin = Parser.TryParse(property[1], true);
                             break;
 
                         case "Language":
-                            Language = Parser.TryParse(property[1], Language.Default);
+                            mLanguage = Parser.TryParse(property[1], Language.Default);
                             break;
 
                         case "DisclaimerRead":
                             DisclaimerRead = Parser.TryParse(property[1], false);
                             break;
+
                     }
                 }
+            }
+            else
+            {
+                LoadDefaults();
+            }
+
+            UnsavedChanges = false;
+            OnSettingsLoaded(EventArgs.Empty);
+        }
+
+        private void LoadDefaults()
+        {
+            mBackupBeforeMixing = true;
+            mBackgroundEditor = Colors.Black;
+            mReopenLastSkin = true;
+            mDefaultBackupDirectory = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
+            mDefaultTemplateDirectory = AppDomain.CurrentDomain.BaseDirectory + "Templates\\";
+            mOsuDirectory = "";
+            mLanguage = Language.Default;
+        }
+
+        private void SetUnsavedChanges(object oldValue, object value)
+        {
+            if (!oldValue.Equals(value))
+            {
+                UnsavedChanges = true;
             }
         }
 
         protected virtual void OnSettingsSaved(EventArgs e)
         {
             SettingsSaved?.Invoke(this, e);
+        }
+
+        protected virtual void OnSettingsLoaded(EventArgs e)
+        {
+            SettingsLoaded?.Invoke(this, e);
         }
     }
 }

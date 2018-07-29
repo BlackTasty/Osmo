@@ -92,7 +92,7 @@ namespace Osmo.UI
                         Helper.FindString("main_unsavedChangesDescription"),
                         OsmoMessageBoxButton.YesNoCancel);
 
-                    await DialogHost.Show(msgBox);
+                    await DialogHelper.Instance.ShowDialog(msgBox);
 
                     if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                     {
@@ -177,7 +177,7 @@ namespace Osmo.UI
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
                 Helper.FindString("edit_revertDescription"), OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -221,7 +221,7 @@ namespace Osmo.UI
 
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
-            AppConfiguration.GetInstance().IsMuted = cb_mute.IsChecked == true;
+            RecallConfiguration.Instance.IsMuted = cb_mute.IsChecked == true;
             if (cb_mute.IsChecked == true)
                 audio.SetVolume(0);
             else
@@ -233,7 +233,7 @@ namespace Osmo.UI
             if (audio != null)
             {
                 cb_mute.IsChecked = false;
-                AppConfiguration.GetInstance().Volume = slider_volume.Value;
+                RecallConfiguration.Instance.Volume = slider_volume.Value;
                 audio.SetVolume(slider_volume.Value);
             }
         }
@@ -308,7 +308,7 @@ namespace Osmo.UI
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
                 Helper.FindString("edit_revertDescription"), OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {

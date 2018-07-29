@@ -84,7 +84,7 @@ namespace Osmo.UI
                 Helper.FindString("skinSelect_deleteDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {

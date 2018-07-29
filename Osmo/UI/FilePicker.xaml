@@ -9,14 +9,15 @@
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:validation="clr-namespace:Osmo.ViewModel.Validation"
              xmlns:local="clr-namespace:Osmo.UI"
-             mc:Ignorable="d" 
-             MinHeight="400" MinWidth="700" MaxHeight="430" MaxWidth="700" Margin="16">
+             mc:Ignorable="d" Loaded="filePicker_Loaded"
+             MinHeight="400" MinWidth="700" MaxHeight="430" MaxWidth="700">
     <Grid.DataContext>
         <vm:FilePickerViewModel/>
     </Grid.DataContext>
     <Grid.Resources>
         <converter:StringLimitConverter x:Key="StringLimit"/>
         <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
 
         <fe:FolderTreeTemplateSelector x:Key="displaySelector" >
             <fe:FolderTreeTemplateSelector.LoadedDirectoryTemplate>
@@ -33,98 +34,105 @@
             </fe:FolderTreeTemplateSelector.UnloadedDirectoryTemplate>
         </fe:FolderTreeTemplateSelector>
     </Grid.Resources>
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="250" MinWidth="140"/>
-        <ColumnDefinition Width="5"/>
-        <ColumnDefinition MinWidth="150"/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="27"/>
-        <RowDefinition Height="8"/>
-        <RowDefinition/>
-    </Grid.RowDefinitions>
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" MinWidth="140"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition MinWidth="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-    <TextBlock Text="{Binding Title, ElementName=filePicker}" Style="{StaticResource MaterialDesignTitleTextBlock}" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
+        <TextBlock Text="{Binding Title, ElementName=filePicker}" Style="{StaticResource MaterialDesignTitleTextBlock}" Grid.ColumnSpan="3" VerticalAlignment="Center"/>
 
-    <DockPanel Grid.Row="2">
-        <Button Content="Refresh" DockPanel.Dock="Bottom" Margin="0,8,8,0" Click="Refresh_Click"/>
+        <DockPanel Grid.Row="2">
+            <Button Content="Refresh" DockPanel.Dock="Bottom" Margin="0,8,8,0" Click="Refresh_Click"/>
 
-        <TreeView ItemsSource="{Binding RootFolders}" TreeViewItem.Expanded="TreeViewItem_Expanded"
+            <TreeView x:Name="tree" ItemsSource="{Binding RootFolders}" TreeViewItem.Expanded="TreeViewItem_Expanded"
                   TreeViewItem.Selected="TreeViewItem_Selected"
                   ItemTemplateSelector="{DynamicResource displaySelector}">
-        </TreeView>
-    </DockPanel>
-
-    <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2"/>
-
-    <DockPanel Grid.Column="2" Grid.Row="2">
-        <DockPanel DockPanel.Dock="Top" Margin="8,0,0,8">
-            <ComboBox DockPanel.Dock="Right" Margin="8,0,0,0"
-                      material:HintAssist.Hint="{DynamicResource picker_displaySelectorHint}" SelectedIndex="{Binding DisplayOption}">
-                <ComboBoxItem Content="{DynamicResource picker_displayDetails}"/>
-                <ComboBoxItem Content="{DynamicResource picker_displaySymbols}"/>
-            </ComboBox>
-
-            <Button Padding="0" Margin="0,0,8,0" ToolTip="{DynamicResource tip_mixer_transfer}" Click="StepUpHierarchy_Click"
-                    Height="24" Width="24" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="Collapsed">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter Property="Background" Value="{x:Null}"/>
-                        <Setter Property="BorderBrush" Value="{x:Null}"/>
-                        <Setter Property="IsEnabled" Value="True"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsRoot}" Value="True">
-                                <Setter Property="IsEnabled" Value="False"/>
-                            </DataTrigger>
-                        </Style.Triggers>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
                     </Style>
-                </Button.Style>
-                <material:PackIcon Kind="ArrowUp" Width="24" Height="24"/>
-            </Button>
-            <TextBlock Text="{Binding SelectedFolder.Path}" VerticalAlignment="Center"/>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Bottom" Margin="8,0,0,0">
-            <Button Content="{DynamicResource abort}" Margin="0,8,0,0"
+
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2"/>
+
+        <DockPanel Grid.Column="2" Grid.Row="2">
+            <DockPanel DockPanel.Dock="Top" Margin="8,0,0,8">
+                <ComboBox DockPanel.Dock="Right" Margin="8,0,0,0"
+                      material:HintAssist.Hint="{DynamicResource picker_displaySelectorHint}" SelectedIndex="{Binding DisplayOption}">
+                    <ComboBoxItem Content="{DynamicResource picker_displayDetails}"/>
+                    <ComboBoxItem Content="{DynamicResource picker_displaySymbols}"/>
+                </ComboBox>
+
+                <Button Padding="0" Margin="0,0,8,0" ToolTip="{DynamicResource tip_mixer_transfer}" Click="StepUpHierarchy_Click"
+                    Height="24" Width="24" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="Collapsed">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="Background" Value="{x:Null}"/>
+                            <Setter Property="BorderBrush" Value="{x:Null}"/>
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRoot}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <material:PackIcon Kind="ArrowUp" Width="24" Height="24"/>
+                </Button>
+                <TextBlock Text="{Binding SelectedFolder.Path}" VerticalAlignment="Center"/>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Bottom" Margin="8,0,0,0">
+                <Button Content="{DynamicResource abort}" Margin="0,8,0,0"
                  DockPanel.Dock="Right" Click="Abort_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
-                        <Setter Property="Command" Value="material:DialogHost.CloseDialogCommand"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SuppressCloseCommand, ElementName=filePicker}" Value="True">
-                                <Setter Property="Command" Value=""/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Button Content="{DynamicResource ok}" Margin="8,8,0,0"
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                            <Setter Property="Command" Value="material:DialogHost.CloseDialogCommand"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SuppressCloseCommand, ElementName=filePicker}" Value="True">
+                                    <Setter Property="Command" Value=""/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="{DynamicResource ok}" Margin="8,8,0,0"
                  IsEnabled="{Binding IsSelectEnabled}" DockPanel.Dock="Right"
                     Click="Select_Click">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
-                        <Setter Property="Command" Value="material:DialogHost.CloseDialogCommand"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SuppressCloseCommand, ElementName=filePicker}" Value="True">
-                                <Setter Property="Command" Value=""/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <TextBox DockPanel.Dock="Bottom"
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                            <Setter Property="Command" Value="material:DialogHost.CloseDialogCommand"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SuppressCloseCommand, ElementName=filePicker}" Value="True">
+                                    <Setter Property="Command" Value=""/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <TextBox DockPanel.Dock="Bottom"
                      material:HintAssist.Hint="{DynamicResource hint_selectedFile}" IsReadOnly="True"
                      Text="{Binding SelectedEntry.Name, Mode=OneWay}">
-                <TextBox.Style>
-                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <Setter Property="material:HintAssist.Hint" Value="{DynamicResource hint_selectedFile}"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsFolderSelect}" Value="True">
-                                <Setter Property="material:HintAssist.Hint" Value="{DynamicResource hint_selectedFolder}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-                <!--<TextBox.Text>
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <Setter Property="material:HintAssist.Hint" Value="{DynamicResource hint_selectedFile}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsFolderSelect}" Value="True">
+                                    <Setter Property="material:HintAssist.Hint" Value="{DynamicResource hint_selectedFolder}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                    <!--<TextBox.Text>
                     <Binding
                         Path="SelectedEntry">
                         <Binding.ValidationRules>
@@ -132,71 +140,84 @@
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>-->
-            </TextBox>
-        </DockPanel>
-        <Grid>
-            <ListBox ItemsSource="{Binding FileList}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.IsSharedSizeScope="True" SelectedIndex="{Binding SelectedIndex}"
+                </TextBox>
+            </DockPanel>
+            <Grid>
+                <ListBox ItemsSource="{Binding FileList}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.IsSharedSizeScope="True" SelectedIndex="{Binding SelectedIndex}"
                      PreviewMouseDoubleClick="FileView_Symbols_PreviewMouseDoubleClick" x:Name="fileViewSymbols" Visibility="{Binding DisplayOption, Converter={StaticResource IntToVisibility}, ConverterParameter=1, FallbackValue=Collapsed}"
                      SelectedItem="{Binding SelectedEntry}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ToolTip="{Binding Name}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="64"/>
-                                <RowDefinition Height="4"/>
-                                <RowDefinition SharedSizeGroup="A"/>
-                            </Grid.RowDefinitions>
-                            <material:PackIcon Kind="{Binding Icon}" Width="64" Height="64" DockPanel.Dock="Top"/>
-                            <TextBlock Text="{Binding Name, Converter={StaticResource StringLimit}, ConverterParameter=40}" Width="64" TextAlignment="Center" TextWrapping="Wrap" Grid.Row="2"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ToolTip="{Binding Name}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="64"/>
+                                    <RowDefinition Height="4"/>
+                                    <RowDefinition SharedSizeGroup="A"/>
+                                </Grid.RowDefinitions>
+                                <material:PackIcon Kind="{Binding Icon}" Width="64" Height="64" DockPanel.Dock="Top"/>
+                                <TextBlock Text="{Binding Name, Converter={StaticResource StringLimit}, ConverterParameter=40}" Width="64" TextAlignment="Center" TextWrapping="Wrap" Grid.Row="2"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
 
-            <ListView x:Name="fileViewDetails" Visibility="{Binding DisplayOption, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
+                <ListView x:Name="fileViewDetails" Visibility="{Binding DisplayOption, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
             ItemsSource="{Binding FileList}" PreviewMouseDoubleClick="FileView_Details_PreviewMouseDoubleClick" SelectedItem="{Binding SelectedEntry}"
                       SelectedIndex="{Binding SelectedIndex}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
                         Header="{DynamicResource name}" Width="300">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <material:PackIcon Kind="{Binding Icon}" Margin="0,0,8,0"/>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <material:PackIcon Kind="{Binding Icon}" Margin="0,0,8,0"/>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn
                         Header="{DynamicResource header_extension}" Width="100">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                        <TextBlock.Style>
-                                            <Style>
-                                                <Setter Property="TextBlock.Text" Value=""/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsFile}" Value="True">
-                                                        <Setter Property="TextBlock.Text" Value="{Binding Extension}"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            
-        </Grid>
-    </DockPanel>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style>
+                                                    <Setter Property="TextBlock.Text" Value=""/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsFile}" Value="True">
+                                                            <Setter Property="TextBlock.Text" Value="{Binding Extension}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </Grid>
+        </DockPanel>
+    </Grid>
+
+    <Grid Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}, ElementName=filePicker, FallbackValue=Collapsed}">
+        <Canvas Background="{DynamicResource MaterialDesignCheckBoxOff}"/>
+        <material:Card Grid.Row="1" Grid.Column="1" Padding="8" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel>
+                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" 
+                         IsIndeterminate="True" Height="60" Width="60"/>
+                <TextBlock Text="Just a few moments..." TextAlignment="Center" Margin="0,8,0,0"
+                           Style="{StaticResource MaterialDesignTitleTextBlock}"/>
+            </StackPanel>
+        </material:Card>
+    </Grid>
 </Grid>

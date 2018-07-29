@@ -17,7 +17,7 @@
         TextElement.FontSize="14" AllowDrop="True"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     Closing="MetroWindow_Closing" DragEnter="MetroWindow_DragEnter"
-    PreviewKeyUp="MetroWindow_PreviewKeyUp">
+    PreviewKeyUp="MetroWindow_PreviewKeyUp" Loaded="MetroWindow_Loaded">
     <Window.DataContext>
         <vm:OsmoViewModel/>
     </Window.DataContext>

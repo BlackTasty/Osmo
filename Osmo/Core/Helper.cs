@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using Osmo.Core.Objects;
 using Osmo.UI;
 using System;
@@ -13,7 +14,6 @@ namespace Osmo.Core
 {
     public static class Helper
     {
-
         public static BitmapImage LoadImage(string path)
         {
             if (!string.IsNullOrWhiteSpace(path))
@@ -100,9 +100,8 @@ namespace Osmo.Core
                 var msgBox = MaterialMessageBox.Show(FindString("export_saveFirstTitle"),
                     FindString("export_saveFirstDescription"),
                     OsmoMessageBoxButton.YesNoCancel);
-
-                await DialogHost.Show(msgBox);
-                result = msgBox.Result;
+                
+                result = await DialogHelper.Instance.ShowDialog(msgBox);
             }
             else
             {
@@ -147,6 +146,23 @@ namespace Osmo.Core
             {
                 return "NO STRING FOUND!";
             }
+        }
+
+        public static string FindOsuInstallation()
+        {
+            string path;
+            RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Classes\\osu\\DefaultIcon");
+            path = key.GetValue("").ToString();
+            path = path.Replace("\"", "");
+            path = path.Remove(path.LastIndexOf('\\')) + "\\Skins";
+
+            return path;
+        }
+        public static string NormalizePath(string path)
+        {
+            return Path.GetFullPath(new Uri(path).LocalPath)
+                       .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                       .ToUpperInvariant();
         }
     }
 }

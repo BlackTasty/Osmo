@@ -1,12 +1,7 @@
 ﻿using Osmo.Core;
 using Osmo.Core.FileExplorer;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Osmo.ViewModel
 {
@@ -53,7 +48,7 @@ namespace Osmo.ViewModel
             {
                 if (!IsFolderSelect)
                 {
-                    if (Filters != null || Filters.Count > 0)
+                    if (Filters != null && Filters.Count > 0)
                     {
                         return SelectedFolder?.JoinedContent?.Where(x => !x.IsFile || 
                         Filters.Any(f => f.FilterMatch((x as FileEntry).Extension)));
@@ -118,6 +113,17 @@ namespace Osmo.ViewModel
             {
                 Filters.Add(new FileFilter(filters[i], filters[i + 1]));
             }
+        }
+
+        public StructureBuilder SetCurrentDirectory(string path)
+        {
+            if (!path.Equals(SelectedFolder?.Path))
+            {
+                StructureBuilder structure = new StructureBuilder(path);
+                SelectedFolder = RootFolders.FirstOrDefault(x => x.Path.Equals(structure.RootFolder))?.BuildSubTree(structure, !IsFolderSelect);
+                return structure;
+            }
+            return null;
         }
 
         public void RefreshDrives()

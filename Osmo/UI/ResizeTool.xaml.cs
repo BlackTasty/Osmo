@@ -105,7 +105,7 @@ namespace Osmo.UI
                                 Helper.FindString("dlg_distortedImageProceed"),
                                 Helper.FindString("dlg_distortedImageSkip"), 450);
 
-                            await DialogHost.Show(msgBox);
+                            await DialogHelper.Instance.ShowDialog(msgBox);
 
                             if (msgBox.Result == OsmoMessageBoxResult.CustomActionLeft) //Skip the current element
                             {

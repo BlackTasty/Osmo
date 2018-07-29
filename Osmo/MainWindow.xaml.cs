@@ -24,7 +24,7 @@ namespace Osmo
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        AppConfiguration configuration = AppConfiguration.GetInstance();
+        AppConfiguration configuration = AppConfiguration.Instance;
 
         public MainWindow()
         {
@@ -53,12 +53,35 @@ namespace Osmo
         {
         }
 
-        private void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void sidebarMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sidebarMenu.SelectedIndex != FixedValues.ABOUT_INDEX)
             {
                 if (sidebarMenu.SelectedIndex != FixedValues.CONFIG_INDEX &&
                     !configuration.IsValid)
+                {
+                    sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
+                }
+            }
+
+            if (e.RemovedItems.Count > 0 && (e.RemovedItems[0] as SidebarEntry).Index == FixedValues.CONFIG_INDEX && 
+                configuration.UnsavedChanges)
+            {
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
+                    Helper.FindString("settings_unsavedChangesDescription"),
+                    OsmoMessageBoxButton.YesNoCancel);
+
+                await DialogHelper.Instance.ShowDialog(msgBox);
+
+                if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                {
+                    Settings.Instance.SaveSettings();
+                }
+                else if (msgBox.Result == OsmoMessageBoxResult.No)
+                {
+                    configuration.Load();
+                }
+                else
                 {
                     sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
                 }
@@ -74,8 +97,7 @@ namespace Osmo
 
             MenuToggleButton.IsChecked = false;
         }
-
-#if DEBUG
+        
         private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
         {
             if (!configuration.IsValid)
@@ -83,44 +105,35 @@ namespace Osmo
 
             dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
         }
-#else
-        private async void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!AppConfiguration.GetInstance().DisclaimerRead)
-            {
-                var msgBox = MaterialMessageBox.Show(Helper.FindString("alpha_disclaimer_title"),
-                    string.Format("{0}\n\n{1}", Helper.FindString("alpha_disclaimer_description1"), Helper.FindString("alpha_disclaimer_description2")),
-                    OsmoMessageBoxButton.YesNo);
-
-                await DialogHost.Show(msgBox);
-
-                if (msgBox.Result == OsmoMessageBoxResult.Yes)
-                {
-                    AppConfiguration.GetInstance().DisclaimerRead = true;
-                    AppConfiguration.GetInstance().Save();
-                }
-                else
-                {
-                    Environment.Exit(0);
-                }
-            }
-
-            if (!configuration.IsValid)
-                sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
-
-            dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
-        }
-#endif
 
         private async void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Logger.Instance.WriteLog("Application shutdown initialized...");
             e.Cancel = true;
             
-            configuration.Save();
             (SkinEditor.Instance.animationHelper.DataContext as AnimationViewModel).StopAnimation();
-
             OsmoViewModel vm = DataContext as OsmoViewModel;
+
+            if (configuration.UnsavedChanges)
+            {
+                vm.SelectedSidebarIndex = FixedValues.CONFIG_INDEX;
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
+                    Helper.FindString("settings_unsavedChangesDescription"),
+                    OsmoMessageBoxButton.YesNoCancel);
+
+                await DialogHelper.Instance.ShowDialog(msgBox);
+
+                if (msgBox.Result == OsmoMessageBoxResult.Cancel)
+                {
+                    Logger.Instance.WriteLog("Application shutdown aborted by user!");
+                    return;
+                }
+                else if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                {
+                    Settings.Instance.SaveSettings();
+                }
+            }
+
             SkinViewModel skinVm = SkinEditor.Instance.DataContext as SkinViewModel;
             if (skinVm.UnsavedChanges)
             {
@@ -129,7 +142,7 @@ namespace Osmo
                     Helper.FindString("main_unsavedChangesDescription"),
                     OsmoMessageBoxButton.YesNoCancel);
 
-                await DialogHost.Show(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox);
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
@@ -150,7 +163,7 @@ namespace Osmo
                     Helper.FindString("main_unsavedChangesDescription"),
                     OsmoMessageBoxButton.YesNoCancel);
 
-                await DialogHost.Show(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox);
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
@@ -162,6 +175,22 @@ namespace Osmo
                     mixerVm.SkinLeft.Save();
                 }
             }
+
+            RecallConfiguration recall = RecallConfiguration.Instance;
+            if (configuration.ReopenLastSkin)
+            {
+                recall.LastSkinPathEditor = SkinEditor.Instance.LoadedSkin?.Path;
+                recall.LastSkinPathMixerLeft = SkinMixer.Instance.LoadedSkin?.Path;
+                recall.LastSkinPathMixerRight = (SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinRight?.Path;
+            }
+            else
+            {
+                recall.LastSkinPathEditor = null;
+                recall.LastSkinPathMixerLeft = null;
+                recall.LastSkinPathMixerRight = null;
+            }
+
+            recall.Save();
 
             Logger.Instance.WriteLog("Application closed with code 0!");
             Environment.Exit(0);
@@ -202,7 +231,7 @@ namespace Osmo
                 Helper.FindString("main_revertAllDescription"),
                 OsmoMessageBoxButton.YesNoCancel);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 OsmoViewModel vm = DataContext as OsmoViewModel;
@@ -322,6 +351,35 @@ namespace Osmo
             if (args.Path != null)
             {
                 Helper.ExportSkin(args.Path, sidebarMenu.SelectedIndex);
+            }
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+#if !DEBUG
+            ShowDisclaimer();
+#endif
+        }
+
+        private async void ShowDisclaimer()
+        {
+            if (!AppConfiguration.Instance.DisclaimerRead)
+            {
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("alpha_disclaimer_title"),
+                    string.Format("{0}\n\n{1}", Helper.FindString("alpha_disclaimer_description1"), Helper.FindString("alpha_disclaimer_description2")),
+                    OsmoMessageBoxButton.YesNo);
+
+                await DialogHelper.Instance.ShowDialog(msgBox);
+
+                if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                {
+                    AppConfiguration.Instance.DisclaimerRead = true;
+                    AppConfiguration.Instance.Save();
+                }
+                else
+                {
+                    Environment.Exit(0);
+                }
             }
         }
     }

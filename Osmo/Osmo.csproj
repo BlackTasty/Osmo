@@ -125,6 +125,7 @@
     <Compile Include="Converters\BoolToTextDecorationConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\DoubleToBooleanConverter.cs" />
+    <Compile Include="Converters\EnumToIntConverter.cs" />
     <Compile Include="Converters\ExactIntToBooleanConverter.cs" />
     <Compile Include="Converters\FileTypeIconConverter.cs" />
     <Compile Include="Converters\IntToBooleanConverter.cs" />
@@ -139,6 +140,8 @@
     <Compile Include="Core\Configuration\ConfigurationFile.Helper.cs" />
     <Compile Include="Core\Configuration\ConfigurationFile.cs" />
     <Compile Include="Converters\SelectSkinSelector.cs" />
+    <Compile Include="Core\Configuration\RecallConfiguration.cs" />
+    <Compile Include="Core\DialogHelper.cs" />
     <Compile Include="Core\FileExplorer\FileFilter.cs" />
     <Compile Include="Core\FileExplorer\FilePickerClosedEventArgs.cs" />
     <Compile Include="Core\FileExplorer\FolderContentTemplateSelector.cs" />
@@ -149,6 +152,7 @@
     <Compile Include="Core\FileExplorer\NaturalFilePickerEntryComparer.cs" />
     <Compile Include="Core\FileExplorer\RootFolderEntry.cs" />
     <Compile Include="Core\FileExplorer\SharedFileExplorer.cs" />
+    <Compile Include="Core\FileExplorer\StructureBuilder.cs" />
     <Compile Include="Core\FileExplorer\UnloadedFolderEntry.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
@@ -265,6 +269,7 @@
     <Compile Include="ViewModel\NewTemplateViewModel.cs" />
     <Compile Include="ViewModel\OsmoViewModel.cs" />
     <Compile Include="ViewModel\ResizeToolViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SimulatorViewModel.cs" />
     <Compile Include="ViewModel\SkinCardViewModel.cs" />
     <Compile Include="ViewModel\SkinMixerViewModel.cs" />

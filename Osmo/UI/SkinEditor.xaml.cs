@@ -135,7 +135,7 @@ namespace Osmo.UI
                        Helper.FindString("main_unsavedChangesDescription"),
                        OsmoMessageBoxButton.YesNoCancel);
 
-                await DialogHost.Show(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox);
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
@@ -281,7 +281,7 @@ namespace Osmo.UI
                 Helper.FindString("edit_revertDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -302,7 +302,7 @@ namespace Osmo.UI
                 Helper.FindString("edit_eraseDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             string path = ((SkinViewModel)DataContext).SelectedElement.ReplaceBackup(null);
 
@@ -322,7 +322,7 @@ namespace Osmo.UI
                 Helper.FindString("edit_deleteDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -362,14 +362,14 @@ namespace Osmo.UI
             if (audio != null)
             {
                 cb_mute.IsChecked = false;
-                AppConfiguration.GetInstance().Volume = slider_volume.Value;
+                RecallConfiguration.Instance.Volume = slider_volume.Value;
                 audio.SetVolume(slider_volume.Value);
             }
         }
 
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
-            AppConfiguration.GetInstance().IsMuted = cb_mute.IsChecked == true;
+            RecallConfiguration.Instance.IsMuted = cb_mute.IsChecked == true;
             if (cb_mute.IsChecked == true)
                 audio.SetVolume(0);
             else
@@ -390,7 +390,7 @@ namespace Osmo.UI
             textEditor.TextArea.TextEntered += TextArea_TextEntered;
         }
 
-        private void TextArea_TextEntered(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if ((DataContext as SkinViewModel).SelectedElement.Name.Equals("skin.ini", 
                 StringComparison.InvariantCultureIgnoreCase))
@@ -417,7 +417,7 @@ namespace Osmo.UI
             }
         }
 
-        private void TextArea_TextEntering(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (completionWindow != null && !char.IsLetterOrDigit(e.Text[0]))
             {
@@ -429,8 +429,8 @@ namespace Osmo.UI
 
         private void Container_Loaded(object sender, RoutedEventArgs e)
         {
-            slider_volume.Value = AppConfiguration.GetInstance().Volume;
-            cb_mute.IsChecked = AppConfiguration.GetInstance().IsMuted;
+            slider_volume.Value = RecallConfiguration.Instance.Volume;
+            cb_mute.IsChecked = RecallConfiguration.Instance.IsMuted;
         }
 
         private void Slider_Audio_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -441,12 +441,12 @@ namespace Osmo.UI
             }
         }
 
-        private void Slider_Audio_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Slider_Audio_MouseDown(object sender, MouseButtonEventArgs e)
         {
             audio.EnableSliderChange = true;
         }
 
-        private void Slider_Audio_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Slider_Audio_MouseUp(object sender, MouseButtonEventArgs e)
         {
             audio.EnableSliderChange = false;
         }
@@ -468,7 +468,7 @@ namespace Osmo.UI
                 Helper.FindString("edit_revertDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -516,6 +516,11 @@ namespace Osmo.UI
             {
                 Helper.ExportSkin(args.Path, FixedValues.EDITOR_INDEX, true);
             }
+        }
+
+        private void FilePicker_DialogOpened(object sender, RoutedEventArgs e)
+        {
+            (sender as FilePicker).InitialDirectory = (DataContext as SkinViewModel).LoadedSkin.Path;
         }
     }
 }

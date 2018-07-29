@@ -1,6 +1,7 @@
 ﻿using Osmo.Core.Configuration;
 using Osmo.Core.Logging;
 using Osmo.Core.Objects;
+using Osmo.UI;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Osmo.Core
             {
                 if (instance == null)
                 {
-                    instance = new SkinManager(AppConfiguration.GetInstance().OsuDirectory);
+                    instance = new SkinManager(AppConfiguration.Instance.OsuDirectory);
                 }
 
                 return instance;
@@ -250,6 +251,8 @@ namespace Osmo.Core
                     Skins.Clear();
                 }
 
+                RecallConfiguration recall = RecallConfiguration.Instance;
+                bool reopenLastSkin = AppConfiguration.Instance.ReopenLastSkin;
                 new Thread(() =>
                 {
                     if (!string.IsNullOrWhiteSpace(SkinDirectory))
@@ -262,10 +265,28 @@ namespace Osmo.Core
                             SkinLoadCurrent++;
                             Skin skin = new Skin(di.FullName);
 
-                            App.Current.Dispatcher.Invoke(() =>
+                            App.Current.Dispatcher.Invoke(async () =>
                             {
                                 Skins.Add(skin);
                                 OnSkinDirectoryChanged();
+                                
+                                if (reopenLastSkin)
+                                {
+                                    if (skin.Path.Equals(recall.LastSkinPathEditor))
+                                    {
+                                        await SkinEditor.Instance.LoadSkin(skin);
+                                    }
+
+                                    if (skin.Path.Equals(recall.LastSkinPathMixerLeft))
+                                    {
+                                        await SkinMixer.Instance.LoadSkin(skin, true);
+                                    }
+
+                                    if (skin.Path.Equals(recall.LastSkinPathMixerRight))
+                                    {
+                                        await SkinMixer.Instance.LoadSkin(skin, false);
+                                    }
+                                }
                             });
                         }
                         IsLoadingSkins = false;

@@ -100,16 +100,16 @@ namespace Osmo.Core.Objects
 
         public static async Task<Skin> Import(FileInfo oskPath)
         {
-            string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + oskPath.Name.Replace(oskPath.Extension, "");
+            string skinPath = AppConfiguration.Instance.OsuDirectory + "\\Skins\\" + oskPath.Name.Replace(oskPath.Extension, "");
 
             OsmoMessageBoxResult result = OsmoMessageBoxResult.OK;
             if (Directory.Exists(skinPath))
             {
-                var msgBox = MaterialMessageBox.Show("Skin exists already!",
-                    "A skin with the name \"" + oskPath.Name + "\" exists already! Would you like to overwrite it?",
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("skin_importTitle"),
+                    Helper.FindString("skin_importDescription1") + oskPath.Name + Helper.FindString("skin_importDescription1"),
                     OsmoMessageBoxButton.OKCancel);
 
-                await DialogHost.Show(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox);
 
                 result = msgBox.Result;
                 if (result == OsmoMessageBoxResult.OK)
@@ -206,7 +206,7 @@ namespace Osmo.Core.Objects
         {
             int index = Elements.IndexOf(Elements.FirstOrDefault(x => x == e.OldFullPath) ?? null);
 
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 if (index > -1)
                 {
@@ -223,7 +223,7 @@ namespace Osmo.Core.Objects
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 Elements.Add(new SkinElement(new FileInfo(e.FullPath), Name));
             });
@@ -232,7 +232,7 @@ namespace Osmo.Core.Objects
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
             SkinElement element = Elements.FirstOrDefault(x => x == e.FullPath);
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 if (element != null)
                     Elements.Remove(element);

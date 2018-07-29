@@ -66,7 +66,7 @@ namespace Osmo.Core
                         Helper.FindString("dlg_invalidAudioDescription"),
                         OsmoMessageBoxButton.OK);
 
-                    DialogHost.Show(msgBox);
+                    DialogHelper.Instance.ShowDialog(msgBox);
                     return false;
                 }
             }

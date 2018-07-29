@@ -64,7 +64,7 @@ namespace Osmo.Core.FileExplorer
                     }
                     else
                     {
-                        rootFolders.Add(new RootFolderEntry(new FolderEntry(drive.RootDirectory, true), false));
+                        rootFolders.Add(new RootFolderEntry(new FolderEntry(drive.RootDirectory, true, 0), false));
                     }
                 }
 

@@ -14,9 +14,6 @@
         <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
-
-        <local:FilePicker x:Key="folderPicker" Title="{DynamicResource skinSelect_exportTitle}" IsFolderSelect="True"
-                          DialogClosed="FolderPicker_DialogClosed"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="150"/>
@@ -130,7 +127,8 @@
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}"
                                     Command="{x:Static material:DialogHost.OpenDialogCommand}">
                                     <Button.CommandParameter>
-                                        <ContentControl Content="{StaticResource folderPicker}"/>
+                                        <local:FilePicker Title="{DynamicResource skinSelect_exportTitle}" IsFolderSelect="True"
+                                                          DialogClosed="FolderPicker_DialogClosed"/>
                                     </Button.CommandParameter>
                                     <material:PackIcon Kind="PackageDown" Height="16" Width="16"/>
                                 </Button>

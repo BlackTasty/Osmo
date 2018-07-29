@@ -1,7 +1,11 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.FileExplorer;
 using Osmo.ViewModel;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,8 +17,8 @@ namespace Osmo.UI
     /// </summary>
     public partial class FilePicker : Grid
     {
-        //TODO: Add InitialDirectory property
-
+        //TODO: Try to fix dependency property of InitialDirectory (get/set and Changed event not fired when using Binding)
+        #region DialogClosed Event
         public static readonly RoutedEvent DialogClosedEvent = EventManager.RegisterRoutedEvent(
             "DialogClosed", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(FilePicker));
 
@@ -23,13 +27,43 @@ namespace Osmo.UI
             add { AddHandler(DialogClosedEvent, value); }
             remove { RemoveHandler(DialogClosedEvent, value); }
         }
-        
+
         private void RaiseDialogClosedEvent(string path)
         {
             FilePickerClosedEventArgs eventArgs = new FilePickerClosedEventArgs(FilePicker.DialogClosedEvent, path);
             RaiseEvent(eventArgs);
         }
+        #endregion
 
+        #region DialogOpened Event
+        public static readonly RoutedEvent DialogOpenedEvent = EventManager.RegisterRoutedEvent(
+            "DialogOpened", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(FilePicker));
+
+        public event RoutedEventHandler DialogOpened
+        {
+            add { AddHandler(DialogOpenedEvent, value); }
+            remove { RemoveHandler(DialogOpenedEvent, value); }
+        }
+
+        private void RaiseDialogOpenedEvent()
+        {
+            RaiseEvent(new RoutedEventArgs(FilePicker.DialogOpenedEvent, this));
+        }
+        #endregion
+
+        #region InitialDirectory
+        public string InitialDirectory
+        {
+            get { return (string)GetValue(InitialDirectoryProperty); }
+            set { SetValue(InitialDirectoryProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for InitialDirectory.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty InitialDirectoryProperty =
+            DependencyProperty.Register("InitialDirectory", typeof(string), typeof(FilePicker),
+                new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnInitialDirectoryChanged)));
+        #endregion
+        
         #region IsFolderSelect
         public bool IsFolderSelect
         {
@@ -48,8 +82,6 @@ namespace Osmo.UI
         #endregion
 
         #region Filter
-
-
         public string Filter
         {
             get { return (string)GetValue(FilterProperty); }
@@ -85,7 +117,19 @@ namespace Osmo.UI
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(FilePicker), new PropertyMetadata(""));
         #endregion
-        
+
+        #region IsLoading
+        public bool IsLoading
+        {
+            get { return (bool)GetValue(IsLoadingProperty); }
+            set { SetValue(IsLoadingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsLoading.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsLoadingProperty =
+            DependencyProperty.Register("IsLoading", typeof(bool), typeof(FilePicker), new PropertyMetadata(false));
+        #endregion
+
         private static void OnIsFolderSelectChanged(DependencyObject depO, DependencyPropertyChangedEventArgs e)
         {
             if (depO is FilePicker filePicker)
@@ -100,6 +144,51 @@ namespace Osmo.UI
             {
                 (filePicker.DataContext as FilePickerViewModel).SetFilters(Convert.ToString(e.NewValue));
             }
+        }
+
+        private static void OnInitialDirectoryChanged(DependencyObject depO, DependencyPropertyChangedEventArgs e)
+        {
+            if (depO is FilePicker filePicker)
+            {
+                string path = Convert.ToString(e.NewValue);
+                StructureBuilder structure = (filePicker.DataContext as FilePickerViewModel).SetCurrentDirectory(path);
+                JumpToNodeAsync(filePicker, filePicker.tree.Items, structure);
+            }
+        }
+
+        private static void JumpToNodeAsync(FilePicker filePicker, ItemCollection items, StructureBuilder structure)
+        {
+            filePicker.IsLoading = true;
+            bool done = false;
+            int layer = 0;
+            
+            List<FolderEntry> entries = items.OfType<FolderEntry>().ToList();
+            new Thread(() =>
+            {
+                while (!done)
+                {
+                    FolderEntry entry = entries.FirstOrDefault(x => x.Path.Equals(structure.GetPathAtTreeLayer(layer)));
+
+                    if (entry != null)
+                    {
+                        entry.IsExpanded = true;
+                        entries = entry.SubDirectories.ToList();
+
+                        if (Helper.NormalizePath(entry.Path).Equals(Helper.NormalizePath(structure.TargetPath)))
+                        {
+                            entry.IsSelected = true;
+                            done = true;
+
+                            filePicker.Dispatcher.Invoke(() =>
+                            {
+                                filePicker.IsLoading = false;
+                            });
+                        }
+
+                        layer++;
+                    }
+                }
+            }).Start();
         }
 
         public FilePicker()
@@ -120,6 +209,8 @@ namespace Osmo.UI
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = e.OriginalSource as TreeViewItem;
+
+            item.BringIntoView();
 
             if (item.DataContext is FolderEntry entry)
             {
@@ -191,6 +282,11 @@ namespace Osmo.UI
         private void Abort_Click(object sender, RoutedEventArgs e)
         {
             RaiseDialogClosedEvent(null);
+        }
+
+        private void filePicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            RaiseDialogOpenedEvent();
         }
     }
 }
