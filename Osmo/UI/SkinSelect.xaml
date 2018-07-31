@@ -37,7 +37,7 @@
             <ProgressBar Value="{Binding SkinManager.SkinLoadCurrent}" 
                          Maximum="{Binding SkinManager.SkinLoadMaximum}"/>
         </StackPanel>
-        <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding Skins}"
+        <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding Skins}" SelectedIndex="{Binding SelectedIndex}"
               PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" PreviewMouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
             <ListView.View>
                 <GridView>

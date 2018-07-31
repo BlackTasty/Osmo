@@ -251,6 +251,7 @@ namespace Osmo.Core
                     Skins.Clear();
                 }
 
+                Skins.Add(new Skin());
                 RecallConfiguration recall = RecallConfiguration.Instance;
                 bool reopenLastSkin = AppConfiguration.Instance.ReopenLastSkin;
                 new Thread(() =>

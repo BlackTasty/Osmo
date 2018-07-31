@@ -187,5 +187,41 @@ namespace Osmo.UI
         {
             await ForwardKeyboardInput(e);
         }
+
+        private void MenuItem_NewSkin_Click(object sender, RoutedEventArgs e)
+        {
+            if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, btn_newSkin))
+                DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, btn_newSkin);
+        }
+
+        private void MenuItem_OpenInExplorer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_OpenInMixer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_OpenInEditor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_ResizeTool_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Export_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

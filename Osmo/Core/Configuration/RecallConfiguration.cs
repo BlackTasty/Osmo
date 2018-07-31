@@ -66,6 +66,7 @@
         public void Load()
         {
             Content = base.LoadFile(this);
+            LoadDefaults();
 
             if (Content != null)
             {
@@ -95,10 +96,6 @@
                             break;
                     }
                 }
-            }
-            else
-            {
-                LoadDefaults();
             }
         }
 

@@ -12,6 +12,7 @@ namespace Osmo.ViewModel
     class SkinSelectViewModel : ViewModelBase
     {
         private SkinManager mSkinManager;
+        private int mSelectedIndex;
 
         public SkinSelectViewModel()
         {
@@ -22,6 +23,7 @@ namespace Osmo.ViewModel
         private void SkinManager_SkinDirectoryChanged(object sender, EventArgs e)
         {
             InvokePropertyChanged("Skins");
+            InvokePropertyChanged("SkinsMixer");
         }
 
         public SkinManager SkinManager
@@ -29,6 +31,24 @@ namespace Osmo.ViewModel
             get => mSkinManager;
         }
 
-        public List<Skin> Skins { get => SkinManager != null ? SkinManager.Skins.SkipWhile(x => x.IsEmpty).ToList() : null; }
+        public int SelectedIndex
+        {
+            get => mSelectedIndex;
+            set
+            {
+                mSelectedIndex = value;
+                InvokePropertyChanged("SelectedIndex");
+                InvokePropertyChanged("SkinOptionsEnabled");
+            }
+        }
+
+        public bool SkinOptionsEnabled
+        {
+            get => SelectedIndex > 0;
+        }
+
+        public List<Skin> Skins { get => SkinManager != null ? SkinManager.Skins.ToList() : null; }
+
+        public List<Skin> SkinsMixer { get => SkinManager != null ? SkinManager.Skins.SkipWhile(x => x.IsEmpty).ToList() : null; }
     }
 }

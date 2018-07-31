@@ -19,12 +19,14 @@ namespace Osmo.Core.Objects
         private bool mIsResizeSelected;
         private FontStyle fontStyle = FontStyles.Normal;
         private FontWeight fontWeight = FontWeights.Normal;
-        string backupPath = Directory.GetParent(AppConfiguration.Instance.BackupDirectory).FullName +
-            "\\Edited\\";
+        string backupPath;
 
         public string Path
         {
-            get => !string.IsNullOrWhiteSpace(TempPath) ? TempPath : mPath;
+            get
+            {
+                return !string.IsNullOrWhiteSpace(TempPath) ? TempPath : mPath;
+            }
             set => mPath = value;
         }
 
@@ -85,7 +87,8 @@ namespace Osmo.Core.Objects
             Path = fi.FullName;
             Name = fi.Name;
             Extension = fi.Extension;
-            backupPath += skinName + "\\";
+            backupPath = string.Format("{0}\\Edited\\{1}\\",
+                Directory.GetParent(AppConfiguration.Instance.BackupDirectory).FullName, skinName);
 
             fileType = GetFileType(fi.Extension);
 
@@ -120,6 +123,10 @@ namespace Osmo.Core.Objects
             {
                 TempPath = backupPath + Name;
                 FontStyle = FontStyles.Italic;
+            }
+            else
+            {
+                TempPath = "";
             }
         }
 

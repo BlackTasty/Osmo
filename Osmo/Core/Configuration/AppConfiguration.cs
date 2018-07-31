@@ -154,6 +154,7 @@ namespace Osmo.Core.Configuration
         public void Load()
         {
             Content = base.LoadFile(this);
+            LoadDefaults();
 
             if (Content != null)
             {
@@ -196,10 +197,6 @@ namespace Osmo.Core.Configuration
 
                     }
                 }
-            }
-            else
-            {
-                LoadDefaults();
             }
 
             UnsavedChanges = false;
