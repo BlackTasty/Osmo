@@ -254,36 +254,6 @@ namespace Osmo.Core.Objects
         }
 
         #region Method and operator overrides
-        public static bool operator ==(SkinElement element, string path)
-        {
-            if (path != null)
-                return element.Path.Contains(path);
-            else
-                return false;
-        }
-
-        public static bool operator !=(SkinElement element, string path)
-        {
-            if (path != null)
-                return !element.Path.Contains(path);
-            else
-                return true;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj != null && obj != BindingOperations.DisconnectedSource &&
-                mPath != null && (obj as SkinElement).Path != null)
-                return mPath.Contains((obj as SkinElement).Path);
-            else
-                return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
         public override string ToString()
         {
             return Name;

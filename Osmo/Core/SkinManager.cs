@@ -250,6 +250,8 @@ namespace Osmo.Core
                     Skins.Clear();
                 }
 
+                Skins.Add(new Skin());
+
                 new Thread(() =>
                 {
                     if (!string.IsNullOrWhiteSpace(SkinDirectory))

@@ -1,14 +1,20 @@
-﻿<Grid x:Class="Osmo.UI.Simulator"
+﻿<DockPanel x:Class="Osmo.UI.Simulator"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Osmo.Controls"
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
+    <Button DockPanel.Dock="Bottom" Content="Test controls" Click="Button_Click"/>
     <TabControl>
         <TabItem Header="Main menu">
-            
+            <WrapPanel>
+                <controls:SimulatedElement x:Name="element_menuBack" AnimationType="Predefined" ElementType="AnimatedOnly"/>
+                <controls:SimulatedElement x:Name="element_hitcircle" AnimationType="RenderTransform" ElementType="AnimatedAndFixed"/>
+                <controls:SimulatedElement x:Name="element_combo100" AnimationType="NoAnimation" ElementType="FixedOnly"/>
+            </WrapPanel>
         </TabItem>
     </TabControl>
-</Grid>
+</DockPanel>

@@ -204,7 +204,7 @@ namespace Osmo.Core.Objects
         #region Watcher Events
         private void Watcher_Renamed(object sender, RenamedEventArgs e)
         {
-            int index = Elements.IndexOf(Elements.FirstOrDefault(x => x == e.OldFullPath) ?? null);
+            int index = Elements.IndexOf(Elements.FirstOrDefault(x => x.Path.Contains(e.OldFullPath)) ?? null);
 
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
@@ -231,7 +231,7 @@ namespace Osmo.Core.Objects
 
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            SkinElement element = Elements.FirstOrDefault(x => x == e.FullPath);
+            SkinElement element = Elements.FirstOrDefault(x => x.Path.Contains(e.FullPath));
             System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 if (element != null)

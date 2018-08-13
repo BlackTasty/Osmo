@@ -31,14 +31,7 @@ namespace Osmo.UI
 
         public void LoadAnimation(SkinElement element)
         {
-            AnimationViewModel vm = DataContext as AnimationViewModel;
-            vm.Animation.Clear();
-            
-            vm.Animation.Add(element.GetAnimatedElements(), false);
-            vm.CurrentFrame = 0;
-
-            SkinningEntry details = element.ElementDetails as SkinningEntry;
-            vm.FrameOrder = details.FrameOrder;
+            (DataContext as AnimationViewModel).LoadAnimation(element);
         }
 
         private void StartStopAnimation_Click(object sender, RoutedEventArgs e)

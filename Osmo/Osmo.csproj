@@ -79,6 +79,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\SimulatedElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Localisation\StringResources.es.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,6 +126,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Controls\SimulatedElement.xaml.cs">
+      <DependentUpon>SimulatedElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolToTextDecorationConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\DoubleToBooleanConverter.cs" />
@@ -184,7 +191,10 @@
     <Compile Include="Core\Reader\SkinSoundReader.cs" />
     <Compile Include="Core\Reader\SoundEntry.cs" />
     <Compile Include="Core\Reader\VersionSizeDescriptor.cs" />
+    <Compile Include="Core\Simulation\AnimationType.cs" />
+    <Compile Include="Core\Simulation\ElementTransformHelper.cs" />
     <Compile Include="Core\Simulation\Resolution.cs" />
+    <Compile Include="Core\Simulation\SimulatedElementType.cs" />
     <Compile Include="Core\SkinManager.cs" />
     <Compile Include="Core\VeryObservableCollection.cs" />
     <Resource Include="Resources\SkinningStandard.txt" />
@@ -256,6 +266,7 @@
     <Compile Include="UI\TemplatePreview.xaml.cs">
       <DependentUpon>TemplatePreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AnimationBaseViewModel.cs" />
     <Compile Include="ViewModel\AnimationViewModel.cs" />
     <Compile Include="ViewModel\AudioViewModel.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
@@ -265,6 +276,7 @@
     <Compile Include="ViewModel\NewTemplateViewModel.cs" />
     <Compile Include="ViewModel\OsmoViewModel.cs" />
     <Compile Include="ViewModel\ResizeToolViewModel.cs" />
+    <Compile Include="ViewModel\SimulatedElementViewModel.cs" />
     <Compile Include="ViewModel\SimulatorViewModel.cs" />
     <Compile Include="ViewModel\SkinCardViewModel.cs" />
     <Compile Include="ViewModel\SkinMixerViewModel.cs" />
