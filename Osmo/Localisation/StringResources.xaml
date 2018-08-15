@@ -38,6 +38,7 @@
     <system:String o:Freeze="True" x:Key="yes">_YES</system:String>
     <system:String o:Freeze="True" x:Key="no">_NO</system:String>
     <system:String o:Freeze="True" x:Key="import">_IMPORT</system:String>
+    <system:String o:Freeze="True" x:Key="retry">_RETRY</system:String>
     <system:String o:Freeze="True" x:Key="loadTemplate">_LOAD TEMPLATE</system:String>
     <system:String o:Freeze="True" x:Key="newTemplate">_NEW TEMPLATE</system:String>
     <system:String o:Freeze="True" x:Key="loadSkin">_LOAD SKIN</system:String>
@@ -148,10 +149,12 @@
     <system:String o:Freeze="True" x:Key="settings_header_editor">Editor</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Keyboard shortcuts</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_shortcutsCheatSheet">Cheat sheet</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectNoOsuInstalled">osu! is not installed!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectNoOsuInstalled">Should osu! be installed make sure it has been installed correctly, otherwise select it manually.</system:String>
     <system:String o:Freeze="True" x:Key="settings_title_autodetectOsu">Auto-detect osu! folder</system:String>
     <system:String o:Freeze="True" x:Key="settings_descr_autodetectOsu">Do you wish for Osmo to find your osu! installation folder?</system:String>
     <system:String o:Freeze="True" x:Key="settings_title_autodetectFailed">Auto-detect failed!</system:String>
-    <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">Are you sure you have osu! installed?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">Are you sure you have osu! installed correctly?</system:String>
     <system:String o:Freeze="True" x:Key="settings_unsavedChangesDescription">You have unsaved changes to your settings! Do you want to save them first? (Selecting No reverts all changes to your settings)</system:String>
 
     <!--DragDropArea-->

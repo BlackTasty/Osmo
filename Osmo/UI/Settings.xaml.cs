@@ -84,31 +84,56 @@ namespace Osmo.UI
 
         private async void Settings_Loaded(object sender, RoutedEventArgs e)
         {
-            SettingsViewModel vm = DataContext as SettingsViewModel;
-            if (string.IsNullOrWhiteSpace(vm.OsuDirectory) || !Directory.Exists(vm.OsuDirectory))
+            bool exitAutoDetect;
+            do
             {
-                var msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_autodetectOsu"),
-                    Helper.FindString("settings_descr_autodetectOsu"), OsmoMessageBoxButton.YesNo);
-
-                await DialogHelper.Instance.ShowDialog(msgBox);
-
-                if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                exitAutoDetect = true;
+                SettingsViewModel vm = DataContext as SettingsViewModel;
+                if (string.IsNullOrWhiteSpace(vm.OsuDirectory) || !Directory.Exists(vm.OsuDirectory))
                 {
-                    string osuPath = Helper.FindOsuInstallation();
-
-                    if (!string.IsNullOrWhiteSpace(osuPath))
+                    if (Helper.IsOsuInstalled())
                     {
-                        vm.OsuDirectory = osuPath;
+                        var msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_autodetectOsu"),
+                            Helper.FindString("settings_descr_autodetectOsu"), OsmoMessageBoxButton.YesNo);
+
+                        await DialogHelper.Instance.ShowDialog(msgBox);
+
+                        if (msgBox.Result == OsmoMessageBoxResult.Yes)
+                        {
+                            string osuPath = Helper.FindOsuInstallation();
+
+                            if (!string.IsNullOrWhiteSpace(osuPath))
+                            {
+                                vm.OsuDirectory = osuPath;
+                            }
+                            else
+                            {
+                                msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_autodetectFailed"),
+                                    Helper.FindString("settings_descr_autodetectFailed"), OsmoMessageBoxButton.OKRetry);
+
+                                await DialogHelper.Instance.ShowDialog(msgBox);
+
+                                if (msgBox.Result == OsmoMessageBoxResult.Retry)
+                                {
+                                    exitAutoDetect = false;
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_autodetectFailed"),
-                            Helper.FindString("settings_descr_autodetectFailed"), OsmoMessageBoxButton.OK);
+                        var msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_autodetectNoOsuInstalled"),
+                            Helper.FindString("settings_descr_autodetectNoOsuInstalled"), OsmoMessageBoxButton.OKRetry);
 
                         await DialogHelper.Instance.ShowDialog(msgBox);
+
+                        if (msgBox.Result == OsmoMessageBoxResult.Retry)
+                        {
+                            exitAutoDetect = false;
+                        }
                     }
                 }
-            }
+            } while (!exitAutoDetect); 
         }
 
         private void Abort_Click(object sender, RoutedEventArgs e)

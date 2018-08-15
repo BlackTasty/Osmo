@@ -354,7 +354,7 @@ namespace Osmo
             }
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        private void DialogHost_Loaded(object sender, RoutedEventArgs e)
         {
 #if !DEBUG
             ShowDisclaimer();

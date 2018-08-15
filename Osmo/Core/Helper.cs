@@ -150,14 +150,35 @@ namespace Osmo.Core
 
         public static string FindOsuInstallation()
         {
-            string path;
             RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Classes\\osu\\DefaultIcon");
-            path = key.GetValue("").ToString();
-            path = path.Replace("\"", "");
-            path = path.Remove(path.LastIndexOf('\\')) + "\\Skins";
+            if (key != null)
+            {
+                string path;
+                path = key.GetValue("").ToString();
+                path = path.Replace("\"", "");
+                path = path.Remove(path.LastIndexOf('\\')) + "\\Skins";
 
-            return path;
+                if (Directory.Exists(path))
+                {
+                    return path;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
+
+        public static bool IsOsuInstalled()
+        {
+            return Registry.LocalMachine.OpenSubKey("SOFTWARE\\Classes\\osu\\DefaultIcon") != null;
+
+        }
+
         public static string NormalizePath(string path)
         {
             return Path.GetFullPath(new Uri(path).LocalPath)

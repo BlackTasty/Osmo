@@ -16,6 +16,10 @@
         Cancel = 2,
         //
         // Summary:
+        //     The result value of the message box is Retry.
+        Retry = 3,
+        //
+        // Summary:
         //     The result value of the message box is Yes.
         Yes = 6,
         //

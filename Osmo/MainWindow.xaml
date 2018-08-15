@@ -17,7 +17,7 @@
         TextElement.FontSize="14" AllowDrop="True"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     Closing="MetroWindow_Closing" DragEnter="MetroWindow_DragEnter"
-    PreviewKeyUp="MetroWindow_PreviewKeyUp" Loaded="MetroWindow_Loaded">
+    PreviewKeyUp="MetroWindow_PreviewKeyUp">
     <Window.DataContext>
         <vm:OsmoViewModel/>
     </Window.DataContext>
@@ -34,7 +34,7 @@
     </metro:MetroWindow.WindowButtonCommands>
 
     <!--SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"-->
-    <material:DialogHost Identifier="RootDialog">
+    <material:DialogHost Identifier="RootDialog" Loaded="DialogHost_Loaded">
         <material:DialogHost.DialogContent>
             <ui:NewSkinDialog x:Name="dialg_newSkin" Margin="16"/>
         </material:DialogHost.DialogContent>

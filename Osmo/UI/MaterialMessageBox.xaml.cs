@@ -62,6 +62,11 @@ namespace Osmo.UI
                         vm.ButtonTwoText = Helper.FindString("no");
                         vm.ButtonThreeText = Helper.FindString("yes");
                         break;
+                    case OsmoMessageBoxButton.OKRetry:
+                        vm.ButtonOneText = "";
+                        vm.ButtonTwoText = Helper.FindString("retry");
+                        vm.ButtonThreeText = Helper.FindString("ok");
+                        break;
                     case OsmoMessageBoxButton.Custom:
                         vm.ButtonOneText = buttonOneCustomText;
                         vm.ButtonTwoText = buttonTwoCustomText;
@@ -170,6 +175,9 @@ namespace Osmo.UI
                 case OsmoMessageBoxButton.OKCancel:
                     Result = OsmoMessageBoxResult.Cancel;
                     break;
+                case OsmoMessageBoxButton.OKRetry:
+                    Result = OsmoMessageBoxResult.Retry;
+                    break;
                 case OsmoMessageBoxButton.YesNo:
                 case OsmoMessageBoxButton.YesNoCancel:
                     Result = OsmoMessageBoxResult.No;
@@ -186,6 +194,7 @@ namespace Osmo.UI
             {
                 case OsmoMessageBoxButton.OK:
                 case OsmoMessageBoxButton.OKCancel:
+                case OsmoMessageBoxButton.OKRetry:
                     Result = OsmoMessageBoxResult.OK;
                     break;
                 case OsmoMessageBoxButton.YesNo:
