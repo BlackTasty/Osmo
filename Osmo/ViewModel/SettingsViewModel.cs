@@ -84,12 +84,12 @@ namespace Osmo.ViewModel
             }
         }
 
-        public Language Language
+        public int Language
         {
-            get => config.Language;
+            get => (int)config.Language;
             set
             {
-                config.Language = value;
+                config.Language = (Language)value;
                 InvokePropertyChanged("Language");
             }
         }

@@ -13,7 +13,8 @@ namespace Osmo.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var underlyingType = Enum.GetUnderlyingType(value.GetType());
-            return System.Convert.ChangeType(value, underlyingType);
+            int test = (int)System.Convert.ChangeType(value, underlyingType);
+            return (int)System.Convert.ChangeType(value, underlyingType);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

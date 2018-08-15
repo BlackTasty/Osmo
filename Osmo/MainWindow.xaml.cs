@@ -102,8 +102,6 @@ namespace Osmo
         {
             if (!configuration.IsValid)
                 sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
-
-            dialg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
         }
 
         private async void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

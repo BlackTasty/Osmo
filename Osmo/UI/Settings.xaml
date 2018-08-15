@@ -20,6 +20,7 @@
     </Grid.DataContext>
     <Grid.Resources>
         <converter:EnumToIntConverter x:Key="EnumToInt"/>
+        <converter:StringNotEmptyConverter x:Key="StringNotEmpty"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition />
@@ -117,7 +118,7 @@
                                        Foreground="{Binding ElementName=combo_language, Path=BorderBrush}" Kind="Flag" />
                     <ComboBox x:Name="combo_language" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" 
                               VerticalAlignment="Stretch" material:HintAssist.Hint="{DynamicResource settings_hint_language}"
-                              SelectedIndex="{Binding Language, Converter={StaticResource EnumToInt}}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                              SelectedIndex="{Binding Language}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem Content="English (Default)" />
                         <ComboBoxItem Content="Español" />
                     </ComboBox>
@@ -165,6 +166,7 @@
     <Button Grid.Row="2" Grid.Column="1" Width="130" Margin="10,5" Click="Abort_Click" Content="{DynamicResource abort}"
             Style="{StaticResource MaterialDesignRaisedDarkButton}" ToolTip="{DynamicResource tip_settings_abort}"/>
     <Button Grid.Row="2" Grid.Column="2" Width="130" Margin="10,5" Click="Save_Click" Content="{DynamicResource save}"
-            Style="{StaticResource MaterialDesignRaisedDarkButton}" ToolTip="{DynamicResource tip_settings_save}"/>
+            Style="{StaticResource MaterialDesignRaisedDarkButton}" ToolTip="{DynamicResource tip_settings_save}"
+            IsEnabled="{Binding ElementName=txt_osuPath, Path=Text, Converter={StaticResource StringNotEmpty}}" />
     <material:Snackbar x:Name="snackbar" Grid.Row="2" Grid.ColumnSpan="3" MessageQueue="{material:MessageQueue}"/>
 </Grid>

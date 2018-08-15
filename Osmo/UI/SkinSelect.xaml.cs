@@ -129,6 +129,7 @@ namespace Osmo.UI
             //{
             //    uniGrid_skins.Children.Add(new SkinCard().InitializeSkin(skin));
             //}
+            dlg_newSkin.SetMasterViewModel(DataContext as OsmoViewModel);
         }
 
         public async Task<bool> ForwardKeyboardInput(KeyEventArgs e)

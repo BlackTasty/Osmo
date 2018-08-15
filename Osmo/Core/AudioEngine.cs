@@ -10,6 +10,8 @@ namespace Osmo.Core
 {
     class AudioEngine
     {
+        private static AudioEngine instance;
+
         private int _stream;
         private BASSTimer _timer;
         private bool paused;

@@ -38,6 +38,7 @@
     <system:String o:Freeze="True" x:Key="yes">_SÍ</system:String>
     <system:String o:Freeze="True" x:Key="no">_NO</system:String>
     <system:String o:Freeze="True" x:Key="import">_IMPORTAR</system:String>
+    <system:String o:Freeze="True" x:Key="retry">_RETRY</system:String>
     <system:String o:Freeze="True" x:Key="loadTemplate">_CARGAR PLANTILLA</system:String>
     <system:String o:Freeze="True" x:Key="newTemplate">_NUEVA PLANTILLA</system:String>
     <system:String o:Freeze="True" x:Key="loadSkin">_CARGAR SKIN</system:String>
@@ -148,6 +149,13 @@
     <system:String o:Freeze="True" x:Key="settings_header_editor">Editor</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Keyboard shortcuts</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_shortcutsCheatSheet">Cheat sheet</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectNoOsuInstalled">osu! is not installed!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectNoOsuInstalled">Should osu! be installed make sure it has been installed correctly, otherwise select it manually.</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectOsu">Auto-detect osu! folder</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectOsu">Do you wish for Osmo to find your osu! installation folder?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectFailed">Auto-detect failed!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">Are you sure you have osu! installed correctly?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_unsavedChangesDescription">You have unsaved changes to your settings! Do you want to save them first? (Selecting No reverts all changes to your settings)</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Archivo skin ejecutable</system:String>
@@ -168,6 +176,7 @@
     <system:String o:Freeze="True" x:Key="skinSelect_deleteTitle">¿Eliminar skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">¿Seguro que desea eliminar este skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Seleccione el directorio al que desea exportar su skin</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_loadSkins">Loading skins...</system:String>
 
     <!--ResizeTool-->
     <system:String o:Freeze="True" x:Key="header_dimensionWidth">Width</system:String>
@@ -205,6 +214,10 @@
     <system:String o:Freeze="True" x:Key="about_openSource1">¡Osmo es de código abierto!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Haga clic aquí</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource3">para ir al repositorio de GitHub.</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Session id:</system:String>
+    <system:String o:Freeze="True" x:Key="tip_sessionId">The session id is used inside your log files. This is especially useful if you have multiple instances of Osmo open and one of them crashes or generates errors.</system:String>
+    <system:String o:Freeze="True" x:Key="tip_copySessionId">Copy the session id to your clipboard.</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_sessionId">Session id copied to clipboard!</system:String>
 
     <!--New template dialog-->
     <system:String o:Freeze="True" x:Key="newTemplate_title">Crear una nueva plantilla</system:String>

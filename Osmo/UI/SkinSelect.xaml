@@ -147,7 +147,7 @@
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{x:Static material:DialogHost.OpenDialogCommand}" Content="{DynamicResource newSkin}"
                             x:Name="btn_newSkin" ToolTip="{DynamicResource tip_skinSelect_new}" Grid.Column="2" Grid.Row="2" Margin="5">
         <Button.CommandParameter>
-            <local:NewSkinDialog Margin="16"/>
+            <local:NewSkinDialog Margin="16" x:Name="dlg_newSkin"/>
         </Button.CommandParameter>
     </Button>
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="MixSkins_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
