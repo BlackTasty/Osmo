@@ -13,6 +13,7 @@ namespace Osmo.ViewModel
     {
         private SkinManager mSkinManager;
         private int mSelectedIndex;
+        private OsmoViewModel mMaster;
 
         public SkinSelectViewModel()
         {
@@ -45,6 +46,23 @@ namespace Osmo.ViewModel
         public bool SkinOptionsEnabled
         {
             get => SelectedIndex > 0;
+        }
+
+        public OsmoViewModel Master
+        {
+            get => mMaster;
+            set => mMaster = value;
+        }
+
+        public int SelectedSidebarIndex {
+            get => mMaster?.SelectedSidebarIndex ?? 0;
+            set
+            {
+                if (mMaster != null)
+                {
+                    mMaster.SelectedSidebarIndex = value;
+                }
+            }
         }
 
         public List<Skin> Skins { get => SkinManager != null ? SkinManager.Skins.ToList() : null; }

@@ -354,6 +354,7 @@ namespace Osmo
 
         private void DialogHost_Loaded(object sender, RoutedEventArgs e)
         {
+            SkinSelect.Instance.SetOsmoViewModel(DataContext as OsmoViewModel);
 #if !DEBUG
             ShowDisclaimer();
 #endif

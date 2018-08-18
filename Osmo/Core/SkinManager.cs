@@ -46,6 +46,7 @@ namespace Osmo.Core
         public event EventHandler<SkinChangedEventArgs> SkinChanged;
         public event EventHandler<SkinRenamedEventArgs> SkinRenamed;
         public event EventHandler<EventArgs> SkinDirectoryChanged;
+        public event EventHandler<EventArgs> EmptySkinItemAdded;
         
         public VeryObservableCollection<Skin> Skins { get; private set; } = new VeryObservableCollection<Skin>("Skins", new Skin());
 
@@ -252,6 +253,7 @@ namespace Osmo.Core
                 }
 
                 Skins.Add(new Skin());
+                OnEmptySkinItemAdded();
                 RecallConfiguration recall = RecallConfiguration.Instance;
                 bool reopenLastSkin = AppConfiguration.Instance.ReopenLastSkin;
                 new Thread(() =>
@@ -296,6 +298,11 @@ namespace Osmo.Core
                     }
                 }).Start();
             }
+        }
+
+        protected virtual void OnEmptySkinItemAdded()
+        {
+            EmptySkinItemAdded?.Invoke(this, EventArgs.Empty);
         }
     }
 }

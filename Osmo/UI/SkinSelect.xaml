@@ -5,12 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:converter="clr-namespace:Osmo.Converters"
+             xmlns:vm="clr-namespace:Osmo.ViewModel"
              xmlns:local="clr-namespace:Osmo.UI"
              mc:Ignorable="d" PreviewKeyUp="Grid_PreviewKeyUp"
              d:DesignHeight="300" d:DesignWidth="700" Tag="{DynamicResource skinSelect_mySkins}" Loaded="Grid_Loaded">
+    <Grid.DataContext>
+        <vm:SkinSelectViewModel/>
+    </Grid.DataContext>
     <Grid.Resources>
         <converter:SelectSkinSelector x:Key="SkinOptionSelector"/>
-        
+
         <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
@@ -39,6 +43,20 @@
         </StackPanel>
         <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding Skins}" SelectedIndex="{Binding SelectedIndex}"
               PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" PreviewMouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Click="MenuItem_NewSkin_Click" Header="{DynamicResource newSkin_title}"/>
+                    <MenuItem Click="MenuItem_Import_Click" Header="{DynamicResource newSkin_title}"/>
+                    <Separator/>
+                    <MenuItem Click="MenuItem_OpenInEditor_Click" Header="{DynamicResource main_openInEditor}" IsEnabled="{Binding SkinOptionsEnabled}"/>
+                    <MenuItem Click="MenuItem_OpenInExplorer_Click" Header="{DynamicResource main_openInExplorer}" IsEnabled="{Binding SkinOptionsEnabled}"/>
+                    <MenuItem Click="MenuItem_OpenInMixer_Click" Header="{DynamicResource main_openInMixer}" IsEnabled="{Binding SkinOptionsEnabled}"/>
+                    <MenuItem Click="MenuItem_ResizeTool_Click" Header="{DynamicResource menuItem_openInResizer}" IsEnabled="{Binding SkinOptionsEnabled}"/>
+                    <Separator/>
+                    <MenuItem Click="MenuItem_Export_Click" Header="{DynamicResource tip_skinSelect_export}" IsEnabled="{Binding SkinOptionsEnabled}"/>
+                    <MenuItem Click="MenuItem_Delete_Click" Header="{DynamicResource tip_skinSelect_delete}" IsEnabled="{Binding SkinOptionsEnabled}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{DynamicResource name}" Width="200">
@@ -93,7 +111,7 @@
                     <GridViewColumn Header="{DynamicResource delete}" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Height="16" Width="16" Click="SkinDelete_Click"
+                                <Button Height="16" Width="16" Click="SkinDelete_Click" PreviewMouseUp="Button_PreviewMouseUp"
                                     ToolTip="{DynamicResource tip_skinSelect_delete}" Padding="0" Tag="{Binding Name}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                     <Button.Style>
@@ -141,7 +159,7 @@
     </DockPanel>
     <!--<material:Snackbar MessageQueue="{material:MessageQueue}" x:Name="MainSnackbar"
                                             Grid.Row="1" />-->
-    <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="LoadSkin_Click" Content="{DynamicResource loadSkin}"
+    <Button x:Name="btn_loadSkin" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="LoadSkin_Click" Content="{DynamicResource loadSkin}"
                             ToolTip="{DynamicResource tip_skinSelect_load}" Grid.Row="2" IsEnabled="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}" Margin="5"/>
 
     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{x:Static material:DialogHost.OpenDialogCommand}" Content="{DynamicResource newSkin}"

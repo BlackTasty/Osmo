@@ -295,6 +295,9 @@
     <system:String o:Freeze="True" x:Key="txt_oldStyle">Old style</system:String>
     <system:String o:Freeze="True" x:Key="txt_creatingFile">Creating file:</system:String>
 
+    <!-- MenuItems -->
+    <system:String o:Freeze="True" x:Key="menuItem_openInResizer">Open in Resize Tool</system:String>
+
     <!--Completion data descriptions-->
     <!--   Template completion data-->
     <system:String o:Freeze="True" x:Key="completion_template_name">This is the placeholder for your skin's name</system:String>
