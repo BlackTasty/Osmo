@@ -54,13 +54,6 @@ namespace Osmo.UI
 
         private async void NewSkin_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (lv_skins.SelectedIndex > 0)
-            {
-                if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
-                {
-                    (DataContext as SkinSelectViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
-                }
-            }
         }
 
         internal void SetOsmoViewModel(OsmoViewModel vm)
@@ -84,8 +77,15 @@ namespace Osmo.UI
             }
         }
 
-        private void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (lv_skins.SelectedIndex > 0)
+            {
+                if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
+                {
+                    (DataContext as SkinSelectViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                }
+            }
         }
 
         private void SkinDelete_Click(object sender, RoutedEventArgs e)
@@ -212,42 +212,50 @@ namespace Osmo.UI
 
         private void MenuItem_OpenInExplorer_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            Helper.OpenSkinInExplorer(vm.Skins[vm.SelectedIndex]);
         }
 
-        private void MenuItem_OpenInMixer_Click(object sender, RoutedEventArgs e)
+        private async void MenuItem_OpenInMixer_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            if (await SkinMixer.Instance.LoadSkin(vm.Skins[vm.SelectedIndex], true))
+            {
+                vm.SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+            }
         }
 
-        private void MenuItem_OpenInEditor_Click(object sender, RoutedEventArgs e)
+        private async void MenuItem_OpenInEditor_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            if (await SkinEditor.Instance.LoadSkin(vm.Skins[vm.SelectedIndex]))
+            {
+                vm.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            }
         }
 
         private void MenuItem_ResizeTool_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            ResizeTool.Instance.LoadSkin(vm.Skins[vm.SelectedIndex]);
+            vm.SelectedSidebarIndex = FixedValues.RESIZE_TOOL_INDEX;
         }
 
         private void MenuItem_Export_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            ExportSkin(vm.Skins[vm.SelectedIndex].Name);
         }
 
         private void MenuItem_Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            DeleteSkin(vm.Skins[vm.SelectedIndex].Name);
         }
 
         private void MenuItem_Import_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Button_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine("");
         }
     }
 }

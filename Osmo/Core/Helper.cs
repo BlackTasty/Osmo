@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using Osmo.Core.Objects;
 using Osmo.UI;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -184,6 +185,11 @@ namespace Osmo.Core
             return Path.GetFullPath(new Uri(path).LocalPath)
                        .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
                        .ToUpperInvariant();
+        }
+
+        public static void OpenSkinInExplorer(Skin skin)
+        {
+            Process.Start(skin.Path);
         }
     }
 }

@@ -215,11 +215,11 @@ namespace Osmo
             OsmoViewModel vm = DataContext as OsmoViewModel;
             if (vm.SelectedSidebarIndex == FixedValues.EDITOR_INDEX)
             {
-                Process.Start((SkinEditor.Instance.DataContext as SkinViewModel).LoadedSkin.Path);
+                Helper.OpenSkinInExplorer((SkinEditor.Instance.DataContext as SkinViewModel).LoadedSkin);
             }
             else if (vm.SelectedSidebarIndex == FixedValues.MIXER_INDEX)
             {
-                Process.Start((SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft.Path);
+                Helper.OpenSkinInExplorer((SkinMixer.Instance.DataContext as SkinMixerViewModel).SkinLeft);
             }
         }
 

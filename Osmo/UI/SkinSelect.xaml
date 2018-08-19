@@ -42,18 +42,24 @@
                          Maximum="{Binding SkinManager.SkinLoadMaximum}"/>
         </StackPanel>
         <ListView x:Name="lv_skins" SelectionMode="Single" ItemsSource="{Binding Skins}" SelectedIndex="{Binding SelectedIndex}"
-              PreviewMouseDoubleClick="Skins_PreviewMouseDoubleClick" PreviewMouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
+              MouseDoubleClick="Skins_PreviewMouseDoubleClick" MouseLeftButtonUp="Skins_PreviewMouseLeftButtonUp">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Click="MenuItem_NewSkin_Click" Header="{DynamicResource newSkin_title}"/>
-                    <MenuItem Click="MenuItem_Import_Click" Header="{DynamicResource newSkin_title}"/>
+                    <!--<MenuItem Click="MenuItem_Import_Click" Header="{DynamicResource main_importSkin}"/>-->
                     <Separator/>
                     <MenuItem Click="MenuItem_OpenInEditor_Click" Header="{DynamicResource main_openInEditor}" IsEnabled="{Binding SkinOptionsEnabled}"/>
                     <MenuItem Click="MenuItem_OpenInExplorer_Click" Header="{DynamicResource main_openInExplorer}" IsEnabled="{Binding SkinOptionsEnabled}"/>
                     <MenuItem Click="MenuItem_OpenInMixer_Click" Header="{DynamicResource main_openInMixer}" IsEnabled="{Binding SkinOptionsEnabled}"/>
                     <MenuItem Click="MenuItem_ResizeTool_Click" Header="{DynamicResource menuItem_openInResizer}" IsEnabled="{Binding SkinOptionsEnabled}"/>
                     <Separator/>
-                    <MenuItem Click="MenuItem_Export_Click" Header="{DynamicResource tip_skinSelect_export}" IsEnabled="{Binding SkinOptionsEnabled}"/>
+                    <MenuItem Click="MenuItem_Export_Click" Header="{DynamicResource tip_skinSelect_export}" IsEnabled="{Binding SkinOptionsEnabled}" 
+                              Command="{x:Static material:DialogHost.OpenDialogCommand}">
+                        <MenuItem.CommandParameter>
+                            <local:FilePicker Title="{DynamicResource skinSelect_exportTitle}" IsFolderSelect="True"
+                                                          DialogClosed="FolderPicker_DialogClosed"/>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
                     <MenuItem Click="MenuItem_Delete_Click" Header="{DynamicResource tip_skinSelect_delete}" IsEnabled="{Binding SkinOptionsEnabled}"/>
                 </ContextMenu>
             </ListView.ContextMenu>
@@ -111,7 +117,7 @@
                     <GridViewColumn Header="{DynamicResource delete}" Width="80">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Height="16" Width="16" Click="SkinDelete_Click" PreviewMouseUp="Button_PreviewMouseUp"
+                                <Button Height="16" Width="16" Click="SkinDelete_Click"
                                     ToolTip="{DynamicResource tip_skinSelect_delete}" Padding="0" Tag="{Binding Name}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                     <Button.Style>
