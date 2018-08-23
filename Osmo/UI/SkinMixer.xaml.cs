@@ -206,6 +206,7 @@ namespace Osmo.UI
                 if (vm.AudioPlayingLeft)
                 {
                     vm.AudioPlayingLeft = false;
+                    vm.PlayStatusLeft = 0;
                     audio.StopAudio();
                 }
             }
@@ -214,6 +215,7 @@ namespace Osmo.UI
                 if (vm.AudioPlayingRight)
                 {
                     vm.AudioPlayingRight = false;
+                    vm.PlayStatusRight = 0;
                     audio.StopAudio();
                 }
             }
@@ -255,37 +257,63 @@ namespace Osmo.UI
 
         private void PlaybackToggleLeft_Click(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as SkinMixerViewModel).AudioPlayingLeft)
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            if (vm.AudioPlayingLeft)
             {
-                StopAudio(true);
+                if (vm.AudioEnded)
+                {
+                    audio.PlayAudio(vm.SelectedElementLeft.Path);
+                }
+                else
+                {
+                    audio.PauseAudio();
+                }
             }
             else
             {
                 StopAudio(false);
-                audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementLeft.Path);
+                audio.PlayAudio(vm.SelectedElementLeft.Path);
                 if (cb_mute.IsChecked == true)
                     audio.SetVolume(0);
                 else
                     audio.SetVolume(slider_volume.Value);
-                (DataContext as SkinMixerViewModel).AudioPlayingLeft = true;
+                vm.AudioPlayingLeft = true;
             }
+        }
+
+        private void PlaybackStopLeft_Click(object sender, RoutedEventArgs e)
+        {
+            StopAudio(true);
+        }
+
+        private void PlaybackStopRight_Click(object sender, RoutedEventArgs e)
+        {
+            StopAudio(false);
         }
 
         private void PlaybackToggleRight_Click(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as SkinMixerViewModel).AudioPlayingRight)
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            if (vm.AudioPlayingRight)
             {
-                StopAudio(false);
+                if (vm.AudioEnded)
+                {
+                    audio.PlayAudio(vm.SelectedElementRight.Path);
+                }
+                else
+                {
+                    audio.PauseAudio();
+                }
             }
             else
             {
                 StopAudio(true);
-                audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementRight.Path);
+                audio.PlayAudio(vm.SelectedElementRight.Path);
                 if (cb_mute.IsChecked == true)
                     audio.SetVolume(0);
                 else
                     audio.SetVolume(slider_volume.Value);
-                (DataContext as SkinMixerViewModel).AudioPlayingRight = true;
+                vm.AudioPlayingRight = true;
             }
         }
 
@@ -335,6 +363,14 @@ namespace Osmo.UI
             if (args.Path != null)
             {
                 Helper.ExportSkin(args.Path, FixedValues.EDITOR_INDEX, true);
+            }
+        }
+
+        private void Slider_Audio_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (e.NewValue % 1 != 0)
+            {
+                audio.SetPosition((sender as Slider).Value);
             }
         }
     }

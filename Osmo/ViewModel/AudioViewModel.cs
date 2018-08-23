@@ -10,6 +10,7 @@ namespace Osmo.ViewModel
     {
         private double mAudioPosition = 0;
         private double mAudioLength = 0;
+        private bool mAudioEnded = false;
 
         public double AudioLength
         {
@@ -28,6 +29,16 @@ namespace Osmo.ViewModel
             {
                 mAudioPosition = value;
                 InvokePropertyChanged("AudioPosition");
+            }
+        }
+
+        public bool AudioEnded
+        {
+            get => mAudioEnded;
+            set
+            {
+                mAudioEnded = value;
+                InvokePropertyChanged("AudioEnded");
             }
         }
     }
