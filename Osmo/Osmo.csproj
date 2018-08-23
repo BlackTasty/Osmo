@@ -135,6 +135,7 @@
     <Compile Include="Converters\IntToBooleanConverter.cs" />
     <Compile Include="Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectNotNullConverter.cs" />
     <Compile Include="Converters\PathToFileNameConverter.cs" />
     <Compile Include="Converters\StringLimitConverter.cs" />
     <Compile Include="Converters\StringNotEmptyConverter.cs" />

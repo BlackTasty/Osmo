@@ -21,6 +21,8 @@ namespace Osmo.ViewModel
 
         private bool mAudioPlayingLeft;
         private bool mAudioPlayingRight;
+        private int mPlayStatusLeft;
+        private int mPlayStatusRight;
 
         public Skin SkinLeft
         {
@@ -109,6 +111,16 @@ namespace Osmo.ViewModel
                 InvokePropertyChanged("AudioPlayingLeft");
             }
         }
+
+        public int PlayStatusLeft
+        {
+            get => mPlayStatusLeft;
+            set
+            {
+                mPlayStatusLeft = value;
+                InvokePropertyChanged("PlayStatusLeft");
+            }
+        }
         #endregion
 
         #region Selected element right side
@@ -174,6 +186,17 @@ namespace Osmo.ViewModel
             }
         }
 
+        public int PlayStatusRight
+        {
+            get => mPlayStatusRight;
+            set
+            {
+                mPlayStatusRight = value;
+                InvokePropertyChanged("PlayStatusRight");
+            }
+        }
+        #endregion
+
         public bool FileTypeMatch
         {
             get
@@ -184,7 +207,6 @@ namespace Osmo.ViewModel
                 return typeLeft == typeRight;
             }
         }
-        #endregion
 
         private ImageSource RefreshImage(SkinElement target)
         {

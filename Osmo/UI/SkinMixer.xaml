@@ -113,60 +113,180 @@
     </ListView>
     <material:ColorZone Mode="Dark" Grid.Row="2" VerticalAlignment="Stretch">
         <Grid>
-            <Image Source="{Binding ImageLeft}"/>
-            <material:PackIcon Kind="{Binding IconLeft}" Visibility="{Binding ShowIconLeft, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
-            <Button Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="PlaybackToggleLeft_Click"
-                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledLeft}" ToolTip="{DynamicResource tip_play}">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter Property="Background" Value="{x:Null}"/>
-                        <Setter Property="BorderBrush" Value="{x:Null}"/>
-                        <Setter Property="Content">
-                            <Setter.Value>
-                                <material:PackIcon Kind="Play" Height="32" Width="32" />
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding AudioPlayingLeft}" Value="True">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <material:PackIcon Kind="Stop" Height="32" Width="32" />
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="158*"/>
+                <ColumnDefinition Width="207*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding ImageLeft}" Grid.ColumnSpan="2" Margin="0,0,0,44"/>
+            <material:PackIcon Kind="{Binding IconLeft}" Visibility="{Binding ShowIconLeft, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128" Grid.ColumnSpan="2" Margin="0,0,0,44"/>
+
+            <material:Transitioner x:Name="transitionerLeft" SnapsToDevicePixels="True" AutoApplyTransitionOrigins="True" ClipToBounds="False"
+                                   VerticalAlignment="Bottom" SelectedIndex="{Binding PlayStatusLeft}" Grid.ColumnSpan="2">
+                <material:TransitionerSlide>
+                    <material:TransitionerSlide.ForwardWipe>
+                        <material:CircleWipe/>
+                    </material:TransitionerSlide.ForwardWipe>
+                    <material:ColorZone Height="44" Mode="Dark" VerticalAlignment="Bottom">
+                        <Button Padding="0" HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabledLeft}"
+                            ToolTip="{DynamicResource tip_play}" Click="PlaybackToggleLeft_Click"
+                                    Command="{x:Static material:Transitioner.MoveNextCommand}" Margin="16,0,0,0" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <material:PackIcon
+                            Kind="Play"
+                            Height="32"
+                            Width="32" />
+                        </Button>
+                    </material:ColorZone>
+                </material:TransitionerSlide>
+                <material:TransitionerSlide>
+                    <material:TransitionerSlide.BackwardWipe>
+                        <material:CircleWipe/>
+                    </material:TransitionerSlide.BackwardWipe>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                        </Grid.RowDefinitions>
+                        <material:ColorZone Mode="PrimaryDark" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="48"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="48"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="88"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Padding="0" Grid.Column="1" x:Name="btn_pauseLeft"
+                            HorizontalAlignment="Left"
+                            ToolTip="{DynamicResource tip_pause}" Click="PlaybackToggleLeft_Click"
+                                    Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <material:PackIcon Kind="Pause" Height="32" Width="32"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding AudioEnded}" Value="True">
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <material:PackIcon Kind="Replay" Height="24" Width="24"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button Padding="0" Grid.Column="3"
+                            HorizontalAlignment="Left"
+                            ToolTip="{DynamicResource tip_stop}" Click="PlaybackStopLeft_Click"
+                                    Command="{x:Static material:Transitioner.MovePreviousCommand}" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <material:PackIcon
+                            Kind="Stop"
+                            Height="32"
+                            Width="32" />
+                                </Button>
+                            </Grid>
+                        </material:ColorZone>
+                        <Slider x:Name="slider_audioLeft" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                    Minimum="0" Maximum="{Binding AudioLength}" IsMoveToPointEnabled="True"
+                                    Value="{Binding AudioPosition}" Margin="0,0,88,0" Grid.RowSpan="2" ValueChanged="Slider_Audio_ValueChanged"/>
+                        <TextBlock VerticalAlignment="Bottom" Margin="16,4" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                        <Run Text="{DynamicResource edit_currentlyPlaying}"/> <Run Text="{Binding SelectedElement.Name}"/>
+                        </TextBlock>
+                    </Grid>
+                </material:TransitionerSlide>
+            </material:Transitioner>
         </Grid>
     </material:ColorZone>
     <material:ColorZone Mode="Dark" Grid.Column="2" Grid.Row="2" VerticalAlignment="Stretch">
         <Grid>
-            <Image Source="{Binding ImageRight}"/>
-            <material:PackIcon Kind="{Binding IconRight}" Visibility="{Binding ShowIconRight, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>
-            <Button Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="PlaybackToggleRight_Click"
-                    Height="44" Width="44" IsEnabled="{Binding PlayEnabledRight}" ToolTip="{DynamicResource tip_play}">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                        <Setter Property="Background" Value="{x:Null}"/>
-                        <Setter Property="BorderBrush" Value="{x:Null}"/>
-                        <Setter Property="Content">
-                            <Setter.Value>
-                                <material:PackIcon Kind="Play" Height="32" Width="32" />
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding AudioPlayingRight}" Value="True">
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <material:PackIcon Kind="Stop" Height="32" Width="32" />
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+            <Image Source="{Binding ImageRight}" Margin="0,0,0,44"/>
+            <material:PackIcon Kind="{Binding IconRight}" Visibility="{Binding ShowIconRight, FallbackValue=Hidden, TargetNullValue=Hidden}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128" Margin="0,0,0,44"/>
+
+            <material:Transitioner x:Name="transitionerRight" SnapsToDevicePixels="True" AutoApplyTransitionOrigins="True" ClipToBounds="False"
+                                   VerticalAlignment="Bottom" SelectedIndex="{Binding PlayStatusRight}" Grid.ColumnSpan="2">
+                <material:TransitionerSlide>
+                    <material:TransitionerSlide.ForwardWipe>
+                        <material:CircleWipe/>
+                    </material:TransitionerSlide.ForwardWipe>
+                    <material:ColorZone Height="44" Mode="Dark" VerticalAlignment="Bottom">
+                        <Button Padding="0" HorizontalAlignment="Left" IsEnabled="{Binding PlayEnabledRight}"
+                            ToolTip="{DynamicResource tip_play}" Click="PlaybackToggleRight_Click"
+                                    Command="{x:Static material:Transitioner.MoveNextCommand}" Margin="16,0,0,0" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <material:PackIcon
+                            Kind="Play"
+                            Height="32"
+                            Width="32" />
+                        </Button>
+                    </material:ColorZone>
+                </material:TransitionerSlide>
+                <material:TransitionerSlide>
+                    <material:TransitionerSlide.BackwardWipe>
+                        <material:CircleWipe/>
+                    </material:TransitionerSlide.BackwardWipe>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                        </Grid.RowDefinitions>
+                        <material:ColorZone Mode="PrimaryDark" Grid.Row="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="48"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="48"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="88"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Padding="0" Grid.Column="1" x:Name="btn_pauseRight"
+                            HorizontalAlignment="Left"
+                            ToolTip="{DynamicResource tip_pause}" Click="PlaybackToggleRight_Click"
+                                    Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <material:PackIcon Kind="Pause" Height="32" Width="32"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding AudioEnded}" Value="True">
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <material:PackIcon Kind="Replay" Height="24" Width="24"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button Padding="0" Grid.Column="3"
+                            HorizontalAlignment="Left"
+                            ToolTip="{DynamicResource tip_stop}" Click="PlaybackStopRight_Click"
+                                    Command="{x:Static material:Transitioner.MovePreviousCommand}" Height="44" Width="44" Background="{x:Null}" BorderBrush="{x:Null}">
+                                    <material:PackIcon
+                            Kind="Stop"
+                            Height="32"
+                            Width="32" />
+                                </Button>
+                            </Grid>
+                        </material:ColorZone>
+                        <Slider x:Name="slider_audioRight" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                    Minimum="0" Maximum="{Binding AudioLength}" IsMoveToPointEnabled="True"
+                                    Value="{Binding AudioPosition}" Margin="0,0,88,0" Grid.RowSpan="2" ValueChanged="Slider_Audio_ValueChanged"/>
+                        <TextBlock VerticalAlignment="Bottom" Margin="16,4" Style="{StaticResource MaterialDesignBody1TextBlock}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+                        <Run Text="{DynamicResource edit_currentlyPlaying}"/> <Run Text="{Binding SelectedElement.Name}"/>
+                        </TextBlock>
+                    </Grid>
+                </material:TransitionerSlide>
+            </material:Transitioner>
         </Grid>
     </material:ColorZone>
     <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">

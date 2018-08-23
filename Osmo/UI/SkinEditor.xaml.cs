@@ -354,7 +354,17 @@ namespace Osmo.UI
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-            audio.PauseAudio();
+            SkinViewModel vm = DataContext as SkinViewModel;
+
+            if (vm.AudioEnded)
+            {
+                audio.PlayAudio(vm.SelectedElement.Path);
+            }
+            else
+            {
+                audio.PauseAudio();
+                vm.PlayStatus = 0;
+            }
         }
 
         private void Slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -441,16 +451,6 @@ namespace Osmo.UI
             }
         }
 
-        private void Slider_Audio_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            audio.EnableSliderChange = true;
-        }
-
-        private void Slider_Audio_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            audio.EnableSliderChange = false;
-        }
-
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
             StopAudio();
@@ -521,6 +521,33 @@ namespace Osmo.UI
         private void FilePicker_DialogOpened(object sender, RoutedEventArgs e)
         {
             (sender as FilePicker).InitialDirectory = (DataContext as SkinViewModel).LoadedSkin.Path;
+        }
+
+        private void MenuItem_Replace_Click(object sender, RoutedEventArgs e)
+        {
+            Replace_Click(sender, e);
+
+            Helper.ExecuteElementCommand(btn_replace);
+
+        }
+
+        private void MenuItem_Animate_Click(object sender, RoutedEventArgs e)
+        {
+            Animate_Click(sender, e);
+
+            Helper.ExecuteElementCommand(btn_animate);
+        }
+
+        private void MenuItem_Play_Click(object sender, RoutedEventArgs e)
+        {
+            Play_Click(sender, e);
+            (DataContext as SkinViewModel).PlayStatus = 1;
+        }
+
+        private void MenuItem_Pause_Click(object sender, RoutedEventArgs e)
+        {
+            Pause_Click(sender, e);
+            (DataContext as SkinViewModel).PlayStatus = 0;
         }
     }
 }

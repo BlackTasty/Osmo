@@ -10,15 +10,11 @@ namespace Osmo.Core
 {
     class AudioEngine
     {
-        private static AudioEngine instance;
-
         private int _stream;
         private BASSTimer _timer;
         private bool paused;
 
         private AudioViewModel vm;
-
-        public bool EnableSliderChange { get; set; }
 
         public AudioEngine(AudioViewModel vm)
         {
@@ -41,12 +37,22 @@ namespace Osmo.Core
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (!EnableSliderChange)
-                vm.AudioPosition = Bass.BASS_ChannelGetPosition(_stream);
+            vm.AudioPosition = Bass.BASS_ChannelGetPosition(_stream);
+
+            if (!vm.AudioEnded && vm.AudioPosition != -1 && vm.AudioPosition == vm.AudioLength)
+            {
+                vm.AudioEnded = true;
+            }
         }
 
         public bool PlayAudio(string path)
         {
+            if (vm.AudioEnded)
+            {
+                vm.AudioPosition = 0;
+                vm.AudioEnded = false;
+            }
+
             if (!paused)
             {
                 Logger.Instance.WriteLog("Starting audio playback... (Path: {0})", path);
@@ -107,9 +113,12 @@ namespace Osmo.Core
 
         public void SetPosition(double position)
         {
-            Bass.BASS_ChannelPause(_stream);
-            Bass.BASS_ChannelSetPosition(_stream, position);
-            Bass.BASS_ChannelPlay(_stream, false);
+            //Bass.BASS_ChannelPause(_stream);
+            if (!Bass.BASS_ChannelSetPosition(_stream, (long)position))
+            {
+                Logger.Instance.WriteLog("Failed to set audio position! Error code: {0}", LogType.WARNING, Bass.BASS_ErrorGetCode());
+            }
+            //Bass.BASS_ChannelPlay(_stream, false);
             vm.AudioPosition = position;
         }
 
