@@ -1,0 +1,434 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <!--<system:String o:Freeze="True" x:Key=""></system:String>-->
+
+    <!--Alpha Disclaimer-->
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_title">Osmo Alpha information</system:String>
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description1">Osmo is currently in an Alpha state and therefore in an unfinished state. This build should be stable, but that doesn't mean that bugs won't occur. If any bugs occur be sure to open an issue on the GitHub page :)</system:String>
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description2">If you are okay with this, click Yes.</system:String>
+
+    <!--Basics-->
+    <system:String o:Freeze="True" x:Key="close">Schließen</system:String>
+    <system:String o:Freeze="True" x:Key="minimize">Minimieren</system:String>
+    <system:String o:Freeze="True" x:Key="restore">Wiederherstellen</system:String>
+    <system:String o:Freeze="True" x:Key="maximize">Maximieren</system:String>
+    <system:String o:Freeze="True" x:Key="skinName">Skin name</system:String>
+    <system:String o:Freeze="True" x:Key="templateName">Template Name</system:String>
+    <system:String o:Freeze="True" x:Key="creator">Ersteller</system:String>
+    <system:String o:Freeze="True" x:Key="version">Version</system:String>
+    <system:String o:Freeze="True" x:Key="name">Name</system:String>
+    <system:String o:Freeze="True" x:Key="delete">Löschen</system:String>
+    <system:String o:Freeze="True" x:Key="export">Exportieren</system:String>
+
+    <system:String o:Freeze="True" x:Key="header_element">Element</system:String>
+    <system:String o:Freeze="True" x:Key="header_elements">Elemente</system:String>
+    <system:String o:Freeze="True" x:Key="header_revert">Rückgängig</system:String>
+
+    <!--   Buttons-->
+    <system:String o:Freeze="True" x:Key="create">_ERSTELLEN</system:String>
+    <system:String o:Freeze="True" x:Key="abort">_ABBRECHEN</system:String>
+    <system:String o:Freeze="True" x:Key="confirm">_BESTÄTIGEN</system:String>
+    <system:String o:Freeze="True" x:Key="select">_AUSWÄHLEN</system:String>
+    <system:String o:Freeze="True" x:Key="save">_SPEICHERN</system:String>
+    <system:String o:Freeze="True" x:Key="cancel">_ABBRECHEN</system:String>
+    <system:String o:Freeze="True" x:Key="ok">_OK</system:String>
+    <system:String o:Freeze="True" x:Key="yes">_JA</system:String>
+    <system:String o:Freeze="True" x:Key="no">_NEIN</system:String>
+    <system:String o:Freeze="True" x:Key="import">_IMPORTIEREN</system:String>
+    <system:String o:Freeze="True" x:Key="retry">_WIEDERHOLEN</system:String>
+    <system:String o:Freeze="True" x:Key="loadTemplate">_TEMPLATE LADEN</system:String>
+    <system:String o:Freeze="True" x:Key="newTemplate">_NEUES TEMPLATE</system:String>
+    <system:String o:Freeze="True" x:Key="loadSkin">_THEME LADEN</system:String>
+    <system:String o:Freeze="True" x:Key="newSkin">_NEUES THEME</system:String>
+    <system:String o:Freeze="True" x:Key="mixSkins">_THEMES MISCHEN</system:String>
+    <system:String o:Freeze="True" x:Key="copy">_KOPEIEREN</system:String>
+    <system:String o:Freeze="True" x:Key="donate">_Spenden</system:String>
+    <system:String o:Freeze="True" x:Key="startResize">_START RESIZING</system:String>
+
+    <!--  Validation-->
+    <system:String o:Freeze="True" x:Key="validationError_directory">Ungültiger Ordner!</system:String>
+    <system:String o:Freeze="True" x:Key="validationError_file">Diese Datei existiert nicht!</system:String>
+
+    <!--Shortcuts cheat sheet-->
+    <system:String o:Freeze="True" x:Key="shortcuts_animate">Strg + Shift + A</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_replaceElement">Strg + H</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_deleteElement">Entf</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_eraseElement">Strg + Del</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_revertChanges">Strg + Z</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_revertAllChanges">Strg + Shift + Z</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_exportSkin">Strg + E</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_save">Strg + S</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerTransfer">Strg + T</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkin">Strg + O</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Theme als Quelle nutzen</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Themeauswahl</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Lade das Theme in Theme Mixer</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixer">Strg + Shift + O</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectNewSkin">Strg + N</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogs">Dialoge</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogCloseTitle">Den Dialog schließen</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogClose">Escape</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogSkinMixerSelect">Theme Auswahl - Mixer</system:String>
+
+    <!--Sidebar (OsmoViewModel.cs)-->
+    <system:String o:Freeze="True" x:Key="sidebar_home">Start</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_wizard">Assistent</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_editor">Theme Editor</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_mixer">Theme Mixer</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_templateManager">Template Verwaltung</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_settings">Einstellungen</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_about">Über</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Resize Tool</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Template Editor</system:String>
+
+    <!--MainWindow-->
+    <system:String o:Freeze="True" x:Key="main_revertAll">Revert all changes</system:String>
+    <system:String o:Freeze="True" x:Key="main_createForumEntry">Create forum post from template</system:String>
+    <system:String o:Freeze="True" x:Key="main_openInExplorer">Open skin in file explorer</system:String>
+    <system:String o:Freeze="True" x:Key="main_openInMixer">Show skin in Skin Mixer</system:String>
+    <system:String o:Freeze="True" x:Key="main_openInEditor">Show skin in Skin Editor</system:String>
+    <system:String o:Freeze="True" x:Key="main_exit">Exit</system:String>
+    <system:String o:Freeze="True" x:Key="main_saveAll">Save all changes</system:String>
+    <system:String o:Freeze="True" x:Key="main_exportSkin">Export your skin</system:String>
+    <system:String o:Freeze="True" x:Key="main_importSkin">Import a skin</system:String>
+    <system:String o:Freeze="True" x:Key="main_unsavedChangesTitle">You have unsaved changes!</system:String>
+    <system:String o:Freeze="True" x:Key="main_unsavedChangesDescription">You have unsaved changes! Do you want to save before closing? (Your changes will be remembered if you choose No)</system:String>
+    <system:String o:Freeze="True" x:Key="main_revertAllTitle">Revert all changes?</system:String>
+    <system:String o:Freeze="True" x:Key="main_revertAllDescription">Do you really want to revert all changes made to this skin? This cannot be undone!</system:String>
+
+    <!--Skin.cs-->
+    <system:String o:Freeze="True" x:Key="skin_importTitle">Skin exists already!</system:String>
+    <system:String o:Freeze="True" x:Key="skin_importDescription1">A skin with the name "</system:String>
+    <system:String o:Freeze="True" x:Key="skin_importDescription2">" exists already! Would you like to overwrite it?</system:String>
+
+    <!--Skin mixer and editor-->
+    <system:String o:Freeze="True" x:Key="snackbar_saveText">Your skin has been saved!</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_saveButton">Export now</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_exportText">Export successful!</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_exportButton">Open folder</system:String>
+    <system:String o:Freeze="True" x:Key="edit_revertTitle">Revert changes?</system:String>
+    <system:String o:Freeze="True" x:Key="edit_revertDescription">Do you really want to revert all changes made to this element?</system:String>
+    <system:String o:Freeze="True" x:Key="export_saveFirstTitle">Save changes first?</system:String>
+    <system:String o:Freeze="True" x:Key="export_saveFirstDescription">Do you wish to save your skin first?</system:String>
+    <system:String o:Freeze="True" x:Key="edit_replaceTitle">Select a file as a replacement...</system:String>
+    <system:String o:Freeze="True" x:Key="edit_replaceFilterAudio1">Supported audio files</system:String>
+    <system:String o:Freeze="True" x:Key="edit_replaceFilterAudio2">Partially supported audio files</system:String>
+    <system:String o:Freeze="True" x:Key="edit_replaceFilterConfig">Supported configuration files</system:String>
+    <system:String o:Freeze="True" x:Key="edit_replaceFilterImage">Supported image files</system:String>
+    <system:String o:Freeze="True" x:Key="edit_eraseTitle">Erase element?</system:String>
+    <system:String o:Freeze="True" x:Key="edit_eraseDescription">Do you really want to erase this element?</system:String>
+    <system:String o:Freeze="True" x:Key="edit_deleteTitle">Delete element?</system:String>
+    <system:String o:Freeze="True" x:Key="edit_deleteDescription">Do you really want to delete this element?</system:String>
+    <system:String o:Freeze="True" x:Key="edit_expander_changes">Summary of changes</system:String>
+    <system:String o:Freeze="True" x:Key="edit_expander_details">Element details</system:String>
+    <system:String o:Freeze="True" x:Key="edit_selectedElement">Selected element:</system:String>
+    <system:String o:Freeze="True" x:Key="edit_tips">Tips:</system:String>
+    <system:String o:Freeze="True" x:Key="edit_currentlyPlaying">Currently playing:</system:String>
+    <system:String o:Freeze="True" x:Key="edit_btn_animate">Open in animation helper</system:String>
+    <system:String o:Freeze="True" x:Key="edit_btn_replace">Replace with another file</system:String>
+    <system:String o:Freeze="True" x:Key="edit_btn_erase">Erase element</system:String>
+    <system:String o:Freeze="True" x:Key="edit_btn_delete">Delete element</system:String>
+    <system:String o:Freeze="True" x:Key="mixer_selectRightSkin">Select a skin</system:String>
+
+    <!--Animation helper-->
+    <system:String o:Freeze="True" x:Key="animator_fps">FPS</system:String>
+    <system:String o:Freeze="True" x:Key="animator_currentFrame">Current frame:</system:String>
+
+    <!--Settings-->
+    <system:String o:Freeze="True" x:Key="snackbar_settingsSavedText">Your settings have been saved!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_osuDirectory">osu! directory</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_tempDirectory">Temporary directory (Osmo saves changes to skins in this directory)</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_templateDirectory">Template directory</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_language">Language</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_createBackup">Create a backup before merging skins</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Open the last skin you have edited at startup</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_general">General</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_editor">Editor</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Keyboard shortcuts</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcutsCheatSheet">Cheat sheet</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectNoOsuInstalled">osu! is not installed!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectNoOsuInstalled">Should osu! be installed make sure it has been installed correctly, otherwise select it manually.</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectOsu">Auto-detect osu! folder</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectOsu">Do you wish for Osmo to find your osu! installation folder?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectFailed">Auto-detect failed!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">Are you sure you have osu! installed correctly?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_unsavedChangesDescription">You have unsaved changes to your settings! Do you want to save them first? (Selecting No reverts all changes to your settings)</system:String>
+
+    <!--DragDropArea-->
+    <system:String o:Freeze="True" x:Key="dragDrop_filter">Executable skin file</system:String>
+    <system:String o:Freeze="True" x:Key="dragDrop_title">Select an osu! skin file to import...</system:String>
+    <system:String o:Freeze="True" x:Key="dragDrop_areaTitle">Drag and Drop an .osk file here or click!</system:String>
+
+    <!--TemplateManager-->
+    <system:String o:Freeze="True" x:Key="hint_deleteTemplate">Delete template</system:String>
+    <system:String o:Freeze="True" x:Key="templateManager_deleteTitle">Delete template?</system:String>
+    <system:String o:Freeze="True" x:Key="templateManager_deleteDescription">Are you sure you want to delete this template?</system:String>
+    <system:String o:Freeze="True" x:Key="hint_templatePreviewSelect">Select a template</system:String>
+
+    <!--TemplateEditor-->
+    <system:String o:Freeze="True" x:Key="snackbar_templateEditor_saveText">Your template has been saved!</system:String>
+
+    <!--SkinSelect-->
+    <system:String o:Freeze="True" x:Key="skinSelect_mySkins">Meine Themes</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_deleteTitle">Delete skin?</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">Are you sure you want to delete this skin?</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Select the directory you want to export your skin to</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_loadSkins">Loading skins...</system:String>
+
+    <!--ResizeTool-->
+    <system:String o:Freeze="True" x:Key="header_dimensionWidth">Width</system:String>
+    <system:String o:Freeze="True" x:Key="header_dimensionHeight">Height</system:String>
+    <system:String o:Freeze="True" x:Key="header_resize">Resize</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_select">Auto-select</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_all">Select all elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_hdOnly">Select all HD elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_nonHdOnly">Select all non-HD elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_none">Deselect all elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_resize">Resize options</system:String>
+    <system:String o:Freeze="True" x:Key="resize_optimalSize">Resize elements to optimal size</system:String>
+    <system:String o:Freeze="True" x:Key="resize_halveSize">Halve element size</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_file">File options</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_keepOriginal">Keep original elements after resize</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_overrideOriginal">Apply resize to original elements</system:String>
+    <system:String o:Freeze="True" x:Key="resize_note">Note: Elements with dimensions of 1x1 are not shown</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageTitle">Image distortion warning!</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription1">The file "</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription2">" could get distorted if you resize it with the selected resize option. Select an option below to proceed.</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageProceed">_PROCEED</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageUseHalveSize">_HALVE SIZE</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageSkip">_SKIP</system:String>
+    <system:String o:Freeze="True" x:Key="resize_resizingCurrent">Resizing file:</system:String>
+
+    <!--FilePicker-->
+    <system:String o:Freeze="True" x:Key="header_extension">Extension</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displayDetails">Details</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySymbols">Symbols</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Display as</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFile">Selected file</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFolder">Selected directory</system:String>
+
+    <!--About-->
+    <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>
+    <system:String o:Freeze="True" x:Key="about_openSource2">Click here</system:String>
+    <system:String o:Freeze="True" x:Key="about_openSource3">to go to the GitHub repo.</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Session id:</system:String>
+    <system:String o:Freeze="True" x:Key="tip_sessionId">The session id is used inside your log files. This is especially useful if you have multiple instances of Osmo open and one of them crashes or generates errors.</system:String>
+    <system:String o:Freeze="True" x:Key="tip_copySessionId">Copy the session id to your clipboard.</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_sessionId">Session id copied to clipboard!</system:String>
+
+    <!--New template dialog-->
+    <system:String o:Freeze="True" x:Key="newTemplate_title">Create a new template</system:String>
+
+    <!--New skin dialog-->
+    <system:String o:Freeze="True" x:Key="newSkin_title">Create a new skin</system:String>
+
+    <!--Tooltips-->
+    <system:String o:Freeze="True" x:Key="tip_searchOsuDirectory">Start searching your osu! directory</system:String>
+    <system:String o:Freeze="True" x:Key="tip_searchTempDirectory">Start searching your osu! directory</system:String>
+    <system:String o:Freeze="True" x:Key="tip_searchTemplateDirectory">Start searching your osu! directory</system:String>
+    <system:String o:Freeze="True" x:Key="tip_settings_abort">Revert all changes in your settings</system:String>
+    <system:String o:Freeze="True" x:Key="tip_settings_save">Save your settings</system:String>
+    <system:String o:Freeze="True" x:Key="tip_wizard_abort">Abort the skin creation wizard</system:String>
+    <system:String o:Freeze="True" x:Key="tip_wizard_save">Creates a skin with the given parameters and opens it for editing</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newTemplate_cancel">Abort the template creation</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newTemplate_create">Creates a new template with the given name</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newSkin_cancel">Abort the skin creation</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newSkin_create">Redirects you to the skin creation wizard and applies the parameters from this dialog</system:String>
+    <system:String o:Freeze="True" x:Key="tip_dragDrop_cancel">Abort the import process</system:String>
+    <system:String o:Freeze="True" x:Key="tip_dragDrop_import">Import the selected skin</system:String>
+    <system:String o:Freeze="True" x:Key="tip_animator_prevFrame">Previous frame</system:String>
+    <system:String o:Freeze="True" x:Key="tip_animator_play">Start animation</system:String>
+    <system:String o:Freeze="True" x:Key="tip_animator_pause">Pause animation</system:String>
+    <system:String o:Freeze="True" x:Key="tip_animator_nextFrame">Next frame</system:String>
+    <system:String o:Freeze="True" x:Key="tip_templateManager_load">Open the selected template in the editor</system:String>
+    <system:String o:Freeze="True" x:Key="tip_templateManager_new">Create a blank template</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_export">Export skin</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_delete">Delete skin</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_load">Open the selected skin in the editor</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_new">Create a blank skin</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_mix">Combine two or more skins together</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_load">Load the selected skin</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_abort">Closes the selection</system:String>
+    <system:String o:Freeze="True" x:Key="tip_revert">Revert changes</system:String>
+    <system:String o:Freeze="True" x:Key="tip_mixer_transfer">Override the left element with the element on the right</system:String>
+    <system:String o:Freeze="True" x:Key="tip_mixer_loadRightSkin">Opens the skin selector where you can load a skin into the right list</system:String>
+    <system:String o:Freeze="True" x:Key="tip_revertSelected">Revert changes on the selected element</system:String>
+    <system:String o:Freeze="True" x:Key="tip_mute">Mute/Unmute playback</system:String>
+    <system:String o:Freeze="True" x:Key="tip_play">Play selected file</system:String>
+    <system:String o:Freeze="True" x:Key="tip_pause">Pause playback</system:String>
+    <system:String o:Freeze="True" x:Key="tip_stop">Stop playback</system:String>
+
+    <system:String o:Freeze="True" x:Key="tip_templateEditor_preview">Preview</system:String>
+
+    <!--Folder browser dialog titles-->
+    <system:String o:Freeze="True" x:Key="export_selectDirectory">Select the directory you want to export your skin to</system:String>
+    <system:String o:Freeze="True" x:Key="settings_selectOsuDirectory">Select your osu! directory</system:String>
+    <system:String o:Freeze="True" x:Key="settings_selectBackupDirectory">Select your backup directory</system:String>
+
+    <!--AudioCore-->
+    <system:String o:Freeze="True" x:Key="dlg_invalidAudioTitle">Invalid audio file!</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_invalidAudioDescription">Unable to play the selected audio file!</system:String>
+
+    <!--SkinCreationWizard-->
+    <system:String o:Freeze="True" x:Key="expander_basicConfig">1. Basic configuration</system:String>
+    <system:String o:Freeze="True" x:Key="expander_components">2. Components</system:String>
+    <system:String o:Freeze="True" x:Key="expander_summary">3. Summary</system:String>
+    <system:String o:Freeze="True" x:Key="cb_placeholderFiles">Add placeholder files</system:String>
+    <system:String o:Freeze="True" x:Key="txt_componentsTitle">Select which element sets you want to include:</system:String>
+    <system:String o:Freeze="True" x:Key="cb_interface">Interface</system:String>
+    <system:String o:Freeze="True" x:Key="cb_sounds">Sounds</system:String>
+    <system:String o:Freeze="True" x:Key="txt_osuComponentsTitle">osu! specific components:</system:String>
+    <system:String o:Freeze="True" x:Key="cb_osu_oldSpinner">Old spinner</system:String>
+    <system:String o:Freeze="True" x:Key="cb_osu_newSpinner">New spinner (version 2.0 and above)</system:String>
+    <system:String o:Freeze="True" x:Key="txt_ctbComponentsTitle">CTB specific components:</system:String>
+    <system:String o:Freeze="True" x:Key="cb_ctb_oldCatcher">Old fruit catcher</system:String>
+    <system:String o:Freeze="True" x:Key="cb_ctb_newCatcher">New fruit catcher (version 2.3 and above)</system:String>
+    <system:String o:Freeze="True" x:Key="txt_placeholderFiles">Placeholder files will be added</system:String>
+    <system:String o:Freeze="True" x:Key="txt_selectedComponents">Selected components:</system:String>
+    <system:String o:Freeze="True" x:Key="txt_componentSummaryOsu">osu! (gamemode)</system:String>
+    <system:String o:Freeze="True" x:Key="txt_spinnerStyle">Spinner style</system:String>
+    <system:String o:Freeze="True" x:Key="txt_catcherStyle">Catcher style</system:String>
+    <system:String o:Freeze="True" x:Key="txt_newStyle">New style</system:String>
+    <system:String o:Freeze="True" x:Key="txt_oldStyle">Old style</system:String>
+    <system:String o:Freeze="True" x:Key="txt_creatingFile">Creating file:</system:String>
+
+    <!-- MenuItems -->
+    <system:String o:Freeze="True" x:Key="menuItem_openInResizer">Open in Resize Tool</system:String>
+
+    <!--Completion data descriptions-->
+    <!--   Template completion data-->
+    <system:String o:Freeze="True" x:Key="completion_template_name">This is the placeholder for your skin's name</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_author">This is the placeholder for your name (taken from skin.ini)</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_version">This is the placeholder for your skin's version (taken from skin.ini)</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_size">This is the placeholder for your skin folder size</system:String>
+
+    <!--   skin.ini General completion data-->
+    <system:String o:Freeze="True" x:Key="completion_skin_name">What is the name of this skin?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_author">Who is the author of this skin?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_version">How should the skin behave?\nVisit https://osu.ppy.sh/help/wiki/Skinning/skin.ini for more details about versions.</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_animationFramerate">How many frames should be displayed by the animations that depend on this value in one second?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_allowSliderBallTint">Should the slider combo colour tint the slider ball?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_comboBurstRandom">Should combobursts be shown in a random order?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_cursorCentre">Should the cursor have an origin at the centre of the image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_cursorExpand">Should the cursor expand when clicked?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_cursorRotate">Should the cursor sprite rotate constantly?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_cursorTrailRotate">Should the cursor trail sprite rotate constantly?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_customComboSounds">On which combo counts should the comboburst sounds be played?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hitCircleOverlayAboveNumber">Should the hitcircleoverlay be drawn above the numbers?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_layeredHitsounds">Should the hitnormal sounds always be played?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_sliderBallFlip">If the sliderball is reversed, should the sliderball sprite flip horizontally?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_sliderBallFrames">How many frames do you have for the sliderball animation?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_sliderStyle">What style should the sliders use?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_spinnerFadePlayfield">Should the spinner add black bars during spins?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_spinnerFrequencyModulate">Should the spinnerspin sound pitch up the longer the spinner goes?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_spinnerNoBlink">Should the highest bar of the metre stay visible all the time?</system:String>
+
+    <!--   skin.ini Colours completion data-->
+    <system:String o:Freeze="True" x:Key="completion_skin_combo1">What colour is used for the last combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_combo2">What colour is used for the first combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_combo3">What colour is used for the second combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_combo4">What colour is used for the third combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_combo5">What colour is used for the fourth combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_combo6">What colour is used for the fifth combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_combo7">What colour is used for the sixth combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_combo8">What colour is used for the seventh combo?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_inputOverlayText">What colour should the numbers on the input keys be tinted in?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_menuGlow">What colour should the spectrum bars in the main menu be coloured in?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_sliderBall">What colour should the default sliderball be coloured in?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_sliderBorder">What colour should be used for the sliderborders?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_sliderTrackOverride">What colour should all sliderbodies be coloured in?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_songSelectActiveText">What colour should the text of the active panel be tinted in?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_songSelectInactiveText">What colour should the text of the inactive panels be tinted in?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_spinnerBackground">What colour should be added to the spinner-background?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_starBreakAdditive">What colour should be added to star2 during breaks?</system:String>
+
+    <!--   skin.ini Fonts completion data-->
+    <system:String o:Freeze="True" x:Key="completion_skin_hitCirclePrefix">What prefix is used for the hitcircle numbers?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hitCircleOverlap">By how many pixels should the hitcircle numbers overlap?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_scorePrefix">What prefix is used for the score numbers?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_scoreOverlap">By how many pixels should the score numbers overlap?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_comboPrefix">What prefix is used for the combo numbers?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_comboOverlap">By how many pixels should the combo numbers overlap?</system:String>
+
+    <!--   skin.ini CTB completion data-->
+    <system:String o:Freeze="True" x:Key="completion_skin_hyperDash">What colour should be used for the dash?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hyperDashFruit">What colour should be used for the fruits?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hyperDashAfterImage">What colour should be used for the after images?</system:String>
+
+    <!--   skin.ini Mania completion data-->
+    <system:String o:Freeze="True" x:Key="completion_skin_keys">What keycount are these settings for?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_columnStart">Where does the left column start?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_columnRight">Up to which point can columns be drawn?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_columnSpacing">What is the distance between all columns individually?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_columnWidth">What widths do all columns have individually?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_columnLineWidth">How thick are the column seperators individually?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_barlineHeight">How thick is the barline?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_lightingNWidth">Which widths should LightingN use for all columns individually?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_lightingLWidth">Which widths should LightingL use for all columns individually?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_widthForNoteHeightScale">Which height should all notes have if columns have individual widths?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hitPosition">On which height should the judgement line be drawn at?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_lightPosition">On which height should the stage lights be drawn at?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_scorePosition">On which height should the hitbursts appear at?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_comboPosition">On which height should the combo counter appear at?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_judgementLine">Should an additional line be drawn above the StageHint?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_lightFramePerSecond">May be obsolete.</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_specialStyle">What SpecialStyle is used for this keycount if available?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_comboBurstStyle">On what side should the comboburst appear?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_splitStages">Should the stage be split into 2 stages?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_stageSeparation">What distance should the 2 stages have when splitted?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_separateScore">Should the hitburst only be shown on the stage it was scored on?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_keysUnderNotes">Should the keys be covered by notes when passing them?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_upsideDown">Should the stage always be upside down?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_keyFlipWhenUpsideDown">Should all of the keys be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_keyFlipWhenUpsideDownHash">Should the specified column's key be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_keyFlipWhenUpsideDownHashD">Should the column's pressed key be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteFlipWhenUpsideDown">Should all of the notes be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteFlipWhenUpsideDownHash">Should the column's note be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteFlipWhenUpsideDownHashH">Should the column's hold note head be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteFlipWhenUpsideDownHashL">Should the column's hold note body be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteFlipWhenUpsideDownHashT">Should the column's hold note tail be flipped when the stage is flipped?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteBodyStyle">What style should be used for all hold note bodies?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteBodyStyleHash">What style should be used for all hold note bodies?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourHash">What colour should be used for the column's lane?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourLightHash">What colour should be used for the column's lighting?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourColumnLine">What colour should be used for the column lines?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourBarline">What colour should be used for the bar seperator?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourJudgementLine">What colour should be used for the timing line?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourKeyWarning">What colour should be used for the keybinding reminders?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourHold">What colour should be used for the combo counter during holds?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_colourBreak">What colour should be used for the combo counter when it breaks?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_keyImageHash">What is the name of the column's unpressed key image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_keyImageHashD">What is the name of the column's pressed key image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteImageHash">What is the name of the column's note image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteImageHashH">What is the name of the column's hold note head image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteImageHashL">What is the name of the column's hold note body image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_noteImageHashT">What is the name of the column's hold note tail image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_stageLeft">What is the name of the left stage image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_stageRight">What is the name of the right stage image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_stageBottom">What is the name of the bottom stage image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_stageHint">What is the name of the stage hint image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_stageLight">What is the name of the stage light image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_lightingN">What is the name of the note lighting image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_lightingL">What is the name of the hold note lighting image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_warningArrow">What is the name of the warning arrow image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hit0">What is the name of the hit0 image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hit50">What is the name of the hit50 image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hit100">What is the name of the hit100 image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hit200">What is the name of the hit200 image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hit300">What is the name of the hit300 image?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_hit300g">What is the name of the hit300g image?</system:String>
+
+    <!--Crash window-->
+    <system:String o:Freeze="True" x:Key="crash_title1">Mom's spaghetti!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title2">What the flipping fish sticks?</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title3">Holy guacamole!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title4">Bloody bugs have eaten Osmo!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title5">Yikes!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title6">What the fudge?!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title7">Bamboozled!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_description1">It seems like Osmo has crashed! A crash log has been created under "</system:String>
+    <system:String o:Freeze="True" x:Key="crash_description2">".</system:String>
+</ResourceDictionary>

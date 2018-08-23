@@ -79,6 +79,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Localisation\StringResources.de.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Localisation\StringResources.es.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
