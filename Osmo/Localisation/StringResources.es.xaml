@@ -301,6 +301,7 @@
     <system:String o:Freeze="True" x:Key="completion_template_author">Este es su nombre (tomado de skin.ini)</system:String>
     <system:String o:Freeze="True" x:Key="completion_template_version">Esta es la versión de su skin (tomado de skin.ini)</system:String>
     <system:String o:Freeze="True" x:Key="completion_template_size">Este es el tamaño de la carpeta de su skin</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_date">This is the placeholder for the "release date" of your skin</system:String>
 
     <!--   skin.ini General completion data-->
     <system:String o:Freeze="True" x:Key="completion_skin_name">¿Cuál es el nombre de este skin?</system:String>

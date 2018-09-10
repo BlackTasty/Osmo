@@ -3,6 +3,7 @@
     public enum Language
     {
         Default,
-        Spanish
+        Spanish,
+        German
     }
 }

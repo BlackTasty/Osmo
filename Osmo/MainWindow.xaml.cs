@@ -28,13 +28,21 @@ namespace Osmo
 
         public MainWindow()
         {
+            FixedValues.LoadCompletionData();
+            FixedValues.InitializeReader();
             InitializeComponent();
             configuration.SettingsSaved += Configuration_SettingsSaved;
-            FixedValues.InitializeReader();
+            App.LanguageChanged += App_LanguageChanged;
             SkinCreationWizard.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             TemplateManager.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             LoadUISettings();
             Logger.Instance.WriteLog("Osmo has been successfully initialized!");
+        }
+
+        private void App_LanguageChanged(object sender, EventArgs e)
+        {
+            FixedValues.LoadCompletionData();
+            SkinEditor.Instance.LoadCompletionData();
         }
 
         private void Configuration_SettingsSaved(object sender, EventArgs e)

@@ -20,6 +20,8 @@ namespace Osmo
         private static int sessionId;
         private static MainWindow window;
 
+        public static event EventHandler<EventArgs> LanguageChanged;
+
         public static int SessionID { get => sessionId; }
 
         [STAThread()]
@@ -97,6 +99,10 @@ namespace Osmo
                     localisation.Source = new Uri(@"Localisation\StringResources.es.xaml", UriKind.Relative);
                     threadLang = "es";
                     break;
+                case Language.German:
+                    localisation.Source = new Uri(@"Localisation\StringResources.de.xaml", UriKind.Relative);
+                    threadLang = "de";
+                    break;
                 default:
                     localisation.Source = new Uri(@"Localisation\StringResources.xaml", UriKind.Relative);
                     threadLang = "en";
@@ -106,6 +112,12 @@ namespace Osmo
             Thread.CurrentThread.CurrentUICulture =
                new System.Globalization.CultureInfo(threadLang);
             Resources.MergedDictionaries[2] = localisation;
+            OnLanguageChanged(EventArgs.Empty);
+        }
+
+        protected virtual void OnLanguageChanged(EventArgs e)
+        {
+            LanguageChanged?.Invoke(this, e);
         }
     }
 }

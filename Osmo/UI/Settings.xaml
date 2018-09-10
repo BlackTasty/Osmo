@@ -121,6 +121,7 @@
                               SelectedIndex="{Binding Language}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem Content="English (Default)" />
                         <ComboBoxItem Content="Español" />
+                        <ComboBoxItem Content="Deutsch" />
                     </ComboBox>
 
                     <Border Grid.Row="1" Grid.ColumnSpan="4" Height="1" VerticalAlignment="Bottom"

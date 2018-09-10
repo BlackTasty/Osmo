@@ -146,15 +146,15 @@ namespace Osmo.ViewModel
 
             Items = new SidebarEntry[]
             {
-                new SidebarEntry(Helper.FindString("sidebar_home"), MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance, 0),
-                new SidebarEntry(Helper.FindString("sidebar_wizard"), MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance, 1),
-                new SidebarEntry(Helper.FindString("sidebar_editor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, 2, false),
-                new SidebarEntry(Helper.FindString("sidebar_mixer"), MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, 3, false),
-                new SidebarEntry(Helper.FindString("sidebar_resizeTool"), MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance, 4),
-                new SidebarEntry(Helper.FindString("sidebar_templateManager"), MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance, 5),
-                new SidebarEntry(Helper.FindString("sidebar_settings"), MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance, 6),
-                new SidebarEntry(Helper.FindString("sidebar_about"), MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance, 7),
-                new SidebarEntry(Helper.FindString("sidebar_templateEditor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, 8, Visibility.Hidden)
+                new SidebarEntry("sidebar_home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance, 0),
+                new SidebarEntry("sidebar_wizard", MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance, 1),
+                new SidebarEntry("sidebar_editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, 2, false),
+                new SidebarEntry("sidebar_mixer", MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, 3, false),
+                new SidebarEntry("sidebar_resizeTool", MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance, 4),
+                new SidebarEntry("sidebar_templateManager", MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance, 5),
+                new SidebarEntry("sidebar_settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance, 6),
+                new SidebarEntry("sidebar_about", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance, 7),
+                new SidebarEntry("sidebar_templateEditor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, 8, Visibility.Hidden)
             };
         }
 

@@ -107,6 +107,6 @@
 
         <Button Content="{DynamicResource startResize}" Margin="8" Click="Rezize_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Right"
                 IsEnabled="{Binding ControlsEnabled}"/>
-        <TextBlock Text="{DynamicResource resize_note}" DockPanel.Dock="Bottom" Margin="8"/>
+        <TextBlock Text="{DynamicResource resize_note}" DockPanel.Dock="Bottom" Margin="8" TextWrapping="Wrap"/>
     </DockPanel>
 </Grid>
