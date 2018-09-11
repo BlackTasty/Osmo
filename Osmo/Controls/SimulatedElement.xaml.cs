@@ -77,6 +77,22 @@ namespace Osmo.Controls
             DependencyProperty.Register("FixedElement", typeof(SkinElement), typeof(SimulatedElement), new PropertyMetadata(null));
         #endregion
 
+        #region CountElement
+        public SkinElement CountElement
+        {
+            get { return (SkinElement)GetValue(CountElementProperty); }
+            set
+            {
+                SetValue(CountElementProperty, value);
+                (DataContext as SimulatedElementViewModel).CountElement = value;
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for CountElement.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CountElementProperty =
+            DependencyProperty.Register("CountElement", typeof(SkinElement), typeof(SimulatedElement), new PropertyMetadata(null));
+        #endregion
+
         #region AnimatedElement
         public SkinElement AnimatedElement
         {
@@ -99,12 +115,9 @@ namespace Osmo.Controls
             get { return (Storyboard)GetValue(TransformAnimationProperty); }
             set
             {
+                value.Freeze();
                 SetValue(TransformAnimationProperty, value);
                 (DataContext as SimulatedElementViewModel).TransformAnimation = value;
-                if (value != null)
-                {
-                    value.Begin();
-                }
             }
         }
 
@@ -115,12 +128,26 @@ namespace Osmo.Controls
 
         public void StartAnimation()
         {
-            (DataContext as SimulatedElementViewModel).StopAnimation();
+            if (AnimationType == AnimationType.Predefined)
+            {
+                (DataContext as SimulatedElementViewModel).StartAnimation();
+            }
+            else if (AnimationType == AnimationType.RenderTransform)
+            {
+                TransformAnimation.Begin();
+            }
         }
 
         public void StopAnimation()
         {
-            (DataContext as SimulatedElementViewModel).StartAnimation();
+            if (AnimationType == AnimationType.Predefined)
+            {
+                (DataContext as SimulatedElementViewModel).StopAnimation();
+            }
+            else if (AnimationType == AnimationType.RenderTransform)
+            {
+                TransformAnimation.Stop();
+            }
         }
     }
 }

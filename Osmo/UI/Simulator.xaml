@@ -8,12 +8,32 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Button DockPanel.Dock="Bottom" Content="Test controls" Click="Button_Click"/>
-    <TabControl>
+    <TabControl x:Name="tabs">
         <TabItem Header="Main menu">
-            <WrapPanel>
-                <controls:SimulatedElement x:Name="element_menuBack" AnimationType="Predefined" ElementType="AnimatedOnly"/>
-                <controls:SimulatedElement x:Name="element_hitcircle" AnimationType="RenderTransform" ElementType="AnimatedAndFixed"/>
-                <controls:SimulatedElement x:Name="element_combo100" AnimationType="NoAnimation" ElementType="FixedOnly"/>
+            <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">
+                <controls:SimulatedElement x:Name="element_menuBack" AnimationType="Predefined" ElementType="AnimatedOnly" Margin="32"/>
+                <controls:SimulatedElement x:Name="element_hitcircle" AnimationType="RenderTransform" ElementType="AnimatedAndFixed" Margin="32"/>
+                <controls:SimulatedElement x:Name="element_combo100" AnimationType="NoAnimation" ElementType="FixedOnly" Margin="32"/>
+            </WrapPanel>
+        </TabItem>
+        <TabItem Header="osu!">
+            <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">
+
+            </WrapPanel>
+        </TabItem>
+        <TabItem Header="Mania">
+            <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">
+
+            </WrapPanel>
+        </TabItem>
+        <TabItem Header="CTB">
+            <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">
+
+            </WrapPanel>
+        </TabItem>
+        <TabItem Header="Taiko">
+            <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">
+
             </WrapPanel>
         </TabItem>
     </TabControl>

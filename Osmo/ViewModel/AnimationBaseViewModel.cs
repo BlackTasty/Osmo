@@ -14,11 +14,13 @@ namespace Osmo.ViewModel
     class AnimationBaseViewModel : ViewModelBase
     {
         private VeryObservableCollection<string> mAnimation = new VeryObservableCollection<string>("Animation");
-        private int mCurrentFrame;
+        private int mCurrentFrameIndex;
         private Thread mAnimationThread;
         private bool mIsAnimationPlaying;
-        private int mFrameRate = 10;
+        private int mFrameRate = 30;
         protected int mCurrentFrameOrderIndex = 0;
+
+        private ImageSource mCurrentFrame;
 
         public VeryObservableCollection<string> Animation
         {
@@ -34,18 +36,17 @@ namespace Osmo.ViewModel
 
         public string CurrentElementPath
         {
-            get => Animation?[mCurrentFrame];
+            get => Animation?.Count > 0 ? Animation[mCurrentFrameIndex] : null;
         }
 
         public int CurrentFrame
         {
-            get => mCurrentFrame;
+            get => mCurrentFrameIndex;
             set
             {
-                mCurrentFrame = value;
+                mCurrentFrameIndex = value;
                 Image = Helper.LoadImage(CurrentElementPath);
-                Image.Freeze();
-                InvokePropertyChanged("Image");
+                Image?.Freeze();
                 InvokePropertyChanged("CurrentFrame");
             }
         }
@@ -76,7 +77,14 @@ namespace Osmo.ViewModel
             }
         }
 
-        public ImageSource Image { get; private set; }
+        public ImageSource Image {
+            get => mCurrentFrame;
+            protected set
+            {
+                mCurrentFrame = value;
+                InvokePropertyChanged("Image");
+            }
+        }
 
         /// <summary>
         /// This property is optional. You'll probably only need this property for osu!taiko.
@@ -101,7 +109,7 @@ namespace Osmo.ViewModel
                 StopAnimation();
             }
 
-            mCurrentFrame = -1;
+            mCurrentFrameIndex = -1;
             mAnimationThread = new Thread(RunAnimation);
             mAnimationThread.Start();
             IsAnimationPlaying = true;

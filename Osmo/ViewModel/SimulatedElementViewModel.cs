@@ -18,6 +18,7 @@ namespace Osmo.ViewModel
         private AnimationType mAnimationType;
         private SimulatedElementType mElementType;
         private SkinElement mFixedElement;
+        private SkinElement mCountElement; //Used for elements such as circles and sliders
         private SkinElement mAnimatedElement;
         private Storyboard mTransformation;
         private Size mTargetSize = new Size(200, 200);
@@ -57,6 +58,17 @@ namespace Osmo.ViewModel
             }
         }
 
+        public SkinElement CountElement
+        {
+            get => mCountElement;
+            set
+            {
+                mCountElement = value;
+                CountElementImage = Helper.LoadImage(value.Path);
+                InvokePropertyChanged("CountElementImage");
+            }
+        }
+
         public SkinElement AnimatedElement
         {
             get => mAnimatedElement;
@@ -64,7 +76,7 @@ namespace Osmo.ViewModel
             {
                 mAnimatedElement = value;
                 ApplyNewTargetSize();
-                AnimatedElementImage = Helper.LoadImage(value.Path);
+                Image = Helper.LoadImage(value.Path);
 
                 if (mAnimationType == AnimationType.Predefined)
                 {
@@ -94,7 +106,7 @@ namespace Osmo.ViewModel
 
         public ImageSource FixedElementImage { get; private set; }
 
-        public ImageSource AnimatedElementImage { get; private set; }
+        public ImageSource CountElementImage { get; private set; }
 
         public bool FixedElementVisible
         {

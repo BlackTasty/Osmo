@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Converters\BoolToTextDecorationConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
+    <Compile Include="Converters\DoubleMathConverter.cs" />
     <Compile Include="Converters\DoubleToBooleanConverter.cs" />
     <Compile Include="Converters\ExactIntToBooleanConverter.cs" />
     <Compile Include="Converters\FileTypeIconConverter.cs" />

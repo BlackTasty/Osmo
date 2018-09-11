@@ -1,32 +1,32 @@
-﻿<Grid x:Class="Osmo.Controls.SimulatedElement"
+﻿<Grid x:Class="Osmo.Controls.SimulatedElement" x:Name="simulatedElement"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
+             xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:local="clr-namespace:Osmo.Controls"
              mc:Ignorable="d" 
-             Height="{Binding Height}" Width="{Binding Width}" RenderTransformOrigin="0.5,0.5">
+             Height="{Binding Height, FallbackValue=200}" Width="{Binding Width, FallbackValue=200}" RenderTransformOrigin="0.5,0.5">
     <Grid.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <converter:DoubleMathConverter x:Key="DoubleMath"/>
     </Grid.Resources>
     <Grid.DataContext>
         <vm:SimulatedElementViewModel/>
     </Grid.DataContext>
-    <Image Source="{Binding FixedElementImage}" Visibility="{Binding FixedElementVisible, Converter={StaticResource BoolToVisibility}, FallbackValue=Visible}"/> <!-- Fixed, non-animated element elemnt-->
-    <Image x:Name="img_animated" Visibility="{Binding AnimatedElementVisible, Converter={StaticResource BoolToVisibility}, FallbackValue=Visible}"> <!-- Flexible, animated element-->
-        <Image.Style>
-            <Style TargetType="{x:Type Image}">
-                <Setter Property="Source" Value="{Binding Image}"/>
-                <Setter Property="RenderTransform" Value="{x:Null}"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding AnimationType}" Value="RenderTransform">
-                        <Setter Property="Source" Value="{Binding AnimatedElementImage}"/>
-                        <Setter Property="RenderTransform" Value="{Binding TransformAnimation}"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Image.Style>
+    <!-- Fixed, non-animated element elemnt-->
+    <Image Source="{Binding FixedElementImage}"/>
+    <!-- Flexible, animated element-->
+    <Image x:Name="img_animated" RenderTransformOrigin="0.5,0.5" Source="{Binding Image}"> 
+        <Image.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Image.RenderTransform>
     </Image>
-    
+    <Image Source="{Binding CountElementImage}" Width="{Binding Width, ElementName=simulatedElement, Converter={StaticResource DoubleMath}, ConverterParameter=/2}" Height="{Binding Height, ElementName=simulatedElement, Converter={StaticResource DoubleMath}, ConverterParameter=/2}"/>
 </Grid>

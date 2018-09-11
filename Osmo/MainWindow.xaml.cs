@@ -119,6 +119,7 @@ namespace Osmo
             
             configuration.Save();
             (SkinEditor.Instance.animationHelper.DataContext as AnimationViewModel).StopAnimation();
+            Simulator.Instance.StopAllAnimations();
 
             OsmoViewModel vm = DataContext as OsmoViewModel;
             SkinViewModel skinVm = SkinEditor.Instance.DataContext as SkinViewModel;

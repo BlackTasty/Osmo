@@ -1,4 +1,5 @@
-﻿using Osmo.Core;
+﻿using Osmo.Controls;
+using Osmo.Core;
 using Osmo.Core.Objects;
 using Osmo.Core.Simulation;
 using System;
@@ -24,7 +25,7 @@ namespace Osmo.UI
     public partial class Simulator : DockPanel
     {
         private static Simulator instance;
-
+        
         public static Simulator Instance
         {
             get
@@ -51,16 +52,36 @@ namespace Osmo.UI
             {
                 element_combo100.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hit100"));
                 element_menuBack.AnimatedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("menu-back"));
-                element_hitcircle.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hitcircle"));
                 element_hitcircle.AnimationType = AnimationType.RenderTransform;
+                element_hitcircle.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hitcircle"));
                 element_hitcircle.AnimatedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("approachcircle"));
+                element_hitcircle.CountElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-1"));
                 element_hitcircle.TransformAnimation = ElementTransformHelper.GetApproachAnimation(element_hitcircle,
-                    new Size(256, 256), new Size(128, 128));
+                    2, 1, TimeSpan.FromSeconds(2));
+                element_hitcircle.img_animated.RenderTransform = new ScaleTransform(2, 2);
+
+                element_hitcircle.StartAnimation();
+                element_menuBack.StartAnimation();
+                element_combo100.StartAnimation();
 
             }
             else
             {
                 MessageBox.Show("Damn it wrong skin name!");
+            }
+        }
+
+        public void StopAllAnimations()
+        {
+            foreach (TabItem item in tabs.Items.OfType<TabItem>()) //Go through each tab item
+            {
+                if (item.Content is Panel panel)
+                {
+                    foreach (SimulatedElement element in panel.Children.OfType<SimulatedElement>()) //Go through each control of type SimulatedElement
+                    {
+                        element.StopAnimation();
+                    }
+                }
             }
         }
     }

@@ -14,29 +14,32 @@ namespace Osmo.Core.Simulation
 {
     internal static class ElementTransformHelper
     {
-        internal static Storyboard GetApproachAnimation(SimulatedElement targetControl, Size startSize, Size endSize)
+        internal static Storyboard GetApproachAnimation(SimulatedElement targetControl, double fromScale, double toScale, TimeSpan duration)
         {
-            Storyboard storyboard = new Storyboard();
-            storyboard.Duration = new Duration(TimeSpan.FromSeconds(5));
+            Storyboard storyboard = new Storyboard
+            {
+                Duration = new Duration(duration),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
             DoubleAnimation approachXAnimation = new DoubleAnimation()
             {
-                From = startSize.Width,
-                To = endSize.Width,
+                From = fromScale,
+                To = toScale,
                 Duration = storyboard.Duration,
                 RepeatBehavior = RepeatBehavior.Forever
             };
+            Storyboard.SetTarget(approachXAnimation, targetControl.img_animated);
+            Storyboard.SetTargetProperty(approachXAnimation, new PropertyPath("RenderTransform.ScaleX"));
+            
             DoubleAnimation approachYAnimation = new DoubleAnimation()
             {
-                From = startSize.Height,
-                To = endSize.Height,
+                From = fromScale,
+                To = toScale,
                 Duration = storyboard.Duration,
                 RepeatBehavior = RepeatBehavior.Forever
             };
-
-            Storyboard.SetTarget(approachXAnimation, targetControl.img_animated);
-            Storyboard.SetTargetProperty(approachXAnimation, new PropertyPath(Image.WidthProperty));
             Storyboard.SetTarget(approachYAnimation, targetControl.img_animated);
-            Storyboard.SetTargetProperty(approachYAnimation, new PropertyPath(Image.HeightProperty));
+            Storyboard.SetTargetProperty(approachYAnimation, new PropertyPath("RenderTransform.ScaleY"));
 
             storyboard.Children.Add(approachXAnimation);
             storyboard.Children.Add(approachYAnimation);
