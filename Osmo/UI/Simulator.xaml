@@ -12,14 +12,30 @@
         <TabItem Header="Main menu">
             <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">
                 <controls:SimulatedElement x:Name="element_menuBack" AnimationType="Predefined" ElementType="AnimatedOnly" Margin="32"/>
-                <controls:SimulatedElement x:Name="element_hitcircle" AnimationType="RenderTransform" ElementType="AnimatedAndFixed" Margin="32"/>
-                <controls:SimulatedElement x:Name="element_combo100" AnimationType="NoAnimation" ElementType="FixedOnly" Margin="32"/>
             </WrapPanel>
         </TabItem>
         <TabItem Header="osu!">
-            <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">
-
-            </WrapPanel>
+            <Grid Background="{DynamicResource MaterialDesignColumnHeader}">
+                <StackPanel Margin="8" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal">
+                    <controls:SimulatedElement x:Name="element_combo300" AnimationType="NoAnimation" ElementType="FixedOnly" Width="72" Height="72" Margin="8,0"/>
+                    <controls:SimulatedElement x:Name="element_combo100" AnimationType="NoAnimation" ElementType="FixedOnly" Width="72" Height="72" Margin="8,0"/>
+                    <controls:SimulatedElement x:Name="element_combo50" AnimationType="NoAnimation" ElementType="FixedOnly" Width="72" Height="72" Margin="8,0"/>
+                    <controls:SimulatedElement x:Name="element_combo0" AnimationType="NoAnimation" ElementType="FixedOnly" Width="72" Height="72" Margin="8,0"/>
+                </StackPanel>
+                <StackPanel Margin="8" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+                    <controls:SimulatedElement x:Name="element_score0" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score1" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score2" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score3" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score4" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score5" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score6" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score7" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score8" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                    <controls:SimulatedElement x:Name="element_score9" AnimationType="NoAnimation" ElementType="FixedOnly" Width="32" Height="50" Margin="2,0"/>
+                </StackPanel>
+                <controls:SimulatedElement x:Name="element_hitcircle" AnimationType="RenderTransform" ElementType="AnimatedAndFixed" Width="128" Height="128" Margin="128" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Grid>
         </TabItem>
         <TabItem Header="Mania">
             <WrapPanel Background="{DynamicResource MaterialDesignColumnHeader}">

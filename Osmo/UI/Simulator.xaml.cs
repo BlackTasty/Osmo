@@ -50,8 +50,26 @@ namespace Osmo.UI
 
             if (test != null)
             {
+                #region osu! elements
+                element_combo0.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hit0"));
+                element_combo50.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hit50"));
                 element_combo100.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hit100"));
-                element_menuBack.AnimatedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("menu-back"));
+                element_combo300.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hit300"));
+
+                #region Score Number initialization
+                element_score0.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-0"));
+                element_score1.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-1"));
+                element_score2.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-2"));
+                element_score3.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-3"));
+                element_score4.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-4"));
+                element_score5.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-5"));
+                element_score6.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-6"));
+                element_score7.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-7"));
+                element_score8.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-8"));
+                element_score9.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("default-9"));
+                #endregion
+
+                #region Hitcircle initialization
                 element_hitcircle.AnimationType = AnimationType.RenderTransform;
                 element_hitcircle.FixedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("hitcircle"));
                 element_hitcircle.AnimatedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("approachcircle"));
@@ -59,10 +77,13 @@ namespace Osmo.UI
                 element_hitcircle.TransformAnimation = ElementTransformHelper.GetApproachAnimation(element_hitcircle,
                     2, 1, TimeSpan.FromSeconds(2));
                 element_hitcircle.img_animated.RenderTransform = new ScaleTransform(2, 2);
+                #endregion
+                #endregion
+
+                element_menuBack.AnimatedElement = test.Elements.FirstOrDefault(x => x.Name.Contains("menu-back"));
 
                 element_hitcircle.StartAnimation();
                 element_menuBack.StartAnimation();
-                element_combo100.StartAnimation();
 
             }
             else
@@ -77,11 +98,25 @@ namespace Osmo.UI
             {
                 if (item.Content is Panel panel)
                 {
-                    foreach (SimulatedElement element in panel.Children.OfType<SimulatedElement>()) //Go through each control of type SimulatedElement
-                    {
-                        element.StopAnimation();
-                    }
+                    StopAllAnimations(panel);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Recursive function to stop all animations of nested <see cref="SimulatedElement"/> controls
+        /// </summary>
+        /// <param name="panel"></param>
+        private void StopAllAnimations(Panel panel)
+        {
+            foreach (Panel childPanel in panel.Children.OfType<Panel>())
+            {
+                StopAllAnimations(childPanel);
+            }
+
+            foreach (SimulatedElement element in panel.Children.OfType<SimulatedElement>()) //Go through each control of type SimulatedElement
+            {
+                element.StopAnimation();
             }
         }
     }

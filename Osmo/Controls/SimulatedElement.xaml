@@ -28,5 +28,5 @@
             </TransformGroup>
         </Image.RenderTransform>
     </Image>
-    <Image Source="{Binding CountElementImage}" Width="{Binding Width, ElementName=simulatedElement, Converter={StaticResource DoubleMath}, ConverterParameter=/2}" Height="{Binding Height, ElementName=simulatedElement, Converter={StaticResource DoubleMath}, ConverterParameter=/2}"/>
+    <Image Source="{Binding CountElementImage}" Width="{Binding Width, ElementName=simulatedElement, Converter={StaticResource DoubleMath}, ConverterParameter=/3}" Height="{Binding Height, ElementName=simulatedElement, Converter={StaticResource DoubleMath}, ConverterParameter=/3}"/>
 </Grid>
