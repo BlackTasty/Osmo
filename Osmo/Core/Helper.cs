@@ -192,11 +192,19 @@ namespace Osmo.Core
             Process.Start(skin.Path);
         }
 
-        public static void ExecuteElementCommand(System.Windows.Controls.Button element)
+        public static void ExecuteDialogOpenCommand(System.Windows.Controls.Button element)
         {
             if (DialogHost.OpenDialogCommand.CanExecute(element.CommandParameter, element))
             {
                 DialogHost.OpenDialogCommand.Execute(element.CommandParameter, element);
+            }
+        }
+
+        public static void ExecuteDialogCloseCommand(System.Windows.Controls.Button element)
+        {
+            if (DialogHost.CloseDialogCommand.CanExecute(element.CommandParameter, element))
+            {
+                DialogHost.CloseDialogCommand.Execute(element.CommandParameter, element);
             }
         }
     }

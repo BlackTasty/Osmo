@@ -169,6 +169,46 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_ctb {
+            get {
+                object obj = ResourceManager.GetObject("mode_ctb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_mania {
+            get {
+                object obj = ResourceManager.GetObject("mode_mania", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_osu {
+            get {
+                object obj = ResourceManager.GetObject("mode_osu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_taiko {
+            get {
+                object obj = ResourceManager.GetObject("mode_taiko", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [centre][size=150][color=#cc5288][NAME][/color][/size]
         ///
         ///[size=150]{Write a short 1-3 sentence description of your skin here}[/size]

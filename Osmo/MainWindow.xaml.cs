@@ -127,7 +127,7 @@ namespace Osmo
                     Helper.FindString("settings_unsavedChangesDescription"),
                     OsmoMessageBoxButton.YesNoCancel);
 
-                await DialogHelper.Instance.ShowDialog(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox, true);
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
@@ -148,7 +148,7 @@ namespace Osmo
                     Helper.FindString("main_unsavedChangesDescription"),
                     OsmoMessageBoxButton.YesNoCancel);
 
-                await DialogHelper.Instance.ShowDialog(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox, true);
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
@@ -169,7 +169,7 @@ namespace Osmo
                     Helper.FindString("main_unsavedChangesDescription"),
                     OsmoMessageBoxButton.YesNoCancel);
 
-                await DialogHelper.Instance.ShowDialog(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox, true);
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {

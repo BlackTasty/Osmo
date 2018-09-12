@@ -152,19 +152,19 @@ namespace Osmo.Core
             Logger.Instance.WriteLog("Loading skin element details...");
             if (readerInterface == null)
                 readerInterface = new SkinElementReader(Properties.Resources.SkinningInterface,
-                    nameof(Properties.Resources.SkinningInterface));
+                    nameof(Properties.Resources.SkinningInterface), ElementType.Interface);
             if (readerStandard == null)
                 readerStandard = new SkinElementReader(Properties.Resources.SkinningStandard,
-                    nameof(Properties.Resources.SkinningStandard));
+                    nameof(Properties.Resources.SkinningStandard), ElementType.Osu);
             if (readerCatch == null)
                 readerCatch = new SkinElementReader(Properties.Resources.SkinningCatch,
-                    nameof(Properties.Resources.SkinningCatch));
+                    nameof(Properties.Resources.SkinningCatch), ElementType.CTB);
             if (readerMania == null)
                 readerMania = new SkinElementReader(Properties.Resources.SkinningMania,
-                    nameof(Properties.Resources.SkinningMania));
+                    nameof(Properties.Resources.SkinningMania), ElementType.Mania);
             if (readerTaiko == null)
                 readerTaiko = new SkinElementReader(Properties.Resources.SkinningTaiko,
-                    nameof(Properties.Resources.SkinningTaiko));
+                    nameof(Properties.Resources.SkinningTaiko), ElementType.Taiko);
             if (readerSounds == null)
                 readerSounds = new SkinSoundReader(Properties.Resources.SkinningSounds,
                     nameof(Properties.Resources.SkinningSounds));

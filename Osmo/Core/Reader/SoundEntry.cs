@@ -1,4 +1,6 @@
-﻿namespace Osmo.Core.Reader
+﻿using Osmo.Core.Objects;
+
+namespace Osmo.Core.Reader
 {
     class SoundEntry : ElementReader, IEntry
     {
@@ -21,6 +23,8 @@
         public bool IsSound => true;
 
         public string Description => description ?? "";
+
+        public ElementType ElementType { get => ElementType.Sound; }
 
         internal SoundEntry(string line)
         {

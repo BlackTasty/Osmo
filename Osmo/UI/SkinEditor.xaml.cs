@@ -80,6 +80,9 @@ namespace Osmo.UI
                         case Key.H:
                             e.Handled = true;
                             Replace_Click(null, null);
+
+                            Helper.ExecuteDialogOpenCommand(btn_replace);
+                            DialogHelper.Instance.NotifyDialogOpened(btn_replace);
                             break;
                         case Key.Delete:
                             e.Handled = true;
@@ -100,8 +103,9 @@ namespace Osmo.UI
                     if (vm.AnimationEnabled)
                     {
                         animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
-                        if (DialogHost.OpenDialogCommand.CanExecute(btn_animate.CommandParameter, btn_animate))
-                            DialogHost.OpenDialogCommand.Execute(btn_animate.CommandParameter, btn_animate);
+
+                        Helper.ExecuteDialogOpenCommand(btn_animate);
+                        DialogHelper.Instance.NotifyDialogOpened(btn_animate);
                     }
                 }
                 else if (e.Key == Key.Delete)
@@ -497,6 +501,7 @@ namespace Osmo.UI
         private void Animate_Click(object sender, RoutedEventArgs e)
         {
             animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
+            DialogHelper.Instance.NotifyDialogOpened(btn_animate);
         }
 
         private void container_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -533,15 +538,16 @@ namespace Osmo.UI
         {
             Replace_Click(sender, e);
 
-            Helper.ExecuteElementCommand(btn_replace);
-
+            Helper.ExecuteDialogOpenCommand(btn_replace);
+            DialogHelper.Instance.NotifyDialogOpened(btn_replace);
         }
 
         private void MenuItem_Animate_Click(object sender, RoutedEventArgs e)
         {
             Animate_Click(sender, e);
 
-            Helper.ExecuteElementCommand(btn_animate);
+            Helper.ExecuteDialogOpenCommand(btn_animate);
+            DialogHelper.Instance.NotifyDialogOpened(btn_animate);
         }
 
         private void MenuItem_Play_Click(object sender, RoutedEventArgs e)

@@ -18,6 +18,7 @@
         <converter:StringLimitConverter x:Key="StringLimit"/>
         <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
 
         <fe:FolderTreeTemplateSelector x:Key="displaySelector" >
             <fe:FolderTreeTemplateSelector.LoadedDirectoryTemplate>
@@ -148,13 +149,20 @@
                      SelectedItem="{Binding SelectedEntry}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid ToolTip="{Binding Name}">
+                            <Grid>
+                                <Grid.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" Margin="0,0,8,0"/>
+                                        <Image MaxWidth="500" MaxHeight="300" Source="{Binding Preview}" Visibility="{Binding IsImage, Converter={StaticResource BoolToVisibility}}"/>
+                                    </StackPanel>
+                                </Grid.ToolTip>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="64"/>
                                     <RowDefinition Height="4"/>
                                     <RowDefinition SharedSizeGroup="A"/>
                                 </Grid.RowDefinitions>
-                                <material:PackIcon Kind="{Binding Icon}" Width="64" Height="64" DockPanel.Dock="Top"/>
+                                <material:PackIcon Kind="{Binding Icon}" Width="64" Height="64" DockPanel.Dock="Top" Visibility="{Binding IsImage, Converter={StaticResource InverseBoolToVisibility}}"/>
+                                <Image Source="{Binding Preview}" Width="64" Height="64" Margin="0,0,8,0" Visibility="{Binding IsImage, Converter={StaticResource BoolToVisibility}}"/>
                                 <TextBlock Text="{Binding Name, Converter={StaticResource StringLimit}, ConverterParameter=40}" Width="64" TextAlignment="Center" TextWrapping="Wrap" Grid.Row="2"/>
                             </Grid>
                         </DataTemplate>
@@ -176,7 +184,14 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <material:PackIcon Kind="{Binding Icon}" Margin="0,0,8,0"/>
+                                            <StackPanel.ToolTip>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Name}" Margin="0,0,8,0"/>
+                                                    <Image Source="{Binding Preview}" MaxWidth="500" MaxHeight="300" Visibility="{Binding IsImage, Converter={StaticResource BoolToVisibility}}"/>
+                                                </StackPanel>
+                                            </StackPanel.ToolTip>
+                                            <material:PackIcon Kind="{Binding Icon}" Margin="0,0,8,0" Visibility="{Binding IsImage, Converter={StaticResource InverseBoolToVisibility}}"/>
+                                            <Image Source="{Binding Preview}" Width="30" Height="30" Margin="0,0,8,0" Visibility="{Binding IsImage, Converter={StaticResource BoolToVisibility}}"/>
                                             <TextBlock Text="{Binding Name}"/>
                                         </StackPanel>
                                     </DataTemplate>

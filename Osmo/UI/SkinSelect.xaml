@@ -65,12 +65,96 @@
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{DynamicResource name}" Width="200">
+                    <GridViewColumn Header="{DynamicResource name}" Width="250">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <material:PackIcon Kind="Plus" Foreground="{DynamicResource PrimaryHueMidBrush}" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Name}" x:Name="txt_name">
+                                        <Image Source="{StaticResource Mode_osu}" Height="16" Margin="8,0,0,-2.5">
+                                            <Image.ToolTip>
+                                                <TextBlock>
+                                                    <Run Text="{Binding ModeProgressOsu}"/><Run Text="%"/>
+                                                </TextBlock>
+                                            </Image.ToolTip>
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Setter Property="Opacity" Value=".5"/>
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ModeProgressOsu}" Value="100">
+                                                            <Setter Property="Opacity" Value="1"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ModeProgressOsu}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                        <Image Source="{StaticResource Mode_mania}" Height="16" Margin="4,0,0,-2.5">
+                                            <Image.ToolTip>
+                                                <TextBlock>
+                                                    <Run Text="{Binding ModeProgressMania}"/><Run Text="%"/>
+                                                </TextBlock>
+                                            </Image.ToolTip>
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Setter Property="Opacity" Value=".5"/>
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ModeProgressMania}" Value="100">
+                                                            <Setter Property="Opacity" Value="1"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ModeProgressMania}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                        <Image Source="{StaticResource Mode_taiko}" Height="16" Margin="4,0,0,-2.5">
+                                            <Image.ToolTip>
+                                                <TextBlock>
+                                                    <Run Text="{Binding ModeProgressTaiko}"/><Run Text="%"/>
+                                                </TextBlock>
+                                            </Image.ToolTip>
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Setter Property="Opacity" Value=".5"/>
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ModeProgressTaiko}" Value="100">
+                                                            <Setter Property="Opacity" Value="1"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ModeProgressTaiko}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                        <Image Source="{StaticResource Mode_ctb}" Height="16" Margin="4,0,0,-2.5">
+                                            <Image.ToolTip>
+                                                <TextBlock>
+                                                    <Run Text="{Binding ModeProgressCTB}"/><Run Text="%"/>
+                                                </TextBlock>
+                                            </Image.ToolTip>
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Setter Property="Opacity" Value=".5"/>
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ModeProgressCTB}" Value="100">
+                                                            <Setter Property="Opacity" Value="1"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ModeProgressCTB}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
                                         <TextBlock.Style>
                                             <Style>
                                                 <Style.Triggers>

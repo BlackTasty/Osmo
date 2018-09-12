@@ -1,4 +1,6 @@
-﻿namespace Osmo.Core.Reader
+﻿using Osmo.Core.Objects;
+
+namespace Osmo.Core.Reader
 {
     public interface IEntry
     {
@@ -19,6 +21,8 @@
         bool ContainsHyphen { get; }
 
         bool IsSound { get; }
+
+        ElementType ElementType { get; }
 
         string GetRegexName();
     }

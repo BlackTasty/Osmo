@@ -368,7 +368,7 @@
                        HorizontalAlignment="Right" Command="{x:Static material:DialogHost.OpenDialogCommand}" ToolTip="{DynamicResource tip_mixer_loadRightSkin}"
             Style="{StaticResource MaterialDesignFloatingActionAccentButton}" >
         <Button.CommandParameter>
-            <local:SkinMixerSelect Margin="8" Tag="mixer"/>
+            <local:SkinMixerSelect Margin="8" Tag="mixer" Loaded="SkinMixerSelect_Loaded" DialogClosed="SkinMixerSelect_DialogClosed"/>
         </Button.CommandParameter>
         <material:PackIcon Kind="CursorPointer" Height="24" Width="24"/>
     </Button>

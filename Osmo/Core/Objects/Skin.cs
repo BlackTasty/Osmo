@@ -14,7 +14,7 @@ using System.Windows.Data;
 
 namespace Osmo.Core.Objects
 {
-    public class Skin
+    public class Skin : ViewModelBase
     {
         private FileSystemWatcher mWatcher;
         private FileInfo skinIniHandle;
@@ -56,8 +56,38 @@ namespace Osmo.Core.Objects
                 return GetSkinIniProperty("Version")?.Trim() ?? "1.0";
             }
         }
+
+        public int ModeProgressOsu
+        {
+            get => (FixedValues.readerStandard.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Osu)) * 100;
+        }
+
+        public int ModeProgressMania
+        {
+            get => (FixedValues.readerMania.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Mania)) * 100;
+        }
+
+        public int ModeProgressCTB
+        {
+            get => (FixedValues.readerCatch.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.CTB)) * 100;
+        }
+
+        public int ModeProgressTaiko
+        {
+            get => (FixedValues.readerTaiko.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Taiko)) * 100;
+        }
+
+        public int ModeProgressInterface
+        {
+            get => (FixedValues.readerInterface.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Interface)) * 100;
+        }
+
+        public int ModeProgressSounds
+        {
+            get => (FixedValues.readerSounds.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Sound)) * 100;
+        }
         #endregion
-        
+
         internal Skin()
         {
             IsEmpty = true;
@@ -191,6 +221,8 @@ namespace Osmo.Core.Objects
                     Author = GetSkinIniProperty("Author");
                 }
             }
+
+            InvokePropertyChanged("ModeProgressOsu");
         }
 
         private string GetSkinIniProperty(string propertyName)

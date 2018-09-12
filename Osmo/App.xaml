@@ -27,6 +27,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Pink.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
+            <!-- osu! Mode Icons -->
+            <BitmapImage x:Key="Mode_ctb" UriSource="Resources/mode_ctb.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <BitmapImage x:Key="Mode_mania" UriSource="Resources/mode_mania.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <BitmapImage x:Key="Mode_taiko" UriSource="Resources/mode_taiko.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <BitmapImage x:Key="Mode_osu" UriSource="Resources/mode_osu.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+
             <!-- MahApps Brushes -->
             <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
             <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}"/>

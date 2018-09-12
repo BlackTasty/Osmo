@@ -277,7 +277,7 @@
                 <Button ToolTip="{DynamicResource edit_btn_animate}" Click="Animate_Click" Margin="4" IsEnabled="{Binding AnimationEnabled}"
                          Command="{x:Static material:DialogHost.OpenDialogCommand}" x:Name="btn_animate">
                     <Button.CommandParameter>
-                        <local:AnimationHelper x:Name="animationHelper" />
+                        <local:AnimationHelper x:Name="animationHelper"/>
                     </Button.CommandParameter>
                     <material:PackIcon
                     Kind="Animation"

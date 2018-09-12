@@ -58,8 +58,8 @@ namespace Osmo.UI
                         break;
                     case Key.O:
                         e.Handled = true;
-                        if (DialogHost.OpenDialogCommand.CanExecute(btn_loadRight.CommandParameter, btn_loadRight))
-                            DialogHost.OpenDialogCommand.Execute(btn_loadRight.CommandParameter, btn_loadRight);
+                        Helper.ExecuteDialogOpenCommand(btn_loadRight);
+                        DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
                         break;
                     case Key.Z:
                         e.Handled = true;
@@ -118,7 +118,11 @@ namespace Osmo.UI
         {
             ((SkinMixerViewModel)DataContext).SkinLeft.Save();
             snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_saveText"), Helper.FindString("snackbar_saveButton"),
-                param => DialogHost.Show(FindResource("folderPicker") as FilePicker), false, true);
+                param => DialogHost.Show(FindResource("folderPicker") as FilePicker,
+                delegate (object sender, DialogOpenedEventArgs args)
+                {
+                    DialogHelper.Instance.NotifyDialogOpened(args.Session);
+                }), false, true);
         }
 
         internal void ExportSkin(string targetDir, bool alsoSave)
@@ -364,6 +368,7 @@ namespace Osmo.UI
             {
                 Helper.ExportSkin(args.Path, FixedValues.EDITOR_INDEX, true);
             }
+            DialogHelper.Instance.NotifyDialogClosed();
         }
 
         private void Slider_Audio_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -372,6 +377,16 @@ namespace Osmo.UI
             {
                 audio.SetPosition((sender as Slider).Value);
             }
+        }
+
+        private void SkinMixerSelect_Loaded(object sender, RoutedEventArgs e)
+        {
+            DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
+        }
+
+        private void SkinMixerSelect_DialogClosed(object sender, EventArgs e)
+        {
+            DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
         }
     }
 }

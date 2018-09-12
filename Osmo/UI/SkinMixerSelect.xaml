@@ -38,7 +38,7 @@
     <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
         <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="{DynamicResource abort}"
                  ToolTip="{DynamicResource tip_skinMixerSelect_abort}" Width="120" Margin="5"
-                 Command="material:DialogHost.CloseDialogCommand"/>
+                 Command="material:DialogHost.CloseDialogCommand" Click="Abort_Click"/>
 
         <Button Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="SelectSkin_Click" IsEnabled="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_skins}"
                  ToolTip="{DynamicResource tip_skinMixerSelect_load}" Width="120" Margin="5" Content="{DynamicResource loadSkin}"
