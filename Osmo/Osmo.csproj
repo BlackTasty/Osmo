@@ -79,6 +79,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ModeProgressImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Localisation\StringResources.de.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -126,6 +130,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Controls\ModeProgressImage.xaml.cs">
+      <DependentUpon>ModeProgressImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolToTextDecorationConverter.cs" />
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\DoubleToBooleanConverter.cs" />
@@ -271,6 +278,7 @@
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="ViewModel\FilePickerViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModel\ModeProgressViewModel.cs" />
     <Compile Include="ViewModel\NewSkinViewModel.cs" />
     <Compile Include="ViewModel\NewTemplateViewModel.cs" />
     <Compile Include="ViewModel\OsmoViewModel.cs" />

@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core.Configuration;
 using Osmo.Core.Logging;
+using Osmo.Core.Reader;
 using Osmo.UI;
 using Osmo.ViewModel;
 using System;
@@ -57,36 +58,146 @@ namespace Osmo.Core.Objects
             }
         }
 
-        public int ModeProgressOsu
+        public double ModeProgressOsu
         {
-            get => (FixedValues.readerStandard.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Osu)) * 100;
+            get => CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), false);
         }
 
-        public int ModeProgressMania
+        public double ModeProgressOsuHD
         {
-            get => (FixedValues.readerMania.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Mania)) * 100;
+            get => CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), true);
         }
 
-        public int ModeProgressCTB
+        public double ModeProgressMania
         {
-            get => (FixedValues.readerCatch.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.CTB)) * 100;
+            get => CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), false);
         }
 
-        public int ModeProgressTaiko
+        public double ModeProgressManiaHD
         {
-            get => (FixedValues.readerTaiko.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Taiko)) * 100;
+            get => CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), true);
         }
 
-        public int ModeProgressInterface
+        public double ModeProgressCTB
         {
-            get => (FixedValues.readerInterface.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Interface)) * 100;
+            get => CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), false);
         }
 
-        public int ModeProgressSounds
+        public double ModeProgressCTBHD
         {
-            get => (FixedValues.readerSounds.FileCount / Elements.Count(x => x.ElementDetails.ElementType == ElementType.Sound)) * 100;
+            get => CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), true);
+        }
+
+        public double ModeProgressTaiko
+        {
+            get => CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), false);
+        }
+
+        public double ModeProgressTaikoHD
+        {
+            get => CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), true);
+        }
+
+        public double ModeProgressInterface
+        {
+            get => CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), false);
+        }
+
+        public double ModeProgressInterfaceHD
+        {
+            get => CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), true);
+        }
+
+        public double ModeProgressSounds
+        {
+            get => CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), false);
+        }
+
+        public double ModeProgressSoundsHD
+        {
+            get => CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), true);
         }
         #endregion
+
+        private double CountFilesOfType(ElementType type, double targetElementCount, bool countHDElements)
+        {
+            double elementCount;
+
+            if (countHDElements)
+            {
+                elementCount = Elements.Count(x => LinqCount(x, type, countHDElements));
+            }
+            else
+            {
+                elementCount = Elements.Count(x => LinqCount(x, type, countHDElements));
+            }
+
+            if (elementCount > 0)
+            {
+                return (elementCount / targetElementCount) * 100;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private bool LinqCount(SkinElement element, ElementType type, bool countHDElements)
+        {
+            
+            if (element.ElementDetails?.ElementType == type && 
+                (element.ElementDetails as ElementReader).VersionMatches(Version))
+            {
+                if (element.ElementDetails.MultipleElementsAllowed)
+                {
+                    string elementName = element.Name.Replace(element.Extension, "");
+                    if (elementName.Equals(element.ElementDetails.Name))
+                    {
+                        return element.IsHighDefinition == countHDElements;
+                    }
+                    else
+                    {
+                        if (countHDElements && elementName.EndsWith("-0@2x"))
+                        {
+                            return true;
+                        }
+                        else if (!countHDElements && elementName.EndsWith("-0"))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return element.IsHighDefinition == countHDElements;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void RefreshProgressValues()
+        {
+            InvokePropertyChanged("ModeProgressOsu");
+            InvokePropertyChanged("ModeProgressMania");
+            InvokePropertyChanged("ModeProgressCTB");
+            InvokePropertyChanged("ModeProgressTaiko");
+            InvokePropertyChanged("ModeProgressInterface");
+            InvokePropertyChanged("ModeProgressSounds");
+
+            InvokePropertyChanged("ModeProgressOsuHD");
+            InvokePropertyChanged("ModeProgressManiaHD");
+            InvokePropertyChanged("ModeProgressCTBHD");
+            InvokePropertyChanged("ModeProgressTaikoHD");
+            InvokePropertyChanged("ModeProgressInterfaceHD");
+            InvokePropertyChanged("ModeProgressSoundsHD");
+        }
 
         internal Skin()
         {
@@ -222,7 +333,7 @@ namespace Osmo.Core.Objects
                 }
             }
 
-            InvokePropertyChanged("ModeProgressOsu");
+            RefreshProgressValues();
         }
 
         private string GetSkinIniProperty(string propertyName)
@@ -258,6 +369,8 @@ namespace Osmo.Core.Objects
             Application.Current.Dispatcher.Invoke(delegate
             {
                 Elements.Add(new SkinElement(new FileInfo(e.FullPath), Name));
+
+                RefreshProgressValues();
             });
         }
 

@@ -20,8 +20,13 @@
             Version = version.Replace("+", "").Replace("-", "");
         }
 
-        internal bool VersionMatches(string version)
+        public bool VersionMatches(string version)
         {
+            if (version.Equals("latest"))
+            {
+                version = "2.5";
+            }
+
             if (!string.IsNullOrWhiteSpace(Version))
             {
                 double targetVersion = Parser.TryParse(version, 1.0);

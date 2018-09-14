@@ -7,6 +7,7 @@
         Taiko,
         CTB,
         Interface,
-        Sound
+        Sound,
+        Unknown
     }
 }

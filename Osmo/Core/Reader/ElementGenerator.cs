@@ -19,6 +19,17 @@ namespace Osmo.Core.Reader
             Files = new List<IEntry>();
         }
 
+        /// <summary>
+        /// This method differs from the FileCount property as it only counts files which are used with the provided version.
+        /// This needs a better name...
+        /// </summary>
+        /// <param name="version">The target version</param>
+        /// <returns>All files which match the version criteria</returns>
+        internal int CountFiles(string version)
+        {
+            return Files?.Count(x => (x as ElementReader).VersionMatches(version)) ?? 0;
+        }
+
         internal void Generate(string path)
         {
             Generate(path, isSound);

@@ -1,0 +1,33 @@
+﻿<Image x:Class="Osmo.Controls.ModeProgressImage" x:Name="progressImage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Osmo.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="64" d:DesignWidth="64">
+    <Image.DataContext>
+        <vm:ModeProgressViewModel/>
+    </Image.DataContext>
+    <Image.ToolTip>
+        <TextBlock>
+            <Run Text="{Binding ProgressText}"/>
+            <LineBreak/>
+            <Run Text="{Binding ProgressHDText}"/>
+        </TextBlock>
+    </Image.ToolTip>
+    <Image.Style>
+        <Style TargetType="{x:Type Image}">
+            <Setter Property="Opacity" Value=".4"/>
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Progress, ElementName=progressImage}" Value="100">
+                    <Setter Property="Opacity" Value="1"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Progress, ElementName=progressImage}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Image.Style>
+</Image>
