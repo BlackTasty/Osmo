@@ -26,7 +26,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for ResizeTool.xaml
     /// </summary>
-    public partial class ResizeTool : Grid
+    public partial class ResizeTool : Grid, ISkinContainer
     {
         private static ResizeTool _instance;
 
@@ -42,6 +42,10 @@ namespace Osmo.UI
                 return _instance;
             }
         }
+        public Skin LoadedSkin
+        {
+            get => (DataContext as ResizeToolViewModel).SelectedSkin;
+        }
 
         private ResizeTool()
         {
@@ -51,12 +55,16 @@ namespace Osmo.UI
         public void LoadSkin(Skin skin)
         {
             ResizeToolViewModel vm = DataContext as ResizeToolViewModel;
-            vm.SelectedSkinIndex = vm.Skins.IndexOf(skin);
+            vm.SelectedSkin = skin;
         }
 
-        public void UnloadSkin()
+        public void UnloadSkin(Skin skin)
         {
-            (ResizeToolViewModel)
+            ResizeToolViewModel vm = DataContext as ResizeToolViewModel;
+            if (vm.SelectedSkin.Equals(skin))
+            {
+                vm.SelectedSkin = null;
+            }
         }
 
         private void Rezize_Click(object sender, RoutedEventArgs e)

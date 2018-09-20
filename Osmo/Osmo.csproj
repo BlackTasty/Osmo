@@ -170,6 +170,7 @@
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\IAsyncShortcutHelper.cs" />
     <Compile Include="Core\IShortcutHelper.cs" />
+    <Compile Include="Core\ISkinContainer.cs" />
     <Compile Include="Core\LibraryValidator.cs" />
     <Compile Include="Core\Logging\FrameworkLookup.cs" />
     <Compile Include="Core\Logging\Logger.cs" />

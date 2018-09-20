@@ -33,7 +33,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinEditor.xaml
     /// </summary>
-    public partial class SkinEditor : Grid, IShortcutHelper
+    public partial class SkinEditor : Grid, IShortcutHelper, ISkinContainer
     {
         private static SkinEditor instance;
         private AudioEngine audio;
@@ -161,9 +161,13 @@ namespace Osmo.UI
             return true;
         }
 
-        public void UnloadSkin()
+        public void UnloadSkin(Skin skin)
         {
-            (DataContext as SkinViewModel).LoadedSkin = null;
+            SkinViewModel vm = DataContext as SkinViewModel;
+            if (vm.LoadedSkin.Equals(skin))
+            {
+                vm.LoadedSkin = null;
+            }
         }
 
         public void SaveSkin()

@@ -231,17 +231,10 @@ namespace Osmo.Core
 
             if (target != null)
             {
-                if (SkinEditor.Instance.LoadedSkin.Equals(target))
-                {
-                    SkinEditor.Instance.UnloadSkin();
-                }
+                SkinEditor.Instance.UnloadSkin(target);
+                SkinMixer.Instance.UnloadSkin(target);
+                ResizeTool.Instance.UnloadSkin(target);
 
-                if (SkinMixer.Instance.LoadedSkin.Equals(target))
-                {
-                    SkinMixer.Instance.UnloadSkin();
-                }
-
-                
 
                 Skins.Remove(target);
                 target.Delete();
