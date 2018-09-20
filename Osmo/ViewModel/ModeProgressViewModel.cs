@@ -18,7 +18,7 @@
 
         public string ProgressText
         {
-            get => string.Format("{0}%", mProgress);
+            get => string.Format("{0}%\nHD: {1}%", mProgress, mProgressHD);
         }
 
         public double ProgressHD
@@ -28,13 +28,8 @@
             {
                 mProgressHD = value;
                 InvokePropertyChanged("ProgressHD");
-                InvokePropertyChanged("ProgressHDText");
+                InvokePropertyChanged("ProgressText");
             }
-        }
-
-        public string ProgressHDText
-        {
-            get => string.Format("HD: {0}%", mProgressHD);
         }
     }
 }

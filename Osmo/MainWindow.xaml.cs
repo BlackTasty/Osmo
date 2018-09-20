@@ -218,6 +218,28 @@ namespace Osmo
             }
         }
 
+        private async void ShowSkinInfo_Click(object sender, RoutedEventArgs e)
+        {
+            Skin skin = sidebarMenu.SelectedIndex == FixedValues.EDITOR_INDEX ?
+                SkinEditor.Instance.LoadedSkin : SkinMixer.Instance.LoadedSkin;
+
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("main_skinInfo"),
+                string.Format("{0}\n\nInterface: {1}% SD; {2}% HD\n" +
+                "Osu!: {3}% SD; {4}% HD\n" +
+                "Mania: {5}% SD; {6}% HD\n" +
+                "Taiko: {7}% SD; {8}% HD\n" +
+                "CTB: {9}% SD; {10}% HD\n" +
+                "Sounds: {11}%",
+                Helper.FindString("skin_status_progress"), skin.ProgressInterface, skin.ProgressInterfaceHD,
+                skin.ProgressOsu, skin.ProgressOsuHD,
+                skin.ProgressMania, skin.ProgressManiaHD,
+                skin.ProgressTaiko, skin.ProgressTaikoHD,
+                skin.ProgressCTB, skin.ProgressCTBHD,
+                skin.ProgressSounds), OsmoMessageBoxButton.OK);
+
+            await DialogHelper.Instance.ShowDialog(msgBox);
+        }
+
         private void OpenInFileExplorer_OnClick(object sender, RoutedEventArgs e)
         {
             OsmoViewModel vm = DataContext as OsmoViewModel;

@@ -103,6 +103,14 @@
                             Width="28" />
                         </Button>
                         <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                            ToolTip="{DynamicResource main_skinInfo}" Click="ShowSkinInfo_Click" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+
+                            <material:PackIcon
+                            Kind="InformationOutline"
+                            Height="28"
+                            Width="28" />
+                        </Button>
+                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
                             ToolTip="{DynamicResource main_exportSkin}" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
                             Command="{x:Static material:DialogHost.OpenDialogCommand}" x:Name="btn_export">
                             <Button.CommandParameter>

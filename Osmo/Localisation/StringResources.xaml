@@ -98,6 +98,9 @@
     <system:String o:Freeze="True" x:Key="main_unsavedChangesDescription">Do you want to save before closing? (Your changes will be remembered if you choose No)</system:String>
     <system:String o:Freeze="True" x:Key="main_revertAllTitle">Revert all changes?</system:String>
     <system:String o:Freeze="True" x:Key="main_revertAllDescription">Do you really want to revert all changes made to this skin? This cannot be undone!</system:String>
+    <system:String o:Freeze="True" x:Key="main_skinInfo">Skin status</system:String>
+
+    <system:String o:Freeze="True" x:Key="skin_status_progress">Skin progress (per module)</system:String>
 
     <!--Skin.cs-->
     <system:String o:Freeze="True" x:Key="skin_importTitle">Skin exists already!</system:String>

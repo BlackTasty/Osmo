@@ -72,22 +72,6 @@
                                 <StackPanel Orientation="Horizontal">
                                     <material:PackIcon Kind="Plus" Foreground="{DynamicResource PrimaryHueMidBrush}" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding Name}" x:Name="txt_name">
-                                        <controls:ModeProgressImage Height="16" Width="16" Margin="8,0,0,-2.5" 
-                                                                    Source="{StaticResource Mode_osu}"
-                                                                    Progress="{Binding ModeProgressOsu, Mode=OneWay}"
-                                                                    ProgressHD="{Binding ModeProgressOsuHD, Mode=OneWay}"/>
-                                        <controls:ModeProgressImage Height="16" Width="16" Margin="8,0,0,-2.5" 
-                                                                    Source="{StaticResource Mode_mania}"
-                                                                    Progress="{Binding ModeProgressMania, Mode=OneWay}"
-                                                                    ProgressHD="{Binding ModeProgressManiaHD, Mode=OneWay}"/>
-                                        <controls:ModeProgressImage Height="16" Width="16" Margin="8,0,0,-2.5" 
-                                                                    Source="{StaticResource Mode_taiko}"
-                                                                    Progress="{Binding ModeProgressTaiko, Mode=OneWay}"
-                                                                    ProgressHD="{Binding ModeProgressTaikoHD, Mode=OneWay}"/>
-                                        <controls:ModeProgressImage Height="16" Width="16" Margin="8,0,0,-2.5" 
-                                                                    Source="{StaticResource Mode_ctb}"
-                                                                    Progress="{Binding ModeProgressCTB, Mode=OneWay}"
-                                                                    ProgressHD="{Binding ModeProgressCTBHD, Mode=OneWay}"/>
                                         <TextBlock.Style>
                                             <Style>
                                                 <Style.Triggers>
@@ -98,6 +82,22 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
+                                    <controls:ModeProgressImage Height="16" Width="16" Margin="8,0,0,-2.5" 
+                                                                    Source="{StaticResource Mode_osu}"
+                                                                    Progress="{Binding ProgressOsu, UpdateSourceTrigger=PropertyChanged}"
+                                                                    ProgressHD="{Binding ProgressOsuHD, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <controls:ModeProgressImage Height="16" Width="16" Margin="4,0,0,-2.5" 
+                                                                    Source="{StaticResource Mode_mania}"
+                                                                    Progress="{Binding ProgressMania, UpdateSourceTrigger=PropertyChanged}"
+                                                                    ProgressHD="{Binding ProgressManiaHD, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <controls:ModeProgressImage Height="16" Width="16" Margin="4,0,0,-2.5" 
+                                                                    Source="{StaticResource Mode_taiko}"
+                                                                    Progress="{Binding ProgressTaiko, UpdateSourceTrigger=PropertyChanged}"
+                                                                    ProgressHD="{Binding ProgressTaikoHD, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <controls:ModeProgressImage Height="16" Width="16" Margin="4,0,0,-2.5" 
+                                                                    Source="{StaticResource Mode_ctb}"
+                                                                    Progress="{Binding ProgressCTB, UpdateSourceTrigger=PropertyChanged}"
+                                                                    ProgressHD="{Binding ProgressCTBHD, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsEmpty}" Value="True">
@@ -135,7 +135,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Height="16" Width="16" Click="SkinDelete_Click"
-                                    ToolTip="{DynamicResource tip_skinSelect_delete}" Padding="0" Tag="{Binding Name}"
+                                    ToolTip="{DynamicResource tip_skinSelect_delete}" Padding="0" Tag="{Binding Path}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">

@@ -225,12 +225,24 @@ namespace Osmo.Core
             }
         }
 
-        public void DeleteSkin(string name)
+        public void DeleteSkin(string path)
         {
-            Skin target = Skins.FirstOrDefault(x => !x.IsEmpty && x.Name.Equals(name));
+            Skin target = Skins.FirstOrDefault(x => !x.IsEmpty && x.Path.Equals(path));
 
             if (target != null)
             {
+                if (SkinEditor.Instance.LoadedSkin.Equals(target))
+                {
+                    SkinEditor.Instance.UnloadSkin();
+                }
+
+                if (SkinMixer.Instance.LoadedSkin.Equals(target))
+                {
+                    SkinMixer.Instance.UnloadSkin();
+                }
+
+                
+
                 Skins.Remove(target);
                 target.Delete();
                 OnSkinDirectoryChanged();

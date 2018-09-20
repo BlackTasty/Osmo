@@ -12,8 +12,6 @@
     <Image.ToolTip>
         <TextBlock>
             <Run Text="{Binding ProgressText}"/>
-            <LineBreak/>
-            <Run Text="{Binding ProgressHDText}"/>
         </TextBlock>
     </Image.ToolTip>
     <Image.Style>
@@ -21,10 +19,10 @@
             <Setter Property="Opacity" Value=".4"/>
             <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Progress, ElementName=progressImage}" Value="100">
+                <DataTrigger Binding="{Binding Progress}" Value="100">
                     <Setter Property="Opacity" Value="1"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Progress, ElementName=progressImage}" Value="0">
+                <DataTrigger Binding="{Binding Progress}" Value="0">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>

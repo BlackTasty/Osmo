@@ -54,6 +54,11 @@ namespace Osmo.UI
             vm.SelectedSkinIndex = vm.Skins.IndexOf(skin);
         }
 
+        public void UnloadSkin()
+        {
+            (ResizeToolViewModel)
+        }
+
         private void Rezize_Click(object sender, RoutedEventArgs e)
         {
             ResizeToolViewModel vm = DataContext as ResizeToolViewModel;

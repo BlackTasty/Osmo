@@ -114,6 +114,11 @@ namespace Osmo.UI
             return true;
         }
 
+        public void UnloadSkin()
+        {
+            (DataContext as SkinMixerViewModel).LoadedSkin = null;
+        }
+
         internal void SaveSkin()
         {
             ((SkinMixerViewModel)DataContext).SkinLeft.Save();

@@ -161,6 +161,11 @@ namespace Osmo.UI
             return true;
         }
 
+        public void UnloadSkin()
+        {
+            (DataContext as SkinViewModel).LoadedSkin = null;
+        }
+
         public void SaveSkin()
         {
             ((SkinViewModel)DataContext).SaveSkin();

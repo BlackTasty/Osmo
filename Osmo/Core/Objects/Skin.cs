@@ -20,6 +20,19 @@ namespace Osmo.Core.Objects
         private FileSystemWatcher mWatcher;
         private FileInfo skinIniHandle;
 
+        private double mProgressOsu;
+        private double mProgressOsuHD;
+        private double mProgressCTB;
+        private double mProgressCTBHD;
+        private double mProgressTaiko;
+        private double mProgressTaikoHD;
+        private double mProgressMania;
+        private double mProgressManiaHD;
+        private double mProgressInterface;
+        private double mProgressInterfaceHD;
+        private double mProgressSounds;
+        private double mProgressSoundsHD;
+
         #region Properties
         /// <summary>
         /// The visible name of this <see cref="Skin"/> object.
@@ -58,64 +71,114 @@ namespace Osmo.Core.Objects
             }
         }
 
-        public double ModeProgressOsu
+        public double ProgressOsu
         {
-            get => CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), false);
+            get => mProgressOsu;
+            private set
+            {
+                mProgressOsu = value;
+                InvokePropertyChanged("ProgressOsu");
+            }
         }
 
-        public double ModeProgressOsuHD
+        public double ProgressOsuHD
         {
-            get => CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), true);
+            get => mProgressOsuHD;
+            private set
+            {
+                mProgressOsuHD = value;
+                InvokePropertyChanged("ProgressOsuHD");
+            }
         }
 
-        public double ModeProgressMania
+        public double ProgressMania
         {
-            get => CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), false);
+            get => mProgressMania;
+            private set
+            {
+                mProgressMania = value;
+                InvokePropertyChanged("ProgressMania");
+            }
         }
 
-        public double ModeProgressManiaHD
+        public double ProgressManiaHD
         {
-            get => CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), true);
+            get => mProgressManiaHD;
+            private set
+            {
+                mProgressManiaHD = value;
+                InvokePropertyChanged("ProgressManiaHD");
+            }
         }
 
-        public double ModeProgressCTB
+        public double ProgressCTB
         {
-            get => CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), false);
+            get => mProgressCTB;
+            private set
+            {
+                mProgressCTB = value;
+                InvokePropertyChanged("ProgressCTB");
+            }
         }
 
-        public double ModeProgressCTBHD
+        public double ProgressCTBHD
         {
-            get => CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), true);
+            get => mProgressCTBHD;
+            private set
+            {
+                mProgressCTBHD = value;
+                InvokePropertyChanged("ProgressCTBHD");
+            }
         }
 
-        public double ModeProgressTaiko
+        public double ProgressTaiko
         {
-            get => CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), false);
+            get => mProgressTaiko;
+            private set
+            {
+                mProgressTaiko = value;
+                InvokePropertyChanged("ProgressTaiko");
+            }
         }
 
-        public double ModeProgressTaikoHD
+        public double ProgressTaikoHD
         {
-            get => CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), true);
+            get => mProgressTaikoHD;
+            private set
+            {
+                mProgressTaikoHD = value;
+                InvokePropertyChanged("ProgressTaikoHD");
+            }
         }
 
-        public double ModeProgressInterface
+        public double ProgressInterface
         {
-            get => CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), false);
+            get => mProgressInterface;
+            private set
+            {
+                mProgressInterface = value;
+                InvokePropertyChanged("ProgressInterface");
+            }
         }
 
-        public double ModeProgressInterfaceHD
+        public double ProgressInterfaceHD
         {
-            get => CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), true);
+            get => mProgressInterfaceHD;
+            private set
+            {
+                mProgressInterfaceHD = value;
+                InvokePropertyChanged("ProgressInterfaceHD");
+            }
         }
 
-        public double ModeProgressSounds
+        public double ProgressSounds
         {
-            get => CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), false);
-        }
-
-        public double ModeProgressSoundsHD
-        {
-            get => CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), true);
+            get => mProgressSounds;
+            private set
+            {
+                mProgressSounds = value;
+                InvokePropertyChanged("ProgressSounds");
+            }
         }
         #endregion
 
@@ -134,7 +197,8 @@ namespace Osmo.Core.Objects
 
             if (elementCount > 0)
             {
-                return (elementCount / targetElementCount) * 100;
+                double progress = Math.Round((elementCount / targetElementCount) * 100);
+                return progress > 100 ? 100 : progress;
             }
             else
             {
@@ -184,19 +248,17 @@ namespace Osmo.Core.Objects
 
         private void RefreshProgressValues()
         {
-            InvokePropertyChanged("ModeProgressOsu");
-            InvokePropertyChanged("ModeProgressMania");
-            InvokePropertyChanged("ModeProgressCTB");
-            InvokePropertyChanged("ModeProgressTaiko");
-            InvokePropertyChanged("ModeProgressInterface");
-            InvokePropertyChanged("ModeProgressSounds");
-
-            InvokePropertyChanged("ModeProgressOsuHD");
-            InvokePropertyChanged("ModeProgressManiaHD");
-            InvokePropertyChanged("ModeProgressCTBHD");
-            InvokePropertyChanged("ModeProgressTaikoHD");
-            InvokePropertyChanged("ModeProgressInterfaceHD");
-            InvokePropertyChanged("ModeProgressSoundsHD");
+            ProgressOsu = CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), false);
+            ProgressOsuHD = CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), true);
+            ProgressMania = CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), false);
+            ProgressManiaHD = CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), true);
+            ProgressTaiko = CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), false);
+            ProgressTaikoHD = CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), true);
+            ProgressCTB = CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), false);
+            ProgressCTBHD = CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), true);
+            ProgressInterface = CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), false);
+            ProgressInterfaceHD = CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), true);
+            ProgressSounds = CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), false);
         }
 
         internal Skin()
