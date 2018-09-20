@@ -33,6 +33,9 @@
             <BitmapImage x:Key="Mode_taiko" UriSource="Resources/mode_taiko.png" RenderOptions.BitmapScalingMode="HighQuality"/>
             <BitmapImage x:Key="Mode_osu" UriSource="Resources/mode_osu.png" RenderOptions.BitmapScalingMode="HighQuality"/>
 
+            <SolidColorBrush x:Key="ErrorBrushLight" Color="#d50000"/>
+            <SolidColorBrush x:Key="ErrorBrushDark" Color="#ff6e6e"/>
+
             <!-- MahApps Brushes -->
             <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
             <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource Primary500}"/>

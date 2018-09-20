@@ -25,7 +25,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinMixer.xaml
     /// </summary>
-    public partial class SkinMixer : Grid, IShortcutHelper
+    public partial class SkinMixer : Grid, IShortcutHelper, ISkinContainer
     {
         private static SkinMixer instance;
         AudioEngine audio;
@@ -114,9 +114,18 @@ namespace Osmo.UI
             return true;
         }
 
-        public void UnloadSkin()
+        public void UnloadSkin(Skin skin)
         {
-            (DataContext as SkinMixerViewModel).LoadedSkin = null;
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            if (vm.SkinLeft.Equals(skin))
+            {
+                vm.SkinLeft = null;
+            }
+            
+            if (vm.SkinRight.Equals(skin))
+            {
+                vm.SkinRight = null;
+            }
         }
 
         internal void SaveSkin()

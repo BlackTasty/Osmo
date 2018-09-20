@@ -50,7 +50,7 @@ namespace Osmo.ViewModel
             get => mSelectedSkinIndex;
             set
             {
-                SelectedSkin = Skins?[value];
+                //SelectedSkin = Skins?[value];
                 mSelectedSkinIndex = value;
                 InvokePropertyChanged("SelectedSkinIndex");
             }
@@ -175,6 +175,14 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedSkin = value;
+                if (value != null)
+                {
+                    mSelectedSkinIndex = Skins.IndexOf(value);
+                }
+                else
+                {
+                    mSelectedSkinIndex = -1;
+                }
                 InvokePropertyChanged("SelectedSkin");
             }
         }

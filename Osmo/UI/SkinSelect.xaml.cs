@@ -104,8 +104,6 @@ namespace Osmo.UI
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
                 (DataContext as SkinSelectViewModel).SkinManager.DeleteSkin(name);
-                
-                if (SkinEditor.Instance.LoadedSkin.Nam)
             }
         }
 
