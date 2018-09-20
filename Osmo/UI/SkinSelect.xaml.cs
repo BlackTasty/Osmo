@@ -192,7 +192,7 @@ namespace Osmo.UI
                 e.Handled = true;
                 if (lv_skins.SelectedIndex > 0)
                 {
-                    DeleteSkin((lv_skins.SelectedItem as Skin).Name);
+                    DeleteSkin((lv_skins.SelectedItem as Skin).Path);
                 }
             }
 
@@ -250,7 +250,7 @@ namespace Osmo.UI
         private void MenuItem_Delete_Click(object sender, RoutedEventArgs e)
         {
             SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
-            DeleteSkin(vm.Skins[vm.SelectedIndex].Name);
+            DeleteSkin(vm.Skins[vm.SelectedIndex].Path);
         }
 
         private void MenuItem_Import_Click(object sender, RoutedEventArgs e)

@@ -70,6 +70,7 @@ namespace Osmo.Core
                 session = args.Session;
             });
             IsOpen = false;
+            session = null;
 
             return msgBox.Result;
         }

@@ -260,6 +260,7 @@
     <system:String o:Freeze="True" x:Key="tip_play">Ausgewählte Datei abspielen</system:String>
     <system:String o:Freeze="True" x:Key="tip_pause">Wiedergabe pausieren</system:String>
     <system:String o:Freeze="True" x:Key="tip_stop">Wiedergabe stoppen</system:String>
+    <system:String o:Freeze="True" x:Key="tip_noSkinIni">Dieser Skin beinhaltet keine skin.ini!</system:String>
 
     <system:String o:Freeze="True" x:Key="tip_templateEditor_preview">Vorschau</system:String>
 

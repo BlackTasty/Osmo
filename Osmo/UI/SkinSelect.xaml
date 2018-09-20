@@ -71,6 +71,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <material:PackIcon Kind="Plus" Foreground="{DynamicResource PrimaryHueMidBrush}" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}" Margin="0,0,8,0"/>
+                                    <material:PackIcon x:Name="icon_alert" Kind="AlertOutline" Background="Transparent" Foreground="{DynamicResource ErrorBrushLight}" Visibility="{Binding SkinIniExists, Converter={StaticResource InverseBoolToVisibility}}" Margin="0,0,8,0" ToolTip="{DynamicResource tip_noSkinIni}"/>
                                     <TextBlock Text="{Binding Name}" x:Name="txt_name">
                                         <TextBlock.Style>
                                             <Style>
@@ -102,6 +103,7 @@
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsEmpty}" Value="True">
                                         <Setter TargetName="txt_name" Property="Text" Value="{DynamicResource newSkin_title}"/>
+                                        <Setter TargetName="icon_alert" Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -164,7 +166,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Height="16" Width="16" Click="Export_Click" Style="{StaticResource MaterialDesignFlatButton}"
-                                    ToolTip="{DynamicResource tip_skinSelect_export}" Padding="0" Tag="{Binding Name}"
+                                    ToolTip="{DynamicResource tip_skinSelect_export}" Padding="0" Tag="{Binding Path}"
                                     Visibility="{Binding IsEmpty, Converter={StaticResource InverseBoolToVisibility}}"
                                     Command="{x:Static material:DialogHost.OpenDialogCommand}">
                                     <Button.CommandParameter>

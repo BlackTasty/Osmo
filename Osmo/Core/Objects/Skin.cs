@@ -32,6 +32,7 @@ namespace Osmo.Core.Objects
         private double mProgressInterfaceHD;
         private double mProgressSounds;
         private double mProgressSoundsHD;
+        private bool mSkinIniExists;
 
         #region Properties
         /// <summary>
@@ -50,6 +51,12 @@ namespace Osmo.Core.Objects
         public string Author { get; set; }
 
         public bool IsEmpty { get; private set; }
+
+        public bool SkinIniExists
+        {
+            get => mSkinIniExists;
+            private set => mSkinIniExists = value;
+        }
 
         public bool UnsavedChanges { get => Elements.Any(x => !string.IsNullOrWhiteSpace(x.TempPath)); }
 
@@ -394,16 +401,25 @@ namespace Osmo.Core.Objects
                     Author = GetSkinIniProperty("Author");
                 }
             }
+            
+            SkinIniExists = skinIniHandle != null;
 
             RefreshProgressValues();
         }
 
         private string GetSkinIniProperty(string propertyName)
         {
-            string[] content = File.ReadAllLines(skinIniHandle.FullName);
-            string propertyLine = content.FirstOrDefault(x => x.StartsWith(propertyName + ":",
-                    StringComparison.InvariantCultureIgnoreCase));
-            return propertyLine?.Trim().Substring(propertyLine.IndexOf(':') + 1);
+            if (skinIniHandle != null)
+            {
+                string[] content = File.ReadAllLines(skinIniHandle.FullName);
+                string propertyLine = content.FirstOrDefault(x => x.StartsWith(propertyName + ":",
+                        StringComparison.InvariantCultureIgnoreCase));
+                return propertyLine?.Trim().Substring(propertyLine.IndexOf(':') + 1);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         #region Watcher Events

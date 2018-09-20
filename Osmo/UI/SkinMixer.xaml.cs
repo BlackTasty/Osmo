@@ -117,13 +117,17 @@ namespace Osmo.UI
         public void UnloadSkin(Skin skin)
         {
             SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
-            if (vm.SkinLeft.Equals(skin))
+            if (vm.SkinLeft?.Equals(skin) ?? false)
             {
+                StopAudio(true);
+                vm.SelectedElementLeft = new SkinElement();
                 vm.SkinLeft = null;
             }
-
-            if (vm.SkinRight.Equals(skin))
+            
+            if (vm.SkinRight?.Equals(skin) ?? false)
             {
+                StopAudio(false);
+                vm.SelectedElementRight = new SkinElement();
                 vm.SkinRight = null;
             }
         }
@@ -400,7 +404,7 @@ namespace Osmo.UI
 
         private void SkinMixerSelect_DialogClosed(object sender, EventArgs e)
         {
-            DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
+            DialogHelper.Instance.NotifyDialogClosed();
         }
     }
 }
