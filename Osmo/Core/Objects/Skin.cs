@@ -55,7 +55,7 @@ namespace Osmo.Core.Objects
         public bool SkinIniExists
         {
             get => mSkinIniExists;
-            private set => IsEmpty = true ? true : mSkinIniExists = value;
+            private set => mSkinIniExists = value;
         }
 
         public bool UnsavedChanges { get => Elements.Any(x => !string.IsNullOrWhiteSpace(x.TempPath)); }

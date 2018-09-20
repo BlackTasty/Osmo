@@ -62,7 +62,7 @@ namespace Osmo.UI
         public void UnloadSkin(Skin skin)
         {
             ResizeToolViewModel vm = DataContext as ResizeToolViewModel;
-            if (vm.SelectedSkin.Equals(skin))
+            if (vm.SelectedSkin?.Equals(skin) ?? false)
             {
                 vm.SelectedSkin = null;
             }

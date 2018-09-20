@@ -263,6 +263,7 @@
     <system:String o:Freeze="True" x:Key="tip_play">Play selected file</system:String>
     <system:String o:Freeze="True" x:Key="tip_pause">Pause playback</system:String>
     <system:String o:Freeze="True" x:Key="tip_stop">Stop playback</system:String>
+    <system:String o:Freeze="True" x:Key="tip_noSkinIni">This skin does not contain a skin.ini!</system:String>
 
     <system:String o:Freeze="True" x:Key="tip_templateEditor_preview">Preview</system:String>
 

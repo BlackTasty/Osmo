@@ -164,8 +164,10 @@ namespace Osmo.UI
         public void UnloadSkin(Skin skin)
         {
             SkinViewModel vm = DataContext as SkinViewModel;
-            if (vm.LoadedSkin.Equals(skin))
+            if (vm.LoadedSkin?.Equals(skin) ?? false)
             {
+                StopAudio();
+                vm.SelectedElement = new SkinElement();
                 vm.LoadedSkin = null;
             }
         }
