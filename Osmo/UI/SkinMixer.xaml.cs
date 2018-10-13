@@ -25,7 +25,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinMixer.xaml
     /// </summary>
-    public partial class SkinMixer : Grid, IShortcutHelper, ISkinContainer
+    public partial class SkinMixer : Grid, IHotkeyHelper, ISkinContainer
     {
         private static SkinMixer instance;
         AudioEngine audio;

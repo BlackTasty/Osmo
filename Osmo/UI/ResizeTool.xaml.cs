@@ -47,11 +47,6 @@ namespace Osmo.UI
             get => (DataContext as ResizeToolViewModel).SelectedSkin;
         }
 
-        public Skin LoadedSkin
-        {
-            get => (DataContext as ResizeToolViewModel).SelectedSkin;
-        }
-
         private ResizeTool()
         {
             InitializeComponent();

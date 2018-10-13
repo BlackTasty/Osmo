@@ -103,14 +103,15 @@ namespace Osmo.UI
         {
             if (tempOskPath != null)
             {
-                var skin = await Skin.Import(tempOskPath);
+                FileInfo oskPath = tempOskPath;
+                Close();
+
+                var skin = await Skin.Import(oskPath);
 
                 if (!skin.IsEmpty)
                 {
                     (DataContext as OsmoViewModel).Skins.Add(skin);
                 }
-
-                Close();
             }
         }
 
@@ -118,6 +119,7 @@ namespace Osmo.UI
         {
             tempOskPath = null;
             OskPath = null;
+            DialogHelper.Instance.NotifyDialogClosed();
         }
 
         private void Control_MouseDown(object sender, MouseButtonEventArgs e)
@@ -157,6 +159,11 @@ namespace Osmo.UI
                 tempOskPath = new FileInfo(args.Path);
                 OskPath = tempOskPath.Name;
             }
+        }
+
+        private void dragDrop_Loaded(object sender, RoutedEventArgs e)
+        {
+            DialogHelper.Instance.NotifyDialogOpened();
         }
     }
 }

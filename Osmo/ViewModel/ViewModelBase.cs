@@ -11,6 +11,14 @@ namespace Osmo.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        protected void InvokePropertyChanged(params string[] propertyNames)
+        {
+            for (int i = 0; i < propertyNames.Length; i++)
+            {
+                InvokePropertyChanged(propertyNames[i]);
+            }
+        }
         #endregion
     }
 }

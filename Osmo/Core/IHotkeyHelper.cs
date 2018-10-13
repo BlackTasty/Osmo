@@ -2,7 +2,7 @@
 
 namespace Osmo.Core
 {
-    interface IShortcutHelper
+    interface IHotkeyHelper
     {
         /// <summary>
         /// This method is used to forward <see cref="KeyEventArgs"/> to child controls

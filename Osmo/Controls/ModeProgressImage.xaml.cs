@@ -33,9 +33,15 @@ namespace Osmo.Controls
 
         // Using a DependencyProperty as the backing store for Progress.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProgressProperty =
-            DependencyProperty.Register("Progress", typeof(double), typeof(ModeProgressImage), new PropertyMetadata(0d));
+            DependencyProperty.Register("Progress", typeof(double), typeof(ModeProgressImage), new PropertyMetadata(0d, new PropertyChangedCallback(OnProgressChanged)));
 
-
+        private static void OnProgressChanged(DependencyObject depO, DependencyPropertyChangedEventArgs e)
+        {
+            if (depO is ModeProgressImage image)
+            {
+                (image.DataContext as ModeProgressViewModel).Progress = Convert.ToDouble(e.NewValue);
+            }
+        }
 
         public double ProgressHD
         {
@@ -49,7 +55,16 @@ namespace Osmo.Controls
 
         // Using a DependencyProperty as the backing store for ProgressHD.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProgressHDProperty =
-            DependencyProperty.Register("ProgressHD", typeof(double), typeof(ModeProgressImage), new PropertyMetadata(0d));
+            DependencyProperty.Register("ProgressHD", typeof(double), typeof(ModeProgressImage), new PropertyMetadata(0d, new PropertyChangedCallback(OnProgressHDChanged)));
+
+
+        private static void OnProgressHDChanged(DependencyObject depO, DependencyPropertyChangedEventArgs e)
+        {
+            if (depO is ModeProgressImage image)
+            {
+                (image.DataContext as ModeProgressViewModel).ProgressHD = Convert.ToDouble(e.NewValue);
+            }
+        }
 
         public ModeProgressImage()
         {

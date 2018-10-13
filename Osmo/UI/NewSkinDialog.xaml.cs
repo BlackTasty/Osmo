@@ -10,7 +10,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for NewSkinDialog.xaml
     /// </summary>
-    public partial class NewSkinDialog : DockPanel, IShortcutHelper
+    public partial class NewSkinDialog : DockPanel, IHotkeyHelper
     {
         public NewSkinDialog()
         {

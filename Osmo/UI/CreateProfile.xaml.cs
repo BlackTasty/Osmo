@@ -1,6 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core;
-using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +18,23 @@ using System.Windows.Shapes;
 namespace Osmo.UI
 {
     /// <summary>
-    /// Interaction logic for TemplatePreview.xaml
+    /// Interaction logic for CreateProfile.xaml
     /// </summary>
-    public partial class TemplatePreview : Grid, IHotkeyHelper
+    public partial class CreateProfile : DockPanel, IHotkeyHelper
     {
-        public TemplatePreview()
+        public CreateProfile()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            btn_create.IsEnabled = !string.IsNullOrWhiteSpace(txt_osuDir.Text) && !string.IsNullOrWhiteSpace(txt_name.Text);
+        }
+
+        private void Create_Click(object sender, RoutedEventArgs e)
+        {
+            App.ProfileManager.CreateProfile(txt_name.Text, txt_osuDir.Text);
         }
 
         public bool ForwardKeyboardInput(KeyEventArgs e)
@@ -40,13 +49,9 @@ namespace Osmo.UI
             return e.Handled;
         }
 
-        private void Copy_Click(object sender, RoutedEventArgs e)
+        private void DockPanel_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            TemplatePreviewViewModel vm = DataContext as TemplatePreviewViewModel;
-            if (!string.IsNullOrWhiteSpace(vm.PreviewText))
-            {
-                Clipboard.SetText(vm.PreviewText);
-            }
+            ForwardKeyboardInput(e);
         }
     }
 }

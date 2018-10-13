@@ -4,14 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
+       xmlns:converter="clr-namespace:Osmo.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="64" d:DesignWidth="64">
+    <Image.Resources>
+        <converter:DebugConverter x:Key="Debug"/>
+    </Image.Resources>
     <Image.DataContext>
         <vm:ModeProgressViewModel/>
     </Image.DataContext>
     <Image.ToolTip>
         <TextBlock>
-            <Run Text="{Binding ProgressText}"/>
+            <Run Text="{Binding ProgressText, Mode=OneWay}"/>
         </TextBlock>
     </Image.ToolTip>
     <Image.Style>
@@ -19,11 +23,8 @@
             <Setter Property="Opacity" Value=".4"/>
             <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Progress}" Value="100">
+                <DataTrigger Binding="{Binding Progress, UpdateSourceTrigger=PropertyChanged}" Value="100">
                     <Setter Property="Opacity" Value="1"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Progress}" Value="0">
-                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>

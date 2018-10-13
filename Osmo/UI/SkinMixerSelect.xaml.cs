@@ -21,7 +21,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinMixerSelect.xaml
     /// </summary>
-    public partial class SkinMixerSelect : Grid, IShortcutHelper
+    public partial class SkinMixerSelect : Grid, IHotkeyHelper
     {
         public event EventHandler<EventArgs> DialogClosed;
 

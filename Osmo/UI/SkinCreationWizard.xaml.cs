@@ -90,7 +90,7 @@ namespace Osmo.UI
             if (vm.ComponentSounds)
                 vm.FilesToCreate += FixedValues.readerSounds.FileCount;
 
-            string skinPath = AppConfiguration.Instance.OsuDirectory + "\\Skins\\" + vm.Name;
+            string skinPath = App.ProfileManager.Profile.OsuDirectory + "\\" + vm.Name;
             Directory.CreateDirectory(skinPath);
             bool spinnerNewChecked = (bool)cb_spinnerNew.IsChecked;
             bool catcherNewChecked = (bool)cb_catcherNew.IsChecked;

@@ -24,19 +24,23 @@ namespace Osmo
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        AppConfiguration configuration = AppConfiguration.Instance;
-
         public MainWindow()
         {
             FixedValues.LoadCompletionData();
             FixedValues.InitializeReader();
             InitializeComponent();
-            configuration.SettingsSaved += Configuration_SettingsSaved;
+            App.ProfileManager.ProfileChanged += ProfileManager_ProfileChanged;
+            App.ProfileManager.SettingsSaved += Configuration_SettingsSaved;
             App.LanguageChanged += App_LanguageChanged;
             SkinCreationWizard.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             TemplateManager.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             LoadUISettings();
             Logger.Instance.WriteLog("Osmo has been successfully initialized!");
+        }
+
+        private void ProfileManager_ProfileChanged(object sender, ProfileChangedEventArgs e)
+        {
+            LoadSettings();
         }
 
         private void App_LanguageChanged(object sender, EventArgs e)
@@ -45,14 +49,19 @@ namespace Osmo
             SkinEditor.Instance.LoadCompletionData();
         }
 
-        private void Configuration_SettingsSaved(object sender, EventArgs e)
+        private void Configuration_SettingsSaved(object sender, ProfileEventArgs e)
+        {
+            LoadSettings();
+        }
+
+        private void LoadSettings()
         {
             OsmoViewModel vm = DataContext as OsmoViewModel;
 
-            vm.BackupDirectory = configuration.BackupDirectory;
-            if (!string.IsNullOrWhiteSpace(configuration.OsuDirectory))
+            vm.BackupDirectory = App.ProfileManager.Profile.BackupDirectory;
+            if (!string.IsNullOrWhiteSpace(App.ProfileManager.Profile.OsuDirectory))
             {
-                vm.OsuDirectory = configuration.OsuDirectory;
+                vm.OsuDirectory = App.ProfileManager.Profile.OsuDirectory;
             }
             LoadUISettings();
         }
@@ -66,14 +75,14 @@ namespace Osmo
             if (sidebarMenu.SelectedIndex != FixedValues.ABOUT_INDEX)
             {
                 if (sidebarMenu.SelectedIndex != FixedValues.CONFIG_INDEX &&
-                    !configuration.IsValid)
+                    !App.ProfileManager.Profile.IsValid)
                 {
                     sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
                 }
             }
 
-            if (e.RemovedItems.Count > 0 && (e.RemovedItems[0] as SidebarEntry).Index == FixedValues.CONFIG_INDEX && 
-                configuration.UnsavedChanges)
+            if (e.RemovedItems.Count > 0 && (e.RemovedItems[0] as SidebarEntry).Index == FixedValues.CONFIG_INDEX &&
+                App.ProfileManager.Profile.UnsavedChanges)
             {
                 var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
                     Helper.FindString("settings_unsavedChangesDescription"),
@@ -87,7 +96,7 @@ namespace Osmo
                 }
                 else if (msgBox.Result == OsmoMessageBoxResult.No)
                 {
-                    configuration.Load();
+                    App.ProfileManager.Profile.Load();
                 }
                 else
                 {
@@ -108,7 +117,7 @@ namespace Osmo
         
         private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!configuration.IsValid)
+            if (!App.ProfileManager.Profile.IsValid)
                 sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
         }
 
@@ -120,7 +129,7 @@ namespace Osmo
             (SkinEditor.Instance.animationHelper.DataContext as AnimationViewModel).StopAnimation();
             OsmoViewModel vm = DataContext as OsmoViewModel;
 
-            if (configuration.UnsavedChanges)
+            if (App.ProfileManager.Profile.UnsavedChanges)
             {
                 vm.SelectedSidebarIndex = FixedValues.CONFIG_INDEX;
                 var msgBox = MaterialMessageBox.Show(Helper.FindString("main_unsavedChangesTitle"),
@@ -183,7 +192,7 @@ namespace Osmo
             }
 
             RecallConfiguration recall = RecallConfiguration.Instance;
-            if (configuration.ReopenLastSkin)
+            if (App.ProfileManager.Profile.ReopenLastSkin)
             {
                 recall.LastSkinPathEditor = SkinEditor.Instance.LoadedSkin?.Path;
                 recall.LastSkinPathMixerLeft = SkinMixer.Instance.LoadedSkin?.Path;
@@ -281,6 +290,7 @@ namespace Osmo
 
         private void MetroWindow_DragEnter(object sender, DragEventArgs e)
         {
+            DialogHelper.Instance.NotifyDialogOpened(btn_import);
             if (DialogHost.OpenDialogCommand.CanExecute(btn_import.CommandParameter, btn_import))
                 DialogHost.OpenDialogCommand.Execute(btn_import.CommandParameter, btn_import);
         }
@@ -303,8 +313,8 @@ namespace Osmo
 
         private void LoadUISettings()
         {
-            Settings.ChangeLanguage(configuration.Language);
-            Logger.Instance.WriteLog("UI specific settings loaded! Language: {0}", configuration.Language);
+            Settings.ChangeLanguage(App.ProfileManager.Profile.Language);
+            Logger.Instance.WriteLog("UI specific settings loaded! Language: {0}", App.ProfileManager.Profile.Language);
         }
 
         private void CreateForumEntry_Click(object sender, RoutedEventArgs e)
@@ -326,7 +336,7 @@ namespace Osmo
         {
             bool inputHandled = false;
 
-            if (content.Content is IShortcutHelper target)
+            if (content.Content is IHotkeyHelper target)
             {
                 inputHandled = target.ForwardKeyboardInput(e);
             }
@@ -392,7 +402,7 @@ namespace Osmo
 
         private async void ShowDisclaimer()
         {
-            if (!AppConfiguration.Instance.DisclaimerRead)
+            if (!App.ProfileManager.Profile.DisclaimerRead)
             {
                 var msgBox = MaterialMessageBox.Show(Helper.FindString("alpha_disclaimer_title"),
                     string.Format("{0}\n\n{1}", Helper.FindString("alpha_disclaimer_description1"), Helper.FindString("alpha_disclaimer_description2")),
@@ -402,8 +412,8 @@ namespace Osmo
 
                 if (msgBox.Result == OsmoMessageBoxResult.Yes)
                 {
-                    AppConfiguration.Instance.DisclaimerRead = true;
-                    AppConfiguration.Instance.Save();
+                    App.ProfileManager.Profile.DisclaimerRead = true;
+                    App.ProfileManager.Profile.Save();
                 }
                 else
                 {

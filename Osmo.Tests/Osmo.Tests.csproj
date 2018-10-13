@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="SkinManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProfileManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

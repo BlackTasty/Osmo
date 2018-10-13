@@ -31,7 +31,6 @@ namespace Osmo.Core.Objects
         private double mProgressInterface;
         private double mProgressInterfaceHD;
         private double mProgressSounds;
-        private double mProgressSoundsHD;
         private bool mSkinIniExists;
 
         #region Properties
@@ -189,19 +188,14 @@ namespace Osmo.Core.Objects
         }
         #endregion
 
-        private double CountFilesOfType(ElementType type, double targetElementCount, bool countHDElements)
+        private void CountFilesOfType(ElementType type, double targetElementCount, out double sdProgress, out double hdProgress)
         {
-            double elementCount;
+            sdProgress = FileCountToProgress(Elements.Count(x => LinqCount(x, type, false)), targetElementCount);
+            hdProgress = FileCountToProgress(Elements.Count(x => LinqCount(x, type, true)), targetElementCount);
+        }
 
-            if (countHDElements)
-            {
-                elementCount = Elements.Count(x => LinqCount(x, type, countHDElements));
-            }
-            else
-            {
-                elementCount = Elements.Count(x => LinqCount(x, type, countHDElements));
-            }
-
+        private double FileCountToProgress(double elementCount, double targetElementCount)
+        {
             if (elementCount > 0)
             {
                 double progress = Math.Round((elementCount / targetElementCount) * 100);
@@ -255,17 +249,23 @@ namespace Osmo.Core.Objects
 
         private void RefreshProgressValues()
         {
-            ProgressOsu = CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), false);
-            ProgressOsuHD = CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), true);
-            ProgressMania = CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), false);
-            ProgressManiaHD = CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), true);
-            ProgressTaiko = CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), false);
-            ProgressTaikoHD = CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), true);
-            ProgressCTB = CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), false);
-            ProgressCTBHD = CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), true);
-            ProgressInterface = CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), false);
-            ProgressInterfaceHD = CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), true);
-            ProgressSounds = CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), false);
+            CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), out mProgressOsu, out mProgressOsuHD);
+            InvokePropertyChanged("ProgressOsu", "ProgressOsuHD");
+
+            CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), out mProgressMania, out mProgressManiaHD);
+            InvokePropertyChanged("ProgressMania", "ProgressManiaHD");
+
+            CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), out mProgressTaiko, out mProgressTaikoHD);
+            InvokePropertyChanged("ProgressTaiko", "ProgressTaikoHD");
+
+            CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), out mProgressCTB, out mProgressCTBHD);
+            InvokePropertyChanged("ProgressCTB", "ProgressCTBHD");
+
+            CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), out mProgressInterface, out mProgressInterfaceHD);
+            InvokePropertyChanged("ProgressInterface", "ProgressInterfaceHD");
+
+            CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), out mProgressSounds, out double mepty);
+            InvokePropertyChanged("ProgressSound");
         }
 
         internal Skin()
@@ -310,7 +310,8 @@ namespace Osmo.Core.Objects
 
         public static async Task<Skin> Import(FileInfo oskPath)
         {
-            string skinPath = AppConfiguration.Instance.OsuDirectory + "\\Skins\\" + oskPath.Name.Replace(oskPath.Extension, "");
+            
+            string skinPath = App.ProfileManager.Profile.OsuDirectory + "\\" + oskPath.Name.Replace(oskPath.Extension, "");
 
             OsmoMessageBoxResult result = OsmoMessageBoxResult.OK;
             if (Directory.Exists(skinPath))

@@ -22,7 +22,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for TemplateManager.xaml
     /// </summary>
-    public partial class TemplateManager : Grid, IShortcutHelper
+    public partial class TemplateManager : Grid, IHotkeyHelper
     {
         #region Singleton implementation
         private static TemplateManager instance;

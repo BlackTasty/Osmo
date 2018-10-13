@@ -47,6 +47,7 @@
     <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
     <system:String o:Freeze="True" x:Key="donate">_Donate</system:String>
     <system:String o:Freeze="True" x:Key="startResize">_START RESIZE</system:String>
+    <system:String o:Freeze="True" x:Key="remove">_REMOVE</system:String>
 
     <!--  Validation-->
     <system:String o:Freeze="True" x:Key="validationError_directory">Invalid directory!</system:String>
@@ -146,6 +147,8 @@
     <system:String o:Freeze="True" x:Key="settings_hint_tempDirectory">Temporary directory (Osmo saves changes to skins in this directory)</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_templateDirectory">Template directory</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_language">Language</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_profile">Selected profile</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_profileName">Profile name</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_createBackup">Create a backup before merging skins</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Open the last skin you have edited at startup</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_general">General</system:String>
@@ -159,6 +162,9 @@
     <system:String o:Freeze="True" x:Key="settings_title_autodetectFailed">Auto-detect failed!</system:String>
     <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">Are you sure you have osu! installed correctly?</system:String>
     <system:String o:Freeze="True" x:Key="settings_unsavedChangesDescription">You have unsaved changes to your settings! Do you want to save them first? (Selecting No reverts all changes to your settings)</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_profile">Profiles</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_profileRemove">Delete profile?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_profileRemove">Are you sure you want to remove the selected profile? This cannot be undone!</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Executable skin file</system:String>
@@ -264,6 +270,8 @@
     <system:String o:Freeze="True" x:Key="tip_pause">Pause playback</system:String>
     <system:String o:Freeze="True" x:Key="tip_stop">Stop playback</system:String>
     <system:String o:Freeze="True" x:Key="tip_noSkinIni">This skin does not contain a skin.ini!</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newProfile_cancel">Abort the profile creation</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newProfile_create">Creates a new profile with the given name and loads it</system:String>
 
     <system:String o:Freeze="True" x:Key="tip_templateEditor_preview">Preview</system:String>
 

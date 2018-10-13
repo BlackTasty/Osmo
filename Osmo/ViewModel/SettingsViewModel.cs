@@ -1,16 +1,91 @@
-﻿using Osmo.Core.Configuration;
+﻿using Osmo.Core;
+using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
+using System;
+using System.IO;
 using System.Windows.Media;
 
 namespace Osmo.ViewModel
 {
     class SettingsViewModel : ViewModelBase
     {
-        AppConfiguration config = AppConfiguration.Instance;
+        private int mSelectedProfileIndex = -1;
+
+        public VeryObservableCollection<AppConfiguration> Profiles
+        {
+            get => App.ProfileManager.Profiles;
+            set
+            {
+                App.ProfileManager.Profiles = value;
+                InvokePropertyChanged("Profiles");
+            }
+        }
+
+        public AppConfiguration SelectedProfile
+        {
+            get => App.ProfileManager.Profile;
+            set
+            {
+                SelectedProfile.SettingsLoaded -= Configuration_SettingsLoaded;
+                App.ProfileManager.ChangeActiveProfile(value.ProfileName);
+                SelectedProfile.SettingsLoaded += Configuration_SettingsLoaded;
+                InvokePropertyChanged("SelectedProfile");
+            }
+        }
+
+        public int SelectedProfileIndex
+        {
+            get => mSelectedProfileIndex;
+            set
+            {
+                mSelectedProfileIndex = value;
+                InvokePropertyChanged("SelectedProfileIndex");
+            }
+        }
 
         public SettingsViewModel()
         {
-            config.SettingsLoaded += Configuration_SettingsLoaded;
+            SelectedProfile.SettingsLoaded += Configuration_SettingsLoaded;
+            App.ProfileManager.ProfileChanged += ProfileManager_ProfileChanged;
+            App.ProfileManager.ProfileCreated += ProfileManager_ProfileCreated;
+
+            SelectedProfileIndex = Profiles.IndexOf(SelectedProfile);
+            //FileSystemWatcher fileWatcher = new FileSystemWatcher(config.FilePath + "\\Profiles", "*.cfg");
+            //fileWatcher.Created += FileWatcher_Created;
+            //fileWatcher.Deleted += FileWatcher_Deleted;
+            //fileWatcher.Changed += FileWatcher_Changed;
+            //fileWatcher.Renamed += FileWatcher_Renamed;
+        }
+
+        private void ProfileManager_ProfileCreated(object sender, ProfileEventArgs e)
+        {
+            App.ProfileManager.ChangeActiveProfile(e.Profile);
+        }
+
+        private void ProfileManager_ProfileChanged(object sender, ProfileChangedEventArgs e)
+        {
+            Configuration_SettingsLoaded(this, EventArgs.Empty);
+            InvokePropertyChanged("SelectedProfile");
+        }
+
+        private void FileWatcher_Created(object sender, FileSystemEventArgs e)
+        {
+
+        }
+
+        private void FileWatcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void FileWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void FileWatcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void Configuration_SettingsLoaded(object sender, System.EventArgs e)
@@ -22,75 +97,87 @@ namespace Osmo.ViewModel
             InvokePropertyChanged("BackgroundEditor");
             InvokePropertyChanged("ReopenLastSkin");
             InvokePropertyChanged("Language");
+            InvokePropertyChanged("ProfileName");
+            InvokePropertyChanged("Profiles");
         }
 
         public string OsuDirectory
         {
-            get => config.OsuDirectory;
+            get => SelectedProfile.OsuDirectory;
             set
             {
-                config.OsuDirectory = value;
+                SelectedProfile.OsuDirectory = value;
                 InvokePropertyChanged("OsuDirectory");
             }
         }
 
         public string BackupDirectory
         {
-            get => config.BackupDirectory;
+            get => SelectedProfile.BackupDirectory;
             set
             {
-                config.BackupDirectory = value;
+                SelectedProfile.BackupDirectory = value;
                 InvokePropertyChanged("BackupDirectory");
             }
         }
 
         public string TemplateDirectory
         {
-            get => config.TemplateDirectory;
+            get => SelectedProfile.TemplateDirectory;
             set
             {
-                config.TemplateDirectory = value;
+                SelectedProfile.TemplateDirectory = value;
                 InvokePropertyChanged("TemplateDirectory");
             }
         }
 
         public bool BackupBeforeMixing
         {
-            get => config.BackupBeforeMixing;
+            get => SelectedProfile.BackupBeforeMixing;
             set
             {
-                config.BackupBeforeMixing = value;
+                SelectedProfile.BackupBeforeMixing = value;
                 InvokePropertyChanged("BackupBeforeMixing");
             }
         }
 
         public Color BackgroundEditor
         {
-            get => config.BackgroundEditor;
+            get => SelectedProfile.BackgroundEditor;
             set
             {
-                config.BackgroundEditor = value;
+                SelectedProfile.BackgroundEditor = value;
                 InvokePropertyChanged("BackgroundEditor");
             }
         }
 
         public bool ReopenLastSkin
         {
-            get => config.ReopenLastSkin;
+            get => SelectedProfile.ReopenLastSkin;
             set
             {
-                config.ReopenLastSkin = value;
+                SelectedProfile.ReopenLastSkin = value;
                 InvokePropertyChanged("ReopenLastSkin");
             }
         }
 
         public int Language
         {
-            get => (int)config.Language;
+            get => (int)SelectedProfile.Language;
             set
             {
-                config.Language = (Language)value;
+                SelectedProfile.Language = (Language)value;
                 InvokePropertyChanged("Language");
+            }
+        }
+
+        public string ProfileName
+        {
+            get => SelectedProfile.ProfileName;
+            set
+            {
+                SelectedProfile.ProfileName = value;
+                InvokePropertyChanged("ProfileName");
             }
         }
     }

@@ -50,7 +50,7 @@
 
         public void Save()
         {
-            Content = new string[]
+            string[] content = new string[]
             {
                 "Volume:" + Volume,
                 "IsMuted:" + IsMuted,
@@ -59,18 +59,18 @@
                 "LastSkinPathMixerRight:" + LastSkinPathMixerRight
             };
 
-            base.Save(Content);
+            base.Save(content);
             
         }
 
         public void Load()
         {
-            Content = base.LoadFile(this);
+            string[] content = base.LoadFile(this);
             LoadDefaults();
 
-            if (Content != null)
+            if (content != null)
             {
-                foreach (string str in Content)
+                foreach (string str in content)
                 {
                     string[] property = GetPropertyPair(str);
                     switch (property[0])

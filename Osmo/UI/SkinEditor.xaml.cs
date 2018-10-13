@@ -33,7 +33,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinEditor.xaml
     /// </summary>
-    public partial class SkinEditor : Grid, IShortcutHelper, ISkinContainer
+    public partial class SkinEditor : Grid, IHotkeyHelper, ISkinContainer
     {
         private static SkinEditor instance;
         private AudioEngine audio;

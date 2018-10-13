@@ -95,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\CreateProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\NewTemplateDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +156,9 @@
     <Compile Include="Core\Configuration\ConfigurationFile.Helper.cs" />
     <Compile Include="Core\Configuration\ConfigurationFile.cs" />
     <Compile Include="Converters\SelectSkinSelector.cs" />
+    <Compile Include="Core\Configuration\ProfileManager.cs" />
+    <Compile Include="Core\Configuration\ProfileEventArgs.cs" />
+    <Compile Include="Core\Configuration\ProfileRenamedEventArgs.cs" />
     <Compile Include="Core\Configuration\RecallConfiguration.cs" />
     <Compile Include="Core\DialogHelper.cs" />
     <Compile Include="Core\FileExplorer\FileFilter.cs" />
@@ -169,7 +176,7 @@
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\IAsyncShortcutHelper.cs" />
-    <Compile Include="Core\IShortcutHelper.cs" />
+    <Compile Include="Core\IHotkeyHelper.cs" />
     <Compile Include="Core\ISkinContainer.cs" />
     <Compile Include="Core\LibraryValidator.cs" />
     <Compile Include="Core\Logging\FrameworkLookup.cs" />
@@ -187,6 +194,7 @@
     <Compile Include="Core\Objects\Library.cs" />
     <Compile Include="Core\Objects\OsmoMessageBoxResult.cs" />
     <Compile Include="Core\Objects\OsmoMessageBoxButton.cs" />
+    <Compile Include="Core\Configuration\ProfileChangedEventArgs.cs" />
     <Compile Include="Core\Objects\SidebarEntry.cs" />
     <Compile Include="Core\Objects\Skin.cs" />
     <Compile Include="Core\Objects\SkinChangedEventArgs.cs" />
@@ -218,6 +226,9 @@
     </Compile>
     <Compile Include="UI\AnimationHelper.xaml.cs">
       <DependentUpon>AnimationHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CreateProfile.xaml.cs">
+      <DependentUpon>CreateProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DragDropArea.xaml.cs">
       <DependentUpon>DragDropArea.xaml</DependentUpon>

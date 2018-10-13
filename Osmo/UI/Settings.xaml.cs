@@ -48,7 +48,17 @@ namespace Osmo.UI
 
         public void SaveSettings()
         {
-            AppConfiguration.Instance.Save();
+            if ((DataContext as SettingsViewModel).SelectedProfileIndex > 0)
+            {
+                App.ProfileManager.DefaultProfile.ProfilePath = App.ProfileManager.Profile.FilePath;
+            }
+            else
+            {
+                App.ProfileManager.DefaultProfile.ProfilePath = "";
+            }
+
+            App.ProfileManager.DefaultProfile.Save();
+            App.ProfileManager.Profile.Save();
 
             string message = Helper.FindString("snackbar_settingsSavedText");
             snackbar.MessageQueue.Enqueue(message, Helper.FindString("ok"), 
@@ -138,7 +148,7 @@ namespace Osmo.UI
 
         private void Abort_Click(object sender, RoutedEventArgs e)
         {
-            AppConfiguration.Instance.Load();
+            App.ProfileManager.Profile.Load();
         }
 
         private void FolderPicker_DialogClosed(object sender, RoutedEventArgs e)
@@ -179,6 +189,17 @@ namespace Osmo.UI
                 case "template":
                     (sender as FilePicker).InitialDirectory = (DataContext as SettingsViewModel).TemplateDirectory;
                     break;
+            }
+        }
+
+        private async void RemoveProfile_Click(object sender, RoutedEventArgs e)
+        {
+            var msgBox = MaterialMessageBox.Show(Helper.FindString("settings_title_profileRemove"), 
+                Helper.FindString("settings_descr_profileRemove"), OsmoMessageBoxButton.YesNo);
+
+            if (await DialogHelper.Instance.ShowDialog(msgBox) == OsmoMessageBoxResult.Yes)
+            {
+                App.ProfileManager.RemoveProfile((DataContext as SettingsViewModel).SelectedProfile.ProfileName);
             }
         }
     }

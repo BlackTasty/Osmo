@@ -19,6 +19,7 @@
         <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
+        <converter:DebugConverter x:Key="Debug"/>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="150"/>
@@ -83,22 +84,22 @@
                                             </Style>
                                         </TextBlock.Style>
                                     </TextBlock>
-                                    <controls:ModeProgressImage Height="16" Width="16" Margin="8,0,0,-2.5" 
+                                    <!--<controls:ModeProgressImage Height="16" Width="16" Margin="8,0,0,-2.5" 
                                                                     Source="{StaticResource Mode_osu}"
-                                                                    Progress="{Binding ProgressOsu, UpdateSourceTrigger=PropertyChanged}"
-                                                                    ProgressHD="{Binding ProgressOsuHD, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                    Progress="{Binding ProgressOsu}"
+                                                                    ProgressHD="{Binding ProgressOsuHD}"/>
                                     <controls:ModeProgressImage Height="16" Width="16" Margin="4,0,0,-2.5" 
                                                                     Source="{StaticResource Mode_mania}"
-                                                                    Progress="{Binding ProgressMania, UpdateSourceTrigger=PropertyChanged}"
-                                                                    ProgressHD="{Binding ProgressManiaHD, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                    Progress="{Binding ProgressMania}"
+                                                                    ProgressHD="{Binding ProgressManiaHD}"/>
                                     <controls:ModeProgressImage Height="16" Width="16" Margin="4,0,0,-2.5" 
                                                                     Source="{StaticResource Mode_taiko}"
-                                                                    Progress="{Binding ProgressTaiko, UpdateSourceTrigger=PropertyChanged}"
-                                                                    ProgressHD="{Binding ProgressTaikoHD, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                    Progress="{Binding ProgressTaiko}"
+                                                                    ProgressHD="{Binding ProgressTaikoHD}"/>
                                     <controls:ModeProgressImage Height="16" Width="16" Margin="4,0,0,-2.5" 
                                                                     Source="{StaticResource Mode_ctb}"
-                                                                    Progress="{Binding ProgressCTB, UpdateSourceTrigger=PropertyChanged}"
-                                                                    ProgressHD="{Binding ProgressCTBHD, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                    Progress="{Binding ProgressCTB}"
+                                                                    ProgressHD="{Binding ProgressCTBHD}"/>-->
                                 </StackPanel>
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=IsEmpty}" Value="True">

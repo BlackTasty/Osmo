@@ -90,7 +90,9 @@ namespace Osmo.ViewModel
                     SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
                 }
                 else
+                {
                     SkinManager.SkinDirectory = value;
+                }
                 InvokePropertyChanged("OsuDirectory");
             }
         }
@@ -136,7 +138,7 @@ namespace Osmo.ViewModel
         public OsmoViewModel()
         {
             FixedValues.InitializeReader();
-            string osuDir = AppConfiguration.Instance.OsuDirectory;
+            string osuDir = App.ProfileManager.Profile.OsuDirectory;
 
             if (!string.IsNullOrWhiteSpace(osuDir))
             {

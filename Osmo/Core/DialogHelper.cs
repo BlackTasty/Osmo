@@ -38,6 +38,11 @@ namespace Osmo.Core
 
         }
 
+        public void NotifyDialogOpened()
+        {
+            IsOpen = true;
+        }
+
         public void NotifyDialogOpened(Button element)
         {
             dialogSender = element;

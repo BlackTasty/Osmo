@@ -13,22 +13,23 @@ namespace Osmo.Core.Configuration
     public class AppConfiguration : ConfigurationFile
     {
         #region Singleton implementation
-        private static AppConfiguration instance;
-        public static AppConfiguration Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new AppConfiguration();
+        //private static AppConfiguration instance;
+        //public static AppConfiguration Instance
+        //{
+        //    get
+        //    {
+        //        if (instance == null)
+        //            instance = new AppConfiguration();
 
-                return instance;
-            }
-        }
+        //        return instance;
+        //    }
+        //}
         #endregion
 
         //TODO: Append all changed settings to EventArgs (custom class required)
-        public event EventHandler<EventArgs> SettingsSaved;
+        public event EventHandler<ProfileEventArgs> SettingsSaved;
         public event EventHandler<EventArgs> SettingsLoaded;
+        public event EventHandler<ProfileRenamedEventArgs> SettingsRenamed;
 
         #region Properties
         private string mBackupDirectory;
@@ -37,11 +38,33 @@ namespace Osmo.Core.Configuration
         private string mTemplateDirectory;
         private string mDefaultTemplateDirectory;
 
+        private string mProfileName;
         private string mOsuDirectory;
         private Color mBackgroundEditor;
         private bool mBackupBeforeMixing;
         private bool mReopenLastSkin;
         private Language mLanguage;
+
+        private bool isInit = true;
+
+        public string ProfilePath { get; set; }
+
+        public string ProfileName {
+            get => mProfileName;
+            set
+            {
+                string oldName = mProfileName;
+                SetUnsavedChanges(mProfileName, value);
+                mProfileName = value;
+                if (!isInit)
+                {
+                    RenameFile(mProfileName);
+                    redirectPath = FilePath;
+                    Save();
+                    OnSettingsRenamed(new ProfileRenamedEventArgs(this, oldName, value));
+                }
+            }
+        }
 
         public bool IsValid
         {
@@ -62,13 +85,16 @@ namespace Osmo.Core.Configuration
             set
             {
                 SetUnsavedChanges(mOsuDirectory, value);
-                mOsuDirectory = value;
+                    mOsuDirectory = value;
             }
         }
 
         public string BackupDirectory {
-            get => !string.IsNullOrWhiteSpace(mBackupDirectory) ? 
-                mBackupDirectory : mDefaultBackupDirectory;
+            get
+            {
+                return !string.IsNullOrWhiteSpace(mBackupDirectory) ?
+                    mBackupDirectory : mDefaultBackupDirectory;
+            }
             set
             {
                 SetUnsavedChanges(mBackupDirectory, value);
@@ -78,8 +104,11 @@ namespace Osmo.Core.Configuration
 
         public string TemplateDirectory
         {
-            get => !string.IsNullOrWhiteSpace(mTemplateDirectory) ?
-                mTemplateDirectory : mDefaultTemplateDirectory;
+            get
+            {
+                return !string.IsNullOrWhiteSpace(mTemplateDirectory) ?
+                    mTemplateDirectory : mDefaultTemplateDirectory;
+            }
             set
             {
                 SetUnsavedChanges(mTemplateDirectory, value);
@@ -123,18 +152,50 @@ namespace Osmo.Core.Configuration
                 mLanguage = value;
             }
         }
+
+        public bool IsDefault { get => isDefault; }
         #endregion
 
-        private AppConfiguration() : base("settings")
+        private string redirectPath;
+        private bool isDefault;
+
+        /// <summary>
+        /// Thisi initalizes a new configuration profile with a given name
+        /// </summary>
+        /// <param name="profileName"></param>
+        public AppConfiguration(string profileName) : base(profileName, ".cfg", "Profiles/")
         {
+            ProfileName = profileName; 
+            isDefault = false;
+            Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Profiles"));
+            redirectPath = FilePath;
+            Load(base.LoadFile(this));
+            isInit = false;
+        }
+
+        /// <summary>
+        /// This loads the default settings
+        /// </summary>
+        public AppConfiguration() : base("settings")
+        {
+            isDefault = true;
+            Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Profiles"));
             Load();
+        }
+
+        public void LoadProfile(AppConfiguration profile)
+        {
         }
 
         public void Save()
         {
             #region Properties
-            Content = new string[]
+            string[] content;
+            if (isDefault)
             {
+                content = new string[]
+                {
+                "ProfilePath:" + ProfilePath,
                 "OsuDirectory:" + OsuDirectory,
                 "BackupDirectory:" + BackupDirectory,
                 "TemplateDirectory:" + TemplateDirectory,
@@ -143,26 +204,61 @@ namespace Osmo.Core.Configuration
                 "ReopenLastSkin:" + ReopenLastSkin,
                 "Language:" + (int)Language,
                 "DisclaimerRead:" + DisclaimerRead
-            };
+                };
+            }
+            else
+            {
+                content = new string[]
+                {
+                "ProfileName:" + ProfileName,
+                "OsuDirectory:" + OsuDirectory,
+                "BackupDirectory:" + BackupDirectory,
+                "TemplateDirectory:" + TemplateDirectory,
+                "BackupBeforeMixing:"+ BackupBeforeMixing,
+                "BackgroundEditor:" + BackgroundEditor.ToString(),
+                "ReopenLastSkin:" + ReopenLastSkin,
+                "Language:" + (int)Language,
+                "DisclaimerRead:" + DisclaimerRead
+                };
+            }
             #endregion
 
-            base.Save(Content);
+            if (string.IsNullOrWhiteSpace(redirectPath))
+            {
+                base.Save(content);
+            }
+            else
+            {
+                base.SaveTo(redirectPath, content);
+            }
             UnsavedChanges = false;
-            OnSettingsSaved(EventArgs.Empty);
+            OnSettingsSaved(new ProfileEventArgs(this));
         }
 
         public void Load()
         {
-            Content = base.LoadFile(this);
-            LoadDefaults();
+            Load(base.LoadFile(this));
+        }
 
-            if (Content != null)
+        private void Load(string[] content)
+        {
+            LoadDefaults();
+            
+            if (content != null)
             {
-                foreach (string str in Content)
+                foreach (string str in content)
                 {
                     string[] property = GetPropertyPair(str);
                     switch (property[0])
                     {
+                        case "ProfilePath":
+                            ProfilePath = property[1];
+                            break;
+
+                        case "ProfileName":
+                            ProfileName = property[1];
+                            break;
+
                         case "OsuDirectory":
                             mOsuDirectory = property[1];
                             break;
@@ -194,7 +290,6 @@ namespace Osmo.Core.Configuration
                         case "DisclaimerRead":
                             DisclaimerRead = Parser.TryParse(property[1], false);
                             break;
-
                     }
                 }
             }
@@ -205,24 +300,25 @@ namespace Osmo.Core.Configuration
 
         private void LoadDefaults()
         {
+            ProfilePath = "";
             mBackupBeforeMixing = true;
             mBackgroundEditor = Colors.Black;
             mReopenLastSkin = true;
-            mDefaultBackupDirectory = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
-            mDefaultTemplateDirectory = AppDomain.CurrentDomain.BaseDirectory + "Templates\\";
+            mDefaultBackupDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Backups\\");
+            mDefaultTemplateDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates\\");
             mOsuDirectory = "";
             mLanguage = Language.Default;
         }
 
         private void SetUnsavedChanges(object oldValue, object value)
         {
-            if (!oldValue.Equals(value))
+            if (oldValue != null && !oldValue.Equals(value))
             {
                 UnsavedChanges = true;
             }
         }
 
-        protected virtual void OnSettingsSaved(EventArgs e)
+        protected virtual void OnSettingsSaved(ProfileEventArgs e)
         {
             SettingsSaved?.Invoke(this, e);
         }
@@ -230,6 +326,16 @@ namespace Osmo.Core.Configuration
         protected virtual void OnSettingsLoaded(EventArgs e)
         {
             SettingsLoaded?.Invoke(this, e);
+        }
+
+        protected virtual void OnSettingsRenamed(ProfileRenamedEventArgs e)
+        {
+            SettingsRenamed?.Invoke(this, e);
+        }
+
+        public override string ToString()
+        {
+            return !string.IsNullOrWhiteSpace(ProfileName) ? ProfileName : "Default";
         }
     }
 }

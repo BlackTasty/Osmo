@@ -1,4 +1,5 @@
 ﻿using Osmo.Core;
+using Osmo.Core.Configuration;
 using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using System;
@@ -19,10 +20,13 @@ namespace Osmo
     {
         private static int sessionId;
         private static MainWindow window;
-
+        private static ProfileManager profileManager;
+        
         public static event EventHandler<EventArgs> LanguageChanged;
 
         public static int SessionID { get => sessionId; }
+
+        public static ProfileManager ProfileManager { get => profileManager; }
 
         [STAThread()]
         //[DebuggerNonUserCode()]
@@ -54,6 +58,7 @@ namespace Osmo
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
                 Logger.Instance.WriteLog("Initializing Osmo...");
                 sessionId = Logger.Instance.SessionID;
+                profileManager = new ProfileManager(new AppConfiguration());
                 Un4seen.Bass.BassNet.Registration("raphael10@live.at", "2X373361752918");
                 App app = new App()
                 {

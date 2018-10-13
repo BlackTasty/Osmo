@@ -24,7 +24,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for NewTemplateDialog.xaml
     /// </summary>
-    public partial class NewTemplateDialog : DockPanel, IShortcutHelper
+    public partial class NewTemplateDialog : DockPanel, IHotkeyHelper
     {
         public static readonly RoutedEvent TemplateCreatedEvent = EventManager.RegisterRoutedEvent("TemplateCreated",
             RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NewTemplateDialog));
@@ -56,7 +56,7 @@ namespace Osmo.UI
             NewTemplateViewModel vm = DataContext as NewTemplateViewModel;
 
             string templatePath = string.Format("{0}\\{1}.oft",
-                AppConfiguration.Instance.TemplateDirectory, vm.Name);
+                App.ProfileManager.Profile.TemplateDirectory, vm.Name);
 
             File.WriteAllText(templatePath, "");
 

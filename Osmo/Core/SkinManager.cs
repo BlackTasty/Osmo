@@ -32,7 +32,7 @@ namespace Osmo.Core
             {
                 if (instance == null)
                 {
-                    instance = new SkinManager(AppConfiguration.Instance.OsuDirectory);
+                    instance = new SkinManager(App.ProfileManager.Profile.OsuDirectory);
                 }
 
                 return instance;
@@ -150,13 +150,16 @@ namespace Osmo.Core
                             EnableRaisingEvents = true
                             //IncludeSubdirectories = true
                         };
-                        mSkinWatcher.Changed += Watcher_Changed;
-                        mSkinWatcher.Created += Watcher_Created;
-                        mSkinWatcher.Deleted += Watcher_Deleted;
-                        mSkinWatcher.Renamed += Watcher_Renamed;
                     }
                     else
+                    {
                         mSkinWatcher.Path = value;
+                    }
+
+                    mSkinWatcher.Changed += Watcher_Changed;
+                    mSkinWatcher.Created += Watcher_Created;
+                    mSkinWatcher.Deleted += Watcher_Deleted;
+                    mSkinWatcher.Renamed += Watcher_Renamed;
 
                     if (oldValue != value)
                     {
@@ -206,7 +209,11 @@ namespace Osmo.Core
             SkinDirectoryChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        private SkinManager(string directory)
+        /// <summary>
+        /// Do NOT use the constructor unless this is for unit testing!
+        /// </summary>
+        /// <param name="directory">The directory which shall be scanned for skins</param>
+        public SkinManager(string directory)
         {
             Logger.Instance.WriteLog("Inititalizing Skin Manager...");
             if (!string.IsNullOrWhiteSpace(directory))
@@ -254,19 +261,23 @@ namespace Osmo.Core
                 loadSkinFlag = true;
                 if (Skins.Count > 0)
                 {
-                    Skins.Clear();
+                    Skins.RemoveRange(1);
+                }
+                else
+                {
+                    Skins.Add(new Skin());
+                    OnEmptySkinItemAdded();
                 }
 
-                Skins.Add(new Skin());
-                OnEmptySkinItemAdded();
                 RecallConfiguration recall = RecallConfiguration.Instance;
-                bool reopenLastSkin = AppConfiguration.Instance.ReopenLastSkin;
+                bool reopenLastSkin = App.ProfileManager.Profile.ReopenLastSkin;
                 new Thread(() =>
                 {
                     if (!string.IsNullOrWhiteSpace(SkinDirectory))
                     {
                         IsLoadingSkins = true;
                         SkinLoadMaximum = new DirectoryInfo(SkinDirectory).GetDirectories().Count();
+                        SkinLoadCurrent = 0;
                         foreach (DirectoryInfo di in new DirectoryInfo(SkinDirectory).EnumerateDirectories())
                         {
                             mSkinNameCurrent = di.Name;

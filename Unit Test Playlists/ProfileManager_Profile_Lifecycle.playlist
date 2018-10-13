@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="Osmo.Tests.ProfileManagerTests.AddProfile" /><Add Test="Osmo.Tests.ProfileManagerTests.EditProfile" /><Add Test="Osmo.Tests.ProfileManagerTests.RemoveProfile" /></Playlist>

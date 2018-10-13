@@ -88,7 +88,7 @@ namespace Osmo.Core.Objects
             Name = fi.Name;
             Extension = fi.Extension;
             backupPath = string.Format("{0}\\Edited\\{1}\\",
-                Directory.GetParent(AppConfiguration.Instance.BackupDirectory).FullName, skinName);
+                Directory.GetParent(App.ProfileManager.Profile.BackupDirectory).FullName, skinName);
 
             fileType = GetFileType(fi.Extension);
 
