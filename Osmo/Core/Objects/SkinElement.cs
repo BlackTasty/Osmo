@@ -229,6 +229,7 @@ namespace Osmo.Core.Objects
                 File.Delete(TempPath);
             TempPath = null;
             FontStyle = FontStyles.Normal;
+            Logger.Instance.WriteLog("Element \"{0}\" resetted!");
         }
 
         internal void Delete()
@@ -238,6 +239,7 @@ namespace Osmo.Core.Objects
 
             File.Delete(mPath);
             TempPath = null;
+            Logger.Instance.WriteLog("Element \"{0}\" deleted!");
         }
 
         private FileType GetFileType(string extension)

@@ -142,6 +142,7 @@ namespace Osmo.Core.Configuration
         {
             profile.SettingsSaved += Config_SettingsSaved;
             Profiles.Add(profile);
+            Logger.Instance.WriteLog("Profile \"{0}\" has been added!", profile.ProfileName);
         }
 
         /// <summary>
@@ -170,10 +171,12 @@ namespace Osmo.Core.Configuration
             if (target != null)
             {
                 RemoveProfile(target);
+                Logger.Instance.WriteLog("Profile \"{0}\" has removed!", profileName);
                 return true;
             }
             else
             {
+                Logger.Instance.WriteLog("A profile with the name \"{0}\" does not exist!", LogType.WARNING, profileName);
                 return false;
             }
         }
@@ -189,6 +192,7 @@ namespace Osmo.Core.Configuration
             {
                 if (profile.Equals(Profile))
                 {
+                    Logger.Instance.WriteLog("Active profile has been removed! Resetting to default profile...");
                     ChangeActiveProfile("");
                 }
                 profile.SettingsSaved -= Config_SettingsSaved;

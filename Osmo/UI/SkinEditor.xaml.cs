@@ -1,9 +1,7 @@
-﻿using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.CodeCompletion;
+﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
@@ -11,22 +9,18 @@ using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml;
 using System.Linq;
 using Osmo.Core.Reader;
-using MaterialDesignThemes.Wpf.Transitions;
 using MaterialDesignThemes.Wpf;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using Osmo.Core.FileExplorer;
+using Osmo.Core.Logging;
 
 namespace Osmo.UI
 {
@@ -127,12 +121,14 @@ namespace Osmo.UI
 
         public void LoadCompletionData()
         {
+            Logger.Instance.WriteLog("Refreshing completion data...");
             skinIniCompletion.Clear();
             skinIniCompletion.AddRange(FixedValues.skinIniGeneralCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniColoursCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniFontsCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniCTBCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniManiaCompletionData);
+            Logger.Instance.WriteLog("Completion data refreshed!");
         }
 
         public async Task<bool> LoadSkin(Skin skin)

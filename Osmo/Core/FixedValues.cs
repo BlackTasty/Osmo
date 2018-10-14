@@ -2,6 +2,7 @@
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace Osmo.Core
 {
@@ -178,6 +179,8 @@ namespace Osmo.Core
         internal const int CONFIG_INDEX = 6;
         internal const int ABOUT_INDEX = 7;
         internal const int TEMPLATE_EDITOR_INDEX = 8;
+
+        internal static SolidColorBrush DEFAULT_BRUSH = Brushes.White;
 
         internal static SkinElementReader readerInterface;
         internal static SkinElementReader readerStandard;

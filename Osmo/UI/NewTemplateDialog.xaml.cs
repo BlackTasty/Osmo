@@ -1,23 +1,12 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core;
-using Osmo.Core.Configuration;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Osmo.UI
 {
@@ -39,6 +28,7 @@ namespace Osmo.UI
         {
             TemplateCreatedEventArgs eventArgs = new TemplateCreatedEventArgs(TemplateCreatedEvent, template);
             RaiseEvent(eventArgs);
+            Logger.Instance.WriteLog("New template \"{0}\" created!", template.Name);
         }
 
         public NewTemplateDialog()

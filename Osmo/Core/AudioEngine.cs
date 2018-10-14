@@ -74,6 +74,7 @@ namespace Osmo.Core
                         Helper.FindString("dlg_invalidAudioDescription"),
                         OsmoMessageBoxButton.OK);
 
+                    //The missing await is intended
                     DialogHelper.Instance.ShowDialog(msgBox);
                     return false;
                 }

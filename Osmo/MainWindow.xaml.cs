@@ -40,7 +40,7 @@ namespace Osmo
 
         private void ProfileManager_ProfileChanged(object sender, ProfileChangedEventArgs e)
         {
-            LoadSettings();
+            LoadSettings(false);
         }
 
         private void App_LanguageChanged(object sender, EventArgs e)
@@ -51,17 +51,20 @@ namespace Osmo
 
         private void Configuration_SettingsSaved(object sender, ProfileEventArgs e)
         {
-            LoadSettings();
+            LoadSettings(true);
         }
 
-        private void LoadSettings()
+        private void LoadSettings(bool refreshDirectories)
         {
             OsmoViewModel vm = DataContext as OsmoViewModel;
 
-            vm.BackupDirectory = App.ProfileManager.Profile.BackupDirectory;
-            if (!string.IsNullOrWhiteSpace(App.ProfileManager.Profile.OsuDirectory))
+            if (refreshDirectories)
             {
-                vm.OsuDirectory = App.ProfileManager.Profile.OsuDirectory;
+                vm.BackupDirectory = App.ProfileManager.Profile.BackupDirectory;
+                if (!string.IsNullOrWhiteSpace(App.ProfileManager.Profile.OsuDirectory))
+                {
+                    vm.OsuDirectory = App.ProfileManager.Profile.OsuDirectory;
+                }
             }
             LoadUISettings();
         }
@@ -420,6 +423,24 @@ namespace Osmo
                     Environment.Exit(0);
                 }
             }
+        }
+
+        private void console_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == true)
+            {
+                MinHeight += 200;
+            }
+            else
+            {
+                MinHeight -= 200;
+                Height -= 200;
+            }
+        }
+
+        private void console_Loaded(object sender, RoutedEventArgs e)
+        {
+            Logger.Instance.AppendConsole(console);
         }
     }
 }

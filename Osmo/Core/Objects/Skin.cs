@@ -190,11 +190,11 @@ namespace Osmo.Core.Objects
 
         private void CountFilesOfType(ElementType type, double targetElementCount, out double sdProgress, out double hdProgress)
         {
-            sdProgress = FileCountToProgress(Elements.Count(x => LinqCount(x, type, false)), targetElementCount);
-            hdProgress = FileCountToProgress(Elements.Count(x => LinqCount(x, type, true)), targetElementCount);
+            sdProgress = GetFileCountProgress(Elements.Count(x => CountFilesLinq(x, type, false)), targetElementCount);
+            hdProgress = GetFileCountProgress(Elements.Count(x => CountFilesLinq(x, type, true)), targetElementCount);
         }
 
-        private double FileCountToProgress(double elementCount, double targetElementCount)
+        private double GetFileCountProgress(double elementCount, double targetElementCount)
         {
             if (elementCount > 0)
             {
@@ -207,9 +207,8 @@ namespace Osmo.Core.Objects
             }
         }
 
-        private bool LinqCount(SkinElement element, ElementType type, bool countHDElements)
+        private bool CountFilesLinq(SkinElement element, ElementType type, bool countHDElements)
         {
-            
             if (element.ElementDetails?.ElementType == type && 
                 (element.ElementDetails as ElementReader).VersionMatches(Version))
             {
@@ -310,7 +309,6 @@ namespace Osmo.Core.Objects
 
         public static async Task<Skin> Import(FileInfo oskPath)
         {
-            
             string skinPath = App.ProfileManager.Profile.OsuDirectory + "\\" + oskPath.Name.Replace(oskPath.Extension, "");
 
             OsmoMessageBoxResult result = OsmoMessageBoxResult.OK;
@@ -356,6 +354,7 @@ namespace Osmo.Core.Objects
             {
                 element.Reset();
             }
+            Logger.Instance.WriteLog("Reverted all changes on skin \"{0}\"!", Name);
         }
 
         /// <summary>
@@ -402,7 +401,7 @@ namespace Osmo.Core.Objects
                     Author = GetSkinIniProperty("Author");
                 }
             }
-            
+
             SkinIniExists = skinIniHandle != null;
 
             RefreshProgressValues();

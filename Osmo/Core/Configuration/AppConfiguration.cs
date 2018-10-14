@@ -1,4 +1,5 @@
-﻿using Osmo.Core.Objects;
+﻿using Osmo.Core.Logging;
+using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -160,7 +161,7 @@ namespace Osmo.Core.Configuration
         private bool isDefault;
 
         /// <summary>
-        /// Thisi initalizes a new configuration profile with a given name
+        /// This initalizes a new configuration profile with a given name
         /// </summary>
         /// <param name="profileName"></param>
         public AppConfiguration(string profileName) : base(profileName, ".cfg", "Profiles/")

@@ -9,6 +9,7 @@ namespace Osmo.Core.Logging
 {
     class Logger
     {
+        IConsole console;
         private static Logger instance;
         private static readonly string _logFolderPath = AppDomain.CurrentDomain.BaseDirectory + "Logs\\";
         private string _fileName = "log.txt";
@@ -36,6 +37,12 @@ namespace Osmo.Core.Logging
         {
             _sessionId = rnd.Next(10000000, 99999999);
             _logFilePath = Path.Combine(_logFolderPath, _fileName);
+        }
+
+        public void AppendConsole(IConsole console)
+        {
+            this.console = console;
+            WriteLog("Console connected!", LogType.CONSOLE);
         }
 
         /// <summary>
@@ -212,12 +219,16 @@ namespace Osmo.Core.Logging
                             File.AppendAllText(_logFilePath, logBuilder.ToString());
                         else
                             File.AppendAllText(_logFilePath + ".verbose", logBuilder.ToString());
-                    }
 
-                    if (_fileName != null)
                         Console.WriteLine(string.Format("({0}) {1}", _fileName, logBuilder.ToString().Replace("\r", "")));
+
+                        console?.Log(string.Format("({0}) {1}\n", _fileName, logBuilder), mode);
+                    }
                     else
+                    {
                         Console.WriteLine(string.Format("{0}", logBuilder.ToString().Replace("\r", "")));
+                        console?.Log(string.Format("{0}\n", logBuilder), mode);
+                    }
                     break;
                 }
                 catch

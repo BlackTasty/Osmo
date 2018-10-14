@@ -1,6 +1,4 @@
-﻿using Osmo.Core.Configuration;
-
-namespace Osmo.Core.Configuration
+﻿namespace Osmo.Core.Configuration
 {
     public class ProfileChangedEventArgs 
     {

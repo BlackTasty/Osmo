@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.FileExplorer;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.Core.Logging;
+using System;
 using System.IO;
 
 namespace Osmo.Core.Configuration
@@ -33,8 +34,7 @@ namespace Osmo.Core.Configuration
             }
         }
         
-        public string FilePath { get;
-            private set; }
+        public string FilePath { get; private set; }
 
         protected void Save(string[] properties)
         {
@@ -49,6 +49,7 @@ namespace Osmo.Core.Configuration
         protected void SaveTo(string filePath, string[] properties)
         {
             File.WriteAllLines(filePath, properties);
+            Logger.Instance.WriteLog("Configuration file \"{0}\" has been saved!", fileName + extension);
         }
 
         protected string[] LoadFile(ConfigurationFile file)
@@ -74,6 +75,7 @@ namespace Osmo.Core.Configuration
 
         protected void RenameFile(string newName)
         {
+            Logger.Instance.WriteLog("Renaming configuration file \"{0}\" to \"{1}\"...", fileName + extension, newName + extension);
             fileName = newName;
             string newPath = GetFilePath(newName);
             File.Move(FilePath, newPath);

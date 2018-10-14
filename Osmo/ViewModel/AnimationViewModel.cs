@@ -1,4 +1,5 @@
 ﻿using Osmo.Core;
+using Osmo.Core.Logging;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Media;
@@ -81,7 +82,6 @@ namespace Osmo.ViewModel
             {
                 StopAnimation();
             }
-
             mCurrentFrame = -1;
             mAnimationThread = new Thread(RunAnimation);
             mAnimationThread.Start();

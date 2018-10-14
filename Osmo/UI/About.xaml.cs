@@ -62,5 +62,13 @@ namespace Osmo.UI
             Clipboard.SetText(App.SessionID.ToString());
             snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_sessionId"));
         }
+
+        private void OpenConsole_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                DebugConsole.Instance.ShowConsole();
+            }
+        }
     }
 }

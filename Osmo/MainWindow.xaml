@@ -136,6 +136,7 @@
                     </DockPanel>
                 </material:ColorZone>
 
+                <ui:DebugConsole x:Name="console" DockPanel.Dock="Bottom" IsVisibleChanged="console_IsVisibleChanged" Visibility="Collapsed" Loaded="console_Loaded" MaxHeight="200"/>
                 <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
             </DockPanel>
         </material:DrawerHost>

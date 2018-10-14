@@ -95,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\DebugConsole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\CreateProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +184,7 @@
     <Compile Include="Core\ISkinContainer.cs" />
     <Compile Include="Core\LibraryValidator.cs" />
     <Compile Include="Core\Logging\FrameworkLookup.cs" />
+    <Compile Include="Core\Logging\IConsole.cs" />
     <Compile Include="Core\Logging\Logger.cs" />
     <Compile Include="Core\Logging\LogType.cs" />
     <Compile Include="Core\Logging\SystemInformation.cs" />
@@ -226,6 +231,9 @@
     </Compile>
     <Compile Include="UI\AnimationHelper.xaml.cs">
       <DependentUpon>AnimationHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DebugConsole.xaml.cs">
+      <DependentUpon>DebugConsole.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\CreateProfile.xaml.cs">
       <DependentUpon>CreateProfile.xaml</DependentUpon>
@@ -392,6 +400,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Inconsolata.ttf" />
     <Resource Include="Resources\SkinIniSyntax.xshd">
       <Generator>MSBuild:Compile</Generator>
     </Resource>

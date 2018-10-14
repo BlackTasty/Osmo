@@ -21,7 +21,7 @@
         <RowDefinition Height="16"/>
     </Grid.RowDefinitions>
     <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
-        <TextBlock x:Name="txt_session" Text="{DynamicResource about_sessionId}" ToolTip="{DynamicResource tip_sessionId}"/>
+        <TextBlock x:Name="txt_session" Text="{DynamicResource about_sessionId}" ToolTip="{DynamicResource tip_sessionId}" MouseDown="OpenConsole_MouseDown"/>
         <Button Padding="0" Click="CopySessionID_Click" Margin="8,0,0,0"
                     Foreground="{DynamicResource MaterialDesignToolTipBackground}"
                     Height="16" Width="16" ToolTip="{DynamicResource tip_copySessionId}"
