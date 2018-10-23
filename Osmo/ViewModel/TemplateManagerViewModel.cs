@@ -1,12 +1,7 @@
 ﻿using Osmo.Core;
-using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Osmo.ViewModel
 {
@@ -17,17 +12,20 @@ namespace Osmo.ViewModel
 
         public TemplateManagerViewModel()
         {
-            Templates.Add(new ForumTemplate());
-
-            if (!Directory.Exists(App.ProfileManager.Profile.TemplateDirectory))
+            if (!App.IsDesigner)
             {
-                Directory.CreateDirectory(App.ProfileManager.Profile.TemplateDirectory);
-                File.WriteAllText(App.ProfileManager.Profile.TemplateDirectory + "Default.oft",
-                    Properties.Resources.DefaultTemplate);
-                File.WriteAllText(App.ProfileManager.Profile.TemplateDirectory + "Official.oft",
-                    Properties.Resources.OfficialTemplate);
+                Templates.Add(new ForumTemplate());
+
+                if (!Directory.Exists(App.ProfileManager.Profile.TemplateDirectory))
+                {
+                    Directory.CreateDirectory(App.ProfileManager.Profile.TemplateDirectory);
+                    File.WriteAllText(App.ProfileManager.Profile.TemplateDirectory + "Default.oft",
+                        Properties.Resources.DefaultTemplate);
+                    File.WriteAllText(App.ProfileManager.Profile.TemplateDirectory + "Official.oft",
+                        Properties.Resources.OfficialTemplate);
+                }
+                LoadTemplates();
             }
-            LoadTemplates();
         }
 
         public void DeleteTemplate(string name)

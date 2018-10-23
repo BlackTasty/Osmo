@@ -1,11 +1,8 @@
 ﻿using Osmo.Core;
-using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Osmo.ViewModel
 {
@@ -17,8 +14,11 @@ namespace Osmo.ViewModel
 
         public SkinSelectViewModel()
         {
-            mSkinManager = SkinManager.Instance;
-            mSkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+            if (!App.IsDesigner)
+            {
+                mSkinManager = SkinManager.Instance;
+                mSkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+            }
         }
 
         private void SkinManager_SkinDirectoryChanged(object sender, EventArgs e)

@@ -40,6 +40,7 @@ namespace Osmo
 
         private void ProfileManager_ProfileChanged(object sender, ProfileChangedEventArgs e)
         {
+            Logger.Instance.WriteLog("Profile has changed!", LogType.CONSOLE);
             LoadSettings(false);
         }
 
@@ -51,6 +52,7 @@ namespace Osmo
 
         private void Configuration_SettingsSaved(object sender, ProfileEventArgs e)
         {
+            Logger.Instance.WriteLog("Reloading osu! directory...", LogType.CONSOLE);
             LoadSettings(true);
         }
 
@@ -317,6 +319,9 @@ namespace Osmo
         private void LoadUISettings()
         {
             Settings.ChangeLanguage(App.ProfileManager.Profile.Language);
+            Settings.ChangeBaseTheme(App.ProfileManager.Profile.DarkTheme);
+            ColorZone test = new ColorZone();
+            test.Mode = ColorZoneMode.Dark;
             Logger.Instance.WriteLog("UI specific settings loaded! Language: {0}", App.ProfileManager.Profile.Language);
         }
 
@@ -441,6 +446,11 @@ namespace Osmo
         private void console_Loaded(object sender, RoutedEventArgs e)
         {
             Logger.Instance.AppendConsole(console);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

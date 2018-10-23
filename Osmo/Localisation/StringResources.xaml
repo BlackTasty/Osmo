@@ -100,6 +100,7 @@
     <system:String o:Freeze="True" x:Key="main_revertAllTitle">Revert all changes?</system:String>
     <system:String o:Freeze="True" x:Key="main_revertAllDescription">Do you really want to revert all changes made to this skin? This cannot be undone!</system:String>
     <system:String o:Freeze="True" x:Key="main_skinInfo">Skin status</system:String>
+    <system:String o:Freeze="True" x:Key="main_syncSkinFolders">Synchronize skin directories</system:String>
 
     <system:String o:Freeze="True" x:Key="skin_status_progress">Skin progress (per module)</system:String>
 
@@ -165,6 +166,7 @@
     <system:String o:Freeze="True" x:Key="settings_header_profile">Profiles</system:String>
     <system:String o:Freeze="True" x:Key="settings_title_profileRemove">Delete profile?</system:String>
     <system:String o:Freeze="True" x:Key="settings_descr_profileRemove">Are you sure you want to remove the selected profile? This cannot be undone!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_useDarkTheme">Use dark theme</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Executable skin file</system:String>
@@ -310,6 +312,9 @@
 
     <!-- MenuItems -->
     <system:String o:Freeze="True" x:Key="menuItem_openInResizer">Open in Resize Tool</system:String>
+
+    <!-- SkinSync -->
+    <system:String o:Freeze="True" x:Key="sync_title">Synchronize skins between profiles</system:String>
 
     <!--Completion data descriptions-->
     <!--   Template completion data-->

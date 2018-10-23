@@ -1,12 +1,6 @@
-﻿using Osmo.Core.Logging;
-using Osmo.Core.Objects;
+﻿using Osmo.Core.Objects;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Osmo.Core.Configuration
@@ -45,6 +39,7 @@ namespace Osmo.Core.Configuration
         private bool mBackupBeforeMixing;
         private bool mReopenLastSkin;
         private Language mLanguage;
+        private bool mDarkTheme;
 
         private bool isInit = true;
 
@@ -154,7 +149,13 @@ namespace Osmo.Core.Configuration
             }
         }
 
-        public bool IsDefault { get => isDefault; }
+        public bool DarkTheme { get => mDarkTheme;
+            set
+            {
+                SetUnsavedChanges(mDarkTheme, value);
+                mDarkTheme = value;
+            }
+        }
         #endregion
 
         private string redirectPath;
@@ -204,7 +205,8 @@ namespace Osmo.Core.Configuration
                 "BackgroundEditor:" + BackgroundEditor.ToString(),
                 "ReopenLastSkin:" + ReopenLastSkin,
                 "Language:" + (int)Language,
-                "DisclaimerRead:" + DisclaimerRead
+                "DisclaimerRead:" + DisclaimerRead,
+                "DarkTheme: " + DarkTheme
                 };
             }
             else
@@ -219,7 +221,8 @@ namespace Osmo.Core.Configuration
                 "BackgroundEditor:" + BackgroundEditor.ToString(),
                 "ReopenLastSkin:" + ReopenLastSkin,
                 "Language:" + (int)Language,
-                "DisclaimerRead:" + DisclaimerRead
+                "DisclaimerRead:" + DisclaimerRead,
+                "DarkTheme: " + DarkTheme
                 };
             }
             #endregion
@@ -290,6 +293,10 @@ namespace Osmo.Core.Configuration
 
                         case "DisclaimerRead":
                             DisclaimerRead = Parser.TryParse(property[1], false);
+                            break;
+
+                        case "DarkTheme":
+                            mDarkTheme = Parser.TryParse(property[1], false);
                             break;
                     }
                 }

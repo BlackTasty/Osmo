@@ -95,23 +95,22 @@
                                 <Button Content="{DynamicResource main_exit}" Click="Close_Click"/>
                             </StackPanel>
                         </material:PopupBox>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;8}"
-                            ToolTip="{DynamicResource main_saveAll}" Click="SaveSkinOrTemplate_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;8}"
+                            ToolTip="{DynamicResource main_saveAll}" Click="SaveSkinOrTemplate_Click" Style="{StaticResource AppBarButton}">
                             <material:PackIcon
                             Kind="ContentSave"
                             Height="28"
                             Width="28" />
                         </Button>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
-                            ToolTip="{DynamicResource main_skinInfo}" Click="ShowSkinInfo_Click" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
-
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                            ToolTip="{DynamicResource main_skinInfo}" Click="ShowSkinInfo_Click" Style="{StaticResource AppBarButton}">
                             <material:PackIcon
                             Kind="InformationOutline"
                             Height="28"
                             Width="28" />
                         </Button>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
-                            ToolTip="{DynamicResource main_exportSkin}" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                            ToolTip="{DynamicResource main_exportSkin}" Style="{StaticResource AppBarButton}"
                             Command="{x:Static material:DialogHost.OpenDialogCommand}" x:Name="btn_export">
                             <Button.CommandParameter>
                                 <ui:FilePicker IsFolderSelect="True" Title="{DynamicResource export_selectDirectory}" DialogClosed="FolderPicker_DialogClosed"/>
@@ -121,8 +120,8 @@
                             Height="28"
                             Width="28" />
                         </Button>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
-                            ToolTip="{DynamicResource main_importSkin}" x:Name="btn_import" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
+                            ToolTip="{DynamicResource main_importSkin}" x:Name="btn_import" Style="{StaticResource AppBarButton}"
                                  Command="{x:Static material:DialogHost.OpenDialogCommand}">
                             <material:PackIcon
                             Kind="PackageUp"
@@ -132,6 +131,13 @@
                                 <ui:DragDropArea/>
                             </Button.CommandParameter>
                         </Button>
+                        <!--<Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
+                                ToolTip="{DynamicResource main_syncSkinFolders}" x:Name="btn_syncSkins" Style="{StaticResource AppBarButton}">
+                            <material:PackIcon
+                            Kind="Sync"
+                            Height="28"
+                            Width="28" />
+                        </Button>-->
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{Binding Content.Tag, ElementName=content}"/>
                     </DockPanel>
                 </material:ColorZone>

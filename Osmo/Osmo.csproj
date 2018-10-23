@@ -95,6 +95,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Theme\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\DebugConsole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Simulator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SkinSync.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,6 +296,9 @@
     <Compile Include="UI\SkinSelect.xaml.cs">
       <DependentUpon>SkinSelect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SkinSync.xaml.cs">
+      <DependentUpon>SkinSync.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TemplateEditor.xaml.cs">
       <DependentUpon>TemplateEditor.xaml</DependentUpon>
     </Compile>
@@ -308,6 +323,7 @@
     <Compile Include="ViewModel\SkinCardViewModel.cs" />
     <Compile Include="ViewModel\SkinMixerViewModel.cs" />
     <Compile Include="ViewModel\SkinSelectViewModel.cs" />
+    <Compile Include="ViewModel\SkinSyncViewModel.cs" />
     <Compile Include="ViewModel\SkinViewModel.cs" />
     <Compile Include="ViewModel\SkinWizardViewModel.cs" />
     <Compile Include="ViewModel\TemplateEditorViewModel.cs" />

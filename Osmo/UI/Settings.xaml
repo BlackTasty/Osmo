@@ -11,7 +11,7 @@
     xmlns:converter="clr-namespace:Osmo.Converters"
     xmlns:local="clr-namespace:Osmo.UI"
     x:Name="container"
-    d:DesignHeight="550"
+    d:DesignHeight="700"
     d:DesignWidth="800"
     Loaded="Settings_Loaded"
     Tag="{DynamicResource sidebar_settings}"
@@ -85,20 +85,22 @@
             <material:Card>
                 <Grid Margin="8">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="24" />
-                        <ColumnDefinition Width="298*" />
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="24"/>
+                        <ColumnDefinition Width="298*"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="42" />
-                        <RowDefinition Height="16" />
-                        <RowDefinition Height="42" />
-                        <RowDefinition Height="16" />
-                        <RowDefinition Height="42" />
-                        <RowDefinition Height="16" />
-                        <RowDefinition Height="8" />
-                        <RowDefinition Height="42" />
+                        <RowDefinition Height="42"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="42"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="42"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="42"/>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
                     
                     <material:PackIcon Margin="0,0,0,8" HorizontalAlignment="Left" VerticalAlignment="Bottom"
@@ -162,13 +164,18 @@
 
                     <material:PackIcon Grid.Row="7" Margin="0,0,0,8" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                                        Foreground="{Binding ElementName=combo_language, Path=BorderBrush}" Kind="Flag" />
-                    <ComboBox x:Name="combo_language" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" 
+                    <ComboBox x:Name="combo_language" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,10,0"
                               VerticalAlignment="Stretch" material:HintAssist.Hint="{DynamicResource settings_hint_language}"
                               SelectedIndex="{Binding Language}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem Content="English (Default)" />
                         <ComboBoxItem Content="Español" />
                         <ComboBoxItem Content="Deutsch" />
                     </ComboBox>
+
+                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Grid.Row="9"
+                               Text="{DynamicResource settings_cb_useDarkTheme}"/>
+                    <ToggleButton x:Name="cb_darkTheme" Grid.Column="3" Grid.Row="9" IsChecked="{Binding DarkTheme}"
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
 
                     <Border Grid.Row="1" Grid.ColumnSpan="4" Height="1" VerticalAlignment="Bottom"
                             BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,1,0,0" />
@@ -194,17 +201,17 @@
                     <TextBlock Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center"
                                Text="{DynamicResource settings_cb_createBackup}"/>
                     <ToggleButton x:Name="cb_backupSkin" Grid.Column="3" IsChecked="{Binding BackupBeforeMixing}"
-                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip=""/>
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
                     <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,7.02" VerticalAlignment="Center"
                                Text="{DynamicResource settings_cb_openLastSkin}"/>
                     <ToggleButton x:Name="cb_reopenLastSkin" Grid.Row="4" Grid.Column="3" IsChecked="{Binding ReopenLastSkin}"
-                                  Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip=""/>
+                                  Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
                 </Grid>
             </material:Card>
 
             <TextBlock Margin="0,8" Text="{DynamicResource settings_header_shortcuts}" />
             <material:Card>
-                <Expander Header="{DynamicResource settings_header_shortcutsCheatSheet}" Background="{DynamicResource MaterialDesignBackground}">
+                <Expander Header="{DynamicResource settings_header_shortcutsCheatSheet}" Background="{DynamicResource MaterialDesignCardBackground}">
                     <ui:ShortcutCheatSheet/>
                 </Expander>
             </material:Card>

@@ -137,17 +137,19 @@ namespace Osmo.ViewModel
 
         public OsmoViewModel()
         {
-            FixedValues.InitializeReader();
-            string osuDir = App.ProfileManager.Profile.OsuDirectory;
-
-            if (!string.IsNullOrWhiteSpace(osuDir))
+            if (!App.IsDesigner)
             {
-                SkinManager = SkinManager.Instance;
-                SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
-            }
+                FixedValues.InitializeReader();
+                string osuDir = App.ProfileManager.Profile.OsuDirectory;
 
-            Items = new SidebarEntry[]
-            {
+                if (!string.IsNullOrWhiteSpace(osuDir))
+                {
+                    SkinManager = SkinManager.Instance;
+                    SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+                }
+
+                Items = new SidebarEntry[]
+                {
                 new SidebarEntry("sidebar_home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance, 0),
                 new SidebarEntry("sidebar_wizard", MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance, 1),
                 new SidebarEntry("sidebar_editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, 2, false),
@@ -157,7 +159,8 @@ namespace Osmo.ViewModel
                 new SidebarEntry("sidebar_settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance, 6),
                 new SidebarEntry("sidebar_about", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance, 7),
                 new SidebarEntry("sidebar_templateEditor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, 8, Visibility.Hidden)
-            };
+                };
+            }
         }
 
         private void SkinManager_SkinDirectoryChanged(object sender, EventArgs e)

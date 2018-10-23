@@ -29,7 +29,7 @@
         </ListView.View>
     </ListView>
     <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-    <material:ColorZone VerticalAlignment="Stretch" Mode="Dark" Grid.Column="2">
+    <material:ColorZone VerticalAlignment="Stretch" Mode="{DynamicResource ColorZoneMode}" Grid.Column="2">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="44"/>

@@ -93,6 +93,11 @@ namespace Osmo.UI
             ((App)Application.Current).ChangeLanguage(lang);
         }
 
+        public static void ChangeBaseTheme(bool isDark)
+        {
+            ((App)Application.Current).ChangeBaseTheme(isDark);
+        }
+
         private async void Settings_Loaded(object sender, RoutedEventArgs e)
         {
             bool exitAutoDetect;

@@ -53,6 +53,7 @@ namespace Osmo.Core.Configuration
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/Profiles"))
             {
                 Profiles.Add(defaultProfile);
+                defaultProfile.SettingsSaved += Config_SettingsSaved;
                 foreach (FileInfo fi in new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "/Profiles")
                     .EnumerateFiles("*cfg"))
                 {

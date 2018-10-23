@@ -45,11 +45,14 @@ namespace Osmo.ViewModel
 
         public SettingsViewModel()
         {
-            SelectedProfile.SettingsLoaded += Configuration_SettingsLoaded;
-            App.ProfileManager.ProfileChanged += ProfileManager_ProfileChanged;
-            App.ProfileManager.ProfileCreated += ProfileManager_ProfileCreated;
+            if (!App.IsDesigner)
+            {
+                SelectedProfile.SettingsLoaded += Configuration_SettingsLoaded;
+                App.ProfileManager.ProfileChanged += ProfileManager_ProfileChanged;
+                App.ProfileManager.ProfileCreated += ProfileManager_ProfileCreated;
 
-            SelectedProfileIndex = Profiles.IndexOf(SelectedProfile);
+                SelectedProfileIndex = Profiles.IndexOf(SelectedProfile);
+            }
             //FileSystemWatcher fileWatcher = new FileSystemWatcher(config.FilePath + "\\Profiles", "*.cfg");
             //fileWatcher.Created += FileWatcher_Created;
             //fileWatcher.Deleted += FileWatcher_Deleted;
@@ -178,6 +181,16 @@ namespace Osmo.ViewModel
             {
                 SelectedProfile.ProfileName = value;
                 InvokePropertyChanged("ProfileName");
+            }
+        }
+
+        public bool DarkTheme
+        {
+            get => SelectedProfile.DarkTheme;
+            set
+            {
+                SelectedProfile.DarkTheme = value;
+                InvokePropertyChanged();
             }
         }
     }

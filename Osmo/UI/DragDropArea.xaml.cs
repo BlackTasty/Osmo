@@ -152,5 +152,10 @@ namespace Osmo.UI
         {
             DialogHelper.Instance.NotifyDialogOpened();
         }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

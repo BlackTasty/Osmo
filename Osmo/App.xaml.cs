@@ -1,14 +1,12 @@
-﻿using Osmo.Core;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
+using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Osmo
@@ -27,6 +25,8 @@ namespace Osmo
         public static int SessionID { get => sessionId; }
 
         public static ProfileManager ProfileManager { get => profileManager; }
+
+        public static bool IsDesigner { get => DesignerProperties.GetIsInDesignMode(new DependencyObject()); }
 
         [STAThread()]
         //[DebuggerNonUserCode()]
@@ -116,8 +116,25 @@ namespace Osmo
 
             Thread.CurrentThread.CurrentUICulture =
                new System.Globalization.CultureInfo(threadLang);
-            Resources.MergedDictionaries[2] = localisation;
+            Resources.MergedDictionaries[0] = localisation;
             OnLanguageChanged(EventArgs.Empty);
+        }
+
+        public void ChangeBaseTheme(bool isDark)
+        {
+            ResourceDictionary theme = new ResourceDictionary();
+
+            if (isDark)
+            {
+                theme.Source = new Uri(@"pack://application:,,,/Osmo;component/Resources/Theme/Dark.xaml", UriKind.RelativeOrAbsolute);
+            }
+            else
+            {
+                theme.Source = new Uri(@"pack://application:,,,/Osmo;component/Resources/Theme/Light.xaml", UriKind.RelativeOrAbsolute);
+            }
+
+            Resources.MergedDictionaries[4] = theme;
+            new PaletteHelper().SetLightDark(isDark);
         }
 
         protected virtual void OnLanguageChanged(EventArgs e)
