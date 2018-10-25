@@ -41,12 +41,13 @@
     <system:String o:Freeze="True" x:Key="retry">_WIEDERHOLEN</system:String>
     <system:String o:Freeze="True" x:Key="loadTemplate">_VORLAGE LADEN</system:String>
     <system:String o:Freeze="True" x:Key="newTemplate">_NEUE VORLAGE</system:String>
-    <system:String o:Freeze="True" x:Key="loadSkin">_THEME LADEN</system:String>
-    <system:String o:Freeze="True" x:Key="newSkin">_NEUES THEME</system:String>
-    <system:String o:Freeze="True" x:Key="mixSkins">_THEMES MISCHEN</system:String>
+    <system:String o:Freeze="True" x:Key="loadSkin">_SKIN LADEN</system:String>
+    <system:String o:Freeze="True" x:Key="newSkin">_NEUER SKIN</system:String>
+    <system:String o:Freeze="True" x:Key="mixSkins">_SKINS MISCHEN</system:String>
     <system:String o:Freeze="True" x:Key="copy">_KOPIEREN</system:String>
     <system:String o:Freeze="True" x:Key="donate">_Spenden</system:String>
     <system:String o:Freeze="True" x:Key="startResize">_STARTE SKALIERUNG</system:String>
+    <system:String o:Freeze="True" x:Key="remove">_ENTFERNEN</system:String>
 
     <!--  Validation-->
     <system:String o:Freeze="True" x:Key="validationError_directory">Ungültiger Ordner!</system:String>
@@ -63,21 +64,21 @@
     <system:String o:Freeze="True" x:Key="shortcuts_save">Strg + S</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_mixerTransfer">Strg + T</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkin">Strg + O</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Theme als Quelle nutzen</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Themeauswahl</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Lade das Theme in Theme Mixer</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Skin als Quelle nutzen</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Skinauswahl</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Öffne den ausgewählten Skin im Skin Mixer</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixer">Strg + Shift + O</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_skinSelectNewSkin">Strg + N</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_dialogs">Dialoge</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_dialogCloseTitle">Den Dialog schließen</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_dialogClose">Escape</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_dialogSkinMixerSelect">Theme Auswahl - Mixer</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogSkinMixerSelect">Skinauswahl - Mixer</system:String>
 
     <!--Sidebar (OsmoViewModel.cs)-->
     <system:String o:Freeze="True" x:Key="sidebar_home">Start</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_wizard">Assistent</system:String>
-    <system:String o:Freeze="True" x:Key="sidebar_editor">Theme Editor</system:String>
-    <system:String o:Freeze="True" x:Key="sidebar_mixer">Theme Mixer</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_editor">Skin Editor</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_mixer">Skin Mixer</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateManager">Vorlagenverwaltung</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_settings">Einstellungen</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_about">Über</system:String>
@@ -87,32 +88,36 @@
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Änderungen rückgängig machen</system:String>
     <system:String o:Freeze="True" x:Key="main_createForumEntry">Forum Post aus Vorlage erstellen</system:String>
-    <system:String o:Freeze="True" x:Key="main_openInExplorer">Öffne Theme im Datei Explorer</system:String>
-    <system:String o:Freeze="True" x:Key="main_openInMixer">Lade Theme im Theme Mixer</system:String>
-    <system:String o:Freeze="True" x:Key="main_openInEditor">Lade Theme im Theme Editor</system:String>
+    <system:String o:Freeze="True" x:Key="main_openInExplorer">Öffne Skin im Datei Explorer</system:String>
+    <system:String o:Freeze="True" x:Key="main_openInMixer">Lade Skin im Skin Mixer</system:String>
+    <system:String o:Freeze="True" x:Key="main_openInEditor">Lade Skin im Skin Editor</system:String>
     <system:String o:Freeze="True" x:Key="main_exit">Beenden</system:String>
     <system:String o:Freeze="True" x:Key="main_saveAll">Änderungen speichern</system:String>
-    <system:String o:Freeze="True" x:Key="main_exportSkin">Theme exportieren</system:String>
-    <system:String o:Freeze="True" x:Key="main_importSkin">Theme importieren</system:String>
+    <system:String o:Freeze="True" x:Key="main_exportSkin">Skin exportieren</system:String>
+    <system:String o:Freeze="True" x:Key="main_importSkin">Skin importieren</system:String>
     <system:String o:Freeze="True" x:Key="main_unsavedChangesTitle">Du hast ungespeicherte Änderungen!</system:String>
     <system:String o:Freeze="True" x:Key="main_unsavedChangesDescription">Möchtest du vor dem Beenden speichern? (Deine Änderungen werden temporär beibehalten wenn du Nein drückst)</system:String>
     <system:String o:Freeze="True" x:Key="main_revertAllTitle">Änderungen rückgängig machen?</system:String>
     <system:String o:Freeze="True" x:Key="main_revertAllDescription">Möchtest du wirklich alle Änderungen rückgängig machen? Diese Aktion kann nicht widerrufen werden!</system:String>
+    <system:String o:Freeze="True" x:Key="main_skinInfo">Skin Status</system:String>
+    <system:String o:Freeze="True" x:Key="main_syncSkinFolders">Skin Ordner synchronisieren</system:String>
+
+    <system:String o:Freeze="True" x:Key="skin_status_progress">Skin Fortschritt (pro Modul)</system:String>
 
     <!--Skin.cs-->
-    <system:String o:Freeze="True" x:Key="skin_importTitle">Theme existiert bereits!</system:String>
-    <system:String o:Freeze="True" x:Key="skin_importDescription1">Ein Theme mit dem Namen "</system:String>
+    <system:String o:Freeze="True" x:Key="skin_importTitle">Skin existiert bereits!</system:String>
+    <system:String o:Freeze="True" x:Key="skin_importDescription1">Ein Skin mit dem Namen "</system:String>
     <system:String o:Freeze="True" x:Key="skin_importDescription2">" existiert bereits! Möchtest du dieses überschreiben?</system:String>
 
     <!--Skin mixer and editor-->
-    <system:String o:Freeze="True" x:Key="snackbar_saveText">Dein Theme wurde gespeichert!</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_saveText">Dein Skin wurde gespeichert!</system:String>
     <system:String o:Freeze="True" x:Key="snackbar_saveButton">Jetzt exportieren</system:String>
     <system:String o:Freeze="True" x:Key="snackbar_exportText">Export erfolgreich!</system:String>
     <system:String o:Freeze="True" x:Key="snackbar_exportButton">Ordner öffnen</system:String>
     <system:String o:Freeze="True" x:Key="edit_revertTitle">Änderungen rückgängig machen?</system:String>
     <system:String o:Freeze="True" x:Key="edit_revertDescription">Möchtest du wirklich alle Änderungen an diesem Element rückgängig machen?</system:String>
     <system:String o:Freeze="True" x:Key="export_saveFirstTitle">Änderungen speichern?</system:String>
-    <system:String o:Freeze="True" x:Key="export_saveFirstDescription">Möchtest du dein Theme zuerst speichern?</system:String>
+    <system:String o:Freeze="True" x:Key="export_saveFirstDescription">Möchtest du deinen Skin zuerst speichern?</system:String>
     <system:String o:Freeze="True" x:Key="edit_replaceTitle">Wähle eine Datei zum Ersetzen...</system:String>
     <system:String o:Freeze="True" x:Key="edit_replaceFilterAudio1">Unterstützte Audiodateien</system:String>
     <system:String o:Freeze="True" x:Key="edit_replaceFilterAudio2">Teilweise unterstützte Audiodateien</system:String>
@@ -131,7 +136,7 @@
     <system:String o:Freeze="True" x:Key="edit_btn_replace">Mit anderer Datei ersetzen</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_erase">Element leeren</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_delete">Element löschen</system:String>
-    <system:String o:Freeze="True" x:Key="mixer_selectRightSkin">Wähle ein Theme</system:String>
+    <system:String o:Freeze="True" x:Key="mixer_selectRightSkin">Wähle einen Skin</system:String>
 
     <!--Animation helper-->
     <system:String o:Freeze="True" x:Key="animator_fps">FPS</system:String>
@@ -140,11 +145,13 @@
     <!--Settings-->
     <system:String o:Freeze="True" x:Key="snackbar_settingsSavedText">Deine Einstellungen wurden gespeichert!</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_osuDirectory">osu! Ordner</system:String>
-    <system:String o:Freeze="True" x:Key="settings_hint_tempDirectory">Temporärer Ordner (Osmo speichert Änderungen an Themes in diesen Ordner)</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_tempDirectory">Temporärer Ordner (Osmo speichert Änderungen an Skins in diesen Ordner)</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_templateDirectory">Vorlagenordner</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_language">Sprache</system:String>
-    <system:String o:Freeze="True" x:Key="settings_cb_createBackup">Erstelle ein Backup bevor Themes zusammengeführt werden</system:String>
-    <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Öffne das letzte bearbeitete Theme beim Start</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_profile">Ausgewähltes Profil</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_profileName">Profilname</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_createBackup">Erstelle ein Backup bevor Skins zusammengeführt werden</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Öffne den letzten bearbeiteten Skin beim Start</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_general">Allgemein</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_editor">Editor</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Tastenkürzel</system:String>
@@ -156,10 +163,14 @@
     <system:String o:Freeze="True" x:Key="settings_title_autodetectFailed">Erkennung fehlgeschlagen!</system:String>
     <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">Bist du sicher das du osu! korrekt installiert hast?</system:String>
     <system:String o:Freeze="True" x:Key="settings_unsavedChangesDescription">Du hast ungespeicherte Änderungen an deinen Einstellungen! Möchtest du diese zuerst speichern? (Wenn du Nein auswählst werden deine Änderungen rückgängig gemacht)</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_profile">Profile</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_profileRemove">Profil löschen?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_profileRemove">Möchtest du das ausgewählte Profil wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_useDarkTheme">Dunkles Theme verwenden</system:String>
 
     <!--DragDropArea-->
-    <system:String o:Freeze="True" x:Key="dragDrop_filter">Ausführbare Theme Datei</system:String>
-    <system:String o:Freeze="True" x:Key="dragDrop_title">Wähle eine osu! Theme Datei für den Import...</system:String>
+    <system:String o:Freeze="True" x:Key="dragDrop_filter">Ausführbare Skin Datei</system:String>
+    <system:String o:Freeze="True" x:Key="dragDrop_title">Wähle eine osu! Skin Datei für den Import...</system:String>
     <system:String o:Freeze="True" x:Key="dragDrop_areaTitle">Zieh eine .osk Datei hier rein oder klick hier!</system:String>
 
     <!--TemplateManager-->
@@ -172,11 +183,11 @@
     <system:String o:Freeze="True" x:Key="snackbar_templateEditor_saveText">Dein Template wurde gespeichert!</system:String>
 
     <!--SkinSelect-->
-    <system:String o:Freeze="True" x:Key="skinSelect_mySkins">Meine Themes</system:String>
-    <system:String o:Freeze="True" x:Key="skinSelect_deleteTitle">Theme löschen?</system:String>
-    <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">Bist du sicher das du dieses Theme löschen willst?</system:String>
-    <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Wähle einen Ordner aus in welchen dein Theme exportiert werden soll</system:String>
-    <system:String o:Freeze="True" x:Key="skinSelect_loadSkins">Lade Themes...</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_mySkins">Meine Skins</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_deleteTitle">Skin löschen?</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">Bist du sicher das du diesen Skin löschen willst?</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Wähle einen Ordner aus in welchen dein Skin exportiert werden soll</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_loadSkins">Lade Skins...</system:String>
 
     <!--ResizeTool-->
     <system:String o:Freeze="True" x:Key="header_dimensionWidth">Breite</system:String>
@@ -223,7 +234,7 @@
     <system:String o:Freeze="True" x:Key="newTemplate_title">Erstelle eine neue Vorlage</system:String>
 
     <!--New skin dialog-->
-    <system:String o:Freeze="True" x:Key="newSkin_title">Erstelle ein neues Theme</system:String>
+    <system:String o:Freeze="True" x:Key="newSkin_title">Erstelle einen neuen Skin</system:String>
 
     <!--Tooltips-->
     <system:String o:Freeze="True" x:Key="tip_searchOsuDirectory">Such deinen osu! Ordner</system:String>
@@ -232,40 +243,43 @@
     <system:String o:Freeze="True" x:Key="tip_settings_abort">Alle Einstellungen zurücksetzen</system:String>
     <system:String o:Freeze="True" x:Key="tip_settings_save">Einstellungen speichern</system:String>
     <system:String o:Freeze="True" x:Key="tip_wizard_abort">Skin Assistenten abbrechen</system:String>
-    <system:String o:Freeze="True" x:Key="tip_wizard_save">Erstellt ein Theme mit den angegebenen Parametern und öffnet ihn zum bearbeiten</system:String>
+    <system:String o:Freeze="True" x:Key="tip_wizard_save">Erstellt einen Skin mit den angegebenen Parametern und öffnet ihn zum bearbeiten</system:String>
     <system:String o:Freeze="True" x:Key="tip_newTemplate_cancel">Vorlagenerstellung abbrechen</system:String>
     <system:String o:Freeze="True" x:Key="tip_newTemplate_create"> Erstelle eine neue Vorlage mit dem angegebenen Namen</system:String>
-    <system:String o:Freeze="True" x:Key="tip_newSkin_cancel">Theme Erstellung abbrechen</system:String>
-    <system:String o:Freeze="True" x:Key="tip_newSkin_create">Leitet dich zum Theme Assistenten weiter und wendet die Parameter dieses Dialogs an</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newSkin_cancel">Skin Erstellung abbrechen</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newSkin_create">Leitet dich zum Skin Assistenten weiter und wendet die Parameter dieses Dialogs an</system:String>
     <system:String o:Freeze="True" x:Key="tip_dragDrop_cancel">Importprozess abbrechen</system:String>
-    <system:String o:Freeze="True" x:Key="tip_dragDrop_import">Importiere das ausgewählte Theme</system:String>
+    <system:String o:Freeze="True" x:Key="tip_dragDrop_import">Importiere den ausgewählten Skin</system:String>
     <system:String o:Freeze="True" x:Key="tip_animator_prevFrame">Vorheriger Frame</system:String>
     <system:String o:Freeze="True" x:Key="tip_animator_play">Animation starten</system:String>
     <system:String o:Freeze="True" x:Key="tip_animator_pause">Animation pausieren</system:String>
     <system:String o:Freeze="True" x:Key="tip_animator_nextFrame">Nächster Frame</system:String>
     <system:String o:Freeze="True" x:Key="tip_templateManager_load">Öffne die ausgewählte Vorlage im Editor</system:String>
     <system:String o:Freeze="True" x:Key="tip_templateManager_new">Erstelle eine neue Vorlage</system:String>
-    <system:String o:Freeze="True" x:Key="tip_skinSelect_export">Theme exportieren</system:String>
-    <system:String o:Freeze="True" x:Key="tip_skinSelect_delete">Theme löschen</system:String>
-    <system:String o:Freeze="True" x:Key="tip_skinSelect_load">Öffne das ausgewählte Theme im Editor</system:String>
-    <system:String o:Freeze="True" x:Key="tip_skinSelect_new">Erstelle ein neues Theme</system:String>
-    <system:String o:Freeze="True" x:Key="tip_skinSelect_mix">Kombiniere mehrere Themes</system:String>
-    <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_load">Lade das ausgewählte Theme</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_export">Skin exportieren</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_delete">Skin löschen</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_load">Öffne den ausgewählten Skin im Editor</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_new">Erstelle einen neuen Skin</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinSelect_mix">Kombiniere mehrere Skins</system:String>
+    <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_load">Lade den ausgewählten Skin</system:String>
     <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_abort">Auswahl schließen</system:String>
     <system:String o:Freeze="True" x:Key="tip_revert">Änderungen rückgängig machen</system:String>
     <system:String o:Freeze="True" x:Key="tip_mixer_transfer">Überschreibe das links ausgewählte Element mit dem Element auf der rechten Seite</system:String>
-    <system:String o:Freeze="True" x:Key="tip_mixer_loadRightSkin">Öffnet die Theme Auswahl um ein Theme in die rechte Spalte zu laden</system:String>
+    <system:String o:Freeze="True" x:Key="tip_mixer_loadRightSkin">Öffnet die Skin Auswahl um einen Skin in die rechte Spalte zu laden</system:String>
     <system:String o:Freeze="True" x:Key="tip_revertSelected">Änderungen am ausgewählten Element rückgängig machen</system:String>
     <system:String o:Freeze="True" x:Key="tip_mute">Wiedergabe stummschalten/lautschalten</system:String>
     <system:String o:Freeze="True" x:Key="tip_play">Ausgewählte Datei abspielen</system:String>
     <system:String o:Freeze="True" x:Key="tip_pause">Wiedergabe pausieren</system:String>
     <system:String o:Freeze="True" x:Key="tip_stop">Wiedergabe stoppen</system:String>
     <system:String o:Freeze="True" x:Key="tip_noSkinIni">Dieser Skin beinhaltet keine skin.ini!</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newProfile_cancel">Profilerstellung abbrechen</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newProfile_create">Erstelle ein neues Profil mit dem angegebenen Namen</system:String>
+    <system:String o:Freeze="True" x:Key="tip_closeAnimationHelper">Animationsassistenten schließen</system:String>
 
     <system:String o:Freeze="True" x:Key="tip_templateEditor_preview">Vorschau</system:String>
 
     <!--Folder browser dialog titles-->
-    <system:String o:Freeze="True" x:Key="export_selectDirectory">Wähle einen Ordner in welchen du dein Theme exportieren möchtest</system:String>
+    <system:String o:Freeze="True" x:Key="export_selectDirectory">Wähle einen Ordner in welchen du deinen Skin exportieren möchtest</system:String>
     <system:String o:Freeze="True" x:Key="settings_selectOsuDirectory">Wähle deinen osu! Ordner</system:String>
     <system:String o:Freeze="True" x:Key="settings_selectBackupDirectory">Wähle deinen Backup Ordner</system:String>
 
@@ -299,18 +313,21 @@
     <!-- MenuItems -->
     <system:String o:Freeze="True" x:Key="menuItem_openInResizer">In Resize Tool öffnen</system:String>
 
+    <!-- SkinSync -->
+    <system:String o:Freeze="True" x:Key="sync_title">Skins zwischen Profilen synchronisieren</system:String>
+
     <!--Completion data descriptions-->
     <!--   Template completion data-->
-    <system:String o:Freeze="True" x:Key="completion_template_name">Platzhalter für den Theme Namen</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_name">Platzhalter für den Skin Namen</system:String>
     <system:String o:Freeze="True" x:Key="completion_template_author">Platzhalter für deinen Namen (Aus skin.ini entnommen)</system:String>
-    <system:String o:Freeze="True" x:Key="completion_template_version">Platzhalter für die Theme Version (Aus skin.ini entnommen)</system:String>
-    <system:String o:Freeze="True" x:Key="completion_template_size">Platzhalter für die Theme Größe</system:String>
-    <system:String o:Freeze="True" x:Key="completion_template_date">Platzhalter für das "Veröffentlichungsdatum" deines Themes</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_version">Platzhalter für die Skin Version (Aus skin.ini entnommen)</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_size">Platzhalter für die Skin Größe</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_date">Platzhalter für das "Veröffentlichungsdatum" deines Skins</system:String>
 
     <!--   skin.ini General completion data-->
-    <system:String o:Freeze="True" x:Key="completion_skin_name">Was ist der Name dieses Themes?</system:String>
-    <system:String o:Freeze="True" x:Key="completion_skin_author">Wer ist der Ersteller dieses Themes?</system:String>
-    <system:String o:Freeze="True" x:Key="completion_skin_version">Wie soll sich das Theme verhalten?\nBesuche https://osu.ppy.sh/help/wiki/Skinning/skin.ini für mehr Details über Versionen. (englisch)</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_name">Was ist der Name dieses Skins?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_author">Wer ist der Ersteller dieses Skins?</system:String>
+    <system:String o:Freeze="True" x:Key="completion_skin_version">Wie soll sich der Skin verhalten?\nBesuche https://osu.ppy.sh/help/wiki/Skinning/skin.ini für mehr Details über Versionen. (englisch)</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_animationFramerate">Wie viele Frames pro Sekunde sollen von Animationen angezeigt werden welche von diesem Wert abhängen?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_allowSliderBallTint">Soll die Slider Combofarbe den Slider Ball einfärben?</system:String>
     <system:String o:Freeze="True" x:Key="completion_skin_comboBurstRandom">Sollen Combobursts in zufälliger Reihenfolge angezeigt werden?</system:String>

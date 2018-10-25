@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace Osmo.Core
@@ -206,6 +207,11 @@ namespace Osmo.Core
             {
                 DialogHost.CloseDialogCommand.Execute(element.CommandParameter, element);
             }
+        }
+
+        public static bool IsMouseOverSelectedListViewItem(ListView listView)
+        {
+            return (listView.ItemContainerGenerator.ContainerFromItem(listView.SelectedItem) as ListViewItem).IsMouseOver;
         }
     }
 }

@@ -79,7 +79,7 @@ namespace Osmo.UI
 
         private async void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (lv_skins.SelectedIndex > 0)
+            if (lv_skins.SelectedIndex > 0 && Helper.IsMouseOverSelectedListViewItem(lv_skins))
             {
                 if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
                 {
@@ -131,7 +131,7 @@ namespace Osmo.UI
 
         private void Skins_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (lv_skins.SelectedIndex == 0)
+            if (lv_skins.SelectedIndex == 0 && Helper.IsMouseOverSelectedListViewItem(lv_skins))
             {
                 if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, btn_newSkin))
                     DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, btn_newSkin);
