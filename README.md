@@ -30,14 +30,14 @@
 - [x] Implement a custom file picker with Material Design style (and get rid of the default Win32 file picker)
 - [x] Log file system
 - [ ] Simulator -> Test how your skin would look like in-game without starting osu! -> **Currently in development**
-- [ ] Context menus on verious controls
+- [x] Context menus on various controls
 - [ ] Auto-Updater
 - [ ] Implement custom titlebar and remove MahApps.Metro dependency
-- [ ] Translation system
+- [x] Translation system
 - [ ] Translation files
  - <s>English</s>
  - <s>Spanish</s>
- - German
+ - <s>German</s>
 
 ## Contributing
 
