@@ -180,6 +180,8 @@ namespace Osmo.Core
         internal const int ABOUT_INDEX = 7;
         internal const int TEMPLATE_EDITOR_INDEX = 8;
 
+        internal const string LOCAL_FILENAME = "Runtime.zip";
+
         internal static SolidColorBrush DEFAULT_BRUSH = Brushes.White;
 
         internal static SkinElementReader readerInterface;

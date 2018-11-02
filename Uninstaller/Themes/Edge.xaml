@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Uninstaller">
+
+    <SolidColorBrush x:Key="Warn" Color="#FF2027"/>
+    <SolidColorBrush x:Key="TextPrimary" Color="#DDFFFFFF"/>
+    <SolidColorBrush x:Key="TextSecondary" Color="#89FFFFFF"/>
+    <SolidColorBrush x:Key="TextDisabled" Color="#60FFFFFF"/>
+    <SolidColorBrush x:Key="Separator" Color="#1EFFFFFF"/>
+    <SolidColorBrush x:Key="PrimaryDark" Color="#2B2A31"/>
+    <SolidColorBrush x:Key="PrimaryLight" Color="#51505F"/>
+    <SolidColorBrush x:Key="Primary" Color="#32313B"/>
+    <SolidColorBrush x:Key="Border" Color="#39B1C6"/>
+    <SolidColorBrush x:Key="Accent" Color="#1FD26A"/>
+</ResourceDictionary>

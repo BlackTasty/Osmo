@@ -1,26 +1,46 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Blend for Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmo", "Osmo\Osmo.csproj", "{525910B5-26B4-49AF-8B42-76CDFC722A87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osmo.Tests", "Osmo.Tests\Osmo.Tests.csproj", "{DD5967EE-2A85-4FAA-9930-F6E970299534}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.csproj", "{CC6D3FBC-95EF-4FC0-B989-49793AE15575}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uninstaller", "Uninstaller\Uninstaller.csproj", "{751CEE14-76C5-4692-8A92-A33223F078E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Offline|Any CPU = Offline|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Offline|Any CPU.ActiveCfg = Release|Any CPU
+		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Offline|Any CPU.Build.0 = Release|Any CPU
 		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{525910B5-26B4-49AF-8B42-76CDFC722A87}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Offline|Any CPU.ActiveCfg = Release|Any CPU
 		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD5967EE-2A85-4FAA-9930-F6E970299534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6D3FBC-95EF-4FC0-B989-49793AE15575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6D3FBC-95EF-4FC0-B989-49793AE15575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6D3FBC-95EF-4FC0-B989-49793AE15575}.Offline|Any CPU.ActiveCfg = Offline|Any CPU
+		{CC6D3FBC-95EF-4FC0-B989-49793AE15575}.Offline|Any CPU.Build.0 = Offline|Any CPU
+		{CC6D3FBC-95EF-4FC0-B989-49793AE15575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6D3FBC-95EF-4FC0-B989-49793AE15575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{751CEE14-76C5-4692-8A92-A33223F078E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751CEE14-76C5-4692-8A92-A33223F078E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751CEE14-76C5-4692-8A92-A33223F078E7}.Offline|Any CPU.ActiveCfg = Offline|Any CPU
+		{751CEE14-76C5-4692-8A92-A33223F078E7}.Offline|Any CPU.Build.0 = Offline|Any CPU
+		{751CEE14-76C5-4692-8A92-A33223F078E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751CEE14-76C5-4692-8A92-A33223F078E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

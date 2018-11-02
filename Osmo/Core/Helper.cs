@@ -7,6 +7,7 @@ using Osmo.UI;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -212,6 +213,34 @@ namespace Osmo.Core
         public static bool IsMouseOverSelectedListViewItem(ListView listView)
         {
             return (listView.ItemContainerGenerator.ContainerFromItem(listView.SelectedItem) as ListViewItem).IsMouseOver;
+        }
+
+        /// <summary>
+        /// Serializes the input and returns a valid version number (e.g.: 3.2 = 3.2.0.0)
+        /// </summary>
+        /// <param name="version">Raw version string</param>
+        /// <param name="subVersionCount">The number of subversions (3 is default)</param>
+        /// <returns></returns>
+        public static string SerializeVersionNumber(string version, int subVersionCount)
+        {
+            for (int i = version.Split('.').Length; i <= subVersionCount; i++)
+                version += ".0";
+
+            return version;
+        }
+
+        /// <summary>
+        /// Returns a version string as integer
+        /// </summary>
+        /// <param name="version">Raw version string</param>
+        /// <param name="subVersionCount">The number of subversions (3 is default). Can also be 0!</param>
+        /// <returns></returns>
+        internal static int ParseVersion(string version, int subVersionCount)
+        {
+            if (subVersionCount > 0)
+                return int.Parse(SerializeVersionNumber(version, subVersionCount).Replace(new string[] { ".", " Full" }));
+            else
+                return int.Parse(version.Replace(new string[] { ".", " Full" }));
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Installer.UI.Finished"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Installer.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="414">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="118*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="3" Text="Vibrance Player has been installed on your computer."/>
+        <TextBlock Grid.Row="5" Text="Click Finish to close Setup."/>
+        <CheckBox x:Name="cb_runAfter" Content="Run Vibrance Player" Grid.Row="7" Style="{DynamicResource ComboBox}" IsChecked="True"/>
+        <TextBlock Grid.Row="1" Text="Completing the Vibrance Player Setup" d:LayoutOverrides="Height" FontSize="18.667" VerticalAlignment="Center"/>
+
+    </Grid>
+</UserControl>
