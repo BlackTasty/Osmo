@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="3" Text="Vibrance Player has been installed on your computer."/>
         <TextBlock Grid.Row="5" Text="Click Finish to close Setup."/>
-        <CheckBox x:Name="cb_runAfter" Content="Run Vibrance Player" Grid.Row="7" Style="{DynamicResource ComboBox}" IsChecked="True"/>
+        <CheckBox x:Name="cb_runAfter" Content="Run Vibrance Player" Grid.Row="7" IsChecked="True"/>
         <TextBlock Grid.Row="1" Text="Completing the Vibrance Player Setup" d:LayoutOverrides="Height" FontSize="18.667" VerticalAlignment="Center"/>
 
     </Grid>

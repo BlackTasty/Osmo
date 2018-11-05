@@ -35,12 +35,12 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ContentControl MouseEnter="CheckBox_MouseEnter" MouseLeave="CheckBox_MouseLeave" Margin="0,-1">
-                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" IsEnabled="{Binding IsEnabled}" Style="{DynamicResource ComboBox}" Margin="0" Checked="CheckBox_CheckedChanged" Unchecked="CheckBox_CheckedChanged"/>
+                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" IsEnabled="{Binding IsEnabled}" Margin="0" Checked="CheckBox_CheckedChanged" Unchecked="CheckBox_CheckedChanged"/>
                     </ContentControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Border Grid.Column="3" Grid.Row="3" BorderBrush="{DynamicResource Border}" BorderThickness="1" Background="{DynamicResource PrimaryDark}" UseLayoutRounding="True">
+        <Border Grid.Column="3" Grid.Row="3" BorderThickness="1" UseLayoutRounding="True">
             <TextBlock x:Name="txt_info" TextWrapping="Wrap" Text="Position your mouse over a component to see its description." Margin="2"/>
         </Border>
         <TextBlock Margin="0,0,0,-0.087" Grid.Row="5" TextWrapping="Wrap" Grid.ColumnSpan="2">

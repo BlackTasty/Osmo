@@ -17,10 +17,10 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="5">
-            <TextBlock x:Name="txt_log" TextWrapping="Wrap" Text="Preparing installer..." d:LayoutOverrides="Width, Height" Background="{DynamicResource PrimaryDark}" Foreground="{DynamicResource TextPrimary}"/>
+            <TextBlock x:Name="txt_log" TextWrapping="Wrap" Text="Preparing installer..."/>
         </ScrollViewer>
-        <TextBlock x:Name="txt_status" Grid.Row="1" TextWrapping="Wrap" Text="Preparing installer..." d:LayoutOverrides="Width, Height"/>
-        <ProgressBar x:Name="progress" Grid.Row="3" Background="{DynamicResource PrimaryDark}" BorderBrush="{DynamicResource PrimaryDark}" Foreground="{DynamicResource Border}" IsIndeterminate="True"/>
+        <TextBlock x:Name="txt_status" Grid.Row="1" TextWrapping="Wrap" Text="Preparing installer..."/>
+        <ProgressBar x:Name="progress" Grid.Row="3" IsIndeterminate="True"/>
 
     </Grid>
 </UserControl>
