@@ -281,6 +281,7 @@ namespace Osmo.UI
                 else
                 {
                     audio.PauseAudio();
+                    vm.AudioPlayingLeft = false;
                 }
             }
             else
@@ -317,6 +318,7 @@ namespace Osmo.UI
                 else
                 {
                     audio.PauseAudio();
+                    vm.AudioPlayingRight = false;
                 }
             }
             else
@@ -397,6 +399,46 @@ namespace Osmo.UI
         private void SkinMixerSelect_DialogClosed(object sender, EventArgs e)
         {
             DialogHelper.Instance.NotifyDialogClosed();
+        }
+
+        private void MenuItem_PlaybackToggleLeft_Click(object sender, RoutedEventArgs e)
+        {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            PlaybackToggleLeft_Click(sender, e);
+
+            if (vm.AudioPlayingLeft)
+            {
+                vm.PlayStatusLeft = 1;
+            }
+        }
+
+        private void MenuItem_PlaybackToggleRight_Click(object sender, RoutedEventArgs e)
+        {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            PlaybackToggleRight_Click(sender, e);
+
+            if (vm.AudioPlayingRight)
+            {
+                vm.PlayStatusRight = 1;
+            }
+        }
+
+        private void MenuItem_PlaybackStopLeft_Click(object sender, RoutedEventArgs e)
+        {
+            PlaybackStopLeft_Click(sender, e);
+            (DataContext as SkinMixerViewModel).PlayStatusLeft = 0;
+        }
+
+        private void MenuItem_PlaybackStopRight_Click(object sender, RoutedEventArgs e)
+        {
+            PlaybackStopRight_Click(sender, e);
+            (DataContext as SkinMixerViewModel).PlayStatusRight = 0;
+        }
+
+        private void MenuItem_LoadRightSkin_Click(object sender, RoutedEventArgs e)
+        {
+            Helper.ExecuteDialogOpenCommand(btn_loadRight);
+            DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
         }
     }
 }

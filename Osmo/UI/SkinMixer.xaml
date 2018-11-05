@@ -17,6 +17,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
         <converter:VolumeToIconConverter x:Key="VolumeToIcon"/>
         <converter:IntToBooleanConverter x:Key="IntToBoolean"/>
+        <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
 
         <local:FilePicker x:Key="folderPicker" DialogClosed="FolderPicker_DialogClosed" Title="{Binding export_selectDirectory}"/>
     </Grid.Resources>
@@ -32,6 +33,15 @@
         <RowDefinition Height="44"/>
     </Grid.RowDefinitions>
     <ListView x:Name="lv_elementsLeft" SelectionMode="Single" Grid.Row="1" ItemsSource="{Binding SkinLeft.Elements}" SelectionChanged="LeftSkin_SelectionChanged">
+        <ListView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Click="MenuItem_PlaybackToggleLeft_Click" Header="{DynamicResource tip_play}" IsEnabled="{Binding PlayEnabledLeft}" Visibility="{Binding PlayStatusLeft, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"/>
+                <MenuItem Click="MenuItem_PlaybackToggleLeft_Click" Header="{DynamicResource tip_pause}" Visibility="{Binding PlayStatusLeft, Converter={StaticResource IntToVisibility}, ConverterParameter=1}"/>
+                <MenuItem Click="MenuItem_PlaybackStopLeft_Click" Header="{DynamicResource tip_stop}" Visibility="{Binding PlayStatusLeft, Converter={StaticResource IntToVisibility}, ConverterParameter=1}"/>
+                <Separator/>
+                <MenuItem Click="RevertSelected_Click" Header="{DynamicResource tip_revert}" IsEnabled="{Binding SelectedElementLeft.HasChanges}"/>
+            </ContextMenu>
+        </ListView.ContextMenu>
         <ListView.View>
             <GridView>
                 <GridViewColumn Width="200" Header="{DynamicResource name}">
@@ -79,6 +89,32 @@
         </ListView.View>
     </ListView>
     <ListView x:Name="lv_elementsRight" SelectionMode="Single" Grid.Row="1" Grid.Column="2" ItemsSource="{Binding SkinRight.Elements}" SelectionChanged="RightSkin_SelectionChanged">
+        <ListView.ContextMenu>
+            <ContextMenu>
+                <MenuItem Click="MenuItem_PlaybackToggleRight_Click" Header="{DynamicResource tip_play}" IsEnabled="{Binding PlayEnabledRight}" Visibility="{Binding PlayStatusRight, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"/>
+                <MenuItem Click="MenuItem_PlaybackToggleRight_Click" Header="{DynamicResource tip_pause}" Visibility="{Binding PlayStatusRight, Converter={StaticResource IntToVisibility}, ConverterParameter=1}"/>
+                <MenuItem Click="MenuItem_PlaybackStopRight_Click" Header="{DynamicResource tip_stop}" Visibility="{Binding PlayStatusRight, Converter={StaticResource IntToVisibility}, ConverterParameter=1}"/>
+                <Separator/>
+                <MenuItem Click="MoveElement_Click" Header="Copy over left element">
+                    <MenuItem.Style>
+                        <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_elementsLeft}" Value="True"/>
+                                        <Condition Binding="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource IntToBoolean}, ElementName=lv_elementsRight}" Value="True"/>
+                                        <Condition Binding="{Binding FileTypeMatch}" Value="True"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
+                </MenuItem>
+                <MenuItem Click="MenuItem_LoadRightSkin_Click" Header="{DynamicResource mixer_selectRightSkin}"/>
+            </ContextMenu>
+        </ListView.ContextMenu>
         <ListView.View>
             <GridView>
                 <GridViewColumn Width="200" Header="{DynamicResource name}">
@@ -176,6 +212,13 @@
                                                         </Setter.Value>
                                                     </Setter>
                                                 </DataTrigger>
+                                                <DataTrigger Binding="{Binding AudioPlayingLeft}" Value="False">
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <material:PackIcon Kind="Play" Height="32" Width="32"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
@@ -260,6 +303,13 @@
                                                     <Setter Property="Content">
                                                         <Setter.Value>
                                                             <material:PackIcon Kind="Replay" Height="24" Width="24"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding AudioPlayingRight}" Value="False">
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <material:PackIcon Kind="Play" Height="32" Width="32"/>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </DataTrigger>

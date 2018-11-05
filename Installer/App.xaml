@@ -19,6 +19,22 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <Style x:Key="AppBarButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="8,0"/>
+                <Setter Property="Height" Value="37"/>
+                <Setter Property="Width" Value="37"/>
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="BorderBrush" Value="{x:Null}"/>
+            </Style>
+
+            <Style x:Key="WindowStyle" TargetType="Window" BasedOn="{StaticResource {x:Type Window}}">
+                <Setter Property="BorderBrush" Value="#673AB7"/>
+                <Setter Property="WindowStyle" Value="None"/>
+                <Setter Property="ResizeMode" Value="NoResize"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+
             <!--<Style x:Key="WindowStyle" BasedOn="{StaticResource {x:Type Window}}" TargetType="{x:Type Window}">
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource Primary}"/>
