@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -32,8 +33,9 @@ namespace Osmo.Core.Patcher
         public event EventHandler<DownloadProgressChangedEventArgs> DownloadProgressChanged;
         public event EventHandler<UpdateFailedEventArgs> UpdateFailed;
 
-        private static readonly string tempDownloadPath = Path.Combine(Path.GetTempPath(), "Osmo");
+        private static readonly string tempDownloadPath = Path.Combine(Path.GetTempPath(), "Osmo\\");
         private static readonly string versionFilePath = Path.Combine(tempDownloadPath, "version.txt");
+        private static readonly string installPath = AppDomain.CurrentDomain.BaseDirectory + "\\";
 
         internal string Version
         {
@@ -152,7 +154,77 @@ namespace Osmo.Core.Patcher
 
         private void InstallUpdate()
         {
+            OnStatusChanged(UpdateStatus.EXTRACTING);
 
+            try
+            {
+                if (File.Exists(versionFilePath))
+                {
+                    File.Delete(versionFilePath);
+                }
+
+                string runtimePath = tempDownloadPath + "\\" + FixedValues.LOCAL_FILENAME;
+
+                ZipFile.ExtractToDirectory(runtimePath, tempDownloadPath);
+                Thread.Sleep(200);
+                File.Delete(runtimePath);
+                OnStatusChanged(UpdateStatus.INSTALLING);
+
+                List<string> backupFiles = new List<string>();
+                DirectoryInfo root = new DirectoryInfo(tempDownloadPath);
+                foreach (DirectoryInfo di in root.EnumerateDirectories())
+                {
+                    backupFiles.AddRange(Util.MoveDirectory(di.FullName, installPath + di.Name));
+                }
+
+                foreach (FileInfo fi in root.EnumerateFiles())
+                {
+                    backupFiles.Add(Util.MoveFile(fi.FullName, installPath + fi.Name));
+                }
+
+                File.WriteAllLines(installPath + "cleanup.txt", backupFiles.ToArray());
+
+
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                OnUpdateFailed(new UpdateFailedEventArgs("Installation failed! Reason: One or more files are locked!"));
+                Logger.Instance.WriteLog("There was an error during the installation of an update! Can't access one or more files because they are opened!", ex);
+            }
+            catch (Exception ex)
+            {
+                OnUpdateFailed(new UpdateFailedEventArgs("Something went wrong during installation!"));
+                Logger.Instance.WriteLog("There was an error during the installation of an update!", ex);
+            }
+        }
+
+        internal void CleanupFiles(bool alsoBackup)
+        {
+            Logger.Instance.WriteLogVerbose(this, "Cleaning up files... (alsoBackup: {0})", alsoBackup);
+            if (alsoBackup && File.Exists(installPath + "cleanup.txt"))
+            {
+                string[] files = File.ReadAllLines(installPath + "cleanup.txt");
+                for (int i = 0; i < files.Length; i++)
+                {
+                    try
+                    {
+                        Logger.Instance.WriteLogVerbose(this, "Removing file: {0}", files[i]);
+                        if (File.Exists(files[i]))
+                            File.Delete(files[i]);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Instance.WriteLog("Error while removing file!", ex, files[i]);
+                        Logger.Instance.WriteLogVerbose(this, "Unable to delete \"{0}\"!", files[i]);
+                    }
+                }
+                File.Delete(installPath + "cleanup.txt");
+            }
+            
+            if (Directory.Exists(tempDownloadPath))
+                Directory.Delete(tempDownloadPath, true);
+            Logger.Instance.WriteLogVerbose(this, "Files have been removed!", alsoBackup);
         }
 
         /// <summary>

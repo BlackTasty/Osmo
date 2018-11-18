@@ -46,6 +46,25 @@ namespace Osmo.Core.Logging
         }
 
         /// <summary>
+        /// Writes a verbose message into the log, but only if configuration is set to DEBUG and verobse logging is activated
+        /// <para>
+        /// Produces something like ... [Player <see cref="object"/>] Initialization done <see cref="string"/> (2 seconds <see cref="object"/>[])
+        /// </para>
+        /// </summary>
+        /// <param name="source">The source from where this method was called</param>
+        /// <param name="msg">The message to print (with formatters)</param>
+        /// <param name="param">Optional: All parameters for the formatted string</param>
+        public void WriteLogVerbose(object source, string msg, params object[] param)
+        {
+#if DEBUG
+            if (console.VerboseLogging)
+                //This line produces something like this:
+                //                   [Player] Message
+                WriteLog(string.Format("[{0}] {1}", source.GetType().Name, msg), LogType.VERBOSE, param);
+#endif
+        }
+
+        /// <summary>
         /// Writes a formatted message into the log with <see cref="LogType.INFO"/> tag
         /// </summary>
         /// <param name="msg">The message to print (with formatters)</param>

@@ -13,6 +13,7 @@ namespace Osmo.UI
     public partial class DebugConsole : Border, IConsole
     {
         private static DebugConsole _instance;
+        private bool verboseLogging;
 
         public static DebugConsole Instance
         {
@@ -20,6 +21,11 @@ namespace Osmo.UI
             {
                 return _instance;
             }
+        }
+
+        public bool VerboseLogging
+        {
+            get => verboseLogging;
         }
 
         public DebugConsole()

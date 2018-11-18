@@ -143,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\UpdateStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Resources\SkinningMania.txt" />
     <Resource Include="Resources\SkinningSounds.txt" />
     <Resource Include="Resources\SkinningTaiko.txt" />
@@ -226,6 +230,7 @@
     <Compile Include="Core\Patcher\UpdateFoundEventArgs.cs" />
     <Compile Include="Core\Patcher\UpdateManager.cs" />
     <Compile Include="Core\Patcher\UpdateStatus.cs" />
+    <Compile Include="Core\Patcher\Util.cs" />
     <Compile Include="Core\Reader\ElementGenerator.cs" />
     <Compile Include="Core\Reader\IEntry.cs" />
     <Compile Include="Core\Reader\SkinElementReader.cs" />
@@ -314,6 +319,9 @@
     </Compile>
     <Compile Include="UI\TemplatePreview.xaml.cs">
       <DependentUpon>TemplatePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UpdateStatus.xaml.cs">
+      <DependentUpon>UpdateStatus.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AnimationViewModel.cs" />
     <Compile Include="ViewModel\AudioViewModel.cs" />
