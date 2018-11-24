@@ -20,7 +20,7 @@ namespace Installer.ViewModel
             set
             {
                 m_spaceRequired = value;
-                InvokePropertyChanged("SpaceRequired");
+                InvokePropertyChanged();
             }
         }
 

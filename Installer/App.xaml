@@ -34,6 +34,9 @@
                 <Setter Property="ResizeMode" Value="NoResize"/>
                 <Setter Property="BorderThickness" Value="1"/>
             </Style>
+            
+            <SolidColorBrush x:Key="ErrorBrushLight" Color="#d50000"/>
+            <SolidColorBrush x:Key="ErrorBrushDark" Color="#ff6e6e"/>
 
             <!--<Style x:Key="WindowStyle" BasedOn="{StaticResource {x:Type Window}}" TargetType="{x:Type Window}">
                 <Setter Property="Background" Value="White"/>

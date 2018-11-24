@@ -5,20 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="322" d:DesignWidth="414">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="16"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="32"/>
-        </Grid.RowDefinitions>
-        <TextBlock TextWrapping="Wrap" Text="Press Page Down to see the rest of the agreement." d:LayoutOverrides="Height"/>
-        <ScrollViewer Grid.Row="2">
+    <DockPanel>
+        <TextBlock Margin="8,0" TextWrapping="Wrap" Text="Press Page Down to see the rest of the agreement." DockPanel.Dock="Top"/>
+        <TextBlock Margin="8,0" TextWrapping="Wrap" DockPanel.Dock="Bottom">
+            <Run Text="If you accept the terms of agreement, click Next to continue."/>
+            <LineBreak/>
+            <Span>
+                <Run Text="You must accept the agreement to install Osmo."/>
+            </Span>
+        </TextBlock>
+        <ScrollViewer Margin="0,8">
             <TextBlock x:Name="richTextBox" TextWrapping="Wrap" Margin="0,0,5,0" TextAlignment="Center"/>
         </ScrollViewer>
-        <TextBlock TextWrapping="Wrap" Width="414" Grid.Row="4"><Run Text="If you accept the terms of agreement, click Next to continue."/><LineBreak/><Span><Run Text="You must accept the agreement to install Vibrance Player."/></Span></TextBlock>
+    </DockPanel>
 
-
-    </Grid>
 </UserControl>

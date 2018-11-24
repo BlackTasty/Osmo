@@ -29,6 +29,22 @@ namespace Installer
 #endif
 
             activeControl = agreement;
+            DataContext = AbortingViewModel.Instance;
+            (DataContext as AbortingViewModel).AbortInstallationClicked += MainWindow_AbortInstallationClicked;
+        }
+
+        private void MainWindow_AbortInstallationClicked(object sender, EventArgs e)
+        {
+            if (activeControl.Name == install.Name)
+            {
+                install.AbortInstallation();
+                btn_cancel.IsEnabled = false;
+                FadeControls(activeControl, aborted, true, false);
+            }
+            else
+            {
+                Close();
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -166,6 +182,59 @@ namespace Installer
             components.RegisterParent(this);
             //SelectTheme theme = new SelectTheme();
             //theme.ShowDialog();
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+#if DEBUG
+            if (Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                UserControl nextControl = null;
+                bool reset = false;
+
+                switch (e.Key)
+                {
+                    case Key.D1:
+                        nextControl = appInstalled;
+                        break;
+                    case Key.D2:
+                        nextControl = components;
+                        break;
+                    case Key.D3:
+                        nextControl = install;
+                        break;
+                    case Key.D4:
+                        nextControl = finished;
+                        break;
+                    case Key.D5:
+                        nextControl = uninstall;
+                        break;
+                    case Key.D6:
+                        nextControl = finishedUninstall;
+                        break;
+                    case Key.D7:
+                        nextControl = aborted;
+                        break;
+                    default:
+                        if (activeControl != agreement)
+                        {
+                            nextControl = agreement;
+                            reset = true;
+                        }
+                        break;
+                }
+
+                if (nextControl != null && nextControl != activeControl)
+                {
+                    FadeControls(activeControl, nextControl, reset, false);
+
+                    if (reset)
+                    {
+                        lastActiveControl = null;
+                    }
+                }
+            }
+#endif
         }
     }
 }

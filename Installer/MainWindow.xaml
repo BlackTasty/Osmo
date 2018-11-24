@@ -5,46 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:Installer.UI"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:Installer.ViewModel"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
-        Title="Osmo Setup" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}"
+        Title="Osmo Setup" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}" PreviewKeyDown="Window_PreviewKeyDown"
         >
-    <DockPanel>
-        <material:ColorZone Height="48" material:ShadowAssist.ShadowDepth="Depth2" DockPanel.Dock="Top"
+    <material:DialogHost Identifier="RootDialog" IsOpen="{Binding IsDialogOpen}" DialogContent="{Binding DialogContent}">
+        <DockPanel>
+            <material:ColorZone Height="48" material:ShadowAssist.ShadowDepth="Depth2" DockPanel.Dock="Top"
                             Mode="PrimaryMid">
-            <DockPanel>
-                <Button DockPanel.Dock="Right" Height="48" Width="48" Click="btn_cancel_Click"
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Height="48" Width="48" Command="{Binding OpenDialogCommand}"
                         Style="{StaticResource AppBarButton}" Margin="8,0,0,0">
-                    <material:PackIcon
+                        <material:PackIcon
                             Kind="Close"
                             Height="28"
                             Width="28" />
-                </Button>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup"/>
-            </DockPanel>
-        </material:ColorZone>
-        <material:ColorZone Mode="Dark" DockPanel.Dock="Bottom">
-            <DockPanel x:Name="zone_buttons" LastChildFill="False" Margin="8">
-                <Button x:Name="btn_next" DockPanel.Dock="Right" Margin="8,0" Click="next_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Image x:Name="uac" Height="14" Width="14" Visibility="Collapsed"/>
-                        <TextBlock x:Name="txt_next" Text="NEXT"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="btn_back" Content="_BACK" Margin="8,0" DockPanel.Dock="Right" Click="back_Click" IsEnabled="False"/>
-                <Button x:Name="btn_cancel" Content="_CANCEL" Margin="8,0" DockPanel.Dock="Right" Click="btn_cancel_Click" Loaded="btn_cancel_Loaded"/>
-            </DockPanel>
-        </material:ColorZone>
-        <Grid x:Name="zone_Content" Margin="8">
-            <ui:Agreement x:Name="agreement"/>
-            <ui:AppInstalled Opacity="0" x:Name="appInstalled" IsHitTestVisible="False"/>
-            <ui:Components Opacity="0" x:Name="components" IsHitTestVisible="False"/>
-            <ui:Aborted Opacity="0" x:Name="aborted" IsHitTestVisible="False"/>
-            <ui:Install Opacity="0" x:Name="install" IsHitTestVisible="False"/>
-            <ui:Finished Opacity="0" x:Name="finished" IsHitTestVisible="False"/>
+                    </Button>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup"/>
+                </DockPanel>
+            </material:ColorZone>
+            <material:ColorZone Mode="Dark" DockPanel.Dock="Bottom">
+                <DockPanel x:Name="zone_buttons" LastChildFill="False" Margin="8">
+                    <Button x:Name="btn_next" DockPanel.Dock="Right" Margin="8,0" Click="next_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="uac" Height="14" Width="14" Visibility="Collapsed"/>
+                            <TextBlock x:Name="txt_next" Text="NEXT"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btn_back" Content="_BACK" Margin="8,0" DockPanel.Dock="Right" Click="back_Click" IsEnabled="False"/>
+                    <Button x:Name="btn_cancel" Content="_CANCEL" Margin="8,0" DockPanel.Dock="Right" Command="{Binding OpenDialogCommand}" Loaded="btn_cancel_Loaded"/>
+                </DockPanel>
+            </material:ColorZone>
+            <Grid x:Name="zone_Content" Margin="0,8">
+                <ui:Agreement x:Name="agreement"/>
+                <ui:AppInstalled Opacity="0" x:Name="appInstalled" IsHitTestVisible="False"/>
+                <ui:Components Opacity="0" x:Name="components" IsHitTestVisible="False"/>
+                <ui:Aborted Opacity="0" x:Name="aborted" IsHitTestVisible="False"/>
+                <ui:Install Opacity="0" x:Name="install" IsHitTestVisible="False"/>
+                <ui:Finished Opacity="0" x:Name="finished" IsHitTestVisible="False"/>
 
-            <ui:Uninstall Opacity="0" x:Name="uninstall" IsHitTestVisible="False"/>
-            <ui:FinishedUninstall Opacity="0" x:Name="finishedUninstall" IsHitTestVisible="False"/>
-        </Grid>
-    </DockPanel>
+                <ui:Uninstall Opacity="0" x:Name="uninstall" IsHitTestVisible="False"/>
+                <ui:FinishedUninstall Opacity="0" x:Name="finishedUninstall" IsHitTestVisible="False"/>
+            </Grid>
+        </DockPanel>
+    </material:DialogHost>
 </Window>

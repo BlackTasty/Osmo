@@ -88,6 +88,9 @@
     <Compile Include="Objects\Invoker.cs" />
     <Compile Include="Objects\StartmenuEntry.cs" />
     <Compile Include="Objects\UninstallEntry.cs" />
+    <Compile Include="UI\AbortingDialog.xaml.cs">
+      <DependentUpon>AbortingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\IManagedUI.cs" />
     <Compile Include="UI\Agreement.xaml.cs">
       <DependentUpon>Agreement.xaml</DependentUpon>
@@ -113,7 +116,9 @@
     <Compile Include="UI\Install.xaml.cs">
       <DependentUpon>Install.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AbortingViewModel.cs" />
     <Compile Include="ViewModel\ComponentsViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +139,10 @@
     <Page Include="Themes\Light.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\AbortingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Agreement.xaml">
       <SubType>Designer</SubType>

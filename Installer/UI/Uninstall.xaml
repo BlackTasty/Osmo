@@ -6,22 +6,11 @@
              xmlns:local="clr-namespace:Installer.UI"
              mc:Ignorable="d" 
              d:DesignHeight="322" d:DesignWidth="414">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="62"/>
-            <RowDefinition Height="16"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="17"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="182*"/>
-            <RowDefinition Height="10"/>
-        </Grid.RowDefinitions>
-
-        <ScrollViewer Grid.Row="5">
-            <TextBlock x:Name="txt_log" TextWrapping="Wrap" Text="Preparing uninstaller..."/>
+    <DockPanel>
+        <TextBlock x:Name="txt_status" Margin="8,0" TextWrapping="Wrap" Text="Preparing installer..." DockPanel.Dock="Top"/>
+        <ProgressBar x:Name="progress" IsIndeterminate="True" DockPanel.Dock="Top" Margin="0,8" Foreground="{DynamicResource ErrorBrushLight}" Background="{DynamicResource ErrorBrushDark}" BorderBrush="{DynamicResource ErrorBrushDark}"/>
+        <ScrollViewer Margin="8,8,0,8">
+            <TextBlock x:Name="txt_log" TextWrapping="Wrap" Text="Preparing installer..."/>
         </ScrollViewer>
-        <TextBlock x:Name="txt_status" Grid.Row="1" TextWrapping="Wrap" Text="Preparing uninstaller..."/>
-        <ProgressBar x:Name="progress" Grid.Row="3" IsIndeterminate="True"/>
-
-    </Grid>
+    </DockPanel>
 </UserControl>

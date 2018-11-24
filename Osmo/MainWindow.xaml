@@ -34,7 +34,7 @@
     </metro:MetroWindow.WindowButtonCommands>
 
     <!--SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"-->
-    <material:DialogHost Identifier="RootDialog" Loaded="DialogHost_Loaded">
+    <material:DialogHost Identifier="RootDialog" Loaded="DialogHost_Loaded" CloseOnClickAway="True">
         <material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <material:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
