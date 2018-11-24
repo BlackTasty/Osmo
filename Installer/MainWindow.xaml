@@ -20,7 +20,7 @@
                             Height="28"
                             Width="28" />
                 </Button>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup" Margin="0,0,-48,0"/>
             </DockPanel>
         </material:ColorZone>
         <material:ColorZone Mode="Dark" DockPanel.Dock="Bottom">
