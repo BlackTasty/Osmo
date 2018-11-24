@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using Microsoft.Win32;
 
 namespace Uninstaller
 {
@@ -15,52 +13,11 @@ namespace Uninstaller
     {
         UserControl activeControl;
         UserControl lastActiveControl;
-        string path;
 
         public MainWindow()
         {
             InitializeComponent();
             activeControl = startup;
-
-            RegistryKey edgeKey = Registry.CurrentUser.OpenSubKey(@"Software\Vibrance Player");
-            if (edgeKey == null)
-                Close();
-            else
-                path = edgeKey.GetValue("Path").ToString();
-            edgeKey.Close();
-
-            var app = (App)Application.Current;
-            app.ChangeTheme(GetThemeUri());
-        }
-
-        private Uri GetThemeUri()
-        {
-            if (File.Exists(path + "settings.cfg"))
-            {
-                string[] content = File.ReadAllLines(path + "settings.cfg");
-                foreach (string str in content)
-                {
-                    string[] setting = str.Split(':');
-                    if (setting[0].Equals("Theme"))
-                    {
-                        switch (setting[1])
-                        {
-                            case "0":
-                                return new Uri("Themes/Dark.xaml", UriKind.Relative);
-                            case "1":
-                                return new Uri("Themes/Light.xaml", UriKind.Relative);
-                            case "2":
-                                return new Uri("Themes/Edge.xaml", UriKind.Relative);
-                            case "3":
-                                return new Uri("Themes/Osu.xaml", UriKind.Relative);
-                        }
-                    }
-                }
-
-                return null;
-            }
-            else
-                return null;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

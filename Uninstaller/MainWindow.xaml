@@ -3,73 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Uninstaller"
         xmlns:ui="clr-namespace:Uninstaller.UI"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Vibrance Player Setup" Height="479" Width="434" Style="{DynamicResource WindowStyle}" MouseDown="Window_MouseDown" Icon="icon.ico">
-    <Window.Resources>
-        <Style TargetType="{x:Type Button}" 
-            BasedOn="{StaticResource {x:Type Button}}" 
-            x:Key="MediaControlButton">
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource Border}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-    </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="99*"/>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="10"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="48"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="322*"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="29"/>
-            <RowDefinition Height="10"/>
-        </Grid.RowDefinitions>
-        <Grid x:Name="zone_buttons" Grid.Row="5" Grid.ColumnSpan="4" Grid.RowSpan="2" Background="{DynamicResource PrimaryDark}">
-            <Button x:Name="btn_cancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,8,10,8" Width="75" Padding="0" Style="{DynamicResource CancelButton}" Click="btn_cancel_Click"/>
-            <Button x:Name="btn_next" HorizontalAlignment="Right" Margin="0,8,100,8" Width="75" Padding="0" Click="next_Click">
-                <StackPanel Orientation="Horizontal">
-                    <Image x:Name="uac" Height="14" Width="14" Visibility="Collapsed"/>
-                    <TextBlock x:Name="txt_next" Text="Next"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="btn_back" Content="Back" Margin="0,8,190,8" Padding="0" Click="back_Click" HorizontalAlignment="Right" Width="75" IsEnabled="False"/>
-        </Grid>
-        <Grid Grid.ColumnSpan="4" Background="{DynamicResource Primary}" Grid.RowSpan="5">
-            <Grid.Effect>
-                <DropShadowEffect Direction="270" ShadowDepth="2" Opacity="0.2"/>
-            </Grid.Effect>
-        </Grid>
-        <Grid x:Name="zone_banner" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="48"/>
-                <ColumnDefinition Width="174*"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="Resources/icon.jpg" RenderOptions.BitmapScalingMode="HighQuality">
-                <Image.Effect>
-                    <DropShadowEffect Opacity="0.5" ShadowDepth="2" BlurRadius="4"/>
-                </Image.Effect>
-            </Image>
-            <TextBlock x:Name="textBlock" Grid.Column="1" TextWrapping="Wrap" Text="Vibrance Player" d:LayoutOverrides="Height" FontSize="32" FontWeight="Light" UseLayoutRounding="True" Margin="10,0,0,0"/>
-        </Grid>
-        <Grid x:Name="zone_Content" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1">
+        Title="Osmo Setup" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}"
+        >
+    <DockPanel>
+        <material:ColorZone Height="48" material:ShadowAssist.ShadowDepth="Depth2" DockPanel.Dock="Top"
+                            Mode="PrimaryMid">
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Height="48" Width="48" Click="btn_cancel_Click"
+                        Style="{StaticResource AppBarButton}" Margin="8,0,0,0">
+                    <material:PackIcon
+                            Kind="Close"
+                            Height="28"
+                            Width="28" />
+                </Button>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup" Margin="0,0,-48,0"/>
+            </DockPanel>
+        </material:ColorZone>
+        <material:ColorZone Mode="Dark" DockPanel.Dock="Bottom">
+            <DockPanel x:Name="zone_buttons" LastChildFill="False" Margin="8">
+                <Button x:Name="btn_next" DockPanel.Dock="Right" Margin="8,0" Click="next_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="uac" Height="14" Width="14" Visibility="Collapsed"/>
+                        <TextBlock x:Name="txt_next" Text="NEXT"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btn_back" Content="_BACK" Margin="8,0" DockPanel.Dock="Right" Click="back_Click" IsEnabled="False"/>
+                <Button x:Name="btn_cancel" Content="_CANCEL" Margin="8,0" DockPanel.Dock="Right" Click="btn_cancel_Click"/>
+            </DockPanel>
+        </material:ColorZone>
+        <Grid x:Name="zone_Content" Margin="8">
             <ui:Startup x:Name="startup"/>
             <ui:Uninstall Opacity="0" x:Name="uninstall" IsHitTestVisible="False"/>
             <ui:FinishedUninstall Opacity="0" x:Name="finishedUninstall" IsHitTestVisible="False"/>
         </Grid>
-        <Button x:Name="btn_close" Padding="0" Grid.Column="2" Style="{DynamicResource PathButton}" Grid.ColumnSpan="2" Click="btn_cancel_Click" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="30">
-            <Path Width="12" Height="28" Stretch="Uniform" SnapsToDevicePixels="True" Data="M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12 19,6.41z"/>
-        </Button>
-    </Grid>
+    </DockPanel>
 </Window>
