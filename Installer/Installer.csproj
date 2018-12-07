@@ -90,6 +90,7 @@
     <Compile Include="Objects\InstallationStatus.cs" />
     <Compile Include="Objects\Invoker.cs" />
     <Compile Include="Objects\StartmenuEntry.cs" />
+    <Compile Include="StringToGeometryConverter.cs" />
     <Compile Include="Objects\UninstallEntry.cs" />
     <Compile Include="UI\AbortingDialog.xaml.cs">
       <DependentUpon>AbortingDialog.xaml</DependentUpon>
@@ -120,6 +121,7 @@
       <DependentUpon>Install.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AbortingViewModel.cs" />
+    <Compile Include="ViewModel\AbortViewModel.cs" />
     <Compile Include="ViewModel\ComponentsViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -135,11 +137,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Themes\Dark.xaml">
+    <Page Include="Resources\Theme\Dark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Light.xaml">
+    <Page Include="Resources\Theme\Light.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

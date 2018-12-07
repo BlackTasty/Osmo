@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:Uninstaller.UI"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Uninstaller"
         mc:Ignorable="d"
         Title="{StaticResource setupTitle}" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}"
         >
+    <Window.Resources>
+        <local:StringToGeometryConverter x:Key="GeometryConverter"/>
+    </Window.Resources>
     <DockPanel>
         <material:ColorZone Height="48" material:ShadowAssist.ShadowDepth="Depth2" DockPanel.Dock="Top"
                             Mode="PrimaryMid">

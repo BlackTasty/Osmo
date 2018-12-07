@@ -75,6 +75,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StringToGeometryConverter.cs" />
+    <Compile Include="UI\AbortingDialog.xaml.cs">
+      <DependentUpon>AbortingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\AbortingViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

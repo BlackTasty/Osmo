@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:Installer.UI"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:vm="clr-namespace:Installer.ViewModel"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
         Title="{StaticResource setupTitle}" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}" PreviewKeyDown="Window_PreviewKeyDown"
@@ -17,10 +16,8 @@
                 <DockPanel>
                     <Button DockPanel.Dock="Right" Height="48" Width="48" Command="{Binding OpenDialogCommand}"
                         Style="{StaticResource AppBarButton}" Margin="8,0,0,0">
-                        <material:PackIcon
-                            Kind="Close"
-                            Height="28"
-                            Width="28" />
+                        <Path Width="16" Height="16" Data="{Binding CloseIcon, Converter={StaticResource GeometryConverter}}" 
+                              Fill="#DDFFFFFF" Stretch="Uniform" StrokeThickness="2"/>
                     </Button>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{StaticResource setupTitle}" Margin="0,0,-48,0"/>
                 </DockPanel>
@@ -34,7 +31,7 @@
                         </StackPanel>
                     </Button>
                     <Button x:Name="btn_back" Content="_BACK" Margin="8,0" DockPanel.Dock="Right" Click="back_Click" IsEnabled="False"/>
-                    <Button x:Name="btn_cancel" Content="_CANCEL" Margin="8,0" DockPanel.Dock="Right" Command="{Binding OpenDialogCommand}" Loaded="btn_cancel_Loaded"/>
+                    <Button x:Name="btn_cancel" Content="_CANCEL" Margin="8,0" DockPanel.Dock="Right" Command="{Binding OpenDialogCommand}"/>
                 </DockPanel>
             </material:ColorZone>
             <Grid x:Name="zone_Content" Margin="0,8">

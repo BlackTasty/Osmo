@@ -38,6 +38,9 @@
                 <Setter Property="ResizeMode" Value="NoResize"/>
                 <Setter Property="BorderThickness" Value="1"/>
             </Style>
+
+            <SolidColorBrush x:Key="ErrorBrushLight" Color="#d50000"/>
+            <SolidColorBrush x:Key="ErrorBrushDark" Color="#ff6e6e"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
