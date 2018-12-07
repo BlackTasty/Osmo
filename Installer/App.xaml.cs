@@ -1,4 +1,5 @@
 ﻿using Installer.Objects;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.IO;
 using System.Reflection;
@@ -32,5 +33,22 @@ namespace Installer
         {
             return EmbeddedAssembly.Get(args.Name);
         }
+
+        //public void ChangeBaseTheme(bool isDark)
+        //{
+        //    ResourceDictionary theme = new ResourceDictionary();
+
+        //    if (isDark)
+        //    {
+        //        theme.Source = new Uri(@"Resources/Theme/Dark.xaml", UriKind.RelativeOrAbsolute);
+        //    }
+        //    else
+        //    {
+        //        theme.Source = new Uri(@"Resources/Theme/Light.xaml", UriKind.RelativeOrAbsolute);
+        //    }
+
+        //    Resources.MergedDictionaries[0] = theme;
+        //    new PaletteHelper().SetLightDark(isDark);
+        //}
     }
 }

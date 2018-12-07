@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:Installer.UI"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:vm="clr-namespace:Installer.ViewModel"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
         Title="Osmo Setup" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}" PreviewKeyDown="Window_PreviewKeyDown"
-        >
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:StringToGeometryConverter x:Key="GeometryConverter"/>
+    </Window.Resources>
+
     <material:DialogHost Identifier="RootDialog" IsOpen="{Binding IsDialogOpen}" DialogContent="{Binding DialogContent}">
         <DockPanel>
             <material:ColorZone Height="48" material:ShadowAssist.ShadowDepth="Depth2" DockPanel.Dock="Top"
@@ -17,16 +20,21 @@
                 <DockPanel>
                     <Button DockPanel.Dock="Right" Height="48" Width="48" Command="{Binding OpenDialogCommand}"
                         Style="{StaticResource AppBarButton}" Margin="8,0,0,0">
-                        <material:PackIcon
-                            Kind="Close"
-                            Height="28"
-                            Width="28" />
+                        <Path Width="16" Height="16" Data="{Binding CloseIcon, Converter={StaticResource GeometryConverter}}" 
+                              Fill="#DDFFFFFF" Stretch="Uniform" StrokeThickness="2"/>
                     </Button>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup" Margin="0,0,-48,0"/>
                 </DockPanel>
             </material:ColorZone>
             <material:ColorZone Mode="Dark" DockPanel.Dock="Bottom">
                 <DockPanel x:Name="zone_buttons" LastChildFill="False" Margin="8">
+                    <!--<StackPanel DockPanel.Dock="Left" Orientation="Horizontal" ToolTip="Toggles between light and dark theme">
+                        <material:PackIcon Margin="0,0,8,0"
+                            Kind="ThemeLightDark"
+                            Height="24"
+                            Width="24" VerticalAlignment="Center" />
+                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" Click="ToggleTheme_Click"/>
+                    </StackPanel>-->
                     <Button x:Name="btn_next" DockPanel.Dock="Right" Margin="8,0" Click="next_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="uac" Height="14" Width="14" Visibility="Collapsed"/>
@@ -34,7 +42,7 @@
                         </StackPanel>
                     </Button>
                     <Button x:Name="btn_back" Content="_BACK" Margin="8,0" DockPanel.Dock="Right" Click="back_Click" IsEnabled="False"/>
-                    <Button x:Name="btn_cancel" Content="_CANCEL" Margin="8,0" DockPanel.Dock="Right" Command="{Binding OpenDialogCommand}" Loaded="btn_cancel_Loaded"/>
+                    <Button x:Name="btn_cancel" Content="_CANCEL" Margin="8,0" DockPanel.Dock="Right" Command="{Binding OpenDialogCommand}"/>
                 </DockPanel>
             </material:ColorZone>
             <Grid x:Name="zone_Content" Margin="0,8">

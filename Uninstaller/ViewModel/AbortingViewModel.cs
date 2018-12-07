@@ -1,4 +1,4 @@
-﻿using Installer.UI;
+﻿using Uninstaller.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Installer.ViewModel
+namespace Uninstaller.ViewModel
 {
     class AbortingViewModel : ViewModelBase
     {

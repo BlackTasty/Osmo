@@ -6,6 +6,7 @@ using System.Windows.Media.Animation;
 using Microsoft.Win32;
 using Installer.ViewModel;
 using System.Diagnostics;
+using System.Windows.Controls.Primitives;
 
 namespace Installer
 {
@@ -116,21 +117,6 @@ namespace Installer
             FadeControls(activeControl, lastActiveControl, true, true);
         }
 
-        private void btn_cancel_Click(object sender, RoutedEventArgs e)
-        {
-            if (activeControl.Name == install.Name)
-            {
-                if (MessageBox.Show("Are you sure you want to abort the installation? All changes will be reverted.", "Abort installation", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-                {
-                    install.AbortInstallation();
-                    btn_cancel.IsEnabled = false;
-                    FadeControls(activeControl, aborted, true, false);
-                }
-            }
-            else
-                Close();
-        }
-
         private void FadeControls(UserControl fadeOut, UserControl fadeIn, bool nextEnabled, bool backEnabled, bool isFinish = false)
         {
             fadeOut.BeginAnimation(OpacityProperty, GetAnimation(1, 0));
@@ -163,9 +149,7 @@ namespace Installer
             else
                 uac.Visibility = Visibility.Collapsed;
         }
-
-
-
+        
         private DoubleAnimation GetAnimation(double from, double to)
         {
             DoubleAnimation da = new DoubleAnimation
@@ -177,11 +161,9 @@ namespace Installer
             return da;
         }
 
-        private void btn_cancel_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             components.RegisterParent(this);
-            //SelectTheme theme = new SelectTheme();
-            //theme.ShowDialog();
         }
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -236,5 +218,11 @@ namespace Installer
             }
 #endif
         }
+
+        //private void ToggleTheme_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ToggleButton toggle = (ToggleButton)sender;
+        //    ((App)Application.Current).ChangeBaseTheme(toggle.IsChecked ?? false);
+        //}
     }
 }

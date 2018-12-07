@@ -320,8 +320,6 @@ namespace Osmo
         {
             Settings.ChangeLanguage(App.ProfileManager.Profile.Language);
             Settings.ChangeBaseTheme(App.ProfileManager.Profile.DarkTheme);
-            ColorZone test = new ColorZone();
-            test.Mode = ColorZoneMode.Dark;
             Logger.Instance.WriteLog("UI specific settings loaded! Language: {0}", App.ProfileManager.Profile.Language);
         }
 

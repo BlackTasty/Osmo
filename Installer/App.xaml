@@ -1,10 +1,13 @@
 ﻿<Application x:Class="Installer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="Resources/Theme/Light.xaml"/>-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -19,6 +22,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <system:String x:Key="appName" o:Freeze="True">OSMO</system:String>
+
+            <!-- Vector icons -->
+            <system:String x:Key="Close" o:Freeze="True">M 15.02128,7.4799566 11.455606,11.050798 15.02128,14.621639 14.556192,15.086727 10.985351,11.521053 7.4145092,15.086727 6.9494214,14.621639 10.515095,11.050798 6.9494214,7.4799566 7.4145092,7.0148687 10.985351,10.580542 14.556192,7.0148687 Z</system:String>
+
+            <!-- Styles -->
             <Style x:Key="AppBarButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="Margin" Value="8,0"/>
@@ -37,101 +46,6 @@
             
             <SolidColorBrush x:Key="ErrorBrushLight" Color="#d50000"/>
             <SolidColorBrush x:Key="ErrorBrushDark" Color="#ff6e6e"/>
-
-            <!--<Style x:Key="WindowStyle" BasedOn="{StaticResource {x:Type Window}}" TargetType="{x:Type Window}">
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Primary}"/>
-                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
-                <Setter Property="WindowStyle" Value="None"/>
-                <Setter Property="ResizeMode" Value="NoResize"/>
-                <Setter Property="BorderThickness" Value="1"/>
-            </Style>
-
-             <Style TargetType="{x:Type Button}" 
-                   x:Key="PathButton">
-                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding Background}" BorderThickness="1">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource TextPrimary}"/>
-                        <Setter Property="Foreground" Value="{DynamicResource Border}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="Background" Value="{DynamicResource Primary}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Primary}"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource PrimaryLight}" BorderThickness="1">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource PrimaryLight}"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLight}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style x:Key="CancelButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="Background" Value="{DynamicResource Primary}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Warn}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Primary}"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}" BorderBrush="{DynamicResource PrimaryLight}" BorderThickness="1">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource PrimaryLight}"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLight}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
-                <Setter Property="Background" Value="{DynamicResource TextSecondary}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Border}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
-            </Style>
-
-            <Style TargetType="{x:Type Path}">
-                <Setter Property="Fill" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"/>
-            </Style>
-
-            <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource {x:Type ListBox}}">
-                <Setter Property="Foreground" Value="{DynamicResource Border}"/>
-                <Setter Property="Background" Value="{DynamicResource PrimaryDark}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
-            </Style>
-
-            <Style x:Key="ComboBox" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}">
-                <Setter Property="Background" Value="{DynamicResource TextSecondary}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Border}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
-            </Style> -->
         </ResourceDictionary>
     </Application.Resources>
 </Application>
