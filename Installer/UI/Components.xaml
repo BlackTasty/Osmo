@@ -32,7 +32,7 @@
             <ListBox ItemsSource="{Binding Components}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <ContentControl MouseEnter="CheckBox_MouseEnter" MouseLeave="CheckBox_MouseLeave" Margin="0,-1">
+                        <ContentControl Margin="0,-1" MouseEnter="CheckBox_MouseEnter" MouseLeave="CheckBox_MouseLeave">
                             <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" IsEnabled="{Binding IsEnabled}" Margin="0" Checked="CheckBox_CheckedChanged" Unchecked="CheckBox_CheckedChanged"/>
                         </ContentControl>
                     </DataTemplate>

@@ -218,5 +218,17 @@ namespace Installer.Objects
             shortcut.IconLocation = iconPath;
             shortcut.Save();
         }
+
+        public static string FindString(string targetName)
+        {
+            try
+            {
+                return (string)Application.Current.FindResource(targetName);
+            }
+            catch
+            {
+                return "NO STRING FOUND!";
+            }
+        }
     }
 }

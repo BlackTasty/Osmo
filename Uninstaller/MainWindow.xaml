@@ -6,7 +6,7 @@
         xmlns:ui="clr-namespace:Uninstaller.UI"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Osmo Setup" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}"
+        Title="{StaticResource setupTitle}" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}"
         >
     <DockPanel>
         <material:ColorZone Height="48" material:ShadowAssist.ShadowDepth="Depth2" DockPanel.Dock="Top"
@@ -19,7 +19,8 @@
                             Height="28"
                             Width="28" />
                 </Button>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup" Margin="0,0,-48,0"/>
+                <TextBlock HorizontalAlignment="Center" Text="{StaticResource setupTitle}" VerticalAlignment="Center" FontSize="22" 
+                           Margin="0,0,-48,0"/>
             </DockPanel>
         </material:ColorZone>
         <material:ColorZone Mode="Dark" DockPanel.Dock="Bottom">

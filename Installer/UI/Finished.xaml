@@ -18,10 +18,18 @@
             <RowDefinition Height="16"/>
             <RowDefinition Height="118*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="3" Text="Vibrance Player has been installed on your computer."/>
+        <TextBlock Grid.Row="3">
+            <Run Text="{StaticResource appName}"/> <Run Text="has been installed on your computer."/>
+        </TextBlock>
         <TextBlock Grid.Row="5" Text="Click Finish to close Setup."/>
-        <CheckBox x:Name="cb_runAfter" Content="Run Vibrance Player" Grid.Row="7" IsChecked="True"/>
-        <TextBlock Grid.Row="1" Text="Completing the Vibrance Player Setup" d:LayoutOverrides="Height" FontSize="18.667" VerticalAlignment="Center"/>
+        <CheckBox x:Name="cb_runAfter" Grid.Row="7" IsChecked="True">
+            <TextBlock>
+                <Run Text="Run"/> <Run Text="{StaticResource appName}"/>
+            </TextBlock>
+        </CheckBox>
+        <TextBlock Grid.Row="1" FontSize="18.667" VerticalAlignment="Center">
+            <Run Text="Completing the"/> <Run Text="{StaticResource appName}"/> <Run Text="Setup"/>
+        </TextBlock>
 
     </Grid>
 </UserControl>

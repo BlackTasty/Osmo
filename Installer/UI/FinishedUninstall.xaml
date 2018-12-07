@@ -16,9 +16,12 @@
             <RowDefinition Height="16"/>
             <RowDefinition Height="118*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="3" Text="Vibrance Player has been uninstalled."/>
+        <TextBlock Grid.Row="3">
+            <Run Text="{StaticResource appName}"/> <Run Text="has been uninstalled."/>
+        </TextBlock>
         <TextBlock Grid.Row="5" Text="Click Finish to close Setup."/>
-        <TextBlock Grid.Row="1" Text="Completing the Vibrance Player removal" FontSize="18.667" VerticalAlignment="Center"/>
-
+        <TextBlock Grid.Row="1" FontSize="18.667" VerticalAlignment="Center">
+            <Run Text="Completing the removal of"/> <Run Text="{StaticResource appName}"/>
+        </TextBlock>
     </Grid>
 </UserControl>

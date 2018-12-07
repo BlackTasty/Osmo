@@ -9,7 +9,7 @@ namespace Installer.Objects
         public GlobalValues GV = new GlobalValues();
         public UninstallEntry()
         {
-            GV.GText = "Vibrance Player";
+            GV.GText = App.AppName;
         }
 
         public virtual string UninstallRegKeyPath
@@ -25,7 +25,7 @@ namespace Installer.Objects
             Registry.CurrentUser.DeleteSubKeyTree(UninstallRegKeyPath);
         }
 
-        public void CreateUninstaller()
+        public void CreateUninstaller(double estimatedSize)
         {
             try
             {
@@ -60,18 +60,18 @@ namespace Installer.Objects
 
                         Assembly asm = GetType().Assembly;
                         Version v = asm.GetName().Version;
-                        string exe = GV.InstallationPath + "Vibrance Player.exe";
+                        string exe = GV.InstallationPath + App.AppName + ".exe";
 
                         key.SetValue("ApplicationVersion", v.ToString());
-                        key.SetValue("HelpLink", "https://osu.ppy.sh/forum/t/362072");
+                        key.SetValue("HelpLink", "https://osu.ppy.sh/forum/t/756318");
                         key.SetValue("DisplayIcon", exe);
-                        key.SetValue("DisplayName", "Vibrance Player");
+                        key.SetValue("DisplayName", App.AppName);
                         key.SetValue("DisplayVersion", v.ToString(2));
-                        key.SetValue("EstimatedSize", 3608, RegistryValueKind.DWord);
+                        key.SetValue("EstimatedSize", estimatedSize, RegistryValueKind.DWord);
                         key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
                         key.SetValue("NoRepair", 1, RegistryValueKind.DWord);
                         key.SetValue("NoModify", 1, RegistryValueKind.DWord);
-                        key.SetValue("Publisher", "bl8ckdr8gon");
+                        key.SetValue("Publisher", "BlackTasty");
                         key.SetValue("URLInfoAbout", "");
                         key.SetValue("InstallLocation", GV.InstallationPath);
                         key.SetValue("UninstallString", GV.InstallationPath + "uninstall.exe");
@@ -88,7 +88,7 @@ namespace Installer.Objects
             catch (Exception ex)
             {
                 throw new Exception(
-                    "An error occurred writing uninstall information to the registry.  The service is fully installed but can only be uninstalled manually through deleting the files located in " + GV.InstallationPath + ".",
+                    "An error occurred writing uninstall information to the registry. The application has been fully installed but can only be uninstalled manually through deleting the files located in " + GV.InstallationPath + ".",
                     ex);
             }
         }

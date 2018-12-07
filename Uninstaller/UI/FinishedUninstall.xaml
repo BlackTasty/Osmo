@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="322" d:DesignWidth="414">
-    <Grid>
+    <Grid Margin="8,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="62"/>
             <RowDefinition Height="32"/>
@@ -15,9 +15,12 @@
             <RowDefinition Height="16"/>
             <RowDefinition Height="118*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="3" Text="Vibrance Player has been uninstalled."/>
+        <TextBlock Grid.Row="3">
+            <Run Text="{StaticResource appName}"/> <Run Text="has been uninstalled."/>
+        </TextBlock>
         <TextBlock Grid.Row="5" Text="Click Finish to close Setup."/>
-        <TextBlock Grid.Row="1" Text="Completing the Vibrance Player removal" FontSize="18.667" VerticalAlignment="Center"/>
-
+        <TextBlock Grid.Row="1" FontSize="18.667" VerticalAlignment="Center">
+            <Run Text="Completing the removal of"/> <Run Text="{StaticResource appName}"/>
+        </TextBlock>
     </Grid>
 </UserControl>

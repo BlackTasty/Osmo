@@ -6,7 +6,7 @@ namespace Installer.Objects
 {
     class Logger
     {
-        static readonly string _logFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Vibrance Player\\Logs\\";
+        static readonly string _logFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + App.AppName + "\\Logs\\";
         static readonly string _logPath = _logFolderPath + "log_installer.txt";
 
         public void WriteLog(string msg)

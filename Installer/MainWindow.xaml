@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:Installer.ViewModel"
         xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
-        Title="Osmo Setup" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}" PreviewKeyDown="Window_PreviewKeyDown"
+        Title="{StaticResource setupTitle}" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}" PreviewKeyDown="Window_PreviewKeyDown"
         >
     <material:DialogHost Identifier="RootDialog" IsOpen="{Binding IsDialogOpen}" DialogContent="{Binding DialogContent}">
         <DockPanel>
@@ -22,7 +22,7 @@
                             Height="28"
                             Width="28" />
                     </Button>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="OSMO Setup"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{StaticResource setupTitle}" Margin="0,0,-48,0"/>
                 </DockPanel>
             </material:ColorZone>
             <material:ColorZone Mode="Dark" DockPanel.Dock="Bottom">

@@ -11,7 +11,9 @@
             <Run Text="If you accept the terms of agreement, click Next to continue."/>
             <LineBreak/>
             <Span>
-                <Run Text="You must accept the agreement to install Osmo."/>
+                <Run Text="You must accept the agreement to install"/>
+                <Run Text="{StaticResource appName}"/>
+                <Run Text="."/>
             </Span>
         </TextBlock>
         <ScrollViewer Margin="0,8">

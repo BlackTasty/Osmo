@@ -15,11 +15,11 @@ namespace Uninstaller.UI
     /// </summary>
     public partial class Uninstall : UserControl, IManagedUI
     {
-        string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Vibrance Player\\",
+        MainWindow window;
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + App.AppName + "\\",
             desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         Logger logger = new Logger();
-        bool keepSettings;
-        MainWindow window;
+        bool keepData;
         BackgroundWorker setup = new BackgroundWorker();
 
         public Uninstall()
@@ -32,15 +32,14 @@ namespace Uninstaller.UI
         private void Setup_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             progress.Value = progress.Maximum;
-            txt_status.Text = "Vibrance Player uninstalled!";
-            txt_log.Text += "\n\nVibrance Player uninstalled!";
+            txt_status.Text = App.AppName + " uninstalled!";
+            txt_log.Text += "\n\n" + App.AppName + " uninstalled!";
             window.btn_next.IsEnabled = true;
         }
 
         private void Setup_DoWork(object sender, DoWorkEventArgs e)
         {
-            KillPlayer("Edge Player");
-            KillPlayer("Vibrance Player");
+            KillProcess(App.AppName);
             RemoveFiles();
             RemoveFromRegistry();
         }
@@ -62,24 +61,22 @@ namespace Uninstaller.UI
 
             foreach (FileInfo fi in root.EnumerateFiles())
             {
-                if (fi.Name != "uninstall.exe" && !KeepData(fi.Name))
+                if (!KeepData(fi.Name))
                 {
                     File.Delete(fi.FullName);
                     PrintMessage(fi.Name, false);
                 }
             }
 
-            Helper.DeleteFile(string.Format("{0}\\Vibrance Player.lnk", desktop));
-            Helper.DeleteFile(string.Format("{0}\\Lyrics Creator.lnk", desktop));
-            Helper.DeleteFile(string.Format("{0}\\Visualizer Studio.lnk", desktop));
-            Helper.DeleteDirectory(string.Format("{0}\\Vibrance Player",
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu)), false);
+            Helper.DeleteFile(string.Format("{0}\\" + App.AppName + ".lnk", desktop));
+            Helper.DeleteDirectory(string.Format("{0}\\" + App.AppName,
+            Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu)), false);
         }
 
         void RemoveStartMenuEntry(string shortcutName)
         {
             string startMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
-            string appStartMenuPath = Path.Combine(startMenuPath, "Vibrance Player");
+            string appStartMenuPath = Path.Combine(startMenuPath, App.AppName);
         }
 
         private void PrintMessage(string objName, bool isFolder)
@@ -94,10 +91,10 @@ namespace Uninstaller.UI
 
         private bool KeepData(string name)
         {
-            if (keepSettings)
+            if (keepData)
             {
-                if (name.Equals("Lyrics") || name.Equals("Visuals") ||
-                    name.Contains(".cfg") || name.Contains(".sqlite"))
+                if (name.Contains(".cfg") || name.Contains(".sqlite") ||
+                    name.Equals("Profiles") || name.Equals("Edited") || name.Equals("Templates"))
                     return true;
                 else
                     return false;
@@ -108,15 +105,13 @@ namespace Uninstaller.UI
 
         private void RemoveFromRegistry()
         {
-            RegistryKey edgeKey = Registry.CurrentUser.OpenSubKey(@"Software\Vibrance Player", false);
+            RegistryKey edgeKey = Registry.CurrentUser.OpenSubKey(@"Software\" + App.AppName, false);
             string guidPath = edgeKey.GetValue("GUID").ToString();
             edgeKey.Close();
             Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + guidPath);
-            Registry.CurrentUser.DeleteSubKey(@"Software\Vibrance Player", false);
-            Registry.CurrentUser.DeleteSubKeyTree("Vibrance Player", false);
         }
 
-        private void KillPlayer(string processName)
+        private void KillProcess(string processName)
         {
             bool isRunning = Process.GetProcessesByName(processName).Length > 0;
             if (isRunning)
@@ -132,7 +127,7 @@ namespace Uninstaller.UI
         {
             this.window = window;
             window.btn_cancel.IsEnabled = false;
-            keepSettings = MessageBox.Show("Do you want to keep your personal data? (Settings, lyrics, visuals and databases)", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+            keepData = MessageBox.Show("Do you want to keep your personal data? (Profiles, settings, pending skin changes)", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
             setup.RunWorkerAsync();
         }
     }

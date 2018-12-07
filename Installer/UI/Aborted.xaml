@@ -16,7 +16,9 @@
             <RowDefinition Height="16"/>
             <RowDefinition Height="118*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="3" Text="The Vibrance Player setup has been aborted."/>
+        <TextBlock Grid.Row="3">
+            <Run Text="The"/> <Run Text="{StaticResource appName}"/> <Run Text="setup has been aborted."/>
+        </TextBlock>
         <TextBlock Grid.Row="5" Text="Click Finish to close Setup."/>
         <TextBlock Grid.Row="1" Text="Setup aborted" d:LayoutOverrides="Height" FontSize="18.667" VerticalAlignment="Center"/>
 

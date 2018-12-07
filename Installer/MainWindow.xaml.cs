@@ -58,7 +58,7 @@ namespace Installer
             switch (activeControl.Name)
             {
                 case "agreement":
-                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Vibrance Player", false);
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\" + App.AppName, false);
                     IsUpgrade = key != null;
                     if (IsUpgrade)
                         FadeControls(agreement, appInstalled, true, true);
@@ -78,6 +78,7 @@ namespace Installer
 
                 case "components":
                     FadeControls(components, install, false, false);
+                    install.EstimatedSize = (components.DataContext as ComponentsViewModel).SpaceRequired;
                     install.RegisterParent(this);
                     break;
 
@@ -100,7 +101,7 @@ namespace Installer
                     if (finished.cb_runAfter.IsChecked == true)
                     {
                         Objects.GlobalValues GV = new Objects.GlobalValues();
-                        Process.Start(GV.InstallationPath + "Vibrance Player.exe");
+                        Process.Start(GV.InstallationPath + App.AppName + ".exe");
                     }
                     Close();
                     break;

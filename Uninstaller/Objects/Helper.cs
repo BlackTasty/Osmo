@@ -1,10 +1,11 @@
 ﻿using System.IO;
+using System.Windows;
 
 namespace Uninstaller.Objects
 {
     static class Helper
     {
-        static string[] extensions = new string[] { ".mp3", ".ogg", ".wav", ".mp2", ".mp1", ".aif" };
+        static string[] extensions = new string[] { ".osk" };
 
         public static void DeleteDirectory(string path, bool recreate)
         {
@@ -19,6 +20,18 @@ namespace Uninstaller.Objects
         {
             if (File.Exists(path))
                 File.Delete(path);
+        }
+
+        public static string FindString(string targetName)
+        {
+            try
+            {
+                return (string)Application.Current.FindResource(targetName);
+            }
+            catch
+            {
+                return "NO STRING FOUND!";
+            }
         }
     }
 }

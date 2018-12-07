@@ -8,11 +8,21 @@
              d:DesignHeight="322" d:DesignWidth="414">
     <DockPanel LastChildFill="False" Margin="8,0" VerticalAlignment="Center">
         <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top">
-            <Run Text="An older version of Vibrance Player is installed on your system. Select the"/>
+            <Run Text="An older version of"/>
+            <Run Text="{StaticResource appName}"/>
+            <Run Text="is installed on your system. Select the"/>
             <LineBreak/>
             <Run Text="operation you want to perform and click Next to continue."/>
         </TextBlock>
-        <RadioButton x:Name="rb_upgrade" Content="Vibrance Player (recommended)" DockPanel.Dock="Top" Margin="8,8,8,4" IsChecked="True"/>
-        <RadioButton x:Name="rb_uninstall" Content="Uninstall Vibrance Player" DockPanel.Dock="Top" Margin="8,4,8,8"/>
+        <RadioButton x:Name="rb_upgrade" DockPanel.Dock="Top" Margin="8,8,8,4" IsChecked="True">
+            <TextBlock>
+                <Run Text="{StaticResource appName}"/> <Run Text="(recommended)"/>
+            </TextBlock>
+        </RadioButton>
+        <RadioButton x:Name="rb_uninstall" DockPanel.Dock="Top" Margin="8,4,8,8">
+            <TextBlock>
+                <Run Text="Uninstall"/> <Run Text="{StaticResource appName}"/>
+            </TextBlock>
+        </RadioButton>
     </DockPanel>
 </UserControl>
