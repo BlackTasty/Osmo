@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Installer_Online.UI.Finished"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="414">
+    <Grid Margin="8,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="62"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="118*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="3">
+            <Run Text="{StaticResource appName}"/> <Run Text="has been installed on your computer."/>
+        </TextBlock>
+        <TextBlock Grid.Row="5" Text="Click Finish to close Setup."/>
+        <CheckBox x:Name="cb_runAfter" Grid.Row="7" IsChecked="True">
+            <TextBlock>
+                <Run Text="Run"/> <Run Text="{StaticResource appName}"/>
+            </TextBlock>
+        </CheckBox>
+        <TextBlock Grid.Row="1" FontSize="18.667" VerticalAlignment="Center">
+            <Run Text="Completing the"/> <Run Text="{StaticResource appName}"/> <Run Text="Setup"/>
+        </TextBlock>
+
+    </Grid>
+</UserControl>

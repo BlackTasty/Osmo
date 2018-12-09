@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:Installer.UI"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:Installer"
         mc:Ignorable="d"
         Title="{StaticResource setupTitle}" Height="450" Width="650" MouseDown="Window_MouseDown" Icon="icon.ico" Style="{DynamicResource WindowStyle}" PreviewKeyDown="Window_PreviewKeyDown"
-        >
+        Loaded="Window_Loaded">
     <material:DialogHost Identifier="RootDialog" IsOpen="{Binding IsDialogOpen}" DialogContent="{Binding DialogContent}">
         <DockPanel>
             <material:ColorZone Height="48" material:ShadowAssist.ShadowDepth="Depth2" DockPanel.Dock="Top"
@@ -16,8 +15,10 @@
                 <DockPanel>
                     <Button DockPanel.Dock="Right" Height="48" Width="48" Command="{Binding OpenDialogCommand}"
                         Style="{StaticResource AppBarButton}" Margin="8,0,0,0">
-                        <Path Width="16" Height="16" Data="{Binding CloseIcon, Converter={StaticResource GeometryConverter}}" 
-                              Fill="#DDFFFFFF" Stretch="Uniform" StrokeThickness="2"/>
+                        <material:PackIcon
+                            Kind="Close"
+                            Height="28"
+                            Width="28" />
                     </Button>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{StaticResource setupTitle}" Margin="0,0,-48,0"/>
                 </DockPanel>

@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("Uninstaller")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Project Vibrance")]
+[assembly: AssemblyCompany("Project Osmo")]
 [assembly: AssemblyProduct("Uninstaller")]
-[assembly: AssemblyCopyright("Copyright © Raphael Winkler 2015-2018")]
+[assembly: AssemblyCopyright("Copyright © Raphael Winkler 2018-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

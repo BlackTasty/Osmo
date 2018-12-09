@@ -7,12 +7,12 @@ using System.Windows;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("Installer")]
+[assembly: AssemblyTitle("Osmo Offline Installer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Project Vibrance")]
-[assembly: AssemblyProduct("Installer")]
-[assembly: AssemblyCopyright("Copyright © Raphael Winkler 2015-2018")]
+[assembly: AssemblyCompany("Project Osmo")]
+[assembly: AssemblyProduct("Osmo Offline Installer")]
+[assembly: AssemblyCopyright("Copyright © Raphael Winkler 2018-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

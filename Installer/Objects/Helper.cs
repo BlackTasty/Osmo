@@ -200,14 +200,14 @@ namespace Installer.Objects
                 return null;
         }
 
-        public static List<Extension> GetAudioFormats(string openWith, string iconPath)
+        /*public static List<Extension> GetAudioFormats(string openWith, string iconPath)
         {
             List<Extension> extensions = new List<Extension>();
             foreach (string extension in Helper.extensions)
-                extensions.Add(new Extension(extension, "Vibrance Player", "Vibrance player audio file", openWith, iconPath));
+                extensions.Add(new Extension(extension, App.AppName, "Vibrance player audio file", openWith, iconPath));
 
             return extensions;
-        }
+        }*/
 
         public static void CreateShortcut(string path, string fileName, string iconPath)
         {

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Installer.UI"
              xmlns:vm="clr-namespace:Uninstaller.ViewModel"
              mc:Ignorable="d" 
              Height="Auto" d:DesignWidth="300" Margin="16">

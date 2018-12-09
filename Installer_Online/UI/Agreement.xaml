@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Installer_Online.UI.Agreement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="414">
+    <DockPanel>
+        <TextBlock Margin="8,0" TextWrapping="Wrap" Text="Press Page Down to see the rest of the agreement." DockPanel.Dock="Top"/>
+        <TextBlock Margin="8,0" TextWrapping="Wrap" DockPanel.Dock="Bottom">
+            <Run Text="If you accept the terms of agreement, click Next to continue."/>
+            <LineBreak/>
+            <Span>
+                <Run Text="You must accept the agreement to install"/>
+                <Run Text="{StaticResource appName}"/>
+                <Run Text="."/>
+            </Span>
+        </TextBlock>
+        <ScrollViewer Margin="0,8">
+            <TextBlock x:Name="richTextBox" TextWrapping="Wrap" Margin="0,0,5,0" TextAlignment="Center"/>
+        </ScrollViewer>
+    </DockPanel>
+
+</UserControl>
