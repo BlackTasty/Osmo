@@ -204,7 +204,7 @@ namespace Installer.Objects
         {
             List<Extension> extensions = new List<Extension>();
             foreach (string extension in Helper.extensions)
-                extensions.Add(new Extension(extension, App.AppName, "Vibrance player audio file", openWith, iconPath));
+                extensions.Add(new Extension(extension, GlobalValues.AppName, "Vibrance player audio file", openWith, iconPath));
 
             return extensions;
         }*/

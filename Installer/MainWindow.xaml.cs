@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using Installer.ViewModel;
 using System.Diagnostics;
 using System.Windows.Controls.Primitives;
+using Installer.Objects;
 
 namespace Installer
 {
@@ -59,7 +60,7 @@ namespace Installer
             switch (activeControl.Name)
             {
                 case "agreement":
-                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\" + App.AppName, false);
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\" + GlobalValues.AppName, false);
                     IsUpgrade = key != null;
                     if (IsUpgrade)
                         FadeControls(agreement, appInstalled, true, true);
@@ -101,8 +102,7 @@ namespace Installer
                 case "finished":
                     if (finished.cb_runAfter.IsChecked == true)
                     {
-                        Objects.GlobalValues GV = new Objects.GlobalValues();
-                        Process.Start(GV.InstallationPath + App.AppName + ".exe");
+                        Process.Start(GlobalValues.InstallationPath + GlobalValues.AppName + ".exe");
                     }
                     Close();
                     break;

@@ -167,6 +167,7 @@
     <system:String o:Freeze="True" x:Key="settings_title_profileRemove">Delete profile?</system:String>
     <system:String o:Freeze="True" x:Key="settings_descr_profileRemove">Are you sure you want to remove the selected profile? This cannot be undone!</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_useDarkTheme">Use dark theme</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_useExperimentalFileExplorer">Use experimental file explorer</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Executable skin file</system:String>

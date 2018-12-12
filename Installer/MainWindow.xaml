@@ -14,12 +14,7 @@
                             Mode="PrimaryMid">
                 <DockPanel>
                     <Button DockPanel.Dock="Right" Height="48" Width="48" Command="{Binding OpenDialogCommand}"
-                        Style="{StaticResource AppBarButton}" Margin="8,0,0,0">
-                        <material:PackIcon
-                            Kind="Close"
-                            Height="28"
-                            Width="28" />
-                    </Button>
+                        Style="{StaticResource CloseButton}" Margin="8,0,0,0"/>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{StaticResource setupTitle}" Margin="0,0,-48,0"/>
                 </DockPanel>
             </material:ColorZone>

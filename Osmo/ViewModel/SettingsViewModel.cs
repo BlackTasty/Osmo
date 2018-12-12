@@ -102,6 +102,8 @@ namespace Osmo.ViewModel
             InvokePropertyChanged("Language");
             InvokePropertyChanged("ProfileName");
             InvokePropertyChanged("Profiles");
+            InvokePropertyChanged("DarkTheme");
+            InvokePropertyChanged("UseExperimentalFileExplorer");
         }
 
         public string OsuDirectory
@@ -110,7 +112,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.OsuDirectory = value;
-                InvokePropertyChanged("OsuDirectory");
+                InvokePropertyChanged();
             }
         }
 
@@ -120,7 +122,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.BackupDirectory = value;
-                InvokePropertyChanged("BackupDirectory");
+                InvokePropertyChanged();
             }
         }
 
@@ -130,7 +132,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.TemplateDirectory = value;
-                InvokePropertyChanged("TemplateDirectory");
+                InvokePropertyChanged();
             }
         }
 
@@ -140,7 +142,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.BackupBeforeMixing = value;
-                InvokePropertyChanged("BackupBeforeMixing");
+                InvokePropertyChanged();
             }
         }
 
@@ -150,7 +152,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.BackgroundEditor = value;
-                InvokePropertyChanged("BackgroundEditor");
+                InvokePropertyChanged();
             }
         }
 
@@ -160,7 +162,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.ReopenLastSkin = value;
-                InvokePropertyChanged("ReopenLastSkin");
+                InvokePropertyChanged();
             }
         }
 
@@ -170,7 +172,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.Language = (Language)value;
-                InvokePropertyChanged("Language");
+                InvokePropertyChanged();
             }
         }
 
@@ -180,7 +182,7 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.ProfileName = value;
-                InvokePropertyChanged("ProfileName");
+                InvokePropertyChanged();
             }
         }
 
@@ -190,6 +192,16 @@ namespace Osmo.ViewModel
             set
             {
                 SelectedProfile.DarkTheme = value;
+                InvokePropertyChanged();
+            }
+        }
+
+        public bool UseExperimentalFileExplorer
+        {
+            get => SelectedProfile.UseExperimentalFileExplorer;
+            set
+            {
+                SelectedProfile.UseExperimentalFileExplorer = value;
                 InvokePropertyChanged();
             }
         }

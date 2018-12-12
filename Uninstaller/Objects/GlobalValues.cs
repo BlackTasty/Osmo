@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Installer.Objects
+namespace Uninstaller.Objects
 {
     static class GlobalValues
     {

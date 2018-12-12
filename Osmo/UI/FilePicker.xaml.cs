@@ -1,4 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Osmo.Core;
 using Osmo.Core.FileExplorer;
 using Osmo.ViewModel;
@@ -7,7 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Osmo.UI
@@ -286,7 +291,50 @@ namespace Osmo.UI
 
         private void filePicker_Loaded(object sender, RoutedEventArgs e)
         {
-            RaiseDialogOpenedEvent();
+            if (App.ProfileManager.Profile.UseExperimentalFileExplorer)
+            {
+                if (Visibility == Visibility.Collapsed)
+                {
+                    Visibility = Visibility.Visible;
+                }
+                RaiseDialogOpenedEvent();
+            }
+            else
+            {
+                Visibility = Visibility.Collapsed;
+                if (CommonFileDialog.IsPlatformSupported)
+                {
+                    bool isFolder = (DataContext as FilePickerViewModel).IsFolderSelect;
+                    var dialog = new CommonOpenFileDialog()
+                    {
+                        IsFolderPicker = isFolder,
+                        InitialDirectory = (DataContext as FilePickerViewModel).SelectedFolder?.Path
+                    };
+                    
+                    if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                    {
+                        ClassicEntry entry = new ClassicEntry(dialog.FileName, isFolder);
+                        (DataContext as FilePickerViewModel).SelectedEntry = entry;
+
+                        btn_ok.IsEnabled = true;
+                        Select_Click(btn_ok, e);
+                        if (DialogHost.CloseDialogCommand.CanExecute(null, btn_ok))
+                            DialogHost.CloseDialogCommand.Execute(null, btn_ok);
+                    }
+                    else
+                    {
+                        btn_abort.IsEnabled = true;
+                        Abort_Click(btn_abort, e);
+                        if (DialogHost.CloseDialogCommand.CanExecute(null, btn_abort))
+                            DialogHost.CloseDialogCommand.Execute(null, btn_abort);
+                    }
+
+                }
+                else
+                {
+                }
+
+            }
         }
     }
 }

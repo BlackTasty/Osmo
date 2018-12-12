@@ -197,6 +197,26 @@ namespace Osmo.Core.FileExplorer
             return SubDirectories.FirstOrDefault(x => x.Path.Equals(nextPath))?.BuildSubTree(structure, loadFiles) ?? this;
         }
 
+        public List<string> GetFolderStructure(bool alsoSubdirectories)
+        {
+            List<string> structure = new List<string>();
+            foreach (FolderEntry folder in SubDirectories)
+            {
+                structure.Add(folder.Path + "\n");
+                if (alsoSubdirectories)
+                {
+                    structure.AddRange(folder.GetFolderStructure(alsoSubdirectories));
+                }
+            }
+
+            foreach (FileEntry file in Files)
+            {
+                structure.Add(file.Path + "\n");
+            }
+
+            return structure;
+        }
+
         public override string ToString()
         {
             return Name;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -44,6 +45,11 @@ namespace Osmo.Core.FileExplorer
 
                 treePaths.Add(new KeyValuePair<int, string>(treePaths.Count, previousPath));
             }
+        }
+
+        public static void CacheDriveContent(FolderEntry root)
+        {
+            File.AppendAllLines(FixedValues.FILE_EXPLORER_CACHEFILE, root.GetFolderStructure(true));
         }
     }
 }

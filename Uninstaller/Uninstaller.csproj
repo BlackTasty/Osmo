@@ -75,6 +75,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\GlobalValues.cs" />
     <Compile Include="StringToGeometryConverter.cs" />
     <Compile Include="UI\AbortingDialog.xaml.cs">
       <DependentUpon>AbortingDialog.xaml</DependentUpon>

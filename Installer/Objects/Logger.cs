@@ -6,15 +6,29 @@ namespace Installer.Objects
 {
     class Logger
     {
-        static readonly string _logFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + App.AppName + "\\Logs\\";
+        static readonly string _logFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + GlobalValues.AppName + "\\Logs\\";
         static readonly string _logPath = _logFolderPath + "log_installer.txt";
+
+        private string LoggingTypeToString(LoggingType type)
+        {
+            switch (type)
+            {
+                case LoggingType.INFO:
+                    return "[INFO] ";
+
+                case LoggingType.WARNING:
+                    return "[WARNING] ";
+            }
+
+            throw new InvalidOperationException("You've forgot to add a return value for one of the LoggingTypes...");
+        }
 
         public void WriteLog(string msg)
         {
             WriteLog(msg, LoggingType.INFO);
         }
 
-        public void WriteLog(string msg, LoggingType mode)
+        public void WriteLog(string msg, LoggingType type)
         {
             if (!Directory.Exists(_logFolderPath))
                 Directory.CreateDirectory(_logFolderPath);
@@ -27,18 +41,10 @@ namespace Installer.Objects
                 File.WriteAllText(_logPath, logStart);
             }
 
-            StringBuilder logBuilder = new StringBuilder();
+            StringBuilder logBuilder = new StringBuilder(LoggingTypeToString(type));
 
-            switch (mode)
-            {
-                case LoggingType.INFO:
-                    logBuilder.Append("[INFO] ");
-                    break;
-
-                case LoggingType.WARNING:
-                    logBuilder.Append("[WARNING] ");
-                    break;
-            }
+            File.AppendAllText(_logPath, logBuilder.ToString());
+            Console.WriteLine(string.Format("({0}) {1}", "log_installer", logBuilder.ToString().Replace("\r", "")));
         }
 
         public void WriteLog(string msg, LoggingType mode, Exception ex)

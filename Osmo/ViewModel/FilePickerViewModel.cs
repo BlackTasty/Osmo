@@ -15,7 +15,14 @@ namespace Osmo.ViewModel
 
         public VeryObservableCollection<FolderEntry> RootFolders
         {
-            get => fileExplorer.RootFolders;
+            get
+            {
+                if (fileExplorer == null)
+                {
+                    fileExplorer = SharedFileExplorer.Instance;
+                }
+                return fileExplorer.RootFolders;
+            }
         }
 
         public FolderEntry SelectedFolder
@@ -36,8 +43,11 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedEntry = value;
-                InvokePropertyChanged("SelectedEntry");
-                InvokePropertyChanged("IsSelectEnabled");
+                if (!(value is ClassicEntry))
+                {
+                    InvokePropertyChanged("SelectedEntry");
+                    InvokePropertyChanged("IsSelectEnabled");
+                }
             }
         }
 
@@ -102,7 +112,10 @@ namespace Osmo.ViewModel
 
         public FilePickerViewModel()
         {
-            fileExplorer = SharedFileExplorer.Instance;
+            if (App.ProfileManager.Profile.UseExperimentalFileExplorer)
+            {
+                fileExplorer = SharedFileExplorer.Instance;
+            }
         }
 
         public void SetFilters(string filtersRaw)
@@ -128,6 +141,10 @@ namespace Osmo.ViewModel
 
         public void RefreshDrives()
         {
+            if (fileExplorer == null)
+            {
+                fileExplorer = SharedFileExplorer.Instance;
+            }
             fileExplorer.LoadDrives(false);
         }
     }

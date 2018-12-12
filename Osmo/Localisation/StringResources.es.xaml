@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
-
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="StringResources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     <!--<system:String o:Freeze="True" x:Key=""></system:String>-->
 
     <!--Alpha Disclaimer-->
@@ -167,6 +169,7 @@
     <system:String o:Freeze="True" x:Key="settings_title_profileRemove">Delete profile?</system:String>
     <system:String o:Freeze="True" x:Key="settings_descr_profileRemove">Are you sure you want to remove the selected profile? This cannot be undone!</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_useDarkTheme">Use dark theme</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_useExperimentalFileExplorer">Use experimental file explorer</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Archivo skin ejecutable</system:String>

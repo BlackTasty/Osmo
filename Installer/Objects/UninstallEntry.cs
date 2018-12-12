@@ -6,10 +6,8 @@ namespace Installer.Objects
 {
     class UninstallEntry
     {
-        public GlobalValues GV = new GlobalValues();
         public UninstallEntry()
         {
-            GV.GText = App.AppName;
         }
 
         public virtual string UninstallRegKeyPath
@@ -50,22 +48,22 @@ namespace Installer.Objects
 
                     try
                     {
-                        key = parent.OpenSubKey(GV.GText, true) ??
-                              parent.CreateSubKey(GV.GText);
+                        key = parent.OpenSubKey(GlobalValues.AppName, true) ??
+                              parent.CreateSubKey(GlobalValues.AppName);
 
                         if (key == null)
                         {
-                            throw new Exception(string.Format("Unable to create uninstaller \"{0}\\{1}\"", UninstallRegKeyPath, GV.GText));
+                            throw new Exception(string.Format("Unable to create uninstaller \"{0}\\{1}\"", UninstallRegKeyPath, GlobalValues.AppName));
                         }
 
                         Assembly asm = GetType().Assembly;
                         Version v = asm.GetName().Version;
-                        string exe = GV.InstallationPath + App.AppName + ".exe";
+                        string exe = GlobalValues.InstallationPath + GlobalValues.AppName + ".exe";
 
                         key.SetValue("ApplicationVersion", v.ToString());
                         key.SetValue("HelpLink", "https://osu.ppy.sh/forum/t/756318");
                         key.SetValue("DisplayIcon", exe);
-                        key.SetValue("DisplayName", App.AppName);
+                        key.SetValue("DisplayName", GlobalValues.AppName);
                         key.SetValue("DisplayVersion", v.ToString(2));
                         key.SetValue("EstimatedSize", estimatedSize, RegistryValueKind.DWord);
                         key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
@@ -73,8 +71,8 @@ namespace Installer.Objects
                         key.SetValue("NoModify", 1, RegistryValueKind.DWord);
                         key.SetValue("Publisher", "BlackTasty");
                         key.SetValue("URLInfoAbout", "");
-                        key.SetValue("InstallLocation", GV.InstallationPath);
-                        key.SetValue("UninstallString", GV.InstallationPath + "uninstall.exe");
+                        key.SetValue("InstallLocation", GlobalValues.InstallationPath);
+                        key.SetValue("UninstallString", GlobalValues.InstallationPath + "uninstall.exe");
                     }
                     finally
                     {
@@ -88,7 +86,9 @@ namespace Installer.Objects
             catch (Exception ex)
             {
                 throw new Exception(
-                    "An error occurred writing uninstall information to the registry. The application has been fully installed but can only be uninstalled manually through deleting the files located in " + GV.InstallationPath + ".",
+                    "An error occurred writing uninstall information to the registry. " +
+                    "The application has been fully installed but can only be uninstalled manually through " +
+                    "deleting the files located in " + GlobalValues.InstallationPath + ".",
                     ex);
             }
         }

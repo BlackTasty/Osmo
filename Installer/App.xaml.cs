@@ -12,8 +12,6 @@ namespace Installer
     {
         private static string appName;
 
-        public static string AppName { get => appName; }
-
         public const string AppComponentName = "Osmo";
 
 

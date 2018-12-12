@@ -32,21 +32,21 @@ namespace Uninstaller.UI
         private void Setup_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             progress.Value = progress.Maximum;
-            txt_status.Text = App.AppName + " uninstalled!";
-            txt_log.Text += "\n\n" + App.AppName + " uninstalled!";
+            txt_status.Text = GlobalValues.AppName + " uninstalled!";
+            txt_log.Text += "\n\n" + GlobalValues.AppName + " uninstalled!";
             window.btn_next.IsEnabled = true;
         }
 
         private void Setup_DoWork(object sender, DoWorkEventArgs e)
         {
-            KillProcess(App.AppName);
+            KillProcess(GlobalValues.AppName);
             RemoveFiles();
             RemoveFromRegistry();
         }
 
         private void RemoveFiles()
         {
-            DirectoryInfo root = new DirectoryInfo(path);
+            DirectoryInfo root = new DirectoryInfo(GlobalValues.InstallationPath);
             int files = root.GetDirectories().Length + root.GetFiles().Length;
 
             Invoker.InvokeProgress(progress, 0, files);
@@ -68,15 +68,9 @@ namespace Uninstaller.UI
                 }
             }
 
-            Helper.DeleteFile(string.Format("{0}\\" + App.AppName + ".lnk", desktop));
-            Helper.DeleteDirectory(string.Format("{0}\\" + App.AppName,
+            Helper.DeleteFile(string.Format("{0}\\" + GlobalValues.AppName + ".lnk", desktop));
+            Helper.DeleteDirectory(string.Format("{0}\\" + GlobalValues.AppName,
             Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu)), false);
-        }
-
-        void RemoveStartMenuEntry(string shortcutName)
-        {
-            string startMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
-            string appStartMenuPath = Path.Combine(startMenuPath, App.AppName);
         }
 
         private void PrintMessage(string objName, bool isFolder)
@@ -94,7 +88,8 @@ namespace Uninstaller.UI
             if (keepData)
             {
                 if (name.Contains(".cfg") || name.Contains(".sqlite") ||
-                    name.Equals("Profiles") || name.Equals("Edited") || name.Equals("Templates"))
+                    name.Equals("Profiles") || name.Equals("Backups") || name.Equals("Templates") ||
+                    name.Equals("Logs"))
                     return true;
                 else
                     return false;
@@ -105,9 +100,10 @@ namespace Uninstaller.UI
 
         private void RemoveFromRegistry()
         {
-            RegistryKey edgeKey = Registry.CurrentUser.OpenSubKey(@"Software\" + App.AppName, false);
+            RegistryKey edgeKey = Registry.CurrentUser.OpenSubKey(@"Software\" + GlobalValues.AppName, false);
             string guidPath = edgeKey.GetValue("GUID").ToString();
             edgeKey.Close();
+            Registry.CurrentUser.DeleteSubKey(@"Software\" + GlobalValues.AppName);
             Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + guidPath);
         }
 

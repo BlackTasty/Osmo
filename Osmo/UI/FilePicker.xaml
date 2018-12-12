@@ -93,7 +93,7 @@
                 <TextBlock Text="{Binding SelectedFolder.Path}" VerticalAlignment="Center"/>
             </DockPanel>
             <DockPanel DockPanel.Dock="Bottom" Margin="8,0,0,0">
-                <Button Content="{DynamicResource abort}" Margin="0,8,0,0"
+                <Button x:Name="btn_abort" Content="{DynamicResource abort}" Margin="0,8,0,0"
                  DockPanel.Dock="Right" Click="Abort_Click">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
@@ -106,7 +106,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="{DynamicResource ok}" Margin="8,8,0,0"
+                <Button x:Name="btn_ok" Content="{DynamicResource ok}" Margin="8,8,0,0"
                  IsEnabled="{Binding IsSelectEnabled}" DockPanel.Dock="Right"
                     Click="Select_Click">
                     <Button.Style>

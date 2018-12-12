@@ -40,6 +40,7 @@ namespace Osmo.Core.Configuration
         private bool mReopenLastSkin;
         private Language mLanguage;
         private bool mDarkTheme;
+        private bool mUseExperimentalFileExplorer;
 
         private bool isInit = true;
 
@@ -156,6 +157,16 @@ namespace Osmo.Core.Configuration
                 mDarkTheme = value;
             }
         }
+
+        public bool UseExperimentalFileExplorer
+        {
+            get => mUseExperimentalFileExplorer;
+            set
+            {
+                SetUnsavedChanges(mUseExperimentalFileExplorer, value);
+                mUseExperimentalFileExplorer = value;
+            }
+        }
         #endregion
 
         private string redirectPath;
@@ -206,7 +217,8 @@ namespace Osmo.Core.Configuration
                 "ReopenLastSkin:" + ReopenLastSkin,
                 "Language:" + (int)Language,
                 "DisclaimerRead:" + DisclaimerRead,
-                "DarkTheme: " + DarkTheme
+                "DarkTheme: " + DarkTheme,
+                "UseExperimentalFileExplorer: " + UseExperimentalFileExplorer
                 };
             }
             else
@@ -222,7 +234,8 @@ namespace Osmo.Core.Configuration
                 "ReopenLastSkin:" + ReopenLastSkin,
                 "Language:" + (int)Language,
                 "DisclaimerRead:" + DisclaimerRead,
-                "DarkTheme: " + DarkTheme
+                "DarkTheme: " + DarkTheme,
+                "UseExperimentalFileExplorer: " + UseExperimentalFileExplorer
                 };
             }
             #endregion
@@ -297,6 +310,10 @@ namespace Osmo.Core.Configuration
 
                         case "DarkTheme":
                             mDarkTheme = Parser.TryParse(property[1], false);
+                            break;
+
+                        case "UseExperimentalFileExplorer":
+                            mUseExperimentalFileExplorer = Parser.TryParse(property[1], false);
                             break;
                     }
                 }
