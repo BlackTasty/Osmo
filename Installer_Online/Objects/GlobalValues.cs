@@ -2,12 +2,13 @@
 
 namespace Installer_Online.Objects
 {
-    class GlobalValues
+    static class GlobalValues
     {
-        string instPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Vibrance Player\\";
+        private static string instPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static string appName = "Osmo";
 
-        public string GText { get; set; }
+        public static string InstallationPath { get => instPath + "\\" + AppName + "\\"; }
 
-        public string InstallationPath { get { return instPath; } }
+        public static string AppName { get => appName; }
     }
 }

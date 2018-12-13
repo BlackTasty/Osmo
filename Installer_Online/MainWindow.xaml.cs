@@ -1,4 +1,5 @@
-﻿using Installer_Online.ViewModel;
+﻿using Installer_Online.Objects;
+using Installer_Online.ViewModel;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
@@ -58,7 +59,7 @@ namespace Installer_Online
             switch (activeControl.Name)
             {
                 case "agreement":
-                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\" + App.AppName, false);
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\" + GlobalValues.AppName, false);
                     IsUpgrade = key != null;
                     if (IsUpgrade)
                         FadeControls(agreement, appInstalled, true, true);
@@ -100,8 +101,7 @@ namespace Installer_Online
                 case "finished":
                     if (finished.cb_runAfter.IsChecked == true)
                     {
-                        Objects.GlobalValues GV = new Objects.GlobalValues();
-                        Process.Start(GV.InstallationPath + App.AppName + ".exe");
+                        Process.Start(GlobalValues.InstallationPath + GlobalValues.AppName + ".exe");
                     }
                     Close();
                     break;

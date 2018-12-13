@@ -20,7 +20,7 @@ namespace Installer_Online.UI
     {
         private MainWindow window;
         private UninstallEntry uninstaller = new UninstallEntry();
-        private string path, data = App.AppName + ".exe";
+        private string path, data = GlobalValues.AppName + ".exe";
         private string tempDownloadPath = Path.Combine(Path.GetTempPath(), "Osmo\\Runtime.zip");
         Logger logger = new Logger();
         BackgroundWorker setup = new BackgroundWorker();
@@ -39,7 +39,7 @@ namespace Installer_Online.UI
         public Install()
         {
             InitializeComponent();
-            path = uninstaller.GV.InstallationPath;
+            path = GlobalValues.InstallationPath;
             Status = InstallationStatus.IDLE;
             setup.WorkerSupportsCancellation = true;
             setup.DoWork += Setup_DoWork;
@@ -83,7 +83,7 @@ namespace Installer_Online.UI
             {
                 Status = InstallationStatus.FINISHED;
                 progress.Value = progress.Maximum;
-                SetStatusText(App.AppName + " installed!");
+                SetStatusText(GlobalValues.AppName + " installed!");
                 window.btn_next.IsEnabled = true;
                 window.btn_cancel.IsEnabled = false;
                 logger.WriteLog("Everything's done and worked so far!");
@@ -102,7 +102,7 @@ namespace Installer_Online.UI
             logger.WriteLog("Starting installation...");
             if (!window.IsUpgrade)
             {
-                logger.WriteLog(App.AppName + " is currently not installed...");
+                logger.WriteLog(GlobalValues.AppName + " is currently not installed...");
                 if (Directory.Exists(path))
                     Directory.Delete(path, true);
 
@@ -110,16 +110,16 @@ namespace Installer_Online.UI
             }
             else
             {
-                logger.WriteLog(App.AppName + " is currently installed, upgrading to newest version...");
-                Process[] proc = Process.GetProcessesByName(App.AppName);
+                logger.WriteLog(GlobalValues.AppName + " is currently installed, upgrading to newest version...");
+                Process[] proc = Process.GetProcessesByName(GlobalValues.AppName);
                 if (proc.Length > 0)
                 {
                     int procIndex = GetProcessIndex(proc, Process.GetCurrentProcess());
 
                     if (procIndex > -1)
                     {
-                        logger.WriteLog(App.AppName + " is running! Asking the user to kill the task...");
-                        var res = MessageBox.Show(App.AppName + " has to be closed in order to continue. Shall I kill the task now?", "", MessageBoxButton.YesNo);
+                        logger.WriteLog(GlobalValues.AppName + " is running! Asking the user to kill the task...");
+                        var res = MessageBox.Show(GlobalValues.AppName + " has to be closed in order to continue. Shall I kill the task now?", "", MessageBoxButton.YesNo);
                         if (res == MessageBoxResult.Yes)
                         {
                             try
@@ -129,7 +129,7 @@ namespace Installer_Online.UI
                             }
                             catch (Exception ex)
                             {
-                                logger.WriteLog("Exception thrown while closing " + App.AppName + "!", LoggingType.WARNING, ex);
+                                logger.WriteLog("Exception thrown while closing " + GlobalValues.AppName + "!", LoggingType.WARNING, ex);
                             }
                         }
                         else
@@ -159,7 +159,7 @@ namespace Installer_Online.UI
                 switch (Status)
                 {
                     case InstallationStatus.CONTENT_EXTRACTED:
-                        Helper.DeleteDirectory(uninstaller.GV.InstallationPath, false);
+                        Helper.DeleteDirectory(GlobalValues.InstallationPath, false);
                         Status = InstallationStatus.FINISHED;
                         break;
                     case InstallationStatus.UNINSTALLER_CREATED:
@@ -167,7 +167,7 @@ namespace Installer_Online.UI
                         Status = InstallationStatus.CONTENT_EXTRACTED;
                         break;
                     case InstallationStatus.REGISTRY_EDITED:
-                        Registry.CurrentUser.DeleteSubKeyTree(@"Software\Classes\Applications\" + App.AppName + ".exe");
+                        Registry.CurrentUser.DeleteSubKeyTree(@"Software\Classes\Applications\" + GlobalValues.AppName + ".exe");
                         Status = InstallationStatus.UNINSTALLER_CREATED;
                         break;
                 }
@@ -202,6 +202,8 @@ namespace Installer_Online.UI
                         File.Delete(tempDownloadPath);
                     }
 
+                    Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "Osmo\\"));
+
                     using (WebClient wc = new WebClient())
                     {
                         isDownloading = true;
@@ -226,6 +228,10 @@ namespace Installer_Online.UI
 
         private void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.ToString());
+            }
             downloadSpeedStopWatch.Reset();
             isDownloading = false;
         }
@@ -264,38 +270,38 @@ namespace Installer_Online.UI
         {
             if (!setup.CancellationPending)
             {
-                Helper.DeleteDirectory(uninstaller.GV.InstallationPath + "Update", true);
-                Helper.DeleteFile(uninstaller.GV.InstallationPath + "Update\\Runtime.zip");
+                Helper.DeleteDirectory(GlobalValues.InstallationPath + "Update", true);
+                Helper.DeleteFile(GlobalValues.InstallationPath + "Update\\Runtime.zip");
 
                 logger.WriteLog("Unzipping content...");
                 ZipFile.ExtractToDirectory(tempDownloadPath,
-                    uninstaller.GV.InstallationPath + "Update\\");
+                    GlobalValues.InstallationPath + "Update\\");
                 File.Delete(tempDownloadPath);
 
                 logger.WriteLog("Replacing old content...");
 
-                DirectoryInfo dirs = new DirectoryInfo(uninstaller.GV.InstallationPath + "Update");
+                DirectoryInfo dirs = new DirectoryInfo(GlobalValues.InstallationPath + "Update");
                 int dataCount = dirs.GetDirectories().Length + dirs.GetFiles().Length + 1;
                 Invoker.InvokeProgress(progress, 0, dataCount);
 
                 foreach (DirectoryInfo di in dirs.GetDirectories())
                 {
-                    Helper.DeleteDirectory(uninstaller.GV.InstallationPath + di.Name, false);
-                    Directory.Move(di.FullName, uninstaller.GV.InstallationPath + di.Name);
+                    Helper.DeleteDirectory(GlobalValues.InstallationPath + di.Name, false);
+                    Directory.Move(di.FullName, GlobalValues.InstallationPath + di.Name);
                     PrintMessage(di.Name);
                 }
 
                 foreach (FileInfo fi in dirs.EnumerateFiles())
                 {
-                    string logEntry = Helper.DeleteFile(uninstaller.GV.InstallationPath + fi.Name, fi.Name);
+                    string logEntry = Helper.DeleteFile(GlobalValues.InstallationPath + fi.Name, fi.Name);
                     if (logEntry != null)
                         logger.WriteLog(logEntry, LoggingType.INFO);
-                    File.Move(fi.FullName, uninstaller.GV.InstallationPath + fi.Name);
+                    File.Move(fi.FullName, GlobalValues.InstallationPath + fi.Name);
                     logger.WriteLog(string.Format("Decompressed file \"{0}\" successfully!", fi.Name));
                     PrintMessage(fi.Name);
                 }
 
-                Helper.DeleteDirectory(uninstaller.GV.InstallationPath + "Update", false);
+                Helper.DeleteDirectory(GlobalValues.InstallationPath + "Update", false);
                 Status = InstallationStatus.CONTENT_EXTRACTED;
                 CheckCancellation();
             }
@@ -326,13 +332,13 @@ namespace Installer_Online.UI
             {
                 logger.WriteLog("Writing to registry...");
                 Invoker.InvokeStatus(progress, txt_log, txt_status, "Creating Registry entries...");
-                RegistryKey edgeKey = Registry.CurrentUser.OpenSubKey(@"Software\" + App.AppName, true);
+                RegistryKey edgeKey = Registry.CurrentUser.OpenSubKey(@"Software\" + GlobalValues.AppName, true);
                 if (edgeKey == null)
                 {
-                    edgeKey = Registry.CurrentUser.CreateSubKey(@"Software\" + App.AppName);
+                    edgeKey = Registry.CurrentUser.CreateSubKey(@"Software\" + GlobalValues.AppName);
                     edgeKey.SetValue("Path", path);
                     edgeKey.SetValue("Name", path + data);
-                    edgeKey.SetValue("GUID", uninstaller.GV.GText);
+                    edgeKey.SetValue("GUID", GlobalValues.AppName);
                 }
 
                 Status = InstallationStatus.REGISTRY_EDITED;
@@ -351,9 +357,9 @@ namespace Installer_Online.UI
 
         private void RemoveAddOn(string exeName, string iconName)
         {
-            Helper.DeleteFile(uninstaller.GV.InstallationPath + exeName);
+            Helper.DeleteFile(GlobalValues.InstallationPath + exeName);
             if (!string.IsNullOrEmpty(iconName))
-                Helper.DeleteFile(uninstaller.GV.InstallationPath + iconName);
+                Helper.DeleteFile(GlobalValues.InstallationPath + iconName);
         }
 
         private void PrintMessage(string objName)
@@ -383,7 +389,7 @@ namespace Installer_Online.UI
                 if (extensions.Count > 0)
                 {
                     Invoker.InvokeStatus(progress, txt_log, txt_status, "Associating files...");
-                    Process associator = Process.Start(uninstaller.GV.InstallationPath + "Associator.exe", raw);
+                    Process associator = Process.Start(GlobalValues.InstallationPath + "Associator.exe", raw);
 
                     while (associator.HasExited)
                     {

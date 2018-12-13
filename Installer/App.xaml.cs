@@ -10,11 +10,8 @@ namespace Installer
     /// </summary>
     public partial class App : Application
     {
-        private static string appName;
-
         public const string AppComponentName = "Osmo";
-
-
+        
         [STAThread()]
         //[DebuggerNonUserCode()]
         public static void Main()
@@ -25,9 +22,7 @@ namespace Installer
             };
             EmbeddedAssembly.Load("Installer.MaterialDesignColors.dll", "MaterialDesignColors.dll");
             EmbeddedAssembly.Load("Installer.MaterialDesignThemes.Wpf.dll", "MaterialDesignThemes.Wpf.dll");
-
-            appName = Helper.FindString("appName");
-
+            
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
             app.InitializeComponent();
