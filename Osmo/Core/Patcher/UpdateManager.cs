@@ -269,6 +269,8 @@ namespace Osmo.Core.Patcher
                     File.Delete(targetDir);
                 }
 
+                Directory.CreateDirectory(targetDir);
+
                 using (WebClient wc = new WebClient())
                 {
                     if (notifyProgress)
