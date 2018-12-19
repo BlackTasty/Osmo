@@ -226,7 +226,7 @@
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Click here</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource3">to go to the GitHub repo.</system:String>
-    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID:</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID: {0}</system:String>
     <system:String o:Freeze="True" x:Key="tip_sessionId">The session ID is used inside your log files. This is especially useful if you have multiple instances of Osmo open and one of them crashes or generates errors.</system:String>
     <system:String o:Freeze="True" x:Key="tip_copySessionId">Copy the session id to your clipboard.</system:String>
     <system:String o:Freeze="True" x:Key="snackbar_sessionId">Session ID copied to clipboard!</system:String>

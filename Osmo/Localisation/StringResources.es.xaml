@@ -5,11 +5,12 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="StringResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+	
     <!--<system:String o:Freeze="True" x:Key=""></system:String>-->
 
     <!--Alpha Disclaimer-->
     <system:String o:Freeze="True" x:Key="alpha_disclaimer_title">Información de Osmo Alpha</system:String>
-    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description1">Osmo se encuentra actualmente en fase de desarrollo Alpha. Esta compilación debería ser estable, pero eso no significa que no se produzcan errores. Si ocurre algún error, asegúrese de abrir un issue en la página de GitHub :)</system:String>
+    <system:String o:Freeze="True" x:Key="alpha_disclaimer_description1">Osmo se encuentra actualmente en fase de desarrollo Alpha y, por lo tanto, en un estado inacabado. Esta compilación debería ser estable, pero eso no significa que no se produzcan errores. Si ocurre algún error, asegúrese de abrir un issue en la página de GitHub :)</system:String>
     <system:String o:Freeze="True" x:Key="alpha_disclaimer_description2">Si está de acuerdo con esto, haga clic en Sí.</system:String>
 
     <!--Basics-->
@@ -40,41 +41,41 @@
     <system:String o:Freeze="True" x:Key="yes">_SÍ</system:String>
     <system:String o:Freeze="True" x:Key="no">_NO</system:String>
     <system:String o:Freeze="True" x:Key="import">_IMPORTAR</system:String>
-    <system:String o:Freeze="True" x:Key="retry">_RETRY</system:String>
+    <system:String o:Freeze="True" x:Key="retry">_REINTENTAR</system:String>
     <system:String o:Freeze="True" x:Key="loadTemplate">_CARGAR PLANTILLA</system:String>
     <system:String o:Freeze="True" x:Key="newTemplate">_NUEVA PLANTILLA</system:String>
     <system:String o:Freeze="True" x:Key="loadSkin">_CARGAR SKIN</system:String>
     <system:String o:Freeze="True" x:Key="newSkin">_NUEVO SKIN</system:String>
     <system:String o:Freeze="True" x:Key="mixSkins">_MEZCLAR SKINS</system:String>
-    <system:String o:Freeze="True" x:Key="copy">_COPY</system:String>
-    <system:String o:Freeze="True" x:Key="donate">Donar</system:String>
-    <system:String o:Freeze="True" x:Key="startResize">_START RESIZE</system:String>
-    <system:String o:Freeze="True" x:Key="remove">_REMOVE</system:String>
+    <system:String o:Freeze="True" x:Key="copy">_COPIAR</system:String>
+    <system:String o:Freeze="True" x:Key="donate">_Donar</system:String>
+    <system:String o:Freeze="True" x:Key="startResize">_COMENZAR CAMBIO DE TAMAÑO</system:String>
+    <system:String o:Freeze="True" x:Key="remove">_QUITAR</system:String>
 
     <!--  Validation-->
-    <system:String o:Freeze="True" x:Key="validationError_directory">Invalid directory!</system:String>
-    <system:String o:Freeze="True" x:Key="validationError_file">This file doesn't exist!</system:String>
+    <system:String o:Freeze="True" x:Key="validationError_directory">¡Directorio inválido!</system:String>
+    <system:String o:Freeze="True" x:Key="validationError_file">¡Este archivo no existe!</system:String>
 
     <!--Shortcuts cheat sheet-->
-    <system:String o:Freeze="True" x:Key="shortcuts_animate">Ctrl + Shift + A</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_animate">Ctrl + Mayús + A</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_replaceElement">Ctrl + H</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_deleteElement">Del</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_eraseElement">Ctrl + Del</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_deleteElement">Supr</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_eraseElement">Ctrl + Supr</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_revertChanges">Ctrl + Z</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_revertAllChanges">Ctrl + Shift + Z</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_revertAllChanges">Ctrl + Mayús + Z</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_exportSkin">Ctrl + E</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_save">Ctrl + S</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_mixerTransfer">Ctrl + T</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkin">Ctrl + O</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Load a skin into the right list</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Skin select</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Load the selected skin in skin mixer</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixer">Ctrl + Shift + O</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_mixerLoadSkinText">Cargar un skin en la lista de la derecha</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectTitle">Selección de skin</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixerText">Cargar el skin seleccionado en el mezclador de skin</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_skinSelectMixer">Ctrl + Mayús + O</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_skinSelectNewSkin">Ctrl + N</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_dialogs">Dialogs</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_dialogCloseTitle">Close the current dialog</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogs">Diálogos</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogCloseTitle">Cerrar el diálogo actual</system:String>
     <system:String o:Freeze="True" x:Key="shortcuts_dialogClose">Escape</system:String>
-    <system:String o:Freeze="True" x:Key="shortcuts_dialogSkinMixerSelect">Skin select - mixer</system:String>
+    <system:String o:Freeze="True" x:Key="shortcuts_dialogSkinMixerSelect">Seleccionar - mezclar skin</system:String>
 
     <!--Sidebar (OsmoViewModel.cs)-->
     <system:String o:Freeze="True" x:Key="sidebar_home">Inicio</system:String>
@@ -84,12 +85,12 @@
     <system:String o:Freeze="True" x:Key="sidebar_templateManager">Administrador de plantillas</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_settings">Configuración</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_about">Acerca de</system:String>
-    <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Resize Tool</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Herramienta de cambio de tamaño</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Editor de plantillas</system:String>
 
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Revertir todos los cambios</system:String>
-    <system:String o:Freeze="True" x:Key="main_createForumEntry">Create forum post from template</system:String>
+    <system:String o:Freeze="True" x:Key="main_createForumEntry">Crear un mensaje en el foro a partir de una plantilla</system:String>
     <system:String o:Freeze="True" x:Key="main_openInExplorer">Abrir skin en el explorador de archivos</system:String>
     <system:String o:Freeze="True" x:Key="main_openInMixer">Mostrar skin en el Mezclador de skin</system:String>
     <system:String o:Freeze="True" x:Key="main_openInEditor">Mostrar skin en el Editor de skin</system:String>
@@ -101,10 +102,10 @@
     <system:String o:Freeze="True" x:Key="main_unsavedChangesDescription">¡Tiene cambios sin guardar! ¿Desea guardar antes de cerrar? (Sus cambios serán recordados si elige No)</system:String>
     <system:String o:Freeze="True" x:Key="main_revertAllTitle">¿Revertir todos los cambios?</system:String>
     <system:String o:Freeze="True" x:Key="main_revertAllDescription">¿Realmente desea revertir todos los cambios realizados en este skin? ¡Esto no se puede deshacer!</system:String>
-    <system:String o:Freeze="True" x:Key="main_skinInfo">Skin status</system:String>
-    <system:String o:Freeze="True" x:Key="main_syncSkinFolders">Synchronize skin directories</system:String>
+    <system:String o:Freeze="True" x:Key="main_skinInfo">Estado del skin</system:String>
+    <system:String o:Freeze="True" x:Key="main_syncSkinFolders">Sincronizar directorios de skin</system:String>
 
-    <system:String o:Freeze="True" x:Key="skin_status_progress">Skin progress (per module)</system:String>
+    <system:String o:Freeze="True" x:Key="skin_status_progress">Progreso del skin (por módulo)</system:String>
 
     <!--Skin.cs-->
     <system:String o:Freeze="True" x:Key="skin_importTitle">¡El skin ya existe!</system:String>
@@ -134,11 +135,11 @@
     <system:String o:Freeze="True" x:Key="edit_selectedElement">Elemento seleccionado:</system:String>
     <system:String o:Freeze="True" x:Key="edit_tips">Sugerencias:</system:String>
     <system:String o:Freeze="True" x:Key="edit_currentlyPlaying">Reproducción en curso:</system:String>
-    <system:String o:Freeze="True" x:Key="edit_btn_animate">Abrir en el ayudante de animación</system:String>
+    <system:String o:Freeze="True" x:Key="edit_btn_animate">Abrir en el Asistente de animación</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_replace">Reemplazar con otro archivo</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_erase">Borrar elemento</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_delete">Eliminar elemento</system:String>
-    <system:String o:Freeze="True" x:Key="mixer_selectRightSkin">Select a skin</system:String>
+    <system:String o:Freeze="True" x:Key="mixer_selectRightSkin">Seleccione un skin</system:String>
 
     <!--Animation helper-->
     <system:String o:Freeze="True" x:Key="animator_fps">FPS</system:String>
@@ -150,26 +151,26 @@
     <system:String o:Freeze="True" x:Key="settings_hint_tempDirectory">Directorio temporal (Osmo guarda los cambios de los skins en este directorio)</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_templateDirectory">Directorio de plantillas</system:String>
     <system:String o:Freeze="True" x:Key="settings_hint_language">Lenguaje</system:String>
-    <system:String o:Freeze="True" x:Key="settings_hint_profile">Selected profile</system:String>
-    <system:String o:Freeze="True" x:Key="settings_hint_profileName">Profile name</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_profile">Perfil seleccionado</system:String>
+    <system:String o:Freeze="True" x:Key="settings_hint_profileName">Nombre del perfil</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_createBackup">Crear una copia de seguridad antes de fusionar skins</system:String>
     <system:String o:Freeze="True" x:Key="settings_cb_openLastSkin">Abrir al inicio el último skin que haya editado</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_general">General</system:String>
     <system:String o:Freeze="True" x:Key="settings_header_editor">Editor</system:String>
-    <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Keyboard shortcuts</system:String>
-    <system:String o:Freeze="True" x:Key="settings_header_shortcutsCheatSheet">Cheat sheet</system:String>
-    <system:String o:Freeze="True" x:Key="settings_title_autodetectNoOsuInstalled">osu! is not installed!</system:String>
-    <system:String o:Freeze="True" x:Key="settings_descr_autodetectNoOsuInstalled">Should osu! be installed make sure it has been installed correctly, otherwise select it manually.</system:String>
-    <system:String o:Freeze="True" x:Key="settings_title_autodetectOsu">Auto-detect osu! folder</system:String>
-    <system:String o:Freeze="True" x:Key="settings_descr_autodetectOsu">Do you wish for Osmo to find your osu! installation folder?</system:String>
-    <system:String o:Freeze="True" x:Key="settings_title_autodetectFailed">Auto-detect failed!</system:String>
-    <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">Are you sure you have osu! installed correctly?</system:String>
-    <system:String o:Freeze="True" x:Key="settings_unsavedChangesDescription">You have unsaved changes to your settings! Do you want to save them first? (Selecting No reverts all changes to your settings)</system:String>
-    <system:String o:Freeze="True" x:Key="settings_header_profile">Profiles</system:String>
-    <system:String o:Freeze="True" x:Key="settings_title_profileRemove">Delete profile?</system:String>
-    <system:String o:Freeze="True" x:Key="settings_descr_profileRemove">Are you sure you want to remove the selected profile? This cannot be undone!</system:String>
-    <system:String o:Freeze="True" x:Key="settings_cb_useDarkTheme">Use dark theme</system:String>
-    <system:String o:Freeze="True" x:Key="settings_cb_useExperimentalFileExplorer">Use experimental file explorer</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcuts">Atajos del teclado</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_shortcutsCheatSheet">Hoja de referencia</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectNoOsuInstalled">¡osu! no está instalado!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectNoOsuInstalled">En caso de que osu! esté instalado, asegúrese de que ha sido instalado correctamente, de lo contrario selecciónelo manualmente.</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectOsu">Auto-detección de la carpeta de osu!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectOsu">¿Desea que Osmo encuentre su carpeta de instalación de osu!?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_autodetectFailed">¡Auto-detección fallida!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_autodetectFailed">¿Está seguro de que ha instalado osu! correctamente?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_unsavedChangesDescription">¡Tiene cambios sin guardar en su configuración! ¿Desea guardarlos primero? (Al seleccionar No se revierten todos los cambios de su configuración)</system:String>
+    <system:String o:Freeze="True" x:Key="settings_header_profile">Perfiles</system:String>
+    <system:String o:Freeze="True" x:Key="settings_title_profileRemove">¿Eliminar perfil?</system:String>
+    <system:String o:Freeze="True" x:Key="settings_descr_profileRemove">¿Está seguro que desea eliminar el perfil seleccionado? ¡Esto no se puede deshacer!</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_useDarkTheme">Usar tema oscuro</system:String>
+    <system:String o:Freeze="True" x:Key="settings_cb_useExperimentalFileExplorer">Usar el explorador de archivos experimental</system:String>
 
     <!--DragDropArea-->
     <system:String o:Freeze="True" x:Key="dragDrop_filter">Archivo skin ejecutable</system:String>
@@ -177,61 +178,61 @@
     <system:String o:Freeze="True" x:Key="dragDrop_areaTitle">¡Arrastre y suelte un archivo .osk o haga clic aquí!</system:String>
 
     <!--TemplateManager-->
-    <system:String o:Freeze="True" x:Key="hint_deleteTemplate">Delete template</system:String>
+    <system:String o:Freeze="True" x:Key="hint_deleteTemplate">Eliminar plantilla</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteTitle">¿Eliminar plantilla?</system:String>
     <system:String o:Freeze="True" x:Key="templateManager_deleteDescription">¿Seguro que desea eliminar esta plantilla?</system:String>
-    <system:String o:Freeze="True" x:Key="hint_templatePreviewSelect">Select a template</system:String>
+    <system:String o:Freeze="True" x:Key="hint_templatePreviewSelect">Seleccione una plantilla</system:String>
 
     <!--TemplateEditor-->
-    <system:String o:Freeze="True" x:Key="snackbar_templateEditor_saveText">Your template has been saved!</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_templateEditor_saveText">¡Su plantilla ha sido guardada!</system:String>
     
     <!--SkinSelect-->
     <system:String o:Freeze="True" x:Key="skinSelect_mySkins">Mis skins</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_deleteTitle">¿Eliminar skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_deleteDescription">¿Seguro que desea eliminar este skin?</system:String>
     <system:String o:Freeze="True" x:Key="skinSelect_exportTitle">Seleccione el directorio al que desea exportar su skin</system:String>
-    <system:String o:Freeze="True" x:Key="skinSelect_loadSkins">Loading skins...</system:String>
+    <system:String o:Freeze="True" x:Key="skinSelect_loadSkins">Cargando skins...</system:String>
 
     <!--ResizeTool-->
-    <system:String o:Freeze="True" x:Key="header_dimensionWidth">Width</system:String>
-    <system:String o:Freeze="True" x:Key="header_dimensionHeight">Height</system:String>
-    <system:String o:Freeze="True" x:Key="header_resize">Resize</system:String>
-    <system:String o:Freeze="True" x:Key="resize_title_select">Auto-select</system:String>
-    <system:String o:Freeze="True" x:Key="resize_select_all">Select all elements</system:String>
-    <system:String o:Freeze="True" x:Key="resize_select_hdOnly">Select all HD elements</system:String>
-    <system:String o:Freeze="True" x:Key="resize_select_nonHdOnly">Select all non-HD elements</system:String>
-    <system:String o:Freeze="True" x:Key="resize_select_none">Deselect all elements</system:String>
-    <system:String o:Freeze="True" x:Key="resize_title_resize">Resize options</system:String>
-    <system:String o:Freeze="True" x:Key="resize_optimalSize">Resize elements to optimal size</system:String>
-    <system:String o:Freeze="True" x:Key="resize_halveSize">Halve element size</system:String>
-    <system:String o:Freeze="True" x:Key="resize_title_file">File options</system:String>
-    <system:String o:Freeze="True" x:Key="resize_file_keepOriginal">Keep original elements after resize</system:String>
-    <system:String o:Freeze="True" x:Key="resize_file_overrideOriginal">Apply resize to original elements</system:String>
-    <system:String o:Freeze="True" x:Key="resize_note">Note: Elements with dimensions of 1x1 are not shown</system:String>
-    <system:String o:Freeze="True" x:Key="dlg_distortedImageTitle">Image distortion warning!</system:String>
-    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription1">The file "</system:String>
-    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription2">" could get distorted if you resize it with the selected resize option. Select an option below to proceed.</system:String>
-    <system:String o:Freeze="True" x:Key="dlg_distortedImageProceed">_PROCEED</system:String>
-    <system:String o:Freeze="True" x:Key="dlg_distortedImageUseHalveSize">_HALVE SIZE</system:String>
-    <system:String o:Freeze="True" x:Key="dlg_distortedImageSkip">_SKIP</system:String>
-    <system:String o:Freeze="True" x:Key="resize_resizingCurrent">Resizing file:</system:String>
+    <system:String o:Freeze="True" x:Key="header_dimensionWidth">Ancho</system:String>
+    <system:String o:Freeze="True" x:Key="header_dimensionHeight">Alto</system:String>
+    <system:String o:Freeze="True" x:Key="header_resize">Cambiar tamaño</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_select">Auto-seleccionar</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_all">Seleccionar todos los elementos</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_hdOnly">Seleccionar todos los elementos HD</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_nonHdOnly">Seleccionar todos los elementos no HD</system:String>
+    <system:String o:Freeze="True" x:Key="resize_select_none">Deseleccionar todos los elementos</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_resize">Opciones de cambio de tamaño</system:String>
+    <system:String o:Freeze="True" x:Key="resize_optimalSize">Cambiar el tamaño de los elementos a un tamaño óptimo</system:String>
+    <system:String o:Freeze="True" x:Key="resize_halveSize">Reducir a la mitad el tamaño del elemento</system:String>
+    <system:String o:Freeze="True" x:Key="resize_title_file">Opciones de archivo</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_keepOriginal">Conservar los elementos originales después del cambio de tamaño</system:String>
+    <system:String o:Freeze="True" x:Key="resize_file_overrideOriginal">Aplicar cambio de tamaño a los elementos originales</system:String>
+    <system:String o:Freeze="True" x:Key="resize_note">Nota: Los elementos con dimensiones de 1x1 no se muestran</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageTitle">¡Advertencia de distorsión de imagen!</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription1">El archivo "</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageDescription2">" podría distorsionarse si le cambia el tamaño con la opción de cambio de tamaño seleccionada. Seleccione una de las siguientes opciones para continuar.</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageProceed">_PROCEDER</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageUseHalveSize">_REDUCIR A MITAD DEL TAMAÑO</system:String>
+    <system:String o:Freeze="True" x:Key="dlg_distortedImageSkip">_OMITIR</system:String>
+    <system:String o:Freeze="True" x:Key="resize_resizingCurrent">Cambiando el tamaño del archivo:</system:String>
 
     <!--FilePicker-->
-    <system:String o:Freeze="True" x:Key="header_extension">Extension</system:String>
-    <system:String o:Freeze="True" x:Key="picker_displayDetails">Details</system:String>
-    <system:String o:Freeze="True" x:Key="picker_displaySymbols">Symbols</system:String>
-    <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Display as</system:String>
-    <system:String o:Freeze="True" x:Key="hint_selectedFile">Selected file</system:String>
-    <system:String o:Freeze="True" x:Key="hint_selectedFolder">Selected directory</system:String>
+    <system:String o:Freeze="True" x:Key="header_extension">Extensión</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displayDetails">Detalles</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySymbols">Símbolos</system:String>
+    <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Mostrar como</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFile">Archivo seleccionado</system:String>
+    <system:String o:Freeze="True" x:Key="hint_selectedFolder">Directorio seleccionado</system:String>
 
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">¡Osmo es de código abierto!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Haga clic aquí</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource3">para ir al repositorio de GitHub.</system:String>
-    <system:String o:Freeze="True" x:Key="about_sessionId">Session id:</system:String>
-    <system:String o:Freeze="True" x:Key="tip_sessionId">The session id is used inside your log files. This is especially useful if you have multiple instances of Osmo open and one of them crashes or generates errors.</system:String>
-    <system:String o:Freeze="True" x:Key="tip_copySessionId">Copy the session id to your clipboard.</system:String>
-    <system:String o:Freeze="True" x:Key="snackbar_sessionId">Session id copied to clipboard!</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Id. de sesión: {0}</system:String>
+    <system:String o:Freeze="True" x:Key="tip_sessionId">El id. de sesión se utiliza dentro de sus archivos de registro. Esto es especialmente útil si tiene varias instancias de Osmo abiertas y una de ellas se bloquea o genera errores.</system:String>
+    <system:String o:Freeze="True" x:Key="tip_copySessionId">Copia el id. de sesión en su portapapeles.</system:String>
+    <system:String o:Freeze="True" x:Key="snackbar_sessionId">¡Id. de sesión copiado al portapapeles!</system:String>
 
     <!--New template dialog-->
     <system:String o:Freeze="True" x:Key="newTemplate_title">Crear una nueva plantilla</system:String>
@@ -241,8 +242,8 @@
 
     <!--Tooltips-->
     <system:String o:Freeze="True" x:Key="tip_searchOsuDirectory">Empezar buscando su directorio de osu!</system:String>
-    <system:String o:Freeze="True" x:Key="tip_searchTempDirectory">Empezar buscando su directorio de osu!</system:String>
-    <system:String o:Freeze="True" x:Key="tip_searchTemplateDirectory">Empezar buscando su directorio de osu!</system:String>
+    <system:String o:Freeze="True" x:Key="tip_searchTempDirectory">Empezar buscando su directorio temporal</system:String>
+    <system:String o:Freeze="True" x:Key="tip_searchTemplateDirectory">Empezar buscando su directorio de plantillas</system:String>
     <system:String o:Freeze="True" x:Key="tip_settings_abort">Revierte todos los cambios de sus ajustes</system:String>
     <system:String o:Freeze="True" x:Key="tip_settings_save">Guarda su configuración</system:String>
     <system:String o:Freeze="True" x:Key="tip_wizard_abort">Aborta el asistente de creación del skin</system:String>
@@ -267,24 +268,24 @@
     <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_load">Carga el skin seleccionado</system:String>
     <system:String o:Freeze="True" x:Key="tip_skinMixerSelect_abort">Cierra la selección</system:String>
     <system:String o:Freeze="True" x:Key="tip_revert">Revertir cambios</system:String>
-    <system:String o:Freeze="True" x:Key="tip_mixer_transfer">Sobrescribe el elemento seleccionado a la izquierda con el elemento seleccionado a la derecha</system:String>
+    <system:String o:Freeze="True" x:Key="tip_mixer_transfer">Sobrescribir el elemento de la izquierda con el elemento de la derecha</system:String>
     <system:String o:Freeze="True" x:Key="tip_mixer_loadRightSkin">Abre el selector de skins donde puede cargar un skin en la lista de la derecha</system:String>
     <system:String o:Freeze="True" x:Key="tip_revertSelected">Revertir cambios del elemento seleccionado</system:String>
     <system:String o:Freeze="True" x:Key="tip_mute">Silenciar/Desilenciar la reproducción</system:String>
     <system:String o:Freeze="True" x:Key="tip_play">Reproducir el archivo seleccionado</system:String>
     <system:String o:Freeze="True" x:Key="tip_pause">Pausar la reproducción</system:String>
     <system:String o:Freeze="True" x:Key="tip_stop">Detener la reproducción</system:String>
-    <system:String o:Freeze="True" x:Key="tip_noSkinIni">This skin does not contain a skin.ini!</system:String>
-    <system:String o:Freeze="True" x:Key="tip_newProfile_cancel">Abort the profile creation</system:String>
-    <system:String o:Freeze="True" x:Key="tip_newProfile_create">Creates a new profile with the given name</system:String>
-    <system:String o:Freeze="True" x:Key="tip_closeAnimationHelper">Close animation helper</system:String>
+    <system:String o:Freeze="True" x:Key="tip_noSkinIni">¡Este skin no contiene un skin.ini!</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newProfile_cancel">Aborta la creación del perfil</system:String>
+    <system:String o:Freeze="True" x:Key="tip_newProfile_create">Crea un nuevo perfil con el nombre especificado</system:String>
+    <system:String o:Freeze="True" x:Key="tip_closeAnimationHelper">Cerrar el asistente de animación</system:String>
 
     <system:String o:Freeze="True" x:Key="tip_templateEditor_preview">Vista previa</system:String>
 
     <!--Folder browser dialog titles-->
     <system:String o:Freeze="True" x:Key="export_selectDirectory">Seleccione el directorio al que desea exportar su skin</system:String>
     <system:String o:Freeze="True" x:Key="settings_selectOsuDirectory">Seleccione su directorio de osu!</system:String>
-    <system:String o:Freeze="True" x:Key="settings_selectBackupDirectory">Select your backup directory</system:String>
+    <system:String o:Freeze="True" x:Key="settings_selectBackupDirectory">Seleccione su directorio de copia de seguridad</system:String>
 
     <!--AudioCore-->
     <system:String o:Freeze="True" x:Key="dlg_invalidAudioTitle">¡Archivo de audio no válido!</system:String>
@@ -314,10 +315,10 @@
     <system:String o:Freeze="True" x:Key="txt_creatingFile">Creando archivo:</system:String>
 
     <!-- MenuItems -->
-    <system:String o:Freeze="True" x:Key="menuItem_openInResizer">Open in Resize Tool</system:String>
+    <system:String o:Freeze="True" x:Key="menuItem_openInResizer">Abrir en la Herramienta de cambio de tamaño</system:String>
 
     <!-- SkinSync -->
-    <system:String o:Freeze="True" x:Key="sync_title">Synchronize skins between profiles</system:String>
+    <system:String o:Freeze="True" x:Key="sync_title">Sincronizar skins entre perfiles</system:String>
 
     <!--Completion data descriptions-->
     <!--   Template completion data-->
@@ -325,7 +326,7 @@
     <system:String o:Freeze="True" x:Key="completion_template_author">Este es su nombre (tomado de skin.ini)</system:String>
     <system:String o:Freeze="True" x:Key="completion_template_version">Esta es la versión de su skin (tomado de skin.ini)</system:String>
     <system:String o:Freeze="True" x:Key="completion_template_size">Este es el tamaño de la carpeta de su skin</system:String>
-    <system:String o:Freeze="True" x:Key="completion_template_date">This is the placeholder for the "release date" of your skin</system:String>
+    <system:String o:Freeze="True" x:Key="completion_template_date">Esta es la "fecha de lanzamiento" de su skin</system:String>
 
     <!--   skin.ini General completion data-->
     <system:String o:Freeze="True" x:Key="completion_skin_name">¿Cuál es el nombre de este skin?</system:String>
@@ -444,13 +445,13 @@
     <system:String o:Freeze="True" x:Key="completion_skin_hit300g">¿Cuál es el nombre de la imagen hit300g?</system:String>
 
     <!--Crash window-->
-    <system:String o:Freeze="True" x:Key="crash_title1">Mom's spaghetti!</system:String>
-    <system:String o:Freeze="True" x:Key="crash_title2">What the flipping fish sticks?</system:String>
-    <system:String o:Freeze="True" x:Key="crash_title3">Holy guacamole!</system:String>
-    <system:String o:Freeze="True" x:Key="crash_title4">Bloody bugs have eaten Osmo!</system:String>
-    <system:String o:Freeze="True" x:Key="crash_title5">Yikes!</system:String>
-    <system:String o:Freeze="True" x:Key="crash_title6">What the fudge?!</system:String>
-    <system:String o:Freeze="True" x:Key="crash_title7">Bamboozled!</system:String>
-    <system:String o:Freeze="True" x:Key="crash_description1">It seems like Osmo has crashed! A crash log has been created under "</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title1">¡Mom's spaghetti!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title2">¡Pero qué demonios!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title3">¡Cielo santo!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title4">¡Maldita sea, Osmo ha sido devorado por bichos!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title5">¡Caray!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title6">¡¿Qué cara...?!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_title7">¡Bamboozled!</system:String>
+    <system:String o:Freeze="True" x:Key="crash_description1">¡Parece que Osmo se ha bloqueado! Se ha creado un informe de bloqueo en "</system:String>
     <system:String o:Freeze="True" x:Key="crash_description2">".</system:String>
 </ResourceDictionary>
