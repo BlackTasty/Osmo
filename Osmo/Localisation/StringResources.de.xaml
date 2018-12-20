@@ -229,7 +229,7 @@
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo ist Open Source!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Klick hier</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource3">um zum GitHub Repo zu gelangen.</system:String>
-    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID:</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID: {0}</system:String>
     <system:String o:Freeze="True" x:Key="tip_sessionId">Die Session ID wird in deinen Log Dateien verwendet. Dies ist vorallem dann nützlich wenn du mehrere Instanzen von Osmo offen hast und eine crasht oder erzeugt Fehler.</system:String>
     <system:String o:Freeze="True" x:Key="tip_copySessionId">Kopiere die Session ID in die Zwischenablage.</system:String>
     <system:String o:Freeze="True" x:Key="snackbar_sessionId">Die Session ID wurde in die Zwischenablage kopiert!</system:String>
