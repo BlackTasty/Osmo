@@ -37,7 +37,7 @@
     </ScrollViewer>-->
     <DockPanel Grid.ColumnSpan="4">
         <StackPanel DockPanel.Dock="Bottom" Visibility="{Binding SkinManager.IsLoadingSkins, Converter={StaticResource BoolToVisibility}}">
-            <TextBlock>
+            <TextBlock TextWrapping="Wrap">
                 <Run Text="{DynamicResource skinSelect_loadSkins}"/> <Run Text="{Binding SkinManager.SkinLoadStatusText, Mode=OneWay}"/>
             </TextBlock>
             <ProgressBar Value="{Binding SkinManager.SkinLoadCurrent}" 

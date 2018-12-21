@@ -23,6 +23,7 @@
     <system:String o:Freeze="True" x:Key="creator">Ersteller</system:String>
     <system:String o:Freeze="True" x:Key="version">Version</system:String>
     <system:String o:Freeze="True" x:Key="name">Name</system:String>
+    <system:String o:Freeze="True" x:Key="sb_name">File name</system:String>
     <system:String o:Freeze="True" x:Key="delete">Löschen</system:String>
     <system:String o:Freeze="True" x:Key="export">Exportieren</system:String>
 
@@ -51,6 +52,12 @@
     <system:String o:Freeze="True" x:Key="donate">_Spenden</system:String>
     <system:String o:Freeze="True" x:Key="startResize">_STARTE SKALIERUNG</system:String>
     <system:String o:Freeze="True" x:Key="remove">_ENTFERNEN</system:String>
+    <system:String o:Freeze="True" x:Key="search">_SUCHEN...</system:String>
+    <system:String o:Freeze="True" x:Key="generate">_ERSTELLEN</system:String>
+    <system:String o:Freeze="True" x:Key="reset">_ZURÜCKSETZEN</system:String>
+    <system:String o:Freeze="True" x:Key="download">_DOWNLOAD</system:String>
+    <system:String o:Freeze="True" x:Key="restart">_NEUSTART</system:String>
+    <system:String o:Freeze="True" x:Key="later">_SPÄTER</system:String>
 
     <!--  Validation-->
     <system:String o:Freeze="True" x:Key="validationError_directory">Ungültiger Ordner!</system:String>
@@ -87,6 +94,8 @@
     <system:String o:Freeze="True" x:Key="sidebar_about">Über</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Resize Tool</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Vorlageneditor</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_tools">Tools</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_tools_sbCreator">Sliderball Creator</system:String>
 
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Änderungen rückgängig machen</system:String>
@@ -135,7 +144,7 @@
     <system:String o:Freeze="True" x:Key="edit_selectedElement">Ausgewähltes Element:</system:String>
     <system:String o:Freeze="True" x:Key="edit_tips">Tipps:</system:String>
     <system:String o:Freeze="True" x:Key="edit_currentlyPlaying">Zurzeit abgespielt:</system:String>
-    <system:String o:Freeze="True" x:Key="edit_btn_animate">Öffne im Animationsassistenen</system:String>
+    <system:String o:Freeze="True" x:Key="edit_btn_animate">Öffne im Animationsassistenten</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_replace">Mit anderer Datei ersetzen</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_erase">Element leeren</system:String>
     <system:String o:Freeze="True" x:Key="edit_btn_delete">Element löschen</system:String>
@@ -224,12 +233,13 @@
     <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Anzeigen als</system:String>
     <system:String o:Freeze="True" x:Key="hint_selectedFile">Ausgewählte Datei</system:String>
     <system:String o:Freeze="True" x:Key="hint_selectedFolder">Ausgewählter Ordner</system:String>
+    <system:String o:Freeze="True" x:Key="picker_WIPInfo">INFO: Dieser Dialog ist noch ein Work in Progess. Du kannst dieses Feature jederzeit über die Einstellungen deaktivieren.</system:String>
 
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo ist Open Source!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Klick hier</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource3">um zum GitHub Repo zu gelangen.</system:String>
-    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID:</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID: {0}</system:String>
     <system:String o:Freeze="True" x:Key="tip_sessionId">Die Session ID wird in deinen Log Dateien verwendet. Dies ist vorallem dann nützlich wenn du mehrere Instanzen von Osmo offen hast und eine crasht oder erzeugt Fehler.</system:String>
     <system:String o:Freeze="True" x:Key="tip_copySessionId">Kopiere die Session ID in die Zwischenablage.</system:String>
     <system:String o:Freeze="True" x:Key="snackbar_sessionId">Die Session ID wurde in die Zwischenablage kopiert!</system:String>
@@ -319,6 +329,29 @@
 
     <!-- SkinSync -->
     <system:String o:Freeze="True" x:Key="sync_title">Skins zwischen Profilen synchronisieren</system:String>
+
+    <!-- Sliderball Creator -->
+    <system:String o:Freeze="True" x:Key="sb_imagePath">Pfad zum Bild</system:String>
+    <system:String o:Freeze="True" x:Key="sb_title_configuration">1. Konfiguration</system:String>
+    <system:String o:Freeze="True" x:Key="sb_title_preview">2. Vorschau</system:String>
+    <system:String o:Freeze="True" x:Key="sb_hint_fps">Anzahl der Bilder</system:String>
+    <system:String o:Freeze="True" x:Key="sb_hint_duration">Animationsdauer</system:String>
+    <system:String o:Freeze="True" x:Key="sb_selectImage">Wähle ein Bild aus das du animieren willst</system:String>
+    <system:String o:Freeze="True" x:Key="sb_saveSliderball">Wähle den Speicherort für deinen Sliderball</system:String>
+    <system:String o:Freeze="True" x:Key="sb_sliderballSaved">Sliderball gespeichert!</system:String>
+    <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">Bring mich hin!</system:String>
+
+    <!-- Updater -->
+    <system:String o:Freeze="True" x:Key="updater_searching">Suche nach Updates...</system:String>
+    <system:String o:Freeze="True" x:Key="updater_ready">Updates gefunden!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_downloading">Osmo lädt die neuesten Updates herunter!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_installing">Installing updates...</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status1">Status: Herunterladen -</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status2">von</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed1">Oh nein, etwas ist schief gegangen!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed2">Versuch es später erneut oder erstelle ein Issue auf GitHub.</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done1">Fast fertig!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done2">Nur noch Osmo neu starten und genießen!</system:String>
 
     <!--Completion data descriptions-->
     <!--   Template completion data-->

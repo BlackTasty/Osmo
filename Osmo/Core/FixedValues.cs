@@ -176,10 +176,10 @@ namespace Osmo.Core
         internal const int WIZARD_INDEX = 1;
         internal const int EDITOR_INDEX = 2;
         internal const int MIXER_INDEX = 3;
-        internal const int RESIZE_TOOL_INDEX = 4;
         internal const int CONFIG_INDEX = 6;
         internal const int ABOUT_INDEX = 7;
         internal const int TEMPLATE_EDITOR_INDEX = 8;
+        internal const int RESIZE_TOOL_INDEX = 20;
         
         internal const string LOCAL_FILENAME = "Runtime.zip";
 

@@ -176,12 +176,12 @@
                     </ComboBox>
 
                     <TextBlock Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Grid.Row="9"
-                               Text="{DynamicResource settings_cb_useDarkTheme}"/>
+                               Text="{DynamicResource settings_cb_useDarkTheme}" TextWrapping="Wrap"/>
                     <ToggleButton x:Name="cb_darkTheme" Grid.Column="3" Grid.Row="9" IsChecked="{Binding DarkTheme}"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
 
                     <TextBlock Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" Grid.Row="11"
-                               Text="{DynamicResource settings_cb_useExperimentalFileExplorer}"/>
+                               Text="{DynamicResource settings_cb_useExperimentalFileExplorer}" TextWrapping="Wrap"/>
                     <ToggleButton x:Name="cb_useExperimaentalFileExplorer" Grid.Column="3" Grid.Row="11" 
                                   IsChecked="{Binding UseExperimentalFileExplorer}"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
@@ -208,11 +208,11 @@
                         <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center"
-                               Text="{DynamicResource settings_cb_createBackup}"/>
+                               Text="{DynamicResource settings_cb_createBackup}" TextWrapping="Wrap"/>
                     <ToggleButton x:Name="cb_backupSkin" Grid.Column="3" IsChecked="{Binding BackupBeforeMixing}"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
                     <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,7.02" VerticalAlignment="Center"
-                               Text="{DynamicResource settings_cb_openLastSkin}"/>
+                               Text="{DynamicResource settings_cb_openLastSkin}" TextWrapping="Wrap"/>
                     <ToggleButton x:Name="cb_reopenLastSkin" Grid.Row="4" Grid.Column="3" IsChecked="{Binding ReopenLastSkin}"
                                   Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
                 </Grid>

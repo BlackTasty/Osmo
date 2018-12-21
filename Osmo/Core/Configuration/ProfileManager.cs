@@ -35,6 +35,8 @@ namespace Osmo.Core.Configuration
         public VeryObservableCollection<AppConfiguration> Profiles { get; set; }
                = new VeryObservableCollection<AppConfiguration>("Profiles", false);
 
+        public bool IsDefault { get => Profile.Equals(DefaultProfile); }
+
         public ProfileManager(AppConfiguration defaultProfile)
         {
             Logger.Instance.WriteLog("Initializing profile manager...");

@@ -57,7 +57,7 @@ namespace Osmo.ViewModel
 
         public VeryObservableCollection<Skin> Skins { get => SkinManager?.Skins; }
 
-        public SidebarEntry[] Items { get; private set; }
+        public List<SidebarEntry> Items { get; private set; }
 
         public int SelectedSkinIndex
         {
@@ -65,7 +65,7 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedSkinIndex = value;
-                InvokePropertyChanged("SelectedSkinIndex");
+                InvokePropertyChanged();
             }
         }
 
@@ -74,8 +74,22 @@ namespace Osmo.ViewModel
             get => mSelectedSidebarIndex;
             set
             {
+                if (Items[value].HasChildren)
+                {
+                    Items[mSelectedSidebarIndex].ToggleSubEntries(false);
+                    Items[value].ToggleSubEntries(true);
+                }
+                else if (Items[mSelectedSidebarIndex] is SidebarSubEntry subEntry)
+                {
+                    subEntry.ParentEntry.ToggleSubEntries(false);
+                    Items[value].ToggleSubEntries(true);
+                }
+
                 mSelectedSidebarIndex = value;
-                InvokePropertyChanged("SelectedSidebarIndex");
+
+                //SelectedEntry = Items[value];
+                InvokePropertyChanged("Items");
+                InvokePropertyChanged();
             }
         }
 
@@ -93,7 +107,7 @@ namespace Osmo.ViewModel
                 {
                     SkinManager.SkinDirectory = value;
                 }
-                InvokePropertyChanged("OsuDirectory");
+                InvokePropertyChanged();
             }
         }
 
@@ -103,7 +117,7 @@ namespace Osmo.ViewModel
             set
             {
                 mBackupDirectory = value;
-                InvokePropertyChanged("BackupDirectory");
+                InvokePropertyChanged();
             }
         }
 
@@ -113,7 +127,7 @@ namespace Osmo.ViewModel
             set
             {
                 mBackupDirectorySize = value;
-                InvokePropertyChanged("BackupDirectorySize");
+                InvokePropertyChanged();
             }
         }
 
@@ -134,7 +148,6 @@ namespace Osmo.ViewModel
                 InvokePropertyChanged("Items");
             }
         }
-
         public OsmoViewModel()
         {
             if (!App.IsDesigner)
@@ -148,17 +161,28 @@ namespace Osmo.ViewModel
                     SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
                 }
 
-                Items = new SidebarEntry[]
+                SidebarEntry tools = new SidebarEntry("sidebar_tools", MaterialDesignThemes.Wpf.PackIconKind.Toolbox, null, 4);
+                List<SidebarSubEntry> toolsSubEntries = new List<SidebarSubEntry>()
                 {
-                new SidebarEntry("sidebar_home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance, 0),
-                new SidebarEntry("sidebar_wizard", MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance, 1),
-                new SidebarEntry("sidebar_editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, 2, false),
-                new SidebarEntry("sidebar_mixer", MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, 3, false),
-                new SidebarEntry("sidebar_resizeTool", MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance, 4),
-                new SidebarEntry("sidebar_templateManager", MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance, 5),
-                new SidebarEntry("sidebar_settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance, 6),
-                new SidebarEntry("sidebar_about", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance, 7),
-                new SidebarEntry("sidebar_templateEditor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, 8, Visibility.Hidden)
+                    new SidebarSubEntry("sidebar_resizeTool", MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance, 20, tools),
+                    new SidebarSubEntry("sidebar_tools_sbCreator", MaterialDesignThemes.Wpf.PackIconKind.Animation, SliderballCreator.Instance, 21, tools)
+                };
+
+                tools.SetSubEntries(toolsSubEntries);
+                
+                Items = new List<SidebarEntry>()
+                {
+                    new SidebarEntry("sidebar_home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance, 0),
+                    new SidebarEntry("sidebar_wizard", MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance, 1),
+                    new SidebarEntry("sidebar_editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, 2, false),
+                    new SidebarEntry("sidebar_mixer", MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, 3, false),
+                    tools,
+                    toolsSubEntries[0],
+                    toolsSubEntries[1],
+                    new SidebarEntry("sidebar_templateManager", MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance, 5),
+                    new SidebarEntry("sidebar_settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance, 6),
+                    new SidebarEntry("sidebar_about", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance, 7),
+                    new SidebarEntry("sidebar_templateEditor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, 8, Visibility.Hidden)
                 };
             }
         }

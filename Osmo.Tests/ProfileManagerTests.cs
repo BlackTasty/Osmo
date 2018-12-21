@@ -10,6 +10,16 @@ namespace Osmo.Tests
         private static ProfileManager profileManager;
         private static string testProfileName = "UnitTestProfile";
 
+        public ProfileManagerTests()
+        {
+            AppConfiguration configuration = new AppConfiguration()
+            {
+                OsuDirectory = @"\."
+            };
+            configuration.Save();
+            profileManager = new ProfileManager(configuration);
+        }
+
         [TestMethod]
         public void Test_All()
         {
@@ -29,9 +39,8 @@ namespace Osmo.Tests
         [TestMethod]
         public void ReadConfigurations()
         {
-            Console.WriteLine("===== TEST: READ CONFIGURATION =====");
-            profileManager = new ProfileManager(new AppConfiguration());
 
+            Console.WriteLine("===== TEST: READ CONFIGURATION =====");
             PrintProfileManagerDetails(profileManager);
 
             Console.WriteLine("Assert: Is current configuration valid?");
@@ -39,7 +48,7 @@ namespace Osmo.Tests
             Console.WriteLine("Yes!");
 
             Console.WriteLine("Assert: Is current configuration the default one?");
-            Assert.IsTrue(profileManager.Profile.IsDefault);
+            Assert.IsTrue(profileManager.IsDefault);
             Console.WriteLine("Yes!");
 
             foreach (var config in profileManager.Profiles)
@@ -54,10 +63,10 @@ namespace Osmo.Tests
         public void SwapConfiguration()
         {
             Console.WriteLine("===== TEST: SWAP CONFIGURATION =====");
-            profileManager = new ProfileManager(new AppConfiguration());
             Console.WriteLine("--- Current loaded configuration ---");
             PrintConfiguration(profileManager.Profile);
 
+            Console.WriteLine("Assert: Is current configuration \"Harry\"?");
             Assert.IsTrue(profileManager.ChangeActiveProfile("Harry"));
 
             Console.WriteLine("--- Current loaded configuration ---");
@@ -70,7 +79,7 @@ namespace Osmo.Tests
 
             Console.WriteLine("--- Current loaded configuration ---");
             PrintConfiguration(profileManager.Profile);
-            Assert.IsTrue(profileManager.Profile.IsDefault);
+            Assert.IsTrue(profileManager.IsDefault);
             Console.WriteLine("Default configuration loaded. Success!");
         }
 
@@ -78,7 +87,6 @@ namespace Osmo.Tests
         public void SwapInvalidConfiguration()
         {
             Console.WriteLine("===== TEST: SWAP INVALID CONFIGURATION =====");
-            profileManager = new ProfileManager(new AppConfiguration());
             AppConfiguration current = profileManager.Profile;
 
             Console.WriteLine("--- Current loaded configuration ---");
@@ -107,7 +115,6 @@ namespace Osmo.Tests
         public void AddProfile()
         {
             Console.WriteLine("===== TEST: ADD PROFILE =====");
-            profileManager = new ProfileManager(new AppConfiguration());
 
             AppConfiguration newProfile = new AppConfiguration(testProfileName)
             {
@@ -131,7 +138,6 @@ namespace Osmo.Tests
         public void EditProfile()
         {
             Console.WriteLine("===== TEST: EDIT PROFILE =====");
-            profileManager = new ProfileManager(new AppConfiguration());
             AppConfiguration testConfig = profileManager.GetProfileByName(testProfileName);
 
             Console.WriteLine("--- Unchanged test configuration ---");
@@ -155,7 +161,6 @@ namespace Osmo.Tests
         public void RenameProfile()
         {
             Console.WriteLine("===== TEST: RENAME PROFILE =====");
-            profileManager = new ProfileManager(new AppConfiguration());
             AppConfiguration testConfig = profileManager.GetProfileByName(testProfileName);
 
             Console.WriteLine("--- Unchanged test configuration ---");
@@ -175,7 +180,6 @@ namespace Osmo.Tests
         public void RemoveProfile()
         {
             Console.WriteLine("===== TEST: REMOVE PROFILE =====");
-            profileManager = new ProfileManager(new AppConfiguration());
             Assert.IsTrue(profileManager.RemoveProfile(testProfileName));
         }
         #endregion
@@ -184,37 +188,37 @@ namespace Osmo.Tests
         private void PrintProfileManagerDetails(ProfileManager profileManager)
         {
             Console.WriteLine("--- Profile Manager data ---");
-            Console.WriteLine("\tDefault configuration:");
+            Console.WriteLine("\nDefault configuration:");
             PrintConfiguration(profileManager.Profile);
 
             Console.WriteLine("\n\n--- Profile Manager profiles ---");
             foreach (var config in profileManager.Profiles)
             {
-                Console.WriteLine("\n\t--- Profile: {0} ---", config.ProfileName);
+                Console.WriteLine("\nProfile: {0}", config.ProfileName);
                 PrintConfiguration(config);
             }
         }
 
         private void PrintConfiguration(AppConfiguration configuration)
         {
-            Console.WriteLine("\t\tFilePath: {0}", configuration.FilePath);
-            Console.WriteLine("\t\tIsValid: {0}", configuration.IsValid);
-            Console.WriteLine("\t\tBackupBeforeMixing: {0}", configuration.BackupBeforeMixing);
-            Console.WriteLine("\t\tBackupDirectory: {0}", configuration.BackupDirectory);
-            Console.WriteLine("\t\tDisclaimerRead: {0}", configuration.DisclaimerRead);
-            Console.WriteLine("\t\tLanguage: {0}", configuration.Language);
-            Console.WriteLine("\t\tOsuDirectory: {0}", configuration.OsuDirectory);
-            if (!configuration.IsDefault)
+            Console.WriteLine("\tFilePath: {0}", configuration.FilePath);
+            Console.WriteLine("\tIsValid: {0}", configuration.IsValid);
+            Console.WriteLine("\tBackupBeforeMixing: {0}", configuration.BackupBeforeMixing);
+            Console.WriteLine("\tBackupDirectory: {0}", configuration.BackupDirectory);
+            Console.WriteLine("\tDisclaimerRead: {0}", configuration.DisclaimerRead);
+            Console.WriteLine("\tLanguage: {0}", configuration.Language);
+            Console.WriteLine("\tOsuDirectory: {0}", configuration.OsuDirectory);
+            if (!profileManager.IsDefault)
             {
-                Console.WriteLine("\t\tProfileName: {0}", configuration.ProfileName);
+                Console.WriteLine("\tProfileName: {0}", configuration.ProfileName);
             }
             else
             {
-                Console.WriteLine("\t\tProfilePath: {0}", configuration.ProfilePath);
+                Console.WriteLine("\tProfilePath: {0}", configuration.ProfilePath);
             }
-            Console.WriteLine("\t\tReopenLastSkin: {0}", configuration.ReopenLastSkin);
-            Console.WriteLine("\t\tTemplateDirectory: {0}", configuration.TemplateDirectory);
-            Console.WriteLine("\t\tUnsavedChanges: {0}", configuration.UnsavedChanges);
+            Console.WriteLine("\tReopenLastSkin: {0}", configuration.ReopenLastSkin);
+            Console.WriteLine("\tTemplateDirectory: {0}", configuration.TemplateDirectory);
+            Console.WriteLine("\tUnsavedChanges: {0}", configuration.UnsavedChanges);
         }
         #endregion
     }

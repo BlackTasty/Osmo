@@ -20,6 +20,7 @@
     <system:String o:Freeze="True" x:Key="creator">Creator</system:String>
     <system:String o:Freeze="True" x:Key="version">Version</system:String>
     <system:String o:Freeze="True" x:Key="name">Name</system:String>
+    <system:String o:Freeze="True" x:Key="sb_name">File name</system:String>
     <system:String o:Freeze="True" x:Key="delete">Delete</system:String>
     <system:String o:Freeze="True" x:Key="export">Export</system:String>
 
@@ -48,6 +49,12 @@
     <system:String o:Freeze="True" x:Key="donate">_Donate</system:String>
     <system:String o:Freeze="True" x:Key="startResize">_START RESIZE</system:String>
     <system:String o:Freeze="True" x:Key="remove">_REMOVE</system:String>
+    <system:String o:Freeze="True" x:Key="search">_SEARCH...</system:String>
+    <system:String o:Freeze="True" x:Key="generate">_GENERATE</system:String>
+    <system:String o:Freeze="True" x:Key="reset">_RESET</system:String>
+    <system:String o:Freeze="True" x:Key="download">_DOWNLOAD</system:String>
+    <system:String o:Freeze="True" x:Key="restart">_RESTART</system:String>
+    <system:String o:Freeze="True" x:Key="later">_LATER</system:String>
 
     <!--  Validation-->
     <system:String o:Freeze="True" x:Key="validationError_directory">Invalid directory!</system:String>
@@ -84,6 +91,8 @@
     <system:String o:Freeze="True" x:Key="sidebar_about">About</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Resize Tool</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Template Editor</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_tools">Tools</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_tools_sbCreator">Sliderball Creator</system:String>
 
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Revert all changes</system:String>
@@ -221,12 +230,13 @@
     <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Display as</system:String>
     <system:String o:Freeze="True" x:Key="hint_selectedFile">Selected file</system:String>
     <system:String o:Freeze="True" x:Key="hint_selectedFolder">Selected directory</system:String>
+    <system:String o:Freeze="True" x:Key="picker_WIPInfo">INFO: This dialog is still a work in progress. You can always opt-out via the settings.</system:String>
 
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">Osmo is open source!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Click here</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource3">to go to the GitHub repo.</system:String>
-    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID:</system:String>
+    <system:String o:Freeze="True" x:Key="about_sessionId">Session ID: {0}</system:String>
     <system:String o:Freeze="True" x:Key="tip_sessionId">The session ID is used inside your log files. This is especially useful if you have multiple instances of Osmo open and one of them crashes or generates errors.</system:String>
     <system:String o:Freeze="True" x:Key="tip_copySessionId">Copy the session id to your clipboard.</system:String>
     <system:String o:Freeze="True" x:Key="snackbar_sessionId">Session ID copied to clipboard!</system:String>
@@ -316,6 +326,29 @@
 
     <!-- SkinSync -->
     <system:String o:Freeze="True" x:Key="sync_title">Synchronize skins between profiles</system:String>
+
+    <!-- Sliderball Creator -->
+    <system:String o:Freeze="True" x:Key="sb_imagePath">Path to image</system:String>
+    <system:String o:Freeze="True" x:Key="sb_title_configuration">1. Configuration</system:String>
+    <system:String o:Freeze="True" x:Key="sb_title_preview">2. Preview</system:String>
+    <system:String o:Freeze="True" x:Key="sb_hint_fps">Number of frames</system:String>
+    <system:String o:Freeze="True" x:Key="sb_hint_duration">Animation duration</system:String>
+    <system:String o:Freeze="True" x:Key="sb_selectImage">Select an image which you want to animate</system:String>
+    <system:String o:Freeze="True" x:Key="sb_saveSliderball">Choose a save location for your slider ball</system:String>
+    <system:String o:Freeze="True" x:Key="sb_sliderballSaved">Sliderball saved!</system:String>
+    <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">Take me there!</system:String>
+
+    <!-- Updater -->
+    <system:String o:Freeze="True" x:Key="updater_searching">Searching for updates...</system:String>
+    <system:String o:Freeze="True" x:Key="updater_ready">Updates found!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_downloading">Osmo is downloading the latest updates!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_installing">Installing updates...</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status1">Status: Downloading -</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status2">from</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed1">Oh no, something went wrong!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed2">Try again later or open an issue on GitHub.</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done1">Almost done!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done2">Just restart Osmo and enjoy!</system:String>
 
     <!--Completion data descriptions-->
     <!--   Template completion data-->

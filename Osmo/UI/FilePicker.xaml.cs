@@ -2,7 +2,9 @@
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Osmo.Core;
+using Osmo.Core.Configuration;
 using Osmo.Core.FileExplorer;
+using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -66,7 +68,8 @@ namespace Osmo.UI
         // Using a DependencyProperty as the backing store for InitialDirectory.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty InitialDirectoryProperty =
             DependencyProperty.Register("InitialDirectory", typeof(string), typeof(FilePicker),
-                new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnInitialDirectoryChanged)));
+                new FrameworkPropertyMetadata(App.ProfileManager.Profile.OsuDirectory, 
+                    new PropertyChangedCallback(OnInitialDirectoryChanged)));
         #endregion
         
         #region IsFolderSelect
@@ -123,6 +126,23 @@ namespace Osmo.UI
             DependencyProperty.Register("Title", typeof(string), typeof(FilePicker), new PropertyMetadata(""));
         #endregion
 
+        #region FilterType
+        public FileType FilterType
+        {
+            get { return (FileType)GetValue(FilterTypeProperty); }
+            set
+            {
+                SetValue(FilterTypeProperty, value);
+                Filter = Helper.GetFileFilter(value);
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for FilterType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FilterTypeProperty =
+            DependencyProperty.Register("FilterType", typeof(FileType), typeof(FilePicker),
+                new FrameworkPropertyMetadata(FileType.Any, new PropertyChangedCallback(OnFilterTypeChanged)));
+        #endregion
+
         #region IsLoading
         public bool IsLoading
         {
@@ -151,6 +171,14 @@ namespace Osmo.UI
             }
         }
 
+        private static void OnFilterTypeChanged(DependencyObject depO, DependencyPropertyChangedEventArgs e)
+        {
+            if (depO is FilePicker filePicker)
+            {
+                (filePicker.DataContext as FilePickerViewModel).SetFilters(Helper.GetFileFilter((FileType)e.NewValue));
+            }
+        }
+
         private static void OnInitialDirectoryChanged(DependencyObject depO, DependencyPropertyChangedEventArgs e)
         {
             if (depO is FilePicker filePicker)
@@ -163,37 +191,40 @@ namespace Osmo.UI
 
         private static void JumpToNodeAsync(FilePicker filePicker, ItemCollection items, StructureBuilder structure)
         {
-            filePicker.IsLoading = true;
-            bool done = false;
-            int layer = 0;
-            
-            List<FolderEntry> entries = items.OfType<FolderEntry>().ToList();
-            new Thread(() =>
+            if (structure != null)
             {
-                while (!done)
+                filePicker.IsLoading = true;
+                bool done = false;
+                int layer = 0;
+
+                new Thread(() =>
                 {
-                    FolderEntry entry = entries.FirstOrDefault(x => x.Path.Equals(structure.GetPathAtTreeLayer(layer)));
-
-                    if (entry != null)
+                    List<FolderEntry> entries = items.OfType<FolderEntry>().ToList();
+                    while (!done)
                     {
-                        entry.IsExpanded = true;
-                        entries = entry.SubDirectories.ToList();
+                        FolderEntry entry = entries.FirstOrDefault(x => x.Path.Equals(structure.GetPathAtTreeLayer(layer)));
 
-                        if (Helper.NormalizePath(entry.Path).Equals(Helper.NormalizePath(structure.TargetPath)))
+                        if (entry != null)
                         {
-                            entry.IsSelected = true;
-                            done = true;
+                            entry.IsExpanded = true;
+                            entries = entry.SubDirectories.ToList();
 
-                            filePicker.Dispatcher.Invoke(() =>
+                            if (Helper.NormalizePath(entry.Path).Equals(Helper.NormalizePath(structure.TargetPath)))
                             {
-                                filePicker.IsLoading = false;
-                            });
-                        }
+                                entry.IsSelected = true;
+                                done = true;
 
-                        layer++;
+                                filePicker.Dispatcher.Invoke(() =>
+                                {
+                                    filePicker.IsLoading = false;
+                                });
+                            }
+
+                            layer++;
+                        }
                     }
-                }
-            }).Start();
+                }).Start();
+            }
         }
 
         public FilePicker()
@@ -308,9 +339,17 @@ namespace Osmo.UI
                     var dialog = new CommonOpenFileDialog()
                     {
                         IsFolderPicker = isFolder,
-                        InitialDirectory = (DataContext as FilePickerViewModel).SelectedFolder?.Path
+                        InitialDirectory = (DataContext as FilePickerViewModel).SelectedFolder?.Path,
+                        Title = Title
                     };
-                    
+
+                    dialog.Filters.Clear();
+
+                    foreach (var filter in (DataContext as FilePickerViewModel).Filters)
+                    {
+                        dialog.Filters.Add(new CommonFileDialogFilter(filter.Description, filter.ToString()));
+                    }
+
                     if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         ClassicEntry entry = new ClassicEntry(dialog.FileName, isFolder);
@@ -332,9 +371,14 @@ namespace Osmo.UI
                 }
                 else
                 {
+                    MessageBox.Show("If you see this message, please post an issue on the GitHub repo!\nIn the meantime you can activate the experimental file explorer via the settings.");
                 }
-
             }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            InitialDirectory = (sender as TextBox).Text;
         }
     }
 }

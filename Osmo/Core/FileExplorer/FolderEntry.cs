@@ -24,6 +24,10 @@ namespace Osmo.Core.FileExplorer
         public string Path
         {
             get => mDi?.FullName ?? mUnloadedEntry.Path;
+            set
+            {
+                InitializeFolderStructure(new DirectoryInfo(value));
+            }
         }
 
         public string Name
@@ -85,6 +89,18 @@ namespace Osmo.Core.FileExplorer
         {
             TreeDepth = treeDepth;
             IsRoot = isRoot;
+            InitializeFolderStructure(di);
+        }
+
+        /// <summary>
+        /// Initialize a new <see cref="FolderEntry"/> which calculates it's tree depth automatically
+        /// </summary>
+        /// <param name="di">The target directory</param>
+        public FolderEntry(DirectoryInfo di)
+        {
+            string[] pathParts = di.FullName.Split('\\');
+            TreeDepth = pathParts.Length - 1;
+            IsRoot = TreeDepth == 0;
             InitializeFolderStructure(di);
         }
 

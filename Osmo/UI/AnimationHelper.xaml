@@ -59,7 +59,7 @@
                             </ItemsPanelTemplate>
                         </ComboBox.ItemsPanel>
                     </ComboBox>
-                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Center">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Center">
                         <Run Text="{DynamicResource animator_currentFrame}"/> <Run Text="{Binding CurrentFrame}"/>
                     </TextBlock>
                     <Button Padding="0" Width="32" DockPanel.Dock="Right" IsEnabled="{Binding PlayEnabled}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"

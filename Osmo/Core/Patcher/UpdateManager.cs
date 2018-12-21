@@ -113,14 +113,18 @@ namespace Osmo.Core.Patcher
                     {
                         File.Delete(versionFilePath);
                     }
-                    DownloadFileHttp("version.txt", versionFilePath, false);
+                    DownloadFile("version.txt", versionFilePath, false);
+                    CheckAppUpdates();
+                }
+                else
+                {
+                    DownloadUpdate();
                 }
             }
             catch (Exception ex)
             {
                 Logger.Instance.WriteLog("Can't connect to the server. Either your connection is too slow or the server is currently offline.", ex);
                 OnUpdateFailed(new UpdateFailedEventArgs(Helper.FindString("update_searchFailed")));
-                Status = UpdateStatus.ERROR;
             }
             finally
             {
@@ -132,19 +136,27 @@ namespace Osmo.Core.Patcher
             OnSearchStatusChanged(false);
         }
 
+        public void DownloadUpdate()
+        {
+            Status = UpdateStatus.DOWNLOADING;
+            checkInterval.Stop();
+            Logger.Instance.WriteLog("Started download of Osmo v{0}...", newVersion);
+
+            DownloadFile(FixedValues.LOCAL_FILENAME, tempDownloadPath + "\\" + FixedValues.LOCAL_FILENAME, true);
+        }
+
         /// <summary>
         /// Checks if Osmo is up-to-date
         /// </summary>
         private void CheckAppUpdates()
         {
-            bool isNewer = CheckVersion(true, 0);
+            updatesReady = CheckVersion(true, 0);
             Logger.Instance.WriteLog("Current version: {0}; Server version: {1}", currentVersion, newVersion);
-            if (isNewer)
+            if (updatesReady)
             {
-                Status = UpdateStatus.DOWNLOADING;
-                checkInterval.Stop();
-                Logger.Instance.WriteLog("Updates found! Beginning download...");
-                DownloadFileHttp(FixedValues.LOCAL_FILENAME, tempDownloadPath + "\\" + FixedValues.LOCAL_FILENAME, true);
+                Logger.Instance.WriteLog("Updates found!");
+                Status = UpdateStatus.UPDATES_FOUND;
+                OnUpdateFound(new UpdateFoundEventArgs(currentVersion, newVersion));
             }
             else
             {
@@ -154,7 +166,7 @@ namespace Osmo.Core.Patcher
 
         private void InstallUpdate()
         {
-            OnStatusChanged(UpdateStatus.EXTRACTING);
+            Status = UpdateStatus.EXTRACTING;
 
             try
             {
@@ -168,7 +180,7 @@ namespace Osmo.Core.Patcher
                 ZipFile.ExtractToDirectory(runtimePath, tempDownloadPath);
                 Thread.Sleep(200);
                 File.Delete(runtimePath);
-                OnStatusChanged(UpdateStatus.INSTALLING);
+                Status = UpdateStatus.INSTALLING;
 
                 List<string> backupFiles = new List<string>();
                 DirectoryInfo root = new DirectoryInfo(tempDownloadPath);
@@ -184,7 +196,7 @@ namespace Osmo.Core.Patcher
 
                 File.WriteAllLines(installPath + "cleanup.txt", backupFiles.ToArray());
 
-
+                Status = UpdateStatus.READY;
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -250,7 +262,7 @@ namespace Osmo.Core.Patcher
         /// <param name="fileName">The name of the file to download</param>
         /// <param name="targetDir">The target directory where your file shall be saved</param>
         /// <param name="notifyProgress">True to enable progress updates (Via <see cref="DownloadProgressChanged"/>)</param>
-        private void DownloadFileHttp(string fileName, string targetDir, bool notifyProgress)
+        private void DownloadFile(string fileName, string targetDir, bool notifyProgress)
         {
             Server targetServer = null;
             foreach (Server s in servers)
@@ -268,8 +280,6 @@ namespace Osmo.Core.Patcher
                 {
                     File.Delete(targetDir);
                 }
-
-                Directory.CreateDirectory(targetDir);
 
                 using (WebClient wc = new WebClient())
                 {
@@ -295,7 +305,7 @@ namespace Osmo.Core.Patcher
         /// </summary>
         /// <param name="bytesReceived">The number of bytes received in a second</param>
         /// <returns>A formatted string which shows how fast a download is progressing</returns>
-        private string CalculateSpeed(long bytesReceived)
+        public string CalculateSpeed(long bytesReceived)
         {
             if (bytesReceived / 1024d > 1000)
             {
@@ -324,7 +334,13 @@ namespace Osmo.Core.Patcher
 
         protected void OnUpdateFailed(UpdateFailedEventArgs e)
         {
+            Status = UpdateStatus.ERROR;
             UpdateFailed?.Invoke(this, e);
+        }
+
+        protected void OnUpdateFound(UpdateFoundEventArgs e)
+        {
+            UpdateFound?.Invoke(this, e);
         }
 
         protected void OnStatusChanged(UpdateStatus status)

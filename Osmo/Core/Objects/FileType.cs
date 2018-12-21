@@ -5,6 +5,6 @@
         Image,
         Audio,
         Configuration,
-        Unknown
+        Any
     }
 }

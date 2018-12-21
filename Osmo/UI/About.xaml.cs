@@ -35,12 +35,14 @@ namespace Osmo.UI
                     instance = new About();
                 return instance;
             }
-        }
+        }       
 
         private About()
         {
             InitializeComponent();
         }
+
+        string SessionID = App.SessionID.ToString();
 
         private void GitHubLink_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -52,9 +54,11 @@ namespace Osmo.UI
             if (!versionAdded)
             {
                 txt_header.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                txt_session.Text += App.SessionID;
                 versionAdded = true;
             }
+            string AboutSID = (string)(App.Current.Resources["about_sessionId"]);
+            string AboutSIDFull = string.Format(AboutSID, SessionID);
+            txt_session.Text = AboutSIDFull;
         }
 
         private void CopySessionID_Click(object sender, RoutedEventArgs e)

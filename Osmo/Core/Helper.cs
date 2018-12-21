@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Osmo.Core
@@ -241,6 +242,34 @@ namespace Osmo.Core
                 return int.Parse(SerializeVersionNumber(version, subVersionCount).Replace(new string[] { ".", " Full" }));
             else
                 return int.Parse(version.Replace(new string[] { ".", " Full" }));
+        }
+
+        public static void SaveImage(BitmapSource image, string path)
+        {
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                encoder.Save(fileStream);
+            }
+        }
+
+        public static string GetFileFilter(FileType fileType)
+        {
+            switch (fileType)
+            {
+                case FileType.Audio:
+                    return string.Format("{0}|*.mp3;*.wav|{1}|*.ogg",
+                        FindString("edit_replaceFilterAudio1"), FindString("edit_replaceFilterAudio2"));
+                case FileType.Configuration:
+                    return string.Format("{0}|*.ini",
+                        FindString("edit_replaceFilterConfig"));
+                case FileType.Image:
+                    return string.Format("{0}|*.jpg;*.jpeg;*.png",
+                        FindString("edit_replaceFilterImage"));
+                default:
+                    return "";
+            }
         }
     }
 }

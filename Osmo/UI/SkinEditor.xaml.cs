@@ -213,7 +213,7 @@ namespace Osmo.UI
                         vm.Icon = PackIconKind.FileXml;
                         LoadConfigFile(vm.SelectedElement.Path);
                         break;
-                    case FileType.Unknown:
+                    case FileType.Any:
                         vm.Icon = PackIconKind.File;
                         break;
                 }
@@ -238,15 +238,15 @@ namespace Osmo.UI
         private void Replace_Click(object sender, RoutedEventArgs e)
         {
             PreloadFilePickerProperties(Helper.FindString("edit_replaceTitle"),
-                GetFileFilter((DataContext as SkinViewModel).SelectedElement.FileType),
+                (DataContext as SkinViewModel).SelectedElement.FileType,
                 "replace");
         }
 
-        private void PreloadFilePickerProperties(string title, string filter, string tag)
+        private void PreloadFilePickerProperties(string title, FileType fileType, string tag)
         {
             FilePicker fp = FindResource("filePicker") as FilePicker;
             fp.Title = title;
-            fp.Filter = filter;
+            fp.FilterType = fileType;
             fp.Tag = tag;
         }
 
@@ -270,25 +270,6 @@ namespace Osmo.UI
                             break;
                     }
                 }
-            }
-        }
-
-
-        private string GetFileFilter(FileType fileType)
-        {
-            switch (fileType)
-            {
-                case FileType.Audio:
-                    return string.Format("{0}|*.mp3;*.wav|{1}|*.ogg",
-                        Helper.FindString("edit_replaceFilterAudio1"), Helper.FindString("edit_replaceFilterAudio2"));
-                case FileType.Configuration:
-                    return string.Format("{0}|*.ini",
-                        Helper.FindString("edit_replaceFilterConfig"));
-                case FileType.Image:
-                    return string.Format("{0}|*.jpg;*.jpeg;*.png",
-                        Helper.FindString("edit_replaceFilterImage"));
-                default:
-                    return "";
             }
         }
 

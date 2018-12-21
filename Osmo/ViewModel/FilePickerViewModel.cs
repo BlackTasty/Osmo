@@ -1,6 +1,7 @@
 ﻿using Osmo.Core;
 using Osmo.Core.FileExplorer;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Osmo.ViewModel
@@ -12,6 +13,7 @@ namespace Osmo.ViewModel
         private IFilePickerEntry mSelectedEntry;
         private int mDisplayOption;
         private int mSelectedIndex = -1;
+        private string mCurrentPath;
 
         public VeryObservableCollection<FolderEntry> RootFolders
         {
@@ -31,7 +33,8 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedFolder = value;
-                InvokePropertyChanged("SelectedFolder");
+                CurrentPath = value.Path;
+                InvokePropertyChanged();
                 InvokePropertyChanged("FileList");
                 InvokePropertyChanged("IsRoot");
             }
@@ -81,7 +84,7 @@ namespace Osmo.ViewModel
             set
             {
                 mDisplayOption = value;
-                InvokePropertyChanged("DisplayOption");
+                InvokePropertyChanged();
             }
         }
 
@@ -91,7 +94,17 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedIndex = value;
-                InvokePropertyChanged("SelectedIndex");
+                InvokePropertyChanged();
+            }
+        }
+
+        public string CurrentPath
+        {
+            get => mCurrentPath;
+            set
+            {
+                mCurrentPath = value;
+                InvokePropertyChanged();
             }
         }
 

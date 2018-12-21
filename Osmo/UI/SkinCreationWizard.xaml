@@ -79,7 +79,7 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <CheckBox Content="{DynamicResource cb_placeholderFiles}" Grid.Row="1" IsChecked="{Binding AddDummyFiles}"/>
+                    <CheckBox Content="{DynamicResource cb_placeholderFiles}" Grid.Row="1" Grid.ColumnSpan="5" IsChecked="{Binding AddDummyFiles}"/>
                 </Grid>
             </Expander>
             <Border

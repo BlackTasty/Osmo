@@ -24,6 +24,25 @@
     <Window.Resources>
         <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
         <converter:DebugConverter x:Key="Debug"/>
+        <converter:SidebarConverter x:Key="SidebarHelper"/>
+
+        <DataTemplate x:Key="EntryDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <material:PackIcon Kind="{Binding Icon}" Height="32" Width="32" Margin="16,0,0,0"/>
+                <TextBlock Text="{Binding Name}"  Margin="16 0 16 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" 
+                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="SubEntryDataTemplate">
+            <StackPanel Orientation="Horizontal" Height="32">
+                <TextBlock Text="{Binding Name}" Margin="64 0 16 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" 
+                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" FontWeight="Bold"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <converter:SidebarDataTemplateSelector x:Key="sidebarTemplateSelector"
+                                               EntryDataTemplate="{StaticResource EntryDataTemplate}"
+                                               SubEntryDataTemplate="{StaticResource SubEntryDataTemplate}"/>
     </Window.Resources>
     <metro:MetroWindow.WindowButtonCommands>
         <metro:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"
@@ -43,8 +62,9 @@
                                     HorizontalAlignment="Right" Margin="16"
                                     IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                     <ListBox x:Name="sidebarMenu" Margin="0 16 0 16" SelectedIndex="{Binding SelectedSidebarIndex}"                         
-                             ItemsSource="{Binding Items}" SelectionChanged="sidebarMenu_SelectionChanged" Loaded="sidebarMenu_Loaded">
-                        <ListBox.ItemTemplate>
+                             ItemsSource="{Binding Items}" SelectionChanged="sidebarMenu_SelectionChanged" Loaded="sidebarMenu_Loaded"
+                             ItemTemplateSelector="{StaticResource sidebarTemplateSelector}">
+                        <!--<ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <material:PackIcon Kind="{Binding Icon}" Width="32" Height="32" Margin="16,0,0,0"/>
@@ -52,7 +72,7 @@
                                                Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
+                        </ListBox.ItemTemplate>-->
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                 <Setter Property="Visibility" Value="{Binding IsVisible}"/>
@@ -95,6 +115,13 @@
                                 <Button Content="{DynamicResource main_exit}" Click="Close_Click"/>
                             </StackPanel>
                         </material:PopupBox>
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
+                            ToolTip="{DynamicResource main_importSkin}" x:Name="btn_update" Style="{StaticResource AppBarButton}">
+                            <material:PackIcon
+                            Kind="CloudDownload"
+                            Height="28"
+                            Width="28" />
+                        </Button>
                         <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;8}"
                             ToolTip="{DynamicResource main_saveAll}" Click="SaveSkinOrTemplate_Click" Style="{StaticResource AppBarButton}">
                             <material:PackIcon
@@ -143,7 +170,10 @@
                 </material:ColorZone>
 
                 <ui:DebugConsole x:Name="console" DockPanel.Dock="Bottom" IsVisibleChanged="console_IsVisibleChanged" Visibility="Collapsed" Loaded="console_Loaded" MaxHeight="200"/>
-                <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
+                <Grid>
+                    <ui:UpdateStatus HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
+                </Grid>
             </DockPanel>
         </material:DrawerHost>
     </material:DialogHost>

@@ -28,7 +28,19 @@
 
         public override string ToString()
         {
-            return base.ToString();
+            string output = "";
+            for (int i = 0; i < Extensions.Length; i++)
+            {
+                if (i > 0)
+                {
+                    output += ";*" + Extensions[i];
+                }
+                else
+                {
+                    output += "*" + Extensions[i];
+                }
+            }
+            return output;
         }
     }
 }

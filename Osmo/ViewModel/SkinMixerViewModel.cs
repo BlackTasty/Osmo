@@ -202,7 +202,7 @@ namespace Osmo.ViewModel
             get
             {
                 FileType typeLeft = SelectedElementLeft?.FileType ?? FileType.Configuration;
-                FileType typeRight = SelectedElementRight?.FileType ?? FileType.Unknown;
+                FileType typeRight = SelectedElementRight?.FileType ?? FileType.Any;
 
                 return typeLeft == typeRight;
             }

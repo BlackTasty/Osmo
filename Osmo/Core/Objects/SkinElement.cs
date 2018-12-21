@@ -145,7 +145,7 @@ namespace Osmo.Core.Objects
         {
             Path = "";
             Name = "";
-            fileType = FileType.Unknown;
+            fileType = FileType.Any;
         }
 
         internal List<string> GetAnimatedElements()
@@ -257,7 +257,7 @@ namespace Osmo.Core.Objects
                 case ".mp3":
                     return FileType.Audio;
                 default:
-                    return FileType.Unknown;
+                    return FileType.Any;
             }
         }
 

@@ -117,7 +117,10 @@ namespace Osmo
                 dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
             }
 
-            MenuToggleButton.IsChecked = false;
+            if (!(e.AddedItems[0] as SidebarEntry).HasChildren)
+            {
+                MenuToggleButton.IsChecked = false;
+            }
         }
         
         private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)

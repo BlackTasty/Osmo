@@ -21,7 +21,7 @@ namespace Osmo.ViewModel
             set
             {
                 mAnimation = value;
-                InvokePropertyChanged("Animation");
+                InvokePropertyChanged();
             }
         }
 
@@ -41,7 +41,7 @@ namespace Osmo.ViewModel
                 Image = Helper.LoadImage(CurrentElementPath);
                 Image.Freeze();
                 InvokePropertyChanged("Image");
-                InvokePropertyChanged("CurrentFrame");
+                InvokePropertyChanged();
             }
         }
 
@@ -51,7 +51,7 @@ namespace Osmo.ViewModel
             set
             {
                 mIsAnimationPlaying = value;
-                InvokePropertyChanged("IsAnimationPlaying");
+                InvokePropertyChanged();
             }
         }
 
@@ -65,7 +65,7 @@ namespace Osmo.ViewModel
                     mFrameRate = value;
                 else
                     mFrameRate = 60;
-                InvokePropertyChanged("FrameRate");
+                InvokePropertyChanged();
             }
         }
 

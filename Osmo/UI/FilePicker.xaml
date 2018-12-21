@@ -35,6 +35,10 @@
             </fe:FolderTreeTemplateSelector.UnloadedDirectoryTemplate>
         </fe:FolderTreeTemplateSelector>
     </Grid.Resources>
+    <Grid.RowDefinitions>
+        <RowDefinition/>
+        <RowDefinition Height="25"/>
+    </Grid.RowDefinitions>
     <Grid Margin="16">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" MinWidth="140"/>
@@ -90,7 +94,15 @@
                     </Button.Style>
                     <material:PackIcon Kind="ArrowUp" Width="24" Height="24"/>
                 </Button>
-                <TextBlock Text="{Binding SelectedFolder.Path}" VerticalAlignment="Center"/>
+                <TextBox VerticalAlignment="Center" TextChanged="TextBox_TextChanged" material:HintAssist.Hint="{DynamicResource hint_selectedFolder}">
+                    <TextBox.Text>
+                        <Binding Mode="TwoWay" Path="CurrentPath" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validation:PathValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </DockPanel>
             <DockPanel DockPanel.Dock="Bottom" Margin="8,0,0,0">
                 <Button x:Name="btn_abort" Content="{DynamicResource abort}" Margin="0,8,0,0"
@@ -235,4 +247,5 @@
             </StackPanel>
         </material:Card>
     </Grid>
+    <TextBlock Margin="8,0,8,8" Text="{DynamicResource picker_WIPInfo}" Grid.Row="1" TextWrapping="Wrap"/>
 </Grid>
