@@ -352,6 +352,7 @@
     <system:String o:Freeze="True" x:Key="updater_failed2">Versuch es später erneut oder erstelle ein Issue auf GitHub.</system:String>
     <system:String o:Freeze="True" x:Key="updater_done1">Fast fertig!</system:String>
     <system:String o:Freeze="True" x:Key="updater_done2">Nur noch Osmo neu starten und genießen!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_uptodate">Alles auf dem neuesten Stand!</system:String>
 
     <!--Completion data descriptions-->
     <!--   Template completion data-->

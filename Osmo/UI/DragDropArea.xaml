@@ -28,9 +28,8 @@
         <Rectangle Stroke="{DynamicResource PrimaryHueMidBrush}" StrokeThickness="2" StrokeDashArray="3 3" Fill="{DynamicResource MaterialDesignChipBackground}"/>
         <TextBlock Text="{DynamicResource dragDrop_areaTitle}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,32" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="{Binding IsOskPathOkay, Converter={StaticResource InverseBoolToVisibility}, ElementName=dragDrop}"/>
         <TextBlock Text="{Binding OskPath, ElementName=dragDrop}" Margin="8,0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="{Binding IsOskPathOkay, Converter={StaticResource BoolToVisibility}, ElementName=dragDrop}" TextAlignment="Center"/>
-        <Button Height="24" Width="24" Click="CancelSkin_Click" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4" ToolTip="Select another skin" Visibility="{Binding IsOskPathOkay, Converter={StaticResource BoolToVisibility}, ElementName=dragDrop}">
-            <material:PackIcon Kind="Close" Width="24" Height="24" Foreground="{DynamicResource MaterialDesignToolTipBackground}"/>
-        </Button>
+        <Button Click="CancelSkin_Click" Style="{DynamicResource CloseButton_Small}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4" ToolTip="Select another skin" Visibility="{Binding IsOskPathOkay, Converter={StaticResource BoolToVisibility}, ElementName=dragDrop}"/>
+
         <material:PackIcon Kind="ArrowCollapseDown" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,32" Foreground="{DynamicResource MaterialDesignToolTipBackground}" Visibility="{Binding IsOskPathOkay, Converter={StaticResource InverseBoolToVisibility}, ElementName=dragDrop}"/>
     </Grid>
     <Button Style="{StaticResource MaterialDesignFlatButton}" Click="Cancel_Click" Command="material:DialogHost.CloseDialogCommand" x:Name="btn_cancel"

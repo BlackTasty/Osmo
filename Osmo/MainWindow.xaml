@@ -195,8 +195,8 @@
                 <ui:DebugConsole x:Name="console" DockPanel.Dock="Bottom" IsVisibleChanged="console_IsVisibleChanged" Visibility="Collapsed" Loaded="console_Loaded" MaxHeight="200"/>
                 <Grid>
                     <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
-                    <material:Card x:Name="updaterContainer" Visibility="Visible" Margin="8,8,-308,8" Width="300" Height="160" HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <ui:UpdateStatus x:Name="updater"
+                    <material:Card x:Name="updaterContainer" Visibility="Visible" Margin="8,8,-308,8" Width="270" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <ui:UpdateStatus x:Name="updater" VerticalAlignment="Center"
                                      Background="{DynamicResource MaterialDesignBackground}"/>
                     </material:Card>
                 </Grid>

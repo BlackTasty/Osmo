@@ -15,12 +15,12 @@
    viewBox="0 0 256 256"
    version="1.1"
    id="SVGRoot"
-   sodipodi:docname="Osmo icon setup.svg"
+   sodipodi:docname="Osmo icon uninstall.svg"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    enable-background="new"
-   inkscape:export-filename="C:\Users\rapha\Desktop\Osmo\Osmo icon\48x48.png"
-   inkscape:export-xdpi="18"
-   inkscape:export-ydpi="18">
+   inkscape:export-filename="C:\Users\rapha\Desktop\Osmo\Osmo Uninstall icon\16x16.png"
+   inkscape:export-xdpi="6"
+   inkscape:export-ydpi="6">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -29,15 +29,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="20.986643"
-     inkscape:cy="137.45466"
+     inkscape:cx="53.635892"
+     inkscape:cy="125.83482"
      inkscape:document-units="px"
-     inkscape:current-layer="g1076"
+     inkscape:current-layer="layer12"
      showgrid="true"
      inkscape:window-width="1680"
      inkscape:window-height="987"
-     inkscape:window-x="3592"
-     inkscape:window-y="17"
+     inkscape:window-x="1912"
+     inkscape:window-y="29"
      inkscape:window-maximized="1"
      inkscape:grid-bbox="true"
      showguides="false"
@@ -159,7 +159,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1267,12 +1267,12 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64px;font-family:'Roboto Condensed';-inkscape-font-specification:'Roboto Condensed, ';fill:#6200ee;fill-opacity:1">1</flowPara></flowRoot>  </g>
   <g
      inkscape:groupmode="layer"
-     id="layer11"
-     inkscape:label="install">
+     id="layer12"
+     inkscape:label="trashcan">
     <path
-       id="path1083"
-       d="m 73.021727,139.75431 36.003893,-9.64721 -1.37817,-5.14341 -36.003893,9.64722 M 101.44566,101.81833 91.15884,104.57467 87.02433,89.144435 71.594075,93.278958 75.7286,108.7092 65.441778,111.46554 88.26732,124.64388 Z"
+       id="path1089"
+       d="m 102.90596,100.95077 -1.25264,4.6653 -32.70381,-8.755896 1.252634,-4.665302 8.193463,2.184289 2.944157,-1.714885 11.67493,3.128435 1.72115,2.967524 8.170116,2.190535 M 75.6644,133.50232 68.156317,105.48176 79.995,102.3096 l 18.68455,5.00426 5.00538,18.68037 a 4.8348347,4.8348347 0 0 1 -3.41874,5.92144 l -18.680356,5.00538 A 4.8348347,4.8348347 0 0 1 75.6644,133.50232 Z"
        inkscape:connector-curvature="0"
-       style="display:inline;fill:#6200ee;fill-opacity:1;stroke-width:2.66242647" />
+       style="fill:#6200ee;fill-opacity:1;stroke-width:2.41741705" />
   </g>
 </svg>

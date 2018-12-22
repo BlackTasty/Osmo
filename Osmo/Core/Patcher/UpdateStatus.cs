@@ -10,6 +10,7 @@
         EXTRACTING = 170,
         INSTALLING = 180,
         READY = 200,
+        UPTODATE = 201,
         ERROR = 404
     }
 }

@@ -350,6 +350,7 @@
     <system:String o:Freeze="True" x:Key="updater_failed2">Try again later or open an issue on GitHub.</system:String>
     <system:String o:Freeze="True" x:Key="updater_done1">Almost done!</system:String>
     <system:String o:Freeze="True" x:Key="updater_done2">Just restart Osmo and enjoy!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_uptodate">¡Todo está actualizado!</system:String>
 
     <!--Completion data descriptions-->
     <!--   Template completion data-->

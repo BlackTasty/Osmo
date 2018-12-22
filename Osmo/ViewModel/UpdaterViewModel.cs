@@ -166,6 +166,7 @@ namespace Osmo.ViewModel
         public UpdateStatus Status
         {
             get => updateManager.Status;
+            set => updateManager.Status = value;
         }
 
         public double DownloadSize
@@ -222,7 +223,7 @@ namespace Osmo.ViewModel
             bool leftAndRightButton = e == UpdateStatus.UPDATES_FOUND || e == UpdateStatus.READY;
 
             ShowLeftButton = e != UpdateStatus.IDLE || leftAndRightButton;
-            ShowTopTextOnly = e == UpdateStatus.IDLE;
+            ShowTopTextOnly = e == UpdateStatus.IDLE || e == UpdateStatus.UPTODATE;
             ShowRightButton = e == UpdateStatus.ERROR || ShowTopTextOnly || leftAndRightButton;
 
             ShowButton = ShowTopTextOnly || ShowRightButton;
@@ -261,6 +262,12 @@ namespace Osmo.ViewModel
                     BottomText = Helper.FindString("updater_done2");
                     LeftButtonText = Helper.FindString("later");
                     RightButtonText = Helper.FindString("restart");
+                    break;
+                case UpdateStatus.UPTODATE:
+                    ShowLeftButton = true;
+                    ShowRightButton = false;
+                    TopText = Helper.FindString("updater_uptodate");
+                    LeftButtonText = Helper.FindString("ok");
                     break;
             }
         }

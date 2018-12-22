@@ -92,6 +92,12 @@ namespace Osmo.UI
                 case Core.Patcher.UpdateStatus.READY:
                     MainWindow.Instance.HideUpdater();
                     break;
+
+                case Core.Patcher.UpdateStatus.UPTODATE:
+                    MainWindow.Instance.HideUpdater();
+                    IsIdle = true;
+                    (DataContext as UpdaterViewModel).Status = Core.Patcher.UpdateStatus.IDLE;
+                    break;
             }
         }
         
@@ -109,6 +115,16 @@ namespace Osmo.UI
                     Process.Start(AppDomain.CurrentDomain.BaseDirectory + "Osmo.exe");
                     MainWindow.Instance.RequestShutdown();
                     break;
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.HideUpdater();
+            if ((DataContext as UpdaterViewModel).Status == Core.Patcher.UpdateStatus.UPTODATE)
+            {
+                IsIdle = true;
+                (DataContext as UpdaterViewModel).Status = Core.Patcher.UpdateStatus.IDLE;
             }
         }
     }

@@ -58,7 +58,7 @@ namespace Osmo.Core.Patcher
         internal UpdateStatus Status
         {
             get => status;
-            private set
+            set
             {
                 if (value == UpdateStatus.ERROR)
                 {
@@ -186,7 +186,7 @@ namespace Osmo.Core.Patcher
             }
             else
             {
-                Status = UpdateStatus.IDLE;
+                Status = UpdateStatus.UPTODATE;
             }
         }
 

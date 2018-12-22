@@ -7,8 +7,7 @@
              xmlns:converter="clr-namespace:Osmo.Converters"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:Osmo.ViewModel"
-             mc:Ignorable="d" 
-             d:DesignHeight="160" d:DesignWidth="300" LastChildFill="False">
+             mc:Ignorable="d" d:DesignWidth="300" LastChildFill="False">
     <DockPanel.DataContext>
         <vm:UpdaterViewModel/>
     </DockPanel.DataContext>
@@ -41,7 +40,8 @@
             <BeginStoryboard Storyboard="{StaticResource SpinCanvas}"/>
         </EventTrigger>
     </DockPanel.Triggers>
-    <TextBlock Text="{Binding TopText}" TextWrapping="Wrap" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,8"/>
+    <Button DockPanel.Dock="Top" HorizontalAlignment="Right" Style="{DynamicResource CloseButton_Small}" Click="Close_Click"/>
+    <TextBlock Text="{Binding TopText}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,0,0,8"/>
     <Canvas x:Name="canvas" Width="35" Height="35" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5" 
             Visibility="{Binding ShowButton, Converter={StaticResource InverseBoolToVisibility}}">
         <Canvas.RenderTransform>
@@ -64,7 +64,7 @@
         </material:PackIcon>
     </Canvas>
     <TextBlock Text="{Binding BottomText}" TextWrapping="Wrap" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,8" 
-               Visibility="{Binding ShowTopTextOnly, Converter={StaticResource InverseBoolToVisibility}}"/>
+               Visibility="{Binding ShowTopTextOnly, Converter={StaticResource InverseBoolToVisibility}}" TextAlignment="Center"/>
     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
         <Button Content="{Binding LeftButtonText}" Visibility="{Binding ShowLeftButton, Converter={StaticResource BoolToVisibility}}" Margin="8" Click="LeftButton_Click"></Button>
         <Button Content="{Binding RightButtonText}" Visibility="{Binding ShowRightButton, Converter={StaticResource BoolToVisibility}}" Margin="8" Click="RightButton_Click"></Button>
