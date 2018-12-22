@@ -329,27 +329,27 @@
     <system:String o:Freeze="True" x:Key="sync_title">Sincronizar skins entre perfiles</system:String>
 
     <!-- Sliderball Creator -->
-    <system:String o:Freeze="True" x:Key="sb_imagePath">Path to image</system:String>
-    <system:String o:Freeze="True" x:Key="sb_title_configuration">1. Configuration</system:String>
-    <system:String o:Freeze="True" x:Key="sb_title_preview">2. Preview</system:String>
-    <system:String o:Freeze="True" x:Key="sb_hint_fps">Number of frames</system:String>
-    <system:String o:Freeze="True" x:Key="sb_hint_duration">Animation duration</system:String>
-    <system:String o:Freeze="True" x:Key="sb_selectImage">Select an image which you want to animate</system:String>
-    <system:String o:Freeze="True" x:Key="sb_saveSliderball">Choose a save location for your slider ball</system:String>
-    <system:String o:Freeze="True" x:Key="sb_sliderballSaved">Sliderball saved!</system:String>
-    <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">Take me there!</system:String>
+    <system:String o:Freeze="True" x:Key="sb_imagePath">Localización de la imagen</system:String>
+    <system:String o:Freeze="True" x:Key="sb_title_configuration">1. Configuración</system:String>
+    <system:String o:Freeze="True" x:Key="sb_title_preview">2. Previsualizar</system:String>
+    <system:String o:Freeze="True" x:Key="sb_hint_fps">Numero de cuadros</system:String>
+    <system:String o:Freeze="True" x:Key="sb_hint_duration">Duración de la animación</system:String>
+    <system:String o:Freeze="True" x:Key="sb_selectImage">Selecciona una imagen que quieras animar</system:String>
+    <system:String o:Freeze="True" x:Key="sb_saveSliderball">Elige una localización de guardado para tu slider ball</system:String>
+    <system:String o:Freeze="True" x:Key="sb_sliderballSaved">¡Sliderball guardada!</system:String>
+    <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">¡Llevame ahí!</system:String>
 
     <!-- Updater -->
-    <system:String o:Freeze="True" x:Key="updater_searching">Searching for updates...</system:String>
-    <system:String o:Freeze="True" x:Key="updater_ready">Updates found!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_downloading">Osmo is downloading the latest updates!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_installing">Installing updates...</system:String>
-    <system:String o:Freeze="True" x:Key="updater_status1">Status: Downloading -</system:String>
-    <system:String o:Freeze="True" x:Key="updater_status2">from</system:String>
-    <system:String o:Freeze="True" x:Key="updater_failed1">Oh no, something went wrong!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_failed2">Try again later or open an issue on GitHub.</system:String>
-    <system:String o:Freeze="True" x:Key="updater_done1">Almost done!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_done2">Just restart Osmo and enjoy!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_searching">Buscando actualizaciones...</system:String>
+    <system:String o:Freeze="True" x:Key="updater_ready">¡Actualizaciones encontradas!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_downloading">¡Osmo está descargando las últimas actualizaciones!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_installing">Instalando actualizaciones...</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status1">Estado: Descargando -</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status2">desde</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed1">Oh no, ¡algo ha ido mal!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed2">Intenta de nuevo después o abre un issue en GitHub.</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done1">¡Casi listo!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done2">¡Solo reinicia Osmo y disfruta!</system:String>
     <system:String o:Freeze="True" x:Key="updater_uptodate">¡Todo está actualizado!</system:String>
 
     <!--Completion data descriptions-->
