@@ -24,8 +24,11 @@ namespace Osmo.Core.Patcher
 
         private bool updatesReady;
         private UpdateStatus status = UpdateStatus.INIT;
+        private UpdateStatus lastSaveStatus = UpdateStatus.INIT;
 
         private List<Server> servers = ServerList.DEFAULT_SERVERS;
+
+        private bool filesExtraced;
 
         public event EventHandler<bool> SearchStatusChanged;
         public event EventHandler<UpdateFoundEventArgs> UpdateFound;
@@ -57,6 +60,10 @@ namespace Osmo.Core.Patcher
             get => status;
             private set
             {
+                if (value == UpdateStatus.ERROR)
+                {
+                    lastSaveStatus = status;
+                }
                 status = value;
                 OnStatusChanged(value);
             }
@@ -73,6 +80,23 @@ namespace Osmo.Core.Patcher
             checkInterval.IsEnabled = true;
             checkInterval.Start();
             Status = UpdateStatus.IDLE;
+        }
+
+        internal void RetryLastAction()
+        {
+            switch (lastSaveStatus)
+            {
+                case UpdateStatus.SEARCHING:
+                    SearchForUpdates();
+                    break;
+                case UpdateStatus.DOWNLOADING:
+                    DownloadUpdate();
+                    break;
+                case UpdateStatus.EXTRACTING:
+                case UpdateStatus.INSTALLING:
+                    InstallUpdate();
+                    break;
+            }
         }
 
         internal void SetIntervall(double interval)
@@ -103,6 +127,7 @@ namespace Osmo.Core.Patcher
         /// </summary>
         private void SearchForUpdates()
         {
+            Directory.CreateDirectory(tempDownloadPath);
             Status = UpdateStatus.SEARCHING;
             try
             {
@@ -138,6 +163,7 @@ namespace Osmo.Core.Patcher
 
         public void DownloadUpdate()
         {
+            filesExtraced = false;
             Status = UpdateStatus.DOWNLOADING;
             checkInterval.Stop();
             Logger.Instance.WriteLog("Started download of Osmo v{0}...", newVersion);
@@ -166,20 +192,39 @@ namespace Osmo.Core.Patcher
 
         private void InstallUpdate()
         {
-            Status = UpdateStatus.EXTRACTING;
-
+            string runtimePath = tempDownloadPath + "\\" + FixedValues.LOCAL_FILENAME;
             try
             {
-                if (File.Exists(versionFilePath))
+                if (!filesExtraced)
                 {
-                    File.Delete(versionFilePath);
+                    Status = UpdateStatus.EXTRACTING;
+
+                    if (File.Exists(versionFilePath))
+                    {
+                        File.Delete(versionFilePath);
+                    }
+                    
+                    if (Directory.Exists(tempDownloadPath))
+                    {
+                        DirectoryInfo tempDi = new DirectoryInfo(tempDownloadPath);
+                        foreach (DirectoryInfo di in tempDi.EnumerateDirectories())
+                        {
+                            Directory.Delete(di.FullName);
+                        }
+                        foreach (FileInfo fi in tempDi.EnumerateFiles())
+                        {
+                            if (fi.Name != "Runtime.zip")
+                            {
+                                File.Delete(fi.FullName);
+                            }
+                        }
+                        Directory.CreateDirectory(tempDownloadPath);
+                    }
+                    ZipFile.ExtractToDirectory(runtimePath, tempDownloadPath);
+                    Thread.Sleep(200);
+                    File.Delete(runtimePath);
+                    filesExtraced = true;
                 }
-
-                string runtimePath = tempDownloadPath + "\\" + FixedValues.LOCAL_FILENAME;
-
-                ZipFile.ExtractToDirectory(runtimePath, tempDownloadPath);
-                Thread.Sleep(200);
-                File.Delete(runtimePath);
                 Status = UpdateStatus.INSTALLING;
 
                 List<string> backupFiles = new List<string>();
@@ -202,6 +247,20 @@ namespace Osmo.Core.Patcher
             {
                 OnUpdateFailed(new UpdateFailedEventArgs("Installation failed! Reason: One or more files are locked!"));
                 Logger.Instance.WriteLog("There was an error during the installation of an update! Can't access one or more files because they are opened!", ex);
+            }
+            catch (FileNotFoundException ex)
+            {
+                if (!File.Exists(runtimePath))
+                {
+                    OnUpdateFailed(new UpdateFailedEventArgs("Missing files for installation! Restarting download..."));
+                    Logger.Instance.WriteLog("Some required files to update Osmo went missing, restarting download process...", ex);
+                    DownloadUpdate();
+                }
+                else
+                {
+                    OnUpdateFailed(new UpdateFailedEventArgs("Something went wrong during installation!"));
+                    Logger.Instance.WriteLog("There was an error during the installation of an update!", ex);
+                }
             }
             catch (Exception ex)
             {
@@ -247,11 +306,11 @@ namespace Osmo.Core.Patcher
         /// <returns>Returns true if a new version is available, else false</returns>
         bool CheckVersion(bool deleteFile, int vFileRow)
         {
-            string[] vFile = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "version.txt");
+            string[] vFile = File.ReadAllLines(versionFilePath);
             newVersion = Helper.SerializeVersionNumber(vFile[vFileRow], 3);
 
             if (deleteFile)
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "version.txt");
+                File.Delete(versionFilePath);
 
             return Helper.ParseVersion(newVersion, 0) > currentVersionNumber;
         }
@@ -320,6 +379,7 @@ namespace Osmo.Core.Patcher
         private void DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             downloadSpeedStopWatch.Reset();
+            InstallUpdate();
         }
 
         private void DownloadChanged(object sender, DownloadProgressChangedEventArgs e)

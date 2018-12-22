@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace Osmo
 {
@@ -24,6 +25,14 @@ namespace Osmo
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private static MainWindow instance;
+        private bool isUpdaterOpen;
+
+        public static MainWindow Instance
+        {
+            get => instance;
+        }
+
         public MainWindow()
         {
             FixedValues.LoadCompletionData();
@@ -36,6 +45,11 @@ namespace Osmo
             TemplateManager.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             LoadUISettings();
             Logger.Instance.WriteLog("Osmo has been successfully initialized!");
+        }
+
+        public void RequestShutdown()
+        {
+            Close();
         }
 
         private void ProfileManager_ProfileChanged(object sender, ProfileChangedEventArgs e)
@@ -125,6 +139,7 @@ namespace Osmo
         
         private void sidebarMenu_Loaded(object sender, RoutedEventArgs e)
         {
+            instance = this;
             if (!App.ProfileManager.Profile.IsValid)
                 sidebarMenu.SelectedIndex = FixedValues.CONFIG_INDEX;
         }
@@ -449,9 +464,23 @@ namespace Osmo
             Logger.Instance.AppendConsole(console);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Btn_update_Click(object sender, RoutedEventArgs e)
         {
+            if (!isUpdaterOpen)
+            {
+                (FindResource("ShowUpdater") as Storyboard).Begin();
+                isUpdaterOpen = true;
+            }
+            else
+            {
+                HideUpdater();
+            }
+        }
 
+        public void HideUpdater()
+        {
+            (FindResource("HideUpdater") as Storyboard).Begin();
+            isUpdaterOpen = false;
         }
     }
 }

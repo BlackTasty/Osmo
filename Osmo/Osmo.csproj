@@ -242,6 +242,7 @@
     <Compile Include="Core\Objects\SkinRenamedEventArgs.cs" />
     <Compile Include="Core\Objects\TemplateCreatedEventArgs.cs" />
     <Compile Include="Core\Parser.cs" />
+    <Compile Include="Core\Patcher\FrontendChangedEventArgs.cs" />
     <Compile Include="Core\Patcher\Server.cs" />
     <Compile Include="Core\Patcher\ServerList.cs" />
     <Compile Include="Core\Patcher\UpdateFailedEventArgs.cs" />

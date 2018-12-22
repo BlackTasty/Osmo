@@ -242,9 +242,6 @@
     <None Include="Resources\license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icon.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="MaterialDesignColors.dll" />
     <EmbeddedResource Include="MaterialDesignThemes.Wpf.dll" />
   </ItemGroup>

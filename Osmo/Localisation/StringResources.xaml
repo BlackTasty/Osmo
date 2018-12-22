@@ -339,8 +339,11 @@
     <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">Take me there!</system:String>
 
     <!-- Updater -->
+    <system:String o:Freeze="True" x:Key="updater_show">Show/Hide updater</system:String>
+    <system:String o:Freeze="True" x:Key="updater_idle">Click the button below to search for updates!</system:String>
     <system:String o:Freeze="True" x:Key="updater_searching">Searching for updates...</system:String>
-    <system:String o:Freeze="True" x:Key="updater_ready">Updates found!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_ready1">Updates found!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_ready2">Click "Download" to download &amp; install the update.</system:String>
     <system:String o:Freeze="True" x:Key="updater_downloading">Osmo is downloading the latest updates!</system:String>
     <system:String o:Freeze="True" x:Key="updater_installing">Installing updates...</system:String>
     <system:String o:Freeze="True" x:Key="updater_status1">Status: Downloading -</system:String>

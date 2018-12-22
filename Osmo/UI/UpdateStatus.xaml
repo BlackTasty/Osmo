@@ -41,7 +41,7 @@
             <BeginStoryboard Storyboard="{StaticResource SpinCanvas}"/>
         </EventTrigger>
     </DockPanel.Triggers>
-    <TextBlock Text="{Binding TopText}" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,8"/>
+    <TextBlock Text="{Binding TopText}" TextWrapping="Wrap" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,8"/>
     <Canvas x:Name="canvas" Width="35" Height="35" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5" 
             Visibility="{Binding ShowButton, Converter={StaticResource InverseBoolToVisibility}}">
         <Canvas.RenderTransform>
@@ -63,12 +63,12 @@
             </material:PackIcon.RenderTransform>
         </material:PackIcon>
     </Canvas>
-    <TextBlock Text="{Binding BottomText}" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,8" 
+    <TextBlock Text="{Binding BottomText}" TextWrapping="Wrap" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,8" 
                Visibility="{Binding ShowTopTextOnly, Converter={StaticResource InverseBoolToVisibility}}"/>
     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
-        <Button Content="{DynamicResource retry}" Margin="8"></Button>
-        <Button Content="{Binding RightButtonText}" Margin="8"></Button>
+        <Button Content="{Binding LeftButtonText}" Visibility="{Binding ShowLeftButton, Converter={StaticResource BoolToVisibility}}" Margin="8" Click="LeftButton_Click"></Button>
+        <Button Content="{Binding RightButtonText}" Visibility="{Binding ShowRightButton, Converter={StaticResource BoolToVisibility}}" Margin="8" Click="RightButton_Click"></Button>
     </StackPanel> 
     <ProgressBar DockPanel.Dock="Bottom" IsIndeterminate="{Binding IsInstalling}" Value="{Binding DownloadCurrent}"
-                 Maximum="{Binding DownloadSize}"/>
+                 Maximum="{Binding DownloadSize}" Visibility="{Binding ShowButton, Converter={StaticResource InverseBoolToVisibility}}"/>
 </DockPanel>

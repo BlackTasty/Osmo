@@ -7,8 +7,8 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Osmo Installer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Osmo Setup (Online)")]
+[assembly: AssemblyDescription("This is the online setup for Osmo")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Project Osmo")]
 [assembly: AssemblyProduct("Osmo Installer")]

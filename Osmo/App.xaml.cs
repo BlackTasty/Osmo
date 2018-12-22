@@ -70,6 +70,11 @@ namespace Osmo
             }
         }
 
+        public static void RequestShutdown()
+        {
+            window.Close();
+        }
+
         private static bool ValidateLibraries()
         {
             List<Library> libraries = new List<Library>()
