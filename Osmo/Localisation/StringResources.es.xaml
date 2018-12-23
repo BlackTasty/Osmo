@@ -5,6 +5,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="StringResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+	
     <!--<system:String o:Freeze="True" x:Key=""></system:String>-->
 
     <!--Alpha Disclaimer-->
@@ -53,10 +54,10 @@
     <system:String o:Freeze="True" x:Key="remove">_QUITAR</system:String>
     <system:String o:Freeze="True" x:Key="search">_BUSCAR...</system:String>
     <system:String o:Freeze="True" x:Key="generate">_GENERAR</system:String>
-    <system:String o:Freeze="True" x:Key="reset">_RESETEAR</system:String>
+    <system:String o:Freeze="True" x:Key="reset">_REAJUSTAR</system:String>
     <system:String o:Freeze="True" x:Key="download">_DESCARGAR</system:String>
     <system:String o:Freeze="True" x:Key="restart">_REINICIAR</system:String>
-    <system:String o:Freeze="True" x:Key="later">_DESPUES</system:String>
+    <system:String o:Freeze="True" x:Key="later">_MÁS TARDE</system:String>
 
     <!--  Validation-->
     <system:String o:Freeze="True" x:Key="validationError_directory">¡Directorio inválido!</system:String>
@@ -94,7 +95,7 @@
     <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Herramienta de cambio de tamaño</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Editor de plantillas</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_tools">Herramientas</system:String>
-    <system:String o:Freeze="True" x:Key="sidebar_tools_sbCreator">Creador de Sliderball</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_tools_sbCreator">Creador de sliderball</system:String>
 
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Revertir todos los cambios</system:String>
@@ -232,7 +233,8 @@
     <system:String o:Freeze="True" x:Key="picker_displaySelectorHint">Mostrar como</system:String>
     <system:String o:Freeze="True" x:Key="hint_selectedFile">Archivo seleccionado</system:String>
     <system:String o:Freeze="True" x:Key="hint_selectedFolder">Directorio seleccionado</system:String>
-    <system:String o:Freeze="True" x:Key="picker_WIPInfo">INFO: This dialog is still a work in progress. You can always opt-out via the settings.</system:String>
+    <system:String o:Freeze="True" x:Key="picker_WIPInfo">INFORMACIÓN: Este diálogo todavía está en desarrollo. Puede desactivar esta función en cualquier momento a través de la configuración.</system:String>
+	
     <!--About-->
     <system:String o:Freeze="True" x:Key="about_openSource1">¡Osmo es de código abierto!</system:String>
     <system:String o:Freeze="True" x:Key="about_openSource2">Haga clic aquí</system:String>
@@ -329,15 +331,15 @@
     <system:String o:Freeze="True" x:Key="sync_title">Sincronizar skins entre perfiles</system:String>
 
     <!-- Sliderball Creator -->
-    <system:String o:Freeze="True" x:Key="sb_imagePath">Localización de la imagen</system:String>
+    <system:String o:Freeze="True" x:Key="sb_imagePath">Ruta de la imagen</system:String>
     <system:String o:Freeze="True" x:Key="sb_title_configuration">1. Configuración</system:String>
     <system:String o:Freeze="True" x:Key="sb_title_preview">2. Previsualizar</system:String>
-    <system:String o:Freeze="True" x:Key="sb_hint_fps">Numero de cuadros</system:String>
+    <system:String o:Freeze="True" x:Key="sb_hint_fps">Número de cuadros</system:String>
     <system:String o:Freeze="True" x:Key="sb_hint_duration">Duración de la animación</system:String>
-    <system:String o:Freeze="True" x:Key="sb_selectImage">Selecciona una imagen que quieras animar</system:String>
-    <system:String o:Freeze="True" x:Key="sb_saveSliderball">Elige una localización de guardado para tu slider ball</system:String>
+    <system:String o:Freeze="True" x:Key="sb_selectImage">Seleccione una imagen que desee animar</system:String>
+    <system:String o:Freeze="True" x:Key="sb_saveSliderball">Elija una ubicación para guardar su sliderball</system:String>
     <system:String o:Freeze="True" x:Key="sb_sliderballSaved">¡Sliderball guardada!</system:String>
-    <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">¡Llevame ahí!</system:String>
+    <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">¡Llévame allí!</system:String>
 
     <!-- Updater -->
     <system:String o:Freeze="True" x:Key="updater_searching">Buscando actualizaciones...</system:String>
@@ -345,11 +347,11 @@
     <system:String o:Freeze="True" x:Key="updater_downloading">¡Osmo está descargando las últimas actualizaciones!</system:String>
     <system:String o:Freeze="True" x:Key="updater_installing">Instalando actualizaciones...</system:String>
     <system:String o:Freeze="True" x:Key="updater_status1">Estado: Descargando -</system:String>
-    <system:String o:Freeze="True" x:Key="updater_status2">desde</system:String>
-    <system:String o:Freeze="True" x:Key="updater_failed1">Oh no, ¡algo ha ido mal!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_failed2">Intenta de nuevo después o abre un issue en GitHub.</system:String>
-    <system:String o:Freeze="True" x:Key="updater_done1">¡Casi listo!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_done2">¡Solo reinicia Osmo y disfruta!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status2">de</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed1">¡Oh no, algo salió mal!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed2">Vuelva a intentarlo más tarde o abra un issue en GitHub.</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done1">¡Ya casi estamos!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done2">¡Simplemente reinicie Osmo y disfrute!</system:String>
     <system:String o:Freeze="True" x:Key="updater_uptodate">¡Todo está actualizado!</system:String>
 
     <!--Completion data descriptions-->
