@@ -51,12 +51,12 @@
     <system:String o:Freeze="True" x:Key="donate">_Donar</system:String>
     <system:String o:Freeze="True" x:Key="startResize">_COMENZAR CAMBIO DE TAMAÑO</system:String>
     <system:String o:Freeze="True" x:Key="remove">_QUITAR</system:String>
-    <system:String o:Freeze="True" x:Key="search">_SEARCH...</system:String>
-    <system:String o:Freeze="True" x:Key="generate">_GENERATE</system:String>
-    <system:String o:Freeze="True" x:Key="reset">_RESET</system:String>
-    <system:String o:Freeze="True" x:Key="download">_DOWNLOAD</system:String>
-    <system:String o:Freeze="True" x:Key="restart">_RESTART</system:String>
-    <system:String o:Freeze="True" x:Key="later">_LATER</system:String>
+    <system:String o:Freeze="True" x:Key="search">_BUSCAR...</system:String>
+    <system:String o:Freeze="True" x:Key="generate">_GENERAR</system:String>
+    <system:String o:Freeze="True" x:Key="reset">_RESETEAR</system:String>
+    <system:String o:Freeze="True" x:Key="download">_DESCARGAR</system:String>
+    <system:String o:Freeze="True" x:Key="restart">_REINICIAR</system:String>
+    <system:String o:Freeze="True" x:Key="later">_DESPUES</system:String>
 
     <!--  Validation-->
     <system:String o:Freeze="True" x:Key="validationError_directory">¡Directorio inválido!</system:String>
@@ -93,8 +93,8 @@
     <system:String o:Freeze="True" x:Key="sidebar_about">Acerca de</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_resizeTool">Herramienta de cambio de tamaño</system:String>
     <system:String o:Freeze="True" x:Key="sidebar_templateEditor">Editor de plantillas</system:String>
-    <system:String o:Freeze="True" x:Key="sidebar_tools">Tools</system:String>
-    <system:String o:Freeze="True" x:Key="sidebar_tools_sbCreator">Sliderball Creator</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_tools">Herramientas</system:String>
+    <system:String o:Freeze="True" x:Key="sidebar_tools_sbCreator">Creador de Sliderball</system:String>
 
     <!--MainWindow-->
     <system:String o:Freeze="True" x:Key="main_revertAll">Revertir todos los cambios</system:String>
