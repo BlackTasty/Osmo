@@ -68,7 +68,8 @@ Also please follow these guidelines:
 ![Skin Mixer](https://puu.sh/ASsBW/a04543558f.jpg "Skin Mixer")
 
 ### Animation preview 
-https://puu.sh/Az35a/171fdbfb7a.mp4
+[Demo Video](https://puu.sh/ClNxa/80d1a829d6.mp4)
+![Animation preview](https://puu.sh/ClO34/ea06a2ff03.jpg "Animation preview")
 
 ### Template Manager
 ![Template Manager](https://puu.sh/ASsCI/e2bebb7620.jpg "Template Manager")
@@ -78,3 +79,7 @@ https://puu.sh/Az35a/171fdbfb7a.mp4
 
 ### Resize Tool
 ![Resize Tool](https://puu.sh/ASsFP/fcce8783ef.jpg "Resize Tool")
+
+### Sliderball Creator
+[Demo Video](https://puu.sh/ClNLc/e49a0f0c7b.mp4)
+![Sliderball Creator](https://puu.sh/ClO52/9e066ccae8.jpg "Sliderball Creator")

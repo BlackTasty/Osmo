@@ -45,6 +45,18 @@ namespace Osmo
             TemplateManager.Instance.SetMasterViewModel(DataContext as OsmoViewModel);
             LoadUISettings();
             Logger.Instance.WriteLog("Osmo has been successfully initialized!");
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cleanup.txt"))
+            {
+                Logger.Instance.WriteLog("Cleaning up after update...");
+                string[] lines = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\cleanup.txt");
+                foreach (string path in lines)
+                {
+                    File.Delete(path);
+                }
+
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\cleanup.txt");
+                Logger.Instance.WriteLog("Post cleanup successful!");
+            }
         }
 
         public void RequestShutdown()

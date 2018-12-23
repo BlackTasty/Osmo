@@ -188,6 +188,8 @@ namespace Osmo.ViewModel
             FrameRate = 30;
             mAnimation.Clear();
             CurrentFrameIndex = 0;
+            mDummyNames.Clear();
+            InvokePropertyChanged("DummyNames");
         }
 
         public void GenerateAnimation()

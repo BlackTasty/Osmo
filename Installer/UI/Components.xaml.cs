@@ -33,7 +33,7 @@ namespace Installer.UI
         {
             this.window = window;
             vm = (ComponentsViewModel)DataContext;
-            vm.Components.Add(new Component(txt_application, true, 9236.48, ComponentType.APPLICATION, false));
+            vm.Components.Add(new Component(txt_application, true, 10092.24, ComponentType.APPLICATION, false));
             vm.Components.Add(new Component(txt_desktopIcon, false, 179, ComponentType.SHORTCUT));
             vm.Components.Add(new Component(txt_startmenu, false, 0, ComponentType.STARTMENU));
             CalculateSpace();
