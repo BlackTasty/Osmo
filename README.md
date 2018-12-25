@@ -31,10 +31,10 @@
 - [x] Log file system
 - [ ] Simulator -> Test how your skin would look like in-game without starting osu! -> **Currently in development**
 - [x] Context menus on various controls
-- [ ] Auto-Updater
+- [x] Auto-Updater
 - [ ] Implement custom titlebar and remove MahApps.Metro dependency
 - [x] Translation system
-- [ ] Translation files
+- [x] Translation files
  - <s>English</s>
  - <s>Spanish</s>
  - <s>German</s>
