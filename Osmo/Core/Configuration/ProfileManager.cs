@@ -221,7 +221,7 @@ namespace Osmo.Core.Configuration
         {
             if (!string.IsNullOrWhiteSpace(profileName))
             {
-                return Profiles.FirstOrDefault(x => x.ProfileName?.Equals(profileName) ?? false);
+                return Profiles.FirstOrDefault(x => x.ProfileName?.Equals(profileName, StringComparison.CurrentCultureIgnoreCase) ?? false);
             }
             else
             {

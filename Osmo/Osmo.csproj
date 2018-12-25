@@ -89,6 +89,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ConsoleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ModeProgressImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +172,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ConsoleWindow.xaml.cs">
+      <DependentUpon>ConsoleWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ModeProgressImage.xaml.cs">
       <DependentUpon>ModeProgressImage.xaml</DependentUpon>
     </Compile>
@@ -196,6 +203,7 @@
     <Compile Include="Core\Configuration\ProfileEventArgs.cs" />
     <Compile Include="Core\Configuration\ProfileRenamedEventArgs.cs" />
     <Compile Include="Core\Configuration\RecallConfiguration.cs" />
+    <Compile Include="Core\ConsoleHistory.cs" />
     <Compile Include="Core\DialogHelper.cs" />
     <Compile Include="Core\ExtensionMethods.cs" />
     <Compile Include="Core\FileExplorer\ClassicEntry.cs" />
@@ -468,6 +476,7 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\ConsoleCommands.txt" />
     <Resource Include="Resources\mode_ctb.png" />
     <Resource Include="Resources\mode_mania.png" />
     <Resource Include="Resources\mode_osu.png" />

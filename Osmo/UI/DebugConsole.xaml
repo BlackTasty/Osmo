@@ -11,16 +11,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
+            <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             
         </Grid.ColumnDefinitions>
         <TextBlock Text="Console" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" Margin="8,0"/>
-        <Button Padding="0" Width="22" HorizontalAlignment="Right" IsEnabled="{Binding PlayEnabled}" Foreground="{DynamicResource MaterialDesignBody}"
-                ToolTip="Close animation helper" Click="CloseConsole_Click" Background="{x:Null}" BorderBrush="{x:Null}"
+        <Button Padding="0" Width="22" Height="22" HorizontalAlignment="Right" IsEnabled="{Binding PlayEnabled}" Foreground="{DynamicResource MaterialDesignBody}"
+                ToolTip="Close console" Click="CloseConsole_Click" Background="{x:Null}" BorderBrush="{x:Null}"
                 Margin="8,0">
             <material:PackIcon
                             Kind="Close"
+                            Height="22"
+                            Width="22" />
+        </Button>
+        <Button Padding="0" Visibility="Hidden" Width="22" Height="22" HorizontalAlignment="Right" IsEnabled="{Binding PlayEnabled}" Foreground="{DynamicResource MaterialDesignBody}"
+                ToolTip="Popout console" Click="Popout_Click"  Background="{x:Null}" BorderBrush="{x:Null}"
+                Margin="46,0">
+            <material:PackIcon
+                            Kind="WindowMaximize"
                             Height="22"
                             Width="22" />
         </Button>
@@ -33,5 +42,12 @@
                 </Style>
             </RichTextBox.Resources>
         </RichTextBox>
+        <DockPanel Grid.Row="2" Background="{DynamicResource ControlBackgroundBrush}">
+            <TextBlock Text=">" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="8,0,8,8"
+                     FontFamily="pack://application:,,,/Osmo;component/Resources/#Inconsolata"/>
+            <TextBox x:Name="txt_cmd" HorizontalAlignment="Stretch" material:HintAssist.Hint="help for all commands" Margin="0,0,8,8"
+                     PreviewKeyDown="TextBox_KeyDown"
+                     FontFamily="pack://application:,,,/Osmo;component/Resources/#Inconsolata"/>
+        </DockPanel>
     </Grid>
 </Border>

@@ -173,13 +173,14 @@ namespace Osmo.Core
             Logger.Instance.WriteLog("Skin element details loaded!");
         }
 
+        //The index refers to the position inside the sidebar
         internal const int WIZARD_INDEX = 1;
         internal const int EDITOR_INDEX = 2;
         internal const int MIXER_INDEX = 3;
-        internal const int CONFIG_INDEX = 6;
-        internal const int ABOUT_INDEX = 7;
-        internal const int TEMPLATE_EDITOR_INDEX = 8;
-        internal const int RESIZE_TOOL_INDEX = 20;
+        internal const int RESIZE_TOOL_INDEX = 5;
+        internal const int TEMPLATE_EDITOR_INDEX = 7;
+        internal const int CONFIG_INDEX = 8;
+        internal const int ABOUT_INDEX = 9;
         
         internal const string LOCAL_FILENAME = "Runtime.zip";
 

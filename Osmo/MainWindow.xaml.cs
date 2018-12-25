@@ -495,6 +495,7 @@ namespace Osmo
             if ((bool)e.NewValue == true)
             {
                 MinHeight += 200;
+                console.Height = 200;
             }
             else
             {
