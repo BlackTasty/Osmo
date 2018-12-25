@@ -9,35 +9,35 @@ namespace Osmo.Core.Patcher
 {
     static class Util
     {
-        public static List<string> MoveDirectory(string sourcePath, string destPath)
+        public static List<string> BackupDirectory(string sourcePath, string destPath)
         {
-            return MoveFiles(null, new DirectoryInfo(sourcePath), destPath);
+            return BackupFiles(null, new DirectoryInfo(sourcePath), destPath);
 
             //Directory.Move(destPath, destPath + ".BAK");
             //Directory.Move(sourcePath, destPath);
         }
 
-        public static List<string> MoveFiles(string root, DirectoryInfo di, string destPath)
+        public static List<string> BackupFiles(string root, DirectoryInfo di, string destPath)
         {
             List<string> paths = new List<string>();
             foreach (FileInfo fi in di.GetFiles())
             {
-                paths.Add(MoveFile(fi.FullName, destPath + "\\" + fi.Name));
+                paths.Add(BackupFile(fi.FullName, destPath + "\\" + fi.Name));
             }
 
             return paths;
         }
 
-        public static string MoveFile(string sourcePath, string destPath, string[] whitelist)
+        public static string BackupFile(string sourcePath, string destPath, string[] whitelist)
         {
             if (!IsWhitelistFile(sourcePath, whitelist))
             {
-                MoveFile(sourcePath, destPath);
+                BackupFile(sourcePath, destPath);
             }
             return destPath + ".BAK";
         }
 
-        public static string MoveFile(string sourcePath, string destPath)
+        public static string BackupFile(string sourcePath, string destPath)
         {
             if (File.Exists(destPath))
             {

@@ -71,7 +71,7 @@ namespace Osmo.ViewModel
 
         public string TopText
         {
-            get => mTopText;
+            get => Helper.FindString(mTopText);
             set
             {
                 if (mTopText != value)
@@ -85,7 +85,16 @@ namespace Osmo.ViewModel
 
         public string BottomText
         {
-            get => mBottomText;
+            get {
+                if (Status != UpdateStatus.DOWNLOADING)
+                {
+                    return Helper.FindString(mBottomText);
+                }
+                else
+                {
+                    return mBottomText;
+                }
+            }
             set
             {
                 if (mBottomText != value)
@@ -98,7 +107,7 @@ namespace Osmo.ViewModel
 
         public string LeftButtonText
         {
-            get => mLeftButtonText;
+            get => Helper.FindString(mLeftButtonText);
             set
             {
                 if (mLeftButtonText != value)
@@ -111,7 +120,7 @@ namespace Osmo.ViewModel
 
         public string RightButtonText
         {
-            get => mRightButtonText;
+            get => Helper.FindString(mRightButtonText);
             set
             {
                 if (mRightButtonText != value)
@@ -203,19 +212,28 @@ namespace Osmo.ViewModel
 
         public UpdaterViewModel()
         {
-            TopText = Helper.FindString("updater_idle");
-            RightButtonText = Helper.FindString("search");
+            TopText = "updater_idle";
+            RightButtonText = "search";
             updateManager = new UpdateManager();
             updateManager.DownloadProgressChanged += UpdateManager_DownloadProgressChanged;
             updateManager.UpdateFound += UpdateManager_UpdateFound;
             updateManager.UpdateFailed += UpdateManager_UpdateFailed;
             updateManager.SearchStatusChanged += UpdateManager_SearchStatusChanged;
             updateManager.StatusChanged += UpdateManager_StatusChanged;
+            App.LanguageChanged += App_LanguageChanged;
 
-            //if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Runtime)
-            //{
-            //    updateManager.CheckForUpdates();
-            //}
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Runtime)
+            {
+                updateManager.CheckForUpdates();
+            }
+        }
+
+        private void App_LanguageChanged(object sender, EventArgs e)
+        {
+            InvokePropertyChanged("TopText");
+            InvokePropertyChanged("BottomText");
+            InvokePropertyChanged("LeftButtonText");
+            InvokePropertyChanged("RightButtonText");
         }
 
         private void UpdateManager_StatusChanged(object sender, UpdateStatus e)
@@ -232,42 +250,42 @@ namespace Osmo.ViewModel
             switch (e)
             {
                 case UpdateStatus.IDLE:
-                    TopText = Helper.FindString("updater_idle");
-                    RightButtonText = Helper.FindString("search");
+                    TopText = "updater_idle";
+                    RightButtonText = "search";
                     break;
                 case UpdateStatus.SEARCHING:
-                    TopText = Helper.FindString("updater_searching");
+                    TopText = "updater_searching";
                     OnRunAnimation(true);
                     break;
                 case UpdateStatus.UPDATES_FOUND:
-                    TopText = Helper.FindString("updater_ready1");
-                    BottomText = Helper.FindString("updater_ready2");
-                    LeftButtonText = Helper.FindString("later");
-                    RightButtonText = Helper.FindString("download");
+                    TopText = "updater_ready1";
+                    BottomText = "updater_ready2";
+                    LeftButtonText = "later";
+                    RightButtonText = "download";
                     break;
                 case UpdateStatus.DOWNLOADING:
                     ShowLeftButton = false;
-                    TopText = Helper.FindString("updater_downloading");
+                    TopText = "updater_downloading";
                     BottomText = string.Format("{0} 0 MB {1} 0 MB (0 kb/s)", 
                         Helper.FindString("updater_status1"), 
                         Helper.FindString("updater_status2"));
                     break;
                 case UpdateStatus.EXTRACTING:
                 case UpdateStatus.INSTALLING:
-                    TopText = Helper.FindString("updater_installing");
+                    TopText = "updater_installing";
                     break;
                 case UpdateStatus.READY:
                     OnRunAnimation(false);
-                    TopText = Helper.FindString("updater_done1");
-                    BottomText = Helper.FindString("updater_done2");
-                    LeftButtonText = Helper.FindString("later");
-                    RightButtonText = Helper.FindString("restart");
+                    TopText = "updater_done1";
+                    BottomText = "updater_done2";
+                    LeftButtonText = "later";
+                    RightButtonText = "restart";
                     break;
                 case UpdateStatus.UPTODATE:
                     ShowLeftButton = true;
                     ShowRightButton = false;
-                    TopText = Helper.FindString("updater_uptodate");
-                    LeftButtonText = Helper.FindString("ok");
+                    TopText = "updater_uptodate";
+                    LeftButtonText = "ok";
                     break;
             }
         }
@@ -279,19 +297,19 @@ namespace Osmo.ViewModel
 
         private void UpdateManager_UpdateFailed(object sender, UpdateFailedEventArgs e)
         {
-            TopText = Helper.FindString("updater_failed1");
-            BottomText = Helper.FindString("updater_failed2");
-            LeftButtonText = Helper.FindString("retry");
+            TopText = "updater_failed1";
+            BottomText = "updater_failed2";
+            LeftButtonText = "retry";
             ShowRightButton = false;
             ShowButton = true;
         }
 
         private void UpdateManager_UpdateFound(object sender, UpdateFoundEventArgs e)
         {
-            TopText = Helper.FindString("updater_ready1");
-            BottomText = Helper.FindString("updater_ready2");
-            LeftButtonText = Helper.FindString("later");
-            RightButtonText = Helper.FindString("download");
+            TopText = "updater_ready1";
+            BottomText = "updater_ready2";
+            LeftButtonText = "later";
+            RightButtonText = "download";
             ShowButton = true;
         }
 

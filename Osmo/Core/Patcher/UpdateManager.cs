@@ -231,12 +231,12 @@ namespace Osmo.Core.Patcher
                 DirectoryInfo root = new DirectoryInfo(tempDownloadPath);
                 foreach (DirectoryInfo di in root.EnumerateDirectories())
                 {
-                    backupFiles.AddRange(Util.MoveDirectory(di.FullName, installPath + di.Name));
+                    backupFiles.AddRange(Util.BackupDirectory(di.FullName, installPath + di.Name));
                 }
 
                 foreach (FileInfo fi in root.EnumerateFiles())
                 {
-                    backupFiles.Add(Util.MoveFile(fi.FullName, installPath + fi.Name));
+                    backupFiles.Add(Util.BackupFile(fi.FullName, installPath + fi.Name));
                 }
 
                 File.WriteAllLines(installPath + "cleanup.txt", backupFiles.ToArray());

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 
 namespace Osmo.Core.Patcher
 {
@@ -25,7 +26,7 @@ namespace Osmo.Core.Patcher
                         return true;
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     return false;
                 }

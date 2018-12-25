@@ -11,6 +11,7 @@ using Osmo.ViewModel;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -47,6 +48,37 @@ namespace Osmo
             Logger.Instance.WriteLog("Osmo has been successfully initialized!");
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\cleanup.txt"))
             {
+                Process[] procList = Process.GetProcessesByName("osmo");
+                if (procList.Length > 1)
+                {
+                }
+
+                int cycleCount = 0;
+                while (Process.GetProcessesByName("osmo").Length > 1)
+                {
+                    if (cycleCount == 3)
+                    {
+                        if (MessageBox.Show("Your old Osmo instance needs to be closed in order to cleanup after updating!\n" +
+                            "Shall I close them for you?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        {
+                            foreach (Process proc in procList)
+                            {
+                                if (Process.GetCurrentProcess().Id != proc.Id)
+                                {
+                                    proc.Kill();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Process.GetCurrentProcess().Kill();
+                        }
+                    }
+                    Logger.Instance.WriteLog("Waiting for old Osmo process to close...");
+                    Thread.Sleep(1000);
+                    cycleCount++;
+                }
+                
                 Logger.Instance.WriteLog("Cleaning up after update...");
                 string[] lines = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "\\cleanup.txt");
                 foreach (string path in lines)

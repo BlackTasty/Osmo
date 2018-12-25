@@ -340,17 +340,20 @@
     <system:String o:Freeze="True" x:Key="sb_sliderballSavedButton">¡Llevame ahí!</system:String>
 
     <!-- Updater -->
+    <system:String o:Freeze="True" x:Key="updater_show">Mostrar/Ocultar actualizador</system:String>
+    <system:String o:Freeze="True" x:Key="updater_idle">ĄHaga clic en el botón de abajo para buscar actualizaciones!</system:String>
     <system:String o:Freeze="True" x:Key="updater_searching">Buscando actualizaciones...</system:String>
-    <system:String o:Freeze="True" x:Key="updater_ready">¡Actualizaciones encontradas!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_downloading">¡Osmo está descargando las últimas actualizaciones!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_ready1">ĄActualizaciones encontradas!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_ready2">Haga clic en "Descargar" para descargar e instalar la actualización.</system:String>
+    <system:String o:Freeze="True" x:Key="updater_downloading">ĄOsmo está descargando las últimas actualizaciones!</system:String>
     <system:String o:Freeze="True" x:Key="updater_installing">Instalando actualizaciones...</system:String>
     <system:String o:Freeze="True" x:Key="updater_status1">Estado: Descargando -</system:String>
-    <system:String o:Freeze="True" x:Key="updater_status2">desde</system:String>
-    <system:String o:Freeze="True" x:Key="updater_failed1">Oh no, ¡algo ha ido mal!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_failed2">Intenta de nuevo después o abre un issue en GitHub.</system:String>
-    <system:String o:Freeze="True" x:Key="updater_done1">¡Casi listo!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_done2">¡Solo reinicia Osmo y disfruta!</system:String>
-    <system:String o:Freeze="True" x:Key="updater_uptodate">¡Todo está actualizado!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_status2">de</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed1">ĄOh no, algo salió mal!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_failed2">Vuelva a intentarlo más tarde o abra un issue en GitHub.</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done1">ĄYa casi estamos!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_done2">ĄSimplemente reinicie Osmo y disfrute!</system:String>
+    <system:String o:Freeze="True" x:Key="updater_uptodate">ĄTodo está actualizado!</system:String>
 
     <!--Completion data descriptions-->
     <!--   Template completion data-->
