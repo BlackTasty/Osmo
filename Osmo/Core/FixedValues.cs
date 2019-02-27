@@ -1,53 +1,18 @@
 ﻿using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
+using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace Osmo.Core
 {
     static class FixedValues
     {
-        internal static void InitializeReader()
+        internal static void LoadCompletionData()
         {
-            Logger.Instance.WriteLog("Loading skin element details...");
-            if (readerInterface == null)
-                readerInterface = new SkinElementReader(Properties.Resources.SkinningInterface,
-                    nameof(Properties.Resources.SkinningInterface));
-            if (readerStandard == null)
-                readerStandard = new SkinElementReader(Properties.Resources.SkinningStandard,
-                    nameof(Properties.Resources.SkinningStandard));
-            if (readerCatch == null)
-                readerCatch = new SkinElementReader(Properties.Resources.SkinningCatch,
-                    nameof(Properties.Resources.SkinningCatch));
-            if (readerMania == null)
-                readerMania = new SkinElementReader(Properties.Resources.SkinningMania,
-                    nameof(Properties.Resources.SkinningMania));
-            if (readerTaiko == null)
-                readerTaiko = new SkinElementReader(Properties.Resources.SkinningTaiko,
-                    nameof(Properties.Resources.SkinningTaiko));
-            if (readerSounds == null)
-                readerSounds = new SkinSoundReader(Properties.Resources.SkinningSounds,
-                    nameof(Properties.Resources.SkinningSounds));
-            Logger.Instance.WriteLog("Skin element details loaded!");
-        }
-
-        internal const int WIZARD_INDEX = 1;
-        internal const int EDITOR_INDEX = 2;
-        internal const int MIXER_INDEX = 3;
-        internal const int RESIZE_TOOL_INDEX = 4;
-        internal const int CONFIG_INDEX = 6;
-        internal const int ABOUT_INDEX = 7;
-        internal const int TEMPLATE_EDITOR_INDEX = 8;
-
-        internal static SkinElementReader readerInterface;
-        internal static SkinElementReader readerStandard;
-        internal static SkinElementReader readerCatch;
-        internal static SkinElementReader readerMania;
-        internal static SkinElementReader readerTaiko;
-        internal static SkinSoundReader readerSounds;
-
-        internal static readonly List<CompletionData> templateCompletionData =
-            new List<CompletionData>()
+            #region Template Completion Data
+            templateCompletionData = new List<CompletionData>()
             {
                 new CompletionData("[NAME]", Helper.FindString("completion_template_name")),
                 new CompletionData("[AUTHOR]", Helper.FindString("completion_template_author")),
@@ -55,10 +20,10 @@ namespace Osmo.Core
                 new CompletionData("[SIZE]", Helper.FindString("completion_template_size")),
                 new CompletionData("[DATE]", Helper.FindString("completion_template_date"))
             };
+            #endregion
 
-
-        internal static readonly List<CompletionData> skinIniGeneralCompletionData =
-            new List<CompletionData>() {
+            #region Skin Ini General Completion Data
+            skinIniGeneralCompletionData = new List<CompletionData>() {
             new CompletionData("Name", Helper.FindString("completion_skin_name")),
             new CompletionData("Author", Helper.FindString("completion_skin_author")),
             new CompletionData("Version", Helper.FindString("completion_skin_version")),
@@ -78,9 +43,10 @@ namespace Osmo.Core
             new CompletionData("SpinnerFadePlayfield", Helper.FindString("completion_skin_spinnerFadePlayfield")),
             new CompletionData("SpinnerFrequencyModulate", Helper.FindString("completion_skin_spinnerFrequencyModulate")),
             new CompletionData("SpinnerNoBlink", Helper.FindString("completion_skin_spinnerNoBlink")) };
+            #endregion
 
-        internal static readonly List<CompletionData> skinIniColoursCompletionData =
-            new List<CompletionData>() {
+            #region Skin Ini Colours Completion Data
+            skinIniColoursCompletionData = new List<CompletionData>() {
             new CompletionData("Combo1", Helper.FindString("completion_skin_combo1")),
             new CompletionData("Combo2", Helper.FindString("completion_skin_combo2")),
             new CompletionData("Combo3", Helper.FindString("completion_skin_combo3")),
@@ -98,24 +64,27 @@ namespace Osmo.Core
             new CompletionData("SongSelectInactiveText", Helper.FindString("completion_skin_songSelectInactiveText")),
             new CompletionData("SpinnerBackground", Helper.FindString("completion_skin_spinnerBackground")),
             new CompletionData("StarBreakAdditive", Helper.FindString("completion_skin_starBreakAdditive")) };
+            #endregion
 
-        internal static readonly List<CompletionData> skinIniFontsCompletionData =
-            new List<CompletionData>() {
+            #region Skin Ini Fonts Completion Data
+            skinIniFontsCompletionData = new List<CompletionData>() {
             new CompletionData("HitCirclePrefix", Helper.FindString("completion_skin_hitCirclePrefix")),
             new CompletionData("HitCircleOverlap", Helper.FindString("completion_skin_hitCircleOverlap")),
             new CompletionData("ScorePrefix", Helper.FindString("completion_skin_scorePrefix")),
             new CompletionData("ScoreOverlap", Helper.FindString("completion_skin_scoreOverlap")),
             new CompletionData("ComboPrefix", Helper.FindString("completion_skin_comboPrefix")),
             new CompletionData("ComboOverlap", Helper.FindString("completion_skin_comboOverlap")) };
+            #endregion
 
-        internal static readonly List<CompletionData> skinIniCTBCompletionData =
-            new List<CompletionData>() {
+            #region Skin Ini CTB Completion Data
+            skinIniCTBCompletionData = new List<CompletionData>() {
             new CompletionData("HyperDash", Helper.FindString("completion_skin_hyperDash")),
             new CompletionData("HyperDashFruit", Helper.FindString("completion_skin_hyperDashFruit")),
             new CompletionData("HyperDashAfterImage", Helper.FindString("completion_skin_hyperDashAfterImage")) };
+            #endregion
 
-        internal static readonly List<CompletionData> skinIniManiaCompletionData =
-            new List<CompletionData>() {
+            #region Skin Ini Mania Completion Data
+            skinIniManiaCompletionData = new List<CompletionData>() {
             new CompletionData("Keys", Helper.FindString("completion_skin_keys")),
             new CompletionData("ColumnStart", Helper.FindString("completion_skin_columnStart")),
             new CompletionData("ColumnRight", Helper.FindString("completion_skin_columnRight")),
@@ -177,6 +146,64 @@ namespace Osmo.Core
             new CompletionData("Hit200", Helper.FindString("completion_skin_hit200")),
             new CompletionData("Hit300", Helper.FindString("completion_skin_hit300")),
             new CompletionData("Hit300g", Helper.FindString("completion_skin_hit300g")) };
+            #endregion
+        }
+
+        internal static void InitializeReader()
+        {
+            Logger.Instance.WriteLog("Loading skin element details...");
+            if (readerInterface == null)
+                readerInterface = new SkinElementReader(Properties.Resources.SkinningInterface,
+                    nameof(Properties.Resources.SkinningInterface), ElementType.Interface);
+            if (readerStandard == null)
+                readerStandard = new SkinElementReader(Properties.Resources.SkinningStandard,
+                    nameof(Properties.Resources.SkinningStandard), ElementType.Osu);
+            if (readerCatch == null)
+                readerCatch = new SkinElementReader(Properties.Resources.SkinningCatch,
+                    nameof(Properties.Resources.SkinningCatch), ElementType.CTB);
+            if (readerMania == null)
+                readerMania = new SkinElementReader(Properties.Resources.SkinningMania,
+                    nameof(Properties.Resources.SkinningMania), ElementType.Mania);
+            if (readerTaiko == null)
+                readerTaiko = new SkinElementReader(Properties.Resources.SkinningTaiko,
+                    nameof(Properties.Resources.SkinningTaiko), ElementType.Taiko);
+            if (readerSounds == null)
+                readerSounds = new SkinSoundReader(Properties.Resources.SkinningSounds,
+                    nameof(Properties.Resources.SkinningSounds));
+            Logger.Instance.WriteLog("Skin element details loaded!");
+        }
+
+        //The index refers to the position inside the sidebar
+        internal const int WIZARD_INDEX = 1;
+        internal const int EDITOR_INDEX = 2;
+        internal const int MIXER_INDEX = 3;
+        internal const int RESIZE_TOOL_INDEX = 5;
+        internal const int TEMPLATE_EDITOR_INDEX = 7;
+        internal const int CONFIG_INDEX = 8;
+        internal const int ABOUT_INDEX = 9;
+        
+        internal const string LOCAL_FILENAME = "Runtime.zip";
+
+        internal static SolidColorBrush DEFAULT_BRUSH = Brushes.White;
+        internal static string FILE_EXPLORER_CACHEFILE = AppDomain.CurrentDomain.BaseDirectory + "\\explorer.cache";
+
+        internal static SkinElementReader readerInterface;
+        internal static SkinElementReader readerStandard;
+        internal static SkinElementReader readerCatch;
+        internal static SkinElementReader readerMania;
+        internal static SkinElementReader readerTaiko;
+        internal static SkinSoundReader readerSounds;
+
+        internal static List<CompletionData> templateCompletionData;
+        internal static List<CompletionData> skinIniGeneralCompletionData;
+
+        internal static List<CompletionData> skinIniColoursCompletionData;
+
+        internal static List<CompletionData> skinIniFontsCompletionData;
+
+        internal static List<CompletionData> skinIniCTBCompletionData;
+
+        internal static List<CompletionData> skinIniManiaCompletionData;
 
         public const string URI_BASE_LOCALIZATION = "pack://application:,,,/Osmo;component/Localisation/";
     }

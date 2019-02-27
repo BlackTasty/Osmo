@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core.Configuration;
 using Osmo.Core.Logging;
+using Osmo.Core.Reader;
 using Osmo.UI;
 using Osmo.ViewModel;
 using System;
@@ -14,10 +15,23 @@ using System.Windows.Data;
 
 namespace Osmo.Core.Objects
 {
-    public class Skin
+    public class Skin : ViewModelBase
     {
         private FileSystemWatcher mWatcher;
         private FileInfo skinIniHandle;
+
+        private double mProgressOsu;
+        private double mProgressOsuHD;
+        private double mProgressCTB;
+        private double mProgressCTBHD;
+        private double mProgressTaiko;
+        private double mProgressTaikoHD;
+        private double mProgressMania;
+        private double mProgressManiaHD;
+        private double mProgressInterface;
+        private double mProgressInterfaceHD;
+        private double mProgressSounds;
+        private bool mSkinIniExists;
 
         #region Properties
         /// <summary>
@@ -36,6 +50,12 @@ namespace Osmo.Core.Objects
         public string Author { get; set; }
 
         public bool IsEmpty { get; private set; }
+
+        public bool SkinIniExists
+        {
+            get => mSkinIniExists;
+            private set => mSkinIniExists = value;
+        }
 
         public bool UnsavedChanges { get => Elements.Any(x => !string.IsNullOrWhiteSpace(x.TempPath)); }
 
@@ -56,8 +76,197 @@ namespace Osmo.Core.Objects
                 return GetSkinIniProperty("Version")?.Trim() ?? "1.0";
             }
         }
+
+        public double ProgressOsu
+        {
+            get => mProgressOsu;
+            private set
+            {
+                mProgressOsu = value;
+                InvokePropertyChanged("ProgressOsu");
+            }
+        }
+
+        public double ProgressOsuHD
+        {
+            get => mProgressOsuHD;
+            private set
+            {
+                mProgressOsuHD = value;
+                InvokePropertyChanged("ProgressOsuHD");
+            }
+        }
+
+        public double ProgressMania
+        {
+            get => mProgressMania;
+            private set
+            {
+                mProgressMania = value;
+                InvokePropertyChanged("ProgressMania");
+            }
+        }
+
+        public double ProgressManiaHD
+        {
+            get => mProgressManiaHD;
+            private set
+            {
+                mProgressManiaHD = value;
+                InvokePropertyChanged("ProgressManiaHD");
+            }
+        }
+
+        public double ProgressCTB
+        {
+            get => mProgressCTB;
+            private set
+            {
+                mProgressCTB = value;
+                InvokePropertyChanged("ProgressCTB");
+            }
+        }
+
+        public double ProgressCTBHD
+        {
+            get => mProgressCTBHD;
+            private set
+            {
+                mProgressCTBHD = value;
+                InvokePropertyChanged("ProgressCTBHD");
+            }
+        }
+
+        public double ProgressTaiko
+        {
+            get => mProgressTaiko;
+            private set
+            {
+                mProgressTaiko = value;
+                InvokePropertyChanged("ProgressTaiko");
+            }
+        }
+
+        public double ProgressTaikoHD
+        {
+            get => mProgressTaikoHD;
+            private set
+            {
+                mProgressTaikoHD = value;
+                InvokePropertyChanged("ProgressTaikoHD");
+            }
+        }
+
+        public double ProgressInterface
+        {
+            get => mProgressInterface;
+            private set
+            {
+                mProgressInterface = value;
+                InvokePropertyChanged("ProgressInterface");
+            }
+        }
+
+        public double ProgressInterfaceHD
+        {
+            get => mProgressInterfaceHD;
+            private set
+            {
+                mProgressInterfaceHD = value;
+                InvokePropertyChanged("ProgressInterfaceHD");
+            }
+        }
+
+        public double ProgressSounds
+        {
+            get => mProgressSounds;
+            private set
+            {
+                mProgressSounds = value;
+                InvokePropertyChanged("ProgressSounds");
+            }
+        }
         #endregion
-        
+
+        private void CountFilesOfType(ElementType type, double targetElementCount, out double sdProgress, out double hdProgress)
+        {
+            sdProgress = GetFileCountProgress(Elements.Count(x => CountFilesLinq(x, type, false)), targetElementCount);
+            hdProgress = GetFileCountProgress(Elements.Count(x => CountFilesLinq(x, type, true)), targetElementCount);
+        }
+
+        private double GetFileCountProgress(double elementCount, double targetElementCount)
+        {
+            if (elementCount > 0)
+            {
+                double progress = Math.Round((elementCount / targetElementCount) * 100);
+                return progress > 100 ? 100 : progress;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private bool CountFilesLinq(SkinElement element, ElementType type, bool countHDElements)
+        {
+            if (element.ElementDetails?.ElementType == type && 
+                (element.ElementDetails as ElementReader).VersionMatches(Version))
+            {
+                if (element.ElementDetails.MultipleElementsAllowed)
+                {
+                    string elementName = element.Name.Replace(element.Extension, "");
+                    if (elementName.Equals(element.ElementDetails.Name))
+                    {
+                        return element.IsHighDefinition == countHDElements;
+                    }
+                    else
+                    {
+                        if (countHDElements && elementName.EndsWith("-0@2x"))
+                        {
+                            return true;
+                        }
+                        else if (!countHDElements && elementName.EndsWith("-0"))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return element.IsHighDefinition == countHDElements;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void RefreshProgressValues()
+        {
+            CountFilesOfType(ElementType.Osu, FixedValues.readerStandard.CountFiles(Version), out mProgressOsu, out mProgressOsuHD);
+            InvokePropertyChanged("ProgressOsu", "ProgressOsuHD");
+
+            CountFilesOfType(ElementType.Mania, FixedValues.readerMania.CountFiles(Version), out mProgressMania, out mProgressManiaHD);
+            InvokePropertyChanged("ProgressMania", "ProgressManiaHD");
+
+            CountFilesOfType(ElementType.Taiko, FixedValues.readerTaiko.CountFiles(Version), out mProgressTaiko, out mProgressTaikoHD);
+            InvokePropertyChanged("ProgressTaiko", "ProgressTaikoHD");
+
+            CountFilesOfType(ElementType.CTB, FixedValues.readerCatch.CountFiles(Version), out mProgressCTB, out mProgressCTBHD);
+            InvokePropertyChanged("ProgressCTB", "ProgressCTBHD");
+
+            CountFilesOfType(ElementType.Interface, FixedValues.readerInterface.CountFiles(Version), out mProgressInterface, out mProgressInterfaceHD);
+            InvokePropertyChanged("ProgressInterface", "ProgressInterfaceHD");
+
+            CountFilesOfType(ElementType.Sound, FixedValues.readerSounds.CountFiles(Version), out mProgressSounds, out double mepty);
+            InvokePropertyChanged("ProgressSound");
+        }
+
         internal Skin()
         {
             IsEmpty = true;
@@ -100,16 +309,16 @@ namespace Osmo.Core.Objects
 
         public static async Task<Skin> Import(FileInfo oskPath)
         {
-            string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + oskPath.Name.Replace(oskPath.Extension, "");
+            string skinPath = App.ProfileManager.Profile.OsuDirectory + "\\" + oskPath.Name.Replace(oskPath.Extension, "");
 
             OsmoMessageBoxResult result = OsmoMessageBoxResult.OK;
             if (Directory.Exists(skinPath))
             {
-                var msgBox = MaterialMessageBox.Show("Skin exists already!",
-                    "A skin with the name \"" + oskPath.Name + "\" exists already! Would you like to overwrite it?",
+                var msgBox = MaterialMessageBox.Show(Helper.FindString("skin_importTitle"),
+                    Helper.FindString("skin_importDescription1") + oskPath.Name + Helper.FindString("skin_importDescription1"),
                     OsmoMessageBoxButton.OKCancel);
 
-                await DialogHost.Show(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox);
 
                 result = msgBox.Result;
                 if (result == OsmoMessageBoxResult.OK)
@@ -145,6 +354,7 @@ namespace Osmo.Core.Objects
             {
                 element.Reset();
             }
+            Logger.Instance.WriteLog("Reverted all changes on skin \"{0}\"!", Name);
         }
 
         /// <summary>
@@ -191,14 +401,25 @@ namespace Osmo.Core.Objects
                     Author = GetSkinIniProperty("Author");
                 }
             }
+
+            SkinIniExists = skinIniHandle != null;
+
+            RefreshProgressValues();
         }
 
         private string GetSkinIniProperty(string propertyName)
         {
-            string[] content = File.ReadAllLines(skinIniHandle.FullName);
-            string propertyLine = content.FirstOrDefault(x => x.StartsWith(propertyName + ":",
-                    StringComparison.InvariantCultureIgnoreCase));
-            return propertyLine?.Trim().Substring(propertyLine.IndexOf(':') + 1);
+            if (skinIniHandle != null)
+            {
+                string[] content = File.ReadAllLines(skinIniHandle.FullName);
+                string propertyLine = content.FirstOrDefault(x => x.StartsWith(propertyName + ":",
+                        StringComparison.InvariantCultureIgnoreCase));
+                return propertyLine?.Trim().Substring(propertyLine.IndexOf(':') + 1);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         #region Watcher Events
@@ -206,7 +427,7 @@ namespace Osmo.Core.Objects
         {
             int index = Elements.IndexOf(Elements.FirstOrDefault(x => x.Path.Contains(e.OldFullPath)) ?? null);
 
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 if (index > -1)
                 {
@@ -223,16 +444,18 @@ namespace Osmo.Core.Objects
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 Elements.Add(new SkinElement(new FileInfo(e.FullPath), Name));
+
+                RefreshProgressValues();
             });
         }
 
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            SkinElement element = Elements.FirstOrDefault(x => x.Path.Contains(e.FullPath));
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            SkinElement element = Elements.FirstOrDefault(x => x == e.FullPath);
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 if (element != null)
                     Elements.Remove(element);

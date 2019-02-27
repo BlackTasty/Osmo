@@ -44,13 +44,28 @@ namespace Osmo.UI
         {
             InitializeComponent();
             FixedValues.InitializeReader();
+            SkinManager.Instance.EmptySkinItemAdded += SkinManager_EmptySkinItemAdded;
+        }
+
+        private void SkinManager_EmptySkinItemAdded(object sender, EventArgs e)
+        {
+            (lv_skins.Items[0] as ListViewItem).MouseDoubleClick += NewSkin_MouseDoubleClick;
+        }
+
+        private async void NewSkin_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+        }
+
+        internal void SetOsmoViewModel(OsmoViewModel vm)
+        {
+            (DataContext as SkinSelectViewModel).Master = vm;
         }
 
         private async void LoadSkin_Click(object sender, RoutedEventArgs e)
         {
             if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
             {
-                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                (DataContext as SkinSelectViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
             }
         }
 
@@ -58,17 +73,17 @@ namespace Osmo.UI
         {
             if (await SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true))
             {
-                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+                (DataContext as SkinSelectViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
             }
         }
 
         private async void Skins_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (lv_skins.SelectedIndex > 0)
+            if (lv_skins.SelectedIndex > 0 && Helper.IsMouseOverSelectedListViewItem(lv_skins))
             {
                 if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
                 {
-                    (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                    (DataContext as SkinSelectViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
                 }
             }
         }
@@ -84,11 +99,11 @@ namespace Osmo.UI
                 Helper.FindString("skinSelect_deleteDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
-                (DataContext as OsmoViewModel).SkinManager.DeleteSkin(name);
+                (DataContext as SkinSelectViewModel).SkinManager.DeleteSkin(name);
             }
         }
 
@@ -108,7 +123,7 @@ namespace Osmo.UI
 
             if (args.Path != null)
             {
-                (DataContext as OsmoViewModel).SkinManager.ExportSkin(exportName,
+                (DataContext as SkinSelectViewModel).SkinManager.ExportSkin(exportName,
                     args.Path);
                 exportName = null;
             }
@@ -116,7 +131,7 @@ namespace Osmo.UI
 
         private void Skins_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (lv_skins.SelectedIndex == 0)
+            if (lv_skins.SelectedIndex == 0 && Helper.IsMouseOverSelectedListViewItem(lv_skins))
             {
                 if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, btn_newSkin))
                     DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, btn_newSkin);
@@ -125,10 +140,11 @@ namespace Osmo.UI
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            //foreach (Skin skin in (DataContext as OsmoViewModel).Skins)
+            //foreach (Skin skin in (DataContext as SkinSelectViewModel).Skins)
             //{
             //    uniGrid_skins.Children.Add(new SkinCard().InitializeSkin(skin));
             //}
+            dlg_newSkin.SetMasterViewModel((DataContext as SkinSelectViewModel).Master);
         }
 
         public async Task<bool> ForwardKeyboardInput(KeyEventArgs e)
@@ -148,7 +164,7 @@ namespace Osmo.UI
                         {
                             if (await SkinEditor.Instance.LoadSkin(lv_skins.SelectedItem as Skin))
                             {
-                                (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+                                (DataContext as SkinSelectViewModel).SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
                             }
                         }
                         break;
@@ -167,7 +183,7 @@ namespace Osmo.UI
                 {
                     if (await SkinMixer.Instance.LoadSkin(lv_skins.SelectedItem as Skin, true))
                     {
-                        (DataContext as OsmoViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+                        (DataContext as SkinSelectViewModel).SelectedSidebarIndex = FixedValues.MIXER_INDEX;
                     }
                 }
             }
@@ -176,7 +192,7 @@ namespace Osmo.UI
                 e.Handled = true;
                 if (lv_skins.SelectedIndex > 0)
                 {
-                    DeleteSkin((lv_skins.SelectedItem as Skin).Name);
+                    DeleteSkin((lv_skins.SelectedItem as Skin).Path);
                 }
             }
 
@@ -186,6 +202,60 @@ namespace Osmo.UI
         private async void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             await ForwardKeyboardInput(e);
+        }
+
+        private void MenuItem_NewSkin_Click(object sender, RoutedEventArgs e)
+        {
+            if (DialogHost.OpenDialogCommand.CanExecute(btn_newSkin.CommandParameter, btn_newSkin))
+                DialogHost.OpenDialogCommand.Execute(btn_newSkin.CommandParameter, btn_newSkin);
+        }
+
+        private void MenuItem_OpenInExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            Helper.OpenSkinInExplorer(vm.Skins[vm.SelectedIndex]);
+        }
+
+        private async void MenuItem_OpenInMixer_Click(object sender, RoutedEventArgs e)
+        {
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            if (await SkinMixer.Instance.LoadSkin(vm.Skins[vm.SelectedIndex], true))
+            {
+                vm.SelectedSidebarIndex = FixedValues.MIXER_INDEX;
+            }
+        }
+
+        private async void MenuItem_OpenInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            if (await SkinEditor.Instance.LoadSkin(vm.Skins[vm.SelectedIndex]))
+            {
+                vm.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
+            }
+        }
+
+        private void MenuItem_ResizeTool_Click(object sender, RoutedEventArgs e)
+        {
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            ResizeTool.Instance.LoadSkin(vm.Skins[vm.SelectedIndex]);
+            vm.SelectedSidebarIndex = FixedValues.RESIZE_TOOL_INDEX;
+        }
+
+        private void MenuItem_Export_Click(object sender, RoutedEventArgs e)
+        {
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            ExportSkin(vm.Skins[vm.SelectedIndex].Name);
+        }
+
+        private void MenuItem_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            SkinSelectViewModel vm = DataContext as SkinSelectViewModel;
+            DeleteSkin(vm.Skins[vm.SelectedIndex].Path);
+        }
+
+        private void MenuItem_Import_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -10,7 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Osmo;component/Resources/Theme/Light.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -26,6 +27,29 @@
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Brown.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Pink.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- osu! Mode Icons -->
+            <BitmapImage x:Key="Mode_ctb" UriSource="Resources/mode_ctb.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <BitmapImage x:Key="Mode_mania" UriSource="Resources/mode_mania.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <BitmapImage x:Key="Mode_taiko" UriSource="Resources/mode_taiko.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <BitmapImage x:Key="Mode_osu" UriSource="Resources/mode_osu.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+
+            <SolidColorBrush x:Key="ErrorBrushLight" Color="#d50000"/>
+            <SolidColorBrush x:Key="ErrorBrushDark" Color="#ff6e6e"/>
+
+            <Style x:Key="CloseButton_Small" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Height" Value="24"/>
+                <Setter Property="Width" Value="24"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <material:PackIcon Kind="Close" Width="24" Height="24" Foreground="{DynamicResource MaterialDesignToolTipBackground}"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <!-- MahApps Brushes -->
             <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource Primary700}"/>
@@ -49,6 +73,15 @@
                 <Setter Property="BorderBrush" Value="{x:Null}"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="IsTabStop" Value="True"/>
+            </Style>
+
+            <Style x:Key="AppBarButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="8,0"/>
+                <Setter Property="Height" Value="37"/>
+                <Setter Property="Width" Value="37"/>
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="BorderBrush" Value="{x:Null}"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -17,13 +17,13 @@ namespace Osmo.ViewModel
     {
         private SkinManager mManager;
         
-        private SidebarEntry[] mSidebarItems;
-        
         private int mSelectedSkinIndex = -1;
         private int mSelectedSidebarIndex = 0;
         
         private string mBackupDirectory = "";
         private double mBackupDirectorySize = 0;
+
+        private bool mWindowButtonsEnabled = true;
 
         public SkinManager SkinManager
         {
@@ -45,9 +45,19 @@ namespace Osmo.ViewModel
             }
         }
 
+        public bool WindowButtonsEnabled
+        {
+            get => mWindowButtonsEnabled;
+            set
+            {
+                mWindowButtonsEnabled = value;
+                InvokePropertyChanged("WindowButtonsEnabled");
+            }
+        }
+
         public VeryObservableCollection<Skin> Skins { get => SkinManager?.Skins; }
 
-        public SidebarEntry[] Items { get => mSidebarItems; }
+        public List<SidebarEntry> Items { get; private set; }
 
         public int SelectedSkinIndex
         {
@@ -55,7 +65,7 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedSkinIndex = value;
-                InvokePropertyChanged("SelectedSkinIndex");
+                InvokePropertyChanged();
             }
         }
 
@@ -64,8 +74,22 @@ namespace Osmo.ViewModel
             get => mSelectedSidebarIndex;
             set
             {
+                if (Items[value].HasChildren)
+                {
+                    Items[mSelectedSidebarIndex].ToggleSubEntries(false);
+                    Items[value].ToggleSubEntries(true);
+                }
+                else if (Items[mSelectedSidebarIndex] is SidebarSubEntry subEntry)
+                {
+                    subEntry.ParentEntry.ToggleSubEntries(false);
+                    Items[value].ToggleSubEntries(true);
+                }
+
                 mSelectedSidebarIndex = value;
-                InvokePropertyChanged("SelectedSidebarIndex");
+
+                //SelectedEntry = Items[value];
+                InvokePropertyChanged("Items");
+                InvokePropertyChanged();
             }
         }
 
@@ -80,8 +104,10 @@ namespace Osmo.ViewModel
                     SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
                 }
                 else
+                {
                     SkinManager.SkinDirectory = value;
-                InvokePropertyChanged("OsuDirectory");
+                }
+                InvokePropertyChanged();
             }
         }
 
@@ -91,7 +117,7 @@ namespace Osmo.ViewModel
             set
             {
                 mBackupDirectory = value;
-                InvokePropertyChanged("BackupDirectory");
+                InvokePropertyChanged();
             }
         }
 
@@ -101,7 +127,7 @@ namespace Osmo.ViewModel
             set
             {
                 mBackupDirectorySize = value;
-                InvokePropertyChanged("BackupDirectorySize");
+                InvokePropertyChanged();
             }
         }
 
@@ -109,7 +135,7 @@ namespace Osmo.ViewModel
         {
             set
             {
-                mSidebarItems[FixedValues.EDITOR_INDEX].IsEnabled = value;
+                Items[FixedValues.EDITOR_INDEX].IsEnabled = value;
                 InvokePropertyChanged("Items");
             }
         }
@@ -118,35 +144,48 @@ namespace Osmo.ViewModel
         {
             set
             {
-                mSidebarItems[FixedValues.MIXER_INDEX].IsEnabled = value;
+                Items[FixedValues.MIXER_INDEX].IsEnabled = value;
                 InvokePropertyChanged("Items");
             }
         }
-
         public OsmoViewModel()
         {
-            FixedValues.InitializeReader();
-            string osuDir = AppConfiguration.GetInstance().OsuDirectory;
-
-            if (!string.IsNullOrWhiteSpace(osuDir))
+            if (!App.IsDesigner)
             {
-                SkinManager = SkinManager.Instance;
-                SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+                FixedValues.InitializeReader();
+                string osuDir = App.ProfileManager.Profile.OsuDirectory;
+
+                if (!string.IsNullOrWhiteSpace(osuDir))
+                {
+                    SkinManager = SkinManager.Instance;
+                    SkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+                }
+
+                SidebarEntry tools = new SidebarEntry("sidebar_tools", MaterialDesignThemes.Wpf.PackIconKind.Toolbox, null, 4);
+                List<SidebarSubEntry> toolsSubEntries = new List<SidebarSubEntry>()
+                {
+                    new SidebarSubEntry("sidebar_resizeTool", MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance, 20, tools),
+                    new SidebarSubEntry("sidebar_tools_sbCreator", MaterialDesignThemes.Wpf.PackIconKind.Animation, SliderballCreator.Instance, 21, tools),
+                    new SidebarSubEntry("Simulator", MaterialDesignThemes.Wpf.PackIconKind.Eye, Simulator.Instance, 22, tools)
+                };
+
+                tools.SetSubEntries(toolsSubEntries);
+                
+                Items = new List<SidebarEntry>()
+                {
+                    new SidebarEntry("sidebar_home", MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance, 0),
+                    new SidebarEntry("sidebar_wizard", MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance, 1),
+                    new SidebarEntry("sidebar_editor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, 2, false),
+                    new SidebarEntry("sidebar_mixer", MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, 3, false),
+                    tools,
+                    toolsSubEntries[0],
+                    toolsSubEntries[1],
+                    new SidebarEntry("sidebar_templateManager", MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance, 5),
+                    new SidebarEntry("sidebar_settings", MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance, 6),
+                    new SidebarEntry("sidebar_about", MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance, 7),
+                    new SidebarEntry("sidebar_templateEditor", MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, 8, Visibility.Hidden)
+                };
             }
-
-            mSidebarItems = new SidebarEntry[]
-            {
-                new SidebarEntry(Helper.FindString("sidebar_home"), MaterialDesignThemes.Wpf.PackIconKind.Home, SkinSelect.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_wizard"), MaterialDesignThemes.Wpf.PackIconKind.AutoFix, SkinCreationWizard.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_editor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, SkinEditor.Instance, false),
-                new SidebarEntry(Helper.FindString("sidebar_mixer"), MaterialDesignThemes.Wpf.PackIconKind.PotMix, SkinMixer.Instance, false),
-                new SidebarEntry(Helper.FindString("sidebar_resizeTool"), MaterialDesignThemes.Wpf.PackIconKind.MoveResizeVariant, ResizeTool.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_templateManager"), MaterialDesignThemes.Wpf.PackIconKind.Archive, TemplateManager.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_settings"), MaterialDesignThemes.Wpf.PackIconKind.Settings, Settings.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_about"), MaterialDesignThemes.Wpf.PackIconKind.Information, About.Instance),
-                new SidebarEntry(Helper.FindString("sidebar_templateEditor"), MaterialDesignThemes.Wpf.PackIconKind.Pencil, TemplateEditor.Instance, Visibility.Hidden),
-                new SidebarEntry("Simulator", MaterialDesignThemes.Wpf.PackIconKind.Eye, Simulator.Instance)
-            };
         }
 
         private void SkinManager_SkinDirectoryChanged(object sender, EventArgs e)
@@ -156,36 +195,36 @@ namespace Osmo.ViewModel
 
         private void MManager_SkinChanged(object sender, SkinChangedEventArgs e)
         {
-            if (Skins != null)
-            {
-                //TODO: isSkin may be removed in case the menu background isn't needed
-                bool isSkin = System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory;
+            //if (Skins != null)
+            //{
+            //    //TODO: isSkin may be removed in case the menu background isn't needed
+            //    bool isSkin = System.IO.File.GetAttributes(e.Path) == System.IO.FileAttributes.Directory;
 
-                //switch (e.ChangeType)
-                //{
-                //    //case System.IO.WatcherChangeTypes.Changed:
-                //    //    if (!isSkin)
-                //    //    {
-                //    //        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
-                //    //        if (changed != null)
-                //    //        {
-                //    //        }
-                //    //    }
-                //    //    break;
-                //    case System.IO.WatcherChangeTypes.Created:
-                //        if (isSkin)
-                //            Skins.Add(new Skin(e.Path));
-                //        break;
-                //    case System.IO.WatcherChangeTypes.Deleted:
-                //        if (isSkin)
-                //        {
-                //            Skin removed = Skins.FirstOrDefault(x => x == e.Path);
-                //            if (removed != null)
-                //                Skins.Remove(removed);
-                //        }
-                //        break;
-                //}
-            }
+            //    //switch (e.ChangeType)
+            //    //{
+            //    //    //case System.IO.WatcherChangeTypes.Changed:
+            //    //    //    if (!isSkin)
+            //    //    //    {
+            //    //    //        Skin changed = mSkins.FirstOrDefault(x => x == System.IO.Path.GetDirectoryName(e.Path));
+            //    //    //        if (changed != null)
+            //    //    //        {
+            //    //    //        }
+            //    //    //    }
+            //    //    //    break;
+            //    //    case System.IO.WatcherChangeTypes.Created:
+            //    //        if (isSkin)
+            //    //            Skins.Add(new Skin(e.Path));
+            //    //        break;
+            //    //    case System.IO.WatcherChangeTypes.Deleted:
+            //    //        if (isSkin)
+            //    //        {
+            //    //            Skin removed = Skins.FirstOrDefault(x => x == e.Path);
+            //    //            if (removed != null)
+            //    //                Skins.Remove(removed);
+            //    //        }
+            //    //        break;
+            //    //}
+            //}
         }
 
         private void MManager_SkinRenamed(object sender, SkinRenamedEventArgs e)

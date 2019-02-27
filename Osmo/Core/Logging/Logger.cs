@@ -9,6 +9,7 @@ namespace Osmo.Core.Logging
 {
     class Logger
     {
+        IConsole console;
         private static Logger instance;
         private static readonly string _logFolderPath = AppDomain.CurrentDomain.BaseDirectory + "Logs\\";
         private string _fileName = "log.txt";
@@ -36,6 +37,31 @@ namespace Osmo.Core.Logging
         {
             _sessionId = rnd.Next(10000000, 99999999);
             _logFilePath = Path.Combine(_logFolderPath, _fileName);
+        }
+
+        public void AppendConsole(IConsole console)
+        {
+            this.console = console;
+            WriteLog("Console connected!", LogType.CONSOLE);
+        }
+
+        /// <summary>
+        /// Writes a verbose message into the log, but only if configuration is set to DEBUG and verobse logging is activated
+        /// <para>
+        /// Produces something like ... [Player <see cref="object"/>] Initialization done <see cref="string"/> (2 seconds <see cref="object"/>[])
+        /// </para>
+        /// </summary>
+        /// <param name="source">The source from where this method was called</param>
+        /// <param name="msg">The message to print (with formatters)</param>
+        /// <param name="param">Optional: All parameters for the formatted string</param>
+        public void WriteLogVerbose(object source, string msg, params object[] param)
+        {
+#if DEBUG
+            if (console.VerboseLogging)
+                //This line produces something like this:
+                //                   [Player] Message
+                WriteLog(string.Format("[{0}] {1}", source.GetType().Name, msg), LogType.VERBOSE, param);
+#endif
         }
 
         /// <summary>
@@ -212,12 +238,16 @@ namespace Osmo.Core.Logging
                             File.AppendAllText(_logFilePath, logBuilder.ToString());
                         else
                             File.AppendAllText(_logFilePath + ".verbose", logBuilder.ToString());
-                    }
 
-                    if (_fileName != null)
                         Console.WriteLine(string.Format("({0}) {1}", _fileName, logBuilder.ToString().Replace("\r", "")));
+
+                        console?.Log(string.Format("({0}) {1}\n", _fileName, logBuilder), mode);
+                    }
                     else
+                    {
                         Console.WriteLine(string.Format("{0}", logBuilder.ToString().Replace("\r", "")));
+                        console?.Log(string.Format("{0}\n", logBuilder), mode);
+                    }
                     break;
                 }
                 catch

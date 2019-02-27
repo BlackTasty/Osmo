@@ -1,12 +1,8 @@
 ﻿using Osmo.Core;
 using Osmo.Core.FileExplorer;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Osmo.ViewModel
 {
@@ -17,10 +13,18 @@ namespace Osmo.ViewModel
         private IFilePickerEntry mSelectedEntry;
         private int mDisplayOption;
         private int mSelectedIndex = -1;
+        private string mCurrentPath;
 
         public VeryObservableCollection<FolderEntry> RootFolders
         {
-            get => fileExplorer.RootFolders;
+            get
+            {
+                if (fileExplorer == null)
+                {
+                    fileExplorer = SharedFileExplorer.Instance;
+                }
+                return fileExplorer.RootFolders;
+            }
         }
 
         public FolderEntry SelectedFolder
@@ -29,7 +33,8 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedFolder = value;
-                InvokePropertyChanged("SelectedFolder");
+                CurrentPath = value.Path;
+                InvokePropertyChanged();
                 InvokePropertyChanged("FileList");
                 InvokePropertyChanged("IsRoot");
             }
@@ -41,8 +46,11 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedEntry = value;
-                InvokePropertyChanged("SelectedEntry");
-                InvokePropertyChanged("IsSelectEnabled");
+                if (!(value is ClassicEntry))
+                {
+                    InvokePropertyChanged("SelectedEntry");
+                    InvokePropertyChanged("IsSelectEnabled");
+                }
             }
         }
 
@@ -53,7 +61,7 @@ namespace Osmo.ViewModel
             {
                 if (!IsFolderSelect)
                 {
-                    if (Filters != null || Filters.Count > 0)
+                    if (Filters != null && Filters.Count > 0)
                     {
                         return SelectedFolder?.JoinedContent?.Where(x => !x.IsFile || 
                         Filters.Any(f => f.FilterMatch((x as FileEntry).Extension)));
@@ -76,7 +84,7 @@ namespace Osmo.ViewModel
             set
             {
                 mDisplayOption = value;
-                InvokePropertyChanged("DisplayOption");
+                InvokePropertyChanged();
             }
         }
 
@@ -86,7 +94,17 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedIndex = value;
-                InvokePropertyChanged("SelectedIndex");
+                InvokePropertyChanged();
+            }
+        }
+
+        public string CurrentPath
+        {
+            get => mCurrentPath;
+            set
+            {
+                mCurrentPath = value;
+                InvokePropertyChanged();
             }
         }
 
@@ -107,7 +125,10 @@ namespace Osmo.ViewModel
 
         public FilePickerViewModel()
         {
-            fileExplorer = SharedFileExplorer.Instance;
+            if (App.ProfileManager.Profile.UseExperimentalFileExplorer)
+            {
+                fileExplorer = SharedFileExplorer.Instance;
+            }
         }
 
         public void SetFilters(string filtersRaw)
@@ -120,8 +141,23 @@ namespace Osmo.ViewModel
             }
         }
 
+        public StructureBuilder SetCurrentDirectory(string path)
+        {
+            if (!path.Equals(SelectedFolder?.Path))
+            {
+                StructureBuilder structure = new StructureBuilder(path);
+                SelectedFolder = RootFolders.FirstOrDefault(x => x.Path.Equals(structure.RootFolder))?.BuildSubTree(structure, !IsFolderSelect);
+                return structure;
+            }
+            return null;
+        }
+
         public void RefreshDrives()
         {
+            if (fileExplorer == null)
+            {
+                fileExplorer = SharedFileExplorer.Instance;
+            }
             fileExplorer.LoadDrives(false);
         }
     }

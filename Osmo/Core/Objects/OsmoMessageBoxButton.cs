@@ -20,7 +20,11 @@
         YesNo = 4,
         //
         // Summary:
+        //     The message box displays OK and Retry buttons.
+        OKRetry = 5,
+        //
+        // Summary:
         //     The message box displays custom buttons.
-        Custom = 5
+        Custom = 6
     }
 }

@@ -18,7 +18,7 @@
                 <TextBlock Text="{Binding Skin.Author}" Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
             </StackPanel>
         </material:Card>
-        <material:ColorZone Mode="Dark" Height="150" DockPanel.Dock="Top">
+        <material:ColorZone Mode="{DynamicResource ColorZoneMode}" Height="150" DockPanel.Dock="Top">
             <Grid>
                 <Image Source="{Binding Image}" VerticalAlignment="Stretch"/>
                 <material:PackIcon Kind="ShapeOutline" Visibility="{Binding ShowIcon, TargetNullValue=Hidden, FallbackValue=Hidden}" Foreground="{DynamicResource MaterialDesignFlatButtonRipple}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="128" Height="128"/>

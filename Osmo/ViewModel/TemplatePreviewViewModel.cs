@@ -45,7 +45,7 @@ namespace Osmo.ViewModel
         {
             Templates = new ObservableCollection<ForumTemplate>();
 
-            foreach (FileInfo fi in new DirectoryInfo(AppConfiguration.GetInstance().TemplateDirectory).EnumerateFiles("*.oft"))
+            foreach (FileInfo fi in new DirectoryInfo(App.ProfileManager.Profile.TemplateDirectory).EnumerateFiles("*.oft"))
             {
                 Templates.Add(new ForumTemplate(fi.FullName));
             }

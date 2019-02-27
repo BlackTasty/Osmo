@@ -21,7 +21,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for TemplatePreview.xaml
     /// </summary>
-    public partial class TemplatePreview : Grid, IShortcutHelper
+    public partial class TemplatePreview : Grid, IHotkeyHelper
     {
         public TemplatePreview()
         {

@@ -1,24 +1,11 @@
-﻿using Microsoft.Win32;
-using Osmo.Core;
+﻿using Osmo.Core;
 using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Osmo.UI
 {
@@ -103,14 +90,15 @@ namespace Osmo.UI
         {
             if (tempOskPath != null)
             {
-                var skin = await Skin.Import(tempOskPath);
+                FileInfo oskPath = tempOskPath;
+                Close();
+
+                var skin = await Skin.Import(oskPath);
 
                 if (!skin.IsEmpty)
                 {
                     (DataContext as OsmoViewModel).Skins.Add(skin);
                 }
-
-                Close();
             }
         }
 
@@ -118,6 +106,7 @@ namespace Osmo.UI
         {
             tempOskPath = null;
             OskPath = null;
+            DialogHelper.Instance.NotifyDialogClosed();
         }
 
         private void Control_MouseDown(object sender, MouseButtonEventArgs e)
@@ -157,6 +146,16 @@ namespace Osmo.UI
                 tempOskPath = new FileInfo(args.Path);
                 OskPath = tempOskPath.Name;
             }
+        }
+
+        private void dragDrop_Loaded(object sender, RoutedEventArgs e)
+        {
+            DialogHelper.Instance.NotifyDialogOpened();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

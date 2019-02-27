@@ -19,12 +19,14 @@ namespace Osmo.Core.Objects
         private bool mIsResizeSelected;
         private FontStyle fontStyle = FontStyles.Normal;
         private FontWeight fontWeight = FontWeights.Normal;
-        string backupPath = Directory.GetParent(AppConfiguration.GetInstance().BackupDirectory).FullName +
-            "\\Edited\\";
+        string backupPath;
 
         public string Path
         {
-            get => !string.IsNullOrWhiteSpace(TempPath) ? TempPath : mPath;
+            get
+            {
+                return !string.IsNullOrWhiteSpace(TempPath) ? TempPath : mPath;
+            }
             set => mPath = value;
         }
 
@@ -59,8 +61,7 @@ namespace Osmo.Core.Objects
         public FileType FileType { get => fileType; }
 
         public IEntry ElementDetails { get; private set; }
-
-        //TODO: Implement detection of HD elements (see https://osu.ppy.sh/help/wiki/Ranking_Criteria/Skin_Set_List/ for recommended sizes)
+        
         public bool IsHighDefinition { get => Name.Contains("@2x"); }
 
         public bool IsEmpty { get => string.IsNullOrWhiteSpace(mPath); }
@@ -86,7 +87,8 @@ namespace Osmo.Core.Objects
             Path = fi.FullName;
             Name = fi.Name;
             Extension = fi.Extension;
-            backupPath += skinName + "\\";
+            backupPath = string.Format("{0}\\Edited\\{1}\\",
+                Directory.GetParent(App.ProfileManager.Profile.BackupDirectory).FullName, skinName);
 
             fileType = GetFileType(fi.Extension);
 
@@ -122,6 +124,10 @@ namespace Osmo.Core.Objects
                 TempPath = backupPath + Name;
                 FontStyle = FontStyles.Italic;
             }
+            else
+            {
+                TempPath = "";
+            }
         }
 
         internal SkinElement(SkinElement copyFrom)
@@ -139,7 +145,7 @@ namespace Osmo.Core.Objects
         {
             Path = "";
             Name = "";
-            fileType = FileType.Unknown;
+            fileType = FileType.Any;
         }
 
         internal List<string> GetAnimatedElements()
@@ -223,6 +229,7 @@ namespace Osmo.Core.Objects
                 File.Delete(TempPath);
             TempPath = null;
             FontStyle = FontStyles.Normal;
+            Logger.Instance.WriteLog("Element \"{0}\" resetted!");
         }
 
         internal void Delete()
@@ -232,6 +239,7 @@ namespace Osmo.Core.Objects
 
             File.Delete(mPath);
             TempPath = null;
+            Logger.Instance.WriteLog("Element \"{0}\" deleted!");
         }
 
         private FileType GetFileType(string extension)
@@ -249,7 +257,7 @@ namespace Osmo.Core.Objects
                 case ".mp3":
                     return FileType.Audio;
                 default:
-                    return FileType.Unknown;
+                    return FileType.Any;
             }
         }
 

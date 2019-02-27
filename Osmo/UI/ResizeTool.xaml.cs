@@ -1,5 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using Osmo.Core;
+﻿using Osmo.Core;
 using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
@@ -8,25 +7,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Osmo.UI
 {
     /// <summary>
     /// Interaction logic for ResizeTool.xaml
     /// </summary>
-    public partial class ResizeTool : Grid
+    public partial class ResizeTool : Grid, ISkinContainer
     {
         private static ResizeTool _instance;
 
@@ -42,6 +34,10 @@ namespace Osmo.UI
                 return _instance;
             }
         }
+        public Skin LoadedSkin
+        {
+            get => (DataContext as ResizeToolViewModel).SelectedSkin;
+        }
 
         private ResizeTool()
         {
@@ -51,7 +47,17 @@ namespace Osmo.UI
         public void LoadSkin(Skin skin)
         {
             ResizeToolViewModel vm = DataContext as ResizeToolViewModel;
-            vm.SelectedSkinIndex = vm.Skins.IndexOf(skin);
+            vm.SelectedSkin = skin;
+            Logger.Instance.WriteLog("Skin \"{0}\" loaded in Resize Tool!", skin.Name);
+        }
+
+        public void UnloadSkin(Skin skin)
+        {
+            ResizeToolViewModel vm = DataContext as ResizeToolViewModel;
+            if (vm.SelectedSkin?.Equals(skin) ?? false)
+            {
+                vm.SelectedSkin = null;
+            }
         }
 
         private void Rezize_Click(object sender, RoutedEventArgs e)
@@ -62,12 +68,17 @@ namespace Osmo.UI
             string version = vm.SelectedSkin.Version;
             bool freezeThread = false;
 
+            Logger.Instance.WriteLog("Initializing resize operation...\n Selected options: " +
+                "\n\tSkin: {0}\n\tSkin version: {1}\n\tKeep original files: {2}\n\tUse recommended size: {3}",
+                vm.SelectedSkin.Name, version, keepOriginalFiles, optimalSize);
+
             vm.ElementsResizeValue = 0;
             vm.IsResizing = true;
             new Thread(() =>
             {
                 List<SkinElement> elements = vm.SelectedSkin.Elements.Where(x => x.IsResizeSelected).ToList();
                 vm.ElementsResizeMaximum = elements.Count;
+                Logger.Instance.WriteLog("Number of selected elements: {0}", elements.Count);
 
                 foreach (SkinElement item in elements)
                 {
@@ -105,7 +116,7 @@ namespace Osmo.UI
                                 Helper.FindString("dlg_distortedImageProceed"),
                                 Helper.FindString("dlg_distortedImageSkip"), 450);
 
-                            await DialogHost.Show(msgBox);
+                            await DialogHelper.Instance.ShowDialog(msgBox);
 
                             if (msgBox.Result == OsmoMessageBoxResult.CustomActionLeft) //Skip the current element
                             {
@@ -138,6 +149,7 @@ namespace Osmo.UI
                     }
                 }
 
+                Logger.Instance.WriteLog("Resizing done!");
                 vm.IsResizing = false;
             }).Start();
         }
@@ -174,7 +186,7 @@ namespace Osmo.UI
             }
             catch (Exception ex)
             {
-                Logger.Instance.WriteLog("Error during resize!", LogType.ERROR, ex);
+                Logger.Instance.WriteLog("Error while resizing element \"{0}\"!", LogType.ERROR, ex, element.Name);
                 isDistorted = false;
                 return null;
             }

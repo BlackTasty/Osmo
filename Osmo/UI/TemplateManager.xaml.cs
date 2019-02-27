@@ -22,7 +22,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for TemplateManager.xaml
     /// </summary>
-    public partial class TemplateManager : Grid, IShortcutHelper
+    public partial class TemplateManager : Grid, IHotkeyHelper
     {
         #region Singleton implementation
         private static TemplateManager instance;
@@ -80,7 +80,7 @@ namespace Osmo.UI
                 Helper.FindString("templateManager_deleteDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {

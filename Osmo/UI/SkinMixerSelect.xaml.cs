@@ -21,8 +21,10 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for SkinMixerSelect.xaml
     /// </summary>
-    public partial class SkinMixerSelect : Grid, IShortcutHelper
+    public partial class SkinMixerSelect : Grid, IHotkeyHelper
     {
+        public event EventHandler<EventArgs> DialogClosed;
+
         public SkinMixerSelect()
         {
             InitializeComponent();
@@ -57,6 +59,7 @@ namespace Osmo.UI
             {
                 if (DialogHost.CloseDialogCommand.CanExecute(null, null))
                     DialogHost.CloseDialogCommand.Execute(null, null);
+                OnDialogClosed(EventArgs.Empty);
             }
         }
 
@@ -80,6 +83,16 @@ namespace Osmo.UI
         private void Grid_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             ForwardKeyboardInput(e);
+        }
+
+        protected virtual void OnDialogClosed(EventArgs e)
+        {
+            DialogClosed?.Invoke(this, e);
+        }
+
+        private void Abort_Click(object sender, RoutedEventArgs e)
+        {
+            OnDialogClosed(EventArgs.Empty);
         }
     }
 }

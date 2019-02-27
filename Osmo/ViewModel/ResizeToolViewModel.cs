@@ -3,8 +3,6 @@ using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Osmo.ViewModel
 {
@@ -31,8 +29,11 @@ namespace Osmo.ViewModel
 
         public ResizeToolViewModel()
         {
-            mSkinManager = SkinManager.Instance;
-            mSkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+            if (!App.IsDesigner)
+            {
+                mSkinManager = SkinManager.Instance;
+                mSkinManager.SkinDirectoryChanged += SkinManager_SkinDirectoryChanged;
+            }
         }
 
         private void SkinManager_SkinDirectoryChanged(object sender, EventArgs e)
@@ -50,7 +51,7 @@ namespace Osmo.ViewModel
             get => mSelectedSkinIndex;
             set
             {
-                SelectedSkin = Skins?[value];
+                //SelectedSkin = Skins?[value];
                 mSelectedSkinIndex = value;
                 InvokePropertyChanged("SelectedSkinIndex");
             }
@@ -175,6 +176,14 @@ namespace Osmo.ViewModel
             set
             {
                 mSelectedSkin = value;
+                if (value != null)
+                {
+                    mSelectedSkinIndex = Skins.IndexOf(value);
+                }
+                else
+                {
+                    mSelectedSkinIndex = -1;
+                }
                 InvokePropertyChanged("SelectedSkin");
             }
         }

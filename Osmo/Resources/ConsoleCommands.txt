@@ -1,0 +1,16 @@
+=== Console stuff
+    clear                        Clears the console
+    testMessages                 Writes all types of messages into the console
+
+=== Log management ===
+    wipeLog                      Delete the log.txt and generate a new one
+    wipeCrashLogs                Delete all crash logs
+    wipeLogFolder                Delete all logs inside the "Logs" folder
+    openLog                      Open the log.txt in your default editor
+
+=== Configuration files
+    listProfiles                 Return a list of all profile names
+    printConfig                  Print the configuration for the current profile into the console
+    printConfig [ProfileName]    Print the configuration for a specific profile into the console
+    openConfig                   Open the configuration for the current profile in your default editor
+    openConfig [ProfileName]     Open the configuration for a specific profile in your default editor

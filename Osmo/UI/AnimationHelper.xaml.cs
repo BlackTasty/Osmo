@@ -1,4 +1,5 @@
 ﻿using Osmo.Core;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
@@ -31,16 +32,32 @@ namespace Osmo.UI
 
         public void LoadAnimation(SkinElement element)
         {
-            (DataContext as AnimationViewModel).LoadAnimation(element);
+            Logger.Instance.WriteLog("Loading animation of element \"{0}\"...", element.Name);
+            AnimationViewModel vm = DataContext as AnimationViewModel;
+            vm.Animation.Clear();
+            
+            vm.Animation.Add(element.GetAnimatedElements(), false);
+            vm.CurrentFrame = 0;
+
+            SkinningEntry details = element.ElementDetails as SkinningEntry;
+            vm.FrameOrder = details.FrameOrder;
+            // TODO: Line below is here just for the case that the simulator stops working
+            //(DataContext as AnimationViewModel).LoadAnimation(element);
         }
 
         private void StartStopAnimation_Click(object sender, RoutedEventArgs e)
         {
             AnimationViewModel vm = DataContext as AnimationViewModel;
             if (!vm.IsAnimationPlaying)
+            {
                 vm.StartAnimation();
+                Logger.Instance.WriteLog("Animation started!");
+            }
             else
+            {
                 vm.StopAnimation();
+                Logger.Instance.WriteLog("Animation stopped!");
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)

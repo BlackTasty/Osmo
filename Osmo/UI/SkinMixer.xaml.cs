@@ -5,27 +5,19 @@ using Osmo.Core.FileExplorer;
 using Osmo.Core.Objects;
 using Osmo.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Osmo.UI
 {
     /// <summary>
     /// Interaction logic for SkinMixer.xaml
     /// </summary>
-    public partial class SkinMixer : Grid, IShortcutHelper
+    public partial class SkinMixer : Grid, IHotkeyHelper, ISkinContainer
     {
         private static SkinMixer instance;
         AudioEngine audio;
@@ -58,8 +50,8 @@ namespace Osmo.UI
                         break;
                     case Key.O:
                         e.Handled = true;
-                        if (DialogHost.OpenDialogCommand.CanExecute(btn_loadRight.CommandParameter, btn_loadRight))
-                            DialogHost.OpenDialogCommand.Execute(btn_loadRight.CommandParameter, btn_loadRight);
+                        Helper.ExecuteDialogOpenCommand(btn_loadRight);
+                        DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
                         break;
                     case Key.Z:
                         e.Handled = true;
@@ -92,7 +84,7 @@ namespace Osmo.UI
                         Helper.FindString("main_unsavedChangesDescription"),
                         OsmoMessageBoxButton.YesNoCancel);
 
-                    await DialogHost.Show(msgBox);
+                    await DialogHelper.Instance.ShowDialog(msgBox);
 
                     if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                     {
@@ -114,11 +106,33 @@ namespace Osmo.UI
             return true;
         }
 
+        public void UnloadSkin(Skin skin)
+        {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            if (vm.SkinLeft?.Equals(skin) ?? false)
+            {
+                StopAudio(true);
+                vm.SelectedElementLeft = new SkinElement();
+                vm.SkinLeft = null;
+            }
+            
+            if (vm.SkinRight?.Equals(skin) ?? false)
+            {
+                StopAudio(false);
+                vm.SelectedElementRight = new SkinElement();
+                vm.SkinRight = null;
+            }
+        }
+
         internal void SaveSkin()
         {
             ((SkinMixerViewModel)DataContext).SkinLeft.Save();
             snackbar.MessageQueue.Enqueue(Helper.FindString("snackbar_saveText"), Helper.FindString("snackbar_saveButton"),
-                param => DialogHost.Show(FindResource("folderPicker") as FilePicker), false, true);
+                param => DialogHost.Show(FindResource("folderPicker") as FilePicker,
+                delegate (object sender, DialogOpenedEventArgs args)
+                {
+                    DialogHelper.Instance.NotifyDialogOpened(args.Session);
+                }), false, true);
         }
 
         internal void ExportSkin(string targetDir, bool alsoSave)
@@ -177,7 +191,7 @@ namespace Osmo.UI
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
                 Helper.FindString("edit_revertDescription"), OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -206,6 +220,7 @@ namespace Osmo.UI
                 if (vm.AudioPlayingLeft)
                 {
                     vm.AudioPlayingLeft = false;
+                    vm.PlayStatusLeft = 0;
                     audio.StopAudio();
                 }
             }
@@ -214,6 +229,7 @@ namespace Osmo.UI
                 if (vm.AudioPlayingRight)
                 {
                     vm.AudioPlayingRight = false;
+                    vm.PlayStatusRight = 0;
                     audio.StopAudio();
                 }
             }
@@ -221,7 +237,7 @@ namespace Osmo.UI
 
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
-            AppConfiguration.GetInstance().IsMuted = cb_mute.IsChecked == true;
+            RecallConfiguration.Instance.IsMuted = cb_mute.IsChecked == true;
             if (cb_mute.IsChecked == true)
                 audio.SetVolume(0);
             else
@@ -233,7 +249,7 @@ namespace Osmo.UI
             if (audio != null)
             {
                 cb_mute.IsChecked = false;
-                AppConfiguration.GetInstance().Volume = slider_volume.Value;
+                RecallConfiguration.Instance.Volume = slider_volume.Value;
                 audio.SetVolume(slider_volume.Value);
             }
         }
@@ -255,37 +271,65 @@ namespace Osmo.UI
 
         private void PlaybackToggleLeft_Click(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as SkinMixerViewModel).AudioPlayingLeft)
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            if (vm.AudioPlayingLeft)
             {
-                StopAudio(true);
+                if (vm.AudioEnded)
+                {
+                    audio.PlayAudio(vm.SelectedElementLeft.Path);
+                }
+                else
+                {
+                    audio.PauseAudio();
+                    vm.AudioPlayingLeft = false;
+                }
             }
             else
             {
                 StopAudio(false);
-                audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementLeft.Path);
+                audio.PlayAudio(vm.SelectedElementLeft.Path);
                 if (cb_mute.IsChecked == true)
                     audio.SetVolume(0);
                 else
                     audio.SetVolume(slider_volume.Value);
-                (DataContext as SkinMixerViewModel).AudioPlayingLeft = true;
+                vm.AudioPlayingLeft = true;
             }
+        }
+
+        private void PlaybackStopLeft_Click(object sender, RoutedEventArgs e)
+        {
+            StopAudio(true);
+        }
+
+        private void PlaybackStopRight_Click(object sender, RoutedEventArgs e)
+        {
+            StopAudio(false);
         }
 
         private void PlaybackToggleRight_Click(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as SkinMixerViewModel).AudioPlayingRight)
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            if (vm.AudioPlayingRight)
             {
-                StopAudio(false);
+                if (vm.AudioEnded)
+                {
+                    audio.PlayAudio(vm.SelectedElementRight.Path);
+                }
+                else
+                {
+                    audio.PauseAudio();
+                    vm.AudioPlayingRight = false;
+                }
             }
             else
             {
                 StopAudio(true);
-                audio.PlayAudio((DataContext as SkinMixerViewModel).SelectedElementRight.Path);
+                audio.PlayAudio(vm.SelectedElementRight.Path);
                 if (cb_mute.IsChecked == true)
                     audio.SetVolume(0);
                 else
                     audio.SetVolume(slider_volume.Value);
-                (DataContext as SkinMixerViewModel).AudioPlayingRight = true;
+                vm.AudioPlayingRight = true;
             }
         }
 
@@ -308,7 +352,7 @@ namespace Osmo.UI
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
                 Helper.FindString("edit_revertDescription"), OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -336,6 +380,65 @@ namespace Osmo.UI
             {
                 Helper.ExportSkin(args.Path, FixedValues.EDITOR_INDEX, true);
             }
+            DialogHelper.Instance.NotifyDialogClosed();
+        }
+
+        private void Slider_Audio_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (e.NewValue % 1 != 0)
+            {
+                audio.SetPosition((sender as Slider).Value);
+            }
+        }
+
+        private void SkinMixerSelect_Loaded(object sender, RoutedEventArgs e)
+        {
+            DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
+        }
+
+        private void SkinMixerSelect_DialogClosed(object sender, EventArgs e)
+        {
+            DialogHelper.Instance.NotifyDialogClosed();
+        }
+
+        private void MenuItem_PlaybackToggleLeft_Click(object sender, RoutedEventArgs e)
+        {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            PlaybackToggleLeft_Click(sender, e);
+
+            if (vm.AudioPlayingLeft)
+            {
+                vm.PlayStatusLeft = 1;
+            }
+        }
+
+        private void MenuItem_PlaybackToggleRight_Click(object sender, RoutedEventArgs e)
+        {
+            SkinMixerViewModel vm = DataContext as SkinMixerViewModel;
+            PlaybackToggleRight_Click(sender, e);
+
+            if (vm.AudioPlayingRight)
+            {
+                vm.PlayStatusRight = 1;
+            }
+        }
+
+        private void MenuItem_PlaybackStopLeft_Click(object sender, RoutedEventArgs e)
+        {
+            PlaybackStopLeft_Click(sender, e);
+            (DataContext as SkinMixerViewModel).PlayStatusLeft = 0;
+        }
+
+        private void MenuItem_PlaybackStopRight_Click(object sender, RoutedEventArgs e)
+        {
+            PlaybackStopRight_Click(sender, e);
+            (DataContext as SkinMixerViewModel).PlayStatusRight = 0;
+        }
+
+        private void MenuItem_LoadRightSkin_Click(object sender, RoutedEventArgs e)
+        {
+            Helper.ExecuteDialogOpenCommand(btn_loadRight);
+            DialogHelper.Instance.NotifyDialogOpened(btn_loadRight);
         }
     }
 }

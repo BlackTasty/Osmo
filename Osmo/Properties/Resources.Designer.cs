@@ -61,6 +61,27 @@ namespace Osmo.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to === Console stuff
+        ///	clear						Clears the console
+        ///	testMessages				Writes all types of messages into the console
+        ///
+        ///=== Log management ===
+        ///	wipeLog						Delete the log.txt and generate a new one
+        ///	wipeCrashLogs				Delete all crash logs
+        ///	wipeLogFolder				Delete all logs inside the &quot;Logs&quot; folder
+        ///	openLog						Open the log.txt in your default editor
+        ///
+        ///=== Configuration files
+        ///	printConfig					Print the configuration for the current profile into the console
+        ///	printConfig	[ProfileName]	Print the configurati [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ConsoleCommands {
+            get {
+                return ResourceManager.GetString("ConsoleCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [General]
         ///Name: [NAME]
         ///Author: [AUTHOR]
@@ -165,6 +186,46 @@ namespace Osmo.Properties {
         internal static string LogStart {
             get {
                 return ResourceManager.GetString("LogStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_ctb {
+            get {
+                object obj = ResourceManager.GetObject("mode_ctb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_mania {
+            get {
+                object obj = ResourceManager.GetObject("mode_mania", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_osu {
+            get {
+                object obj = ResourceManager.GetObject("mode_osu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mode_taiko {
+            get {
+                object obj = ResourceManager.GetObject("mode_taiko", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

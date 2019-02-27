@@ -28,9 +28,9 @@
         <ColumnDefinition Width="8"/>
         <ColumnDefinition Width="150"/>
     </Grid.ColumnDefinitions>
-    <material:Card Background="{DynamicResource MaterialDesignBackground}" Grid.ColumnSpan="4" Margin="8">
-        <StackPanel>
-            <Expander Header="{DynamicResource expander_basicConfig}" IsExpanded="{Binding ConfigurationOpen}">
+    <material:Card Grid.ColumnSpan="4" Margin="8">
+        <StackPanel Background="{DynamicResource MaterialDesignCardBackground}">
+            <Expander Header="{DynamicResource expander_basicConfig}" IsExpanded="{Binding ConfigurationOpen}" Background="{DynamicResource MaterialDesignCardBackground}">
                 <Grid Margin="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="230*"/>
@@ -79,7 +79,7 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <CheckBox Content="{DynamicResource cb_placeholderFiles}" Grid.Row="1" IsChecked="{Binding AddDummyFiles}"/>
+                    <CheckBox Content="{DynamicResource cb_placeholderFiles}" Grid.Row="1" Grid.ColumnSpan="5" IsChecked="{Binding AddDummyFiles}"/>
                 </Grid>
             </Expander>
             <Border
@@ -87,7 +87,7 @@
                 Height="1"
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="True" />
-            <Expander Header="{DynamicResource expander_components}" IsExpanded="{Binding ComponentsOpen}">
+            <Expander Header="{DynamicResource expander_components}" IsExpanded="{Binding ComponentsOpen}" Background="{DynamicResource MaterialDesignCardBackground}">
                 <StackPanel Margin="8,8,8,0">
                     <TextBlock Text="{DynamicResource txt_componentsTitle}"
                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"/>
@@ -120,7 +120,7 @@
                 Height="1"
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="True" />
-            <Expander Header="{DynamicResource expander_summary}" IsExpanded="{Binding SummaryOpen}">
+            <Expander Header="{DynamicResource expander_summary}" IsExpanded="{Binding SummaryOpen}" Background="{DynamicResource MaterialDesignCardBackground}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         <BulletDecorator>

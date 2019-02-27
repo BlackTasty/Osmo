@@ -1,0 +1,74 @@
+﻿<DockPanel x:Class="Osmo.UI.UpdateStatus"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Osmo.UI"
+             xmlns:converter="clr-namespace:Osmo.Converters"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:Osmo.ViewModel"
+             mc:Ignorable="d" d:DesignWidth="300" LastChildFill="False">
+    <DockPanel.DataContext>
+        <vm:UpdaterViewModel/>
+    </DockPanel.DataContext>
+    <DockPanel.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
+
+        <Storyboard x:Key="SpinCanvas" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="canvas">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="SpinIcon" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="packIcon">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="360">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </DockPanel.Resources>
+    <DockPanel.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource SpinIcon}"/>
+            <BeginStoryboard Storyboard="{StaticResource SpinCanvas}"/>
+        </EventTrigger>
+    </DockPanel.Triggers>
+    <Button DockPanel.Dock="Top" HorizontalAlignment="Right" Style="{DynamicResource CloseButton_Small}" Click="Close_Click"/>
+    <TextBlock Text="{Binding TopText}" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,0,0,8"/>
+    <Canvas x:Name="canvas" Width="35" Height="35" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5" 
+            Visibility="{Binding ShowButton, Converter={StaticResource InverseBoolToVisibility}}">
+        <Canvas.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Canvas.RenderTransform>
+        <material:PackIcon x:Name="packIcon" Kind="Refresh" Width="35" Height="35" RenderTransformOrigin="0.5,0.5">
+            <material:PackIcon.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </material:PackIcon.RenderTransform>
+        </material:PackIcon>
+    </Canvas>
+    <TextBlock Text="{Binding BottomText}" TextWrapping="Wrap" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,8" 
+               Visibility="{Binding ShowTopTextOnly, Converter={StaticResource InverseBoolToVisibility}}" TextAlignment="Center"/>
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+        <Button Content="{Binding LeftButtonText}" Visibility="{Binding ShowLeftButton, Converter={StaticResource BoolToVisibility}}" Margin="8" Click="LeftButton_Click"></Button>
+        <Button Content="{Binding RightButtonText}" Visibility="{Binding ShowRightButton, Converter={StaticResource BoolToVisibility}}" Margin="8" Click="RightButton_Click"></Button>
+    </StackPanel> 
+    <ProgressBar DockPanel.Dock="Bottom" IsIndeterminate="{Binding IsInstalling}" Value="{Binding DownloadCurrent}"
+                 Maximum="{Binding DownloadSize}" Visibility="{Binding ShowButton, Converter={StaticResource InverseBoolToVisibility}}"/>
+</DockPanel>

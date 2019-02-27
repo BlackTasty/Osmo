@@ -51,11 +51,20 @@
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesignThemes.MahApps, Version=0.0.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.MahApps.0.0.11\lib\net45\MaterialDesignThemes.MahApps.dll</HintPath>
+    <Reference Include="MaterialDesignThemes.MahApps, Version=0.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.MahApps.0.0.12\lib\net45\MaterialDesignThemes.MahApps.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -74,15 +83,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\SimulatedElement.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Localisation\StringResources.es.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,6 +96,22 @@
     <Page Include="Localisation\StringResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Theme\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\DebugConsole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\CreateProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\NewTemplateDialog.xaml">
       <SubType>Designer</SubType>
@@ -107,6 +129,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\SkinSync.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SliderballCreator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\TemplateEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\UpdateStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Resources\SkinningMania.txt" />
     <Resource Include="Resources\SkinningSounds.txt" />
     <Resource Include="Resources\SkinningTaiko.txt" />
@@ -126,6 +160,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ConsoleWindow.xaml.cs">
+      <DependentUpon>ConsoleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ModeProgressImage.xaml.cs">
+      <DependentUpon>ModeProgressImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SimulatedElement.xaml.cs">
       <DependentUpon>SimulatedElement.xaml</DependentUpon>
     </Compile>
@@ -133,12 +173,16 @@
     <Compile Include="Converters\DebugConverter.cs" />
     <Compile Include="Converters\DoubleMathConverter.cs" />
     <Compile Include="Converters\DoubleToBooleanConverter.cs" />
+    <Compile Include="Converters\EnumToIntConverter.cs" />
     <Compile Include="Converters\ExactIntToBooleanConverter.cs" />
     <Compile Include="Converters\FileTypeIconConverter.cs" />
     <Compile Include="Converters\IntToBooleanConverter.cs" />
     <Compile Include="Converters\IntToVisibilityConverter.cs" />
     <Compile Include="Converters\InverseBoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectNotNullConverter.cs" />
     <Compile Include="Converters\PathToFileNameConverter.cs" />
+    <Compile Include="Converters\SidebarConverter.cs" />
+    <Compile Include="Converters\SidebarDataTemplateSelector.cs" />
     <Compile Include="Converters\StringLimitConverter.cs" />
     <Compile Include="Converters\StringNotEmptyConverter.cs" />
     <Compile Include="Converters\VolumeToIconConverter.cs" />
@@ -147,6 +191,14 @@
     <Compile Include="Core\Configuration\ConfigurationFile.Helper.cs" />
     <Compile Include="Core\Configuration\ConfigurationFile.cs" />
     <Compile Include="Converters\SelectSkinSelector.cs" />
+    <Compile Include="Core\Configuration\ProfileManager.cs" />
+    <Compile Include="Core\Configuration\ProfileEventArgs.cs" />
+    <Compile Include="Core\Configuration\ProfileRenamedEventArgs.cs" />
+    <Compile Include="Core\Configuration\RecallConfiguration.cs" />
+    <Compile Include="Core\ConsoleHistory.cs" />
+    <Compile Include="Core\DialogHelper.cs" />
+    <Compile Include="Core\ExtensionMethods.cs" />
+    <Compile Include="Core\FileExplorer\ClassicEntry.cs" />
     <Compile Include="Core\FileExplorer\FileFilter.cs" />
     <Compile Include="Core\FileExplorer\FilePickerClosedEventArgs.cs" />
     <Compile Include="Core\FileExplorer\FolderContentTemplateSelector.cs" />
@@ -157,13 +209,16 @@
     <Compile Include="Core\FileExplorer\NaturalFilePickerEntryComparer.cs" />
     <Compile Include="Core\FileExplorer\RootFolderEntry.cs" />
     <Compile Include="Core\FileExplorer\SharedFileExplorer.cs" />
+    <Compile Include="Core\FileExplorer\StructureBuilder.cs" />
     <Compile Include="Core\FileExplorer\UnloadedFolderEntry.cs" />
     <Compile Include="Core\FixedValues.cs" />
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Core\IAsyncShortcutHelper.cs" />
-    <Compile Include="Core\IShortcutHelper.cs" />
+    <Compile Include="Core\IHotkeyHelper.cs" />
+    <Compile Include="Core\ISkinContainer.cs" />
     <Compile Include="Core\LibraryValidator.cs" />
     <Compile Include="Core\Logging\FrameworkLookup.cs" />
+    <Compile Include="Core\Logging\IConsole.cs" />
     <Compile Include="Core\Logging\Logger.cs" />
     <Compile Include="Core\Logging\LogType.cs" />
     <Compile Include="Core\Logging\SystemInformation.cs" />
@@ -173,17 +228,28 @@
     <Compile Include="Core\Objects\FileChangeType.cs" />
     <Compile Include="Core\Objects\FileType.cs" />
     <Compile Include="Core\Objects\ForumTemplate.cs" />
+    <Compile Include="Core\Objects\ElementType.cs" />
     <Compile Include="Core\Objects\Language.cs" />
     <Compile Include="Core\Objects\Library.cs" />
     <Compile Include="Core\Objects\OsmoMessageBoxResult.cs" />
     <Compile Include="Core\Objects\OsmoMessageBoxButton.cs" />
+    <Compile Include="Core\Configuration\ProfileChangedEventArgs.cs" />
     <Compile Include="Core\Objects\SidebarEntry.cs" />
+    <Compile Include="Core\Objects\SidebarSubEntry.cs" />
     <Compile Include="Core\Objects\Skin.cs" />
     <Compile Include="Core\Objects\SkinChangedEventArgs.cs" />
     <Compile Include="Core\Objects\SkinElement.cs" />
     <Compile Include="Core\Objects\SkinRenamedEventArgs.cs" />
     <Compile Include="Core\Objects\TemplateCreatedEventArgs.cs" />
     <Compile Include="Core\Parser.cs" />
+    <Compile Include="Core\Patcher\FrontendChangedEventArgs.cs" />
+    <Compile Include="Core\Patcher\Server.cs" />
+    <Compile Include="Core\Patcher\ServerList.cs" />
+    <Compile Include="Core\Patcher\UpdateFailedEventArgs.cs" />
+    <Compile Include="Core\Patcher\UpdateFoundEventArgs.cs" />
+    <Compile Include="Core\Patcher\UpdateManager.cs" />
+    <Compile Include="Core\Patcher\UpdateStatus.cs" />
+    <Compile Include="Core\Patcher\Util.cs" />
     <Compile Include="Core\Reader\ElementGenerator.cs" />
     <Compile Include="Core\Reader\IEntry.cs" />
     <Compile Include="Core\Reader\SkinElementReader.cs" />
@@ -211,6 +277,12 @@
     </Compile>
     <Compile Include="UI\AnimationHelper.xaml.cs">
       <DependentUpon>AnimationHelper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DebugConsole.xaml.cs">
+      <DependentUpon>DebugConsole.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CreateProfile.xaml.cs">
+      <DependentUpon>CreateProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DragDropArea.xaml.cs">
       <DependentUpon>DragDropArea.xaml</DependentUpon>
@@ -258,6 +330,12 @@
     <Compile Include="UI\SkinSelect.xaml.cs">
       <DependentUpon>SkinSelect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SkinSync.xaml.cs">
+      <DependentUpon>SkinSync.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SliderballCreator.xaml.cs">
+      <DependentUpon>SliderballCreator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TemplateEditor.xaml.cs">
       <DependentUpon>TemplateEditor.xaml</DependentUpon>
     </Compile>
@@ -268,25 +346,34 @@
       <DependentUpon>TemplatePreview.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AnimationBaseViewModel.cs" />
+    <Compile Include="UI\UpdateStatus.xaml.cs">
+      <DependentUpon>UpdateStatus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\AnimationViewModel.cs" />
     <Compile Include="ViewModel\AudioViewModel.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="ViewModel\FilePickerViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModel\ModeProgressViewModel.cs" />
     <Compile Include="ViewModel\NewSkinViewModel.cs" />
     <Compile Include="ViewModel\NewTemplateViewModel.cs" />
     <Compile Include="ViewModel\OsmoViewModel.cs" />
     <Compile Include="ViewModel\ResizeToolViewModel.cs" />
+    <Compile Include="ViewModel\SBCreatorViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\SimulatedElementViewModel.cs" />
     <Compile Include="ViewModel\SimulatorViewModel.cs" />
     <Compile Include="ViewModel\SkinCardViewModel.cs" />
     <Compile Include="ViewModel\SkinMixerViewModel.cs" />
     <Compile Include="ViewModel\SkinSelectViewModel.cs" />
+    <Compile Include="ViewModel\SkinSyncViewModel.cs" />
     <Compile Include="ViewModel\SkinViewModel.cs" />
     <Compile Include="ViewModel\SkinWizardViewModel.cs" />
     <Compile Include="ViewModel\TemplateEditorViewModel.cs" />
     <Compile Include="ViewModel\TemplateManagerViewModel.cs" />
     <Compile Include="ViewModel\TemplatePreviewViewModel.cs" />
+    <Compile Include="ViewModel\UpdaterViewModel.cs" />
+    <Compile Include="ViewModel\Validation\NumericValidationRule.cs" />
     <Compile Include="ViewModel\Validation\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModel\Validation\PathValidationRule.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -374,6 +461,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Inconsolata.ttf" />
     <Resource Include="Resources\SkinIniSyntax.xshd">
       <Generator>MSBuild:Compile</Generator>
     </Resource>
@@ -385,6 +473,11 @@
     <Content Include="bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\ConsoleCommands.txt" />
+    <Resource Include="Resources\mode_ctb.png" />
+    <Resource Include="Resources\mode_mania.png" />
+    <Resource Include="Resources\mode_osu.png" />
+    <Resource Include="Resources\mode_taiko.png" />
     <Resource Include="Resources\OfficialTemplate.txt" />
     <Resource Include="Resources\LogStart.txt" />
     <Resource Include="Resources\aboutIcon.png" />

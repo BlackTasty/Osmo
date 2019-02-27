@@ -24,6 +24,44 @@
     <Window.Resources>
         <converter:IntToVisibilityConverter x:Key="IntToVisibility"/>
         <converter:DebugConverter x:Key="Debug"/>
+        <converter:SidebarConverter x:Key="SidebarHelper"/>
+        <converter:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibility"/>
+
+        <DataTemplate x:Key="EntryDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <material:PackIcon Kind="{Binding Icon}" Height="32" Width="32" Margin="16,0,0,0"/>
+                <TextBlock Text="{Binding Name}"  Margin="16 0 16 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" 
+                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="SubEntryDataTemplate">
+            <StackPanel Orientation="Horizontal" Height="32">
+                <TextBlock Text="{Binding Name}" Margin="64 0 16 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center" 
+                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" FontWeight="Bold"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <converter:SidebarDataTemplateSelector x:Key="sidebarTemplateSelector"
+                                               EntryDataTemplate="{StaticResource EntryDataTemplate}"
+                                               SubEntryDataTemplate="{StaticResource SubEntryDataTemplate}"/>
+        <Storyboard x:Key="HideUpdater">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="updaterContainer">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="8,8,-308,8">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseIn"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ShowUpdater">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="updaterContainer">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="8">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <metro:MetroWindow.WindowButtonCommands>
         <metro:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}"
@@ -34,10 +72,7 @@
     </metro:MetroWindow.WindowButtonCommands>
 
     <!--SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"-->
-    <material:DialogHost Identifier="RootDialog">
-        <material:DialogHost.DialogContent>
-            <ui:NewSkinDialog x:Name="dialg_newSkin" Margin="16"/>
-        </material:DialogHost.DialogContent>
+    <material:DialogHost Identifier="RootDialog" Loaded="DialogHost_Loaded" CloseOnClickAway="True">
         <material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <material:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
@@ -46,8 +81,9 @@
                                     HorizontalAlignment="Right" Margin="16"
                                     IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                     <ListBox x:Name="sidebarMenu" Margin="0 16 0 16" SelectedIndex="{Binding SelectedSidebarIndex}"                         
-                             ItemsSource="{Binding Items}" SelectionChanged="sidebarMenu_SelectionChanged" Loaded="sidebarMenu_Loaded">
-                        <ListBox.ItemTemplate>
+                             ItemsSource="{Binding Items}" SelectionChanged="sidebarMenu_SelectionChanged" Loaded="sidebarMenu_Loaded"
+                             ItemTemplateSelector="{StaticResource sidebarTemplateSelector}">
+                        <!--<ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <material:PackIcon Kind="{Binding Icon}" Width="32" Height="32" Margin="16,0,0,0"/>
@@ -55,7 +91,7 @@
                                                Foreground="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
+                        </ListBox.ItemTemplate>-->
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                                 <Setter Property="Visibility" Value="{Binding IsVisible}"/>
@@ -80,33 +116,51 @@
                             Mode="PrimaryMid" DockPanel.Dock="Top">
                     <DockPanel>
                         <ToggleButton x:Name="MenuToggleButton" Style="{StaticResource MaterialDesignHamburgerToggleButton}"/>
-                        <material:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="8,0,0,0"
-                                            Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}">
+                        <material:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="8,0,0,0">
                             <StackPanel>
-                                <Button Content="{DynamicResource main_revertAll}" Click="RevertAll_Click"/>
+                                <Button Content="{DynamicResource main_revertAll}" Click="RevertAll_Click" 
+                                        Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"/>
                                 <Button Content="{DynamicResource main_createForumEntry}" Click="CreateForumEntry_Click"
-                                         Command="{x:Static material:DialogHost.OpenDialogCommand}">
+                                         Command="{x:Static material:DialogHost.OpenDialogCommand}"
+                                        Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}">
                                     <Button.CommandParameter>
                                         <ui:TemplatePreview x:Name="templatePreview" Margin="8"/>
                                     </Button.CommandParameter>
                                 </Button>
-                                <Button Content="{DynamicResource main_openInExplorer}" Click="OpenInFileExplorer_OnClick"/>
+                                <Button Content="{DynamicResource main_openInExplorer}" Click="OpenInFileExplorer_OnClick"
+                                        Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"/>
                                 <Button Content="{DynamicResource main_openInMixer}" Click="OpenInSkinMixer_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2}"/>
                                 <Button Content="{DynamicResource main_openInEditor}" Click="OpenInSkinEditor_Click" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=3}"/>
                                 <Button Content="{DynamicResource sidebar_resizeTool}" Click="OpenInResizeTool_Click"  Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"/>
-                                <Separator/>
+                                <Separator Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"/>
+                                <Button Content="{DynamicResource updater_show}" Click="Btn_update_Click"/>
                                 <Button Content="{DynamicResource main_exit}" Click="Close_Click"/>
                             </StackPanel>
                         </material:PopupBox>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;8}"
-                            ToolTip="{DynamicResource main_saveAll}" Click="SaveSkinOrTemplate_Click"  Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <Button DockPanel.Dock="Right"
+                            ToolTip="{Binding ElementName=updater, Path=ToolTip}" x:Name="btn_update" Style="{StaticResource AppBarButton}"
+                                Click="Btn_update_Click" Visibility="{Binding ElementName=updater, Path=IsIdle, Converter={StaticResource InverseBoolToVisibility}}">
+                            <material:PackIcon
+                            Kind="{Binding ElementName=updater, Path=CurrentIcon, FallbackValue=CloudDownload}"
+                            Height="28"
+                            Width="28" />
+                        </Button>
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3;8}"
+                            ToolTip="{DynamicResource main_saveAll}" Click="SaveSkinOrTemplate_Click" Style="{StaticResource AppBarButton}">
                             <material:PackIcon
                             Kind="ContentSave"
                             Height="28"
                             Width="28" />
                         </Button>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
-                            ToolTip="{DynamicResource main_exportSkin}" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                            ToolTip="{DynamicResource main_skinInfo}" Click="ShowSkinInfo_Click" Style="{StaticResource AppBarButton}">
+                            <material:PackIcon
+                            Kind="InformationOutline"
+                            Height="28"
+                            Width="28" />
+                        </Button>
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=2;3}"
+                            ToolTip="{DynamicResource main_exportSkin}" Style="{StaticResource AppBarButton}"
                             Command="{x:Static material:DialogHost.OpenDialogCommand}" x:Name="btn_export">
                             <Button.CommandParameter>
                                 <ui:FilePicker IsFolderSelect="True" Title="{DynamicResource export_selectDirectory}" DialogClosed="FolderPicker_DialogClosed"/>
@@ -116,8 +170,8 @@
                             Height="28"
                             Width="28" />
                         </Button>
-                        <Button Padding="0" DockPanel.Dock="Right" Margin="8,0" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
-                            ToolTip="{DynamicResource main_importSkin}" x:Name="btn_import" Height="37" Width="37" Background="{x:Null}" BorderBrush="{x:Null}"
+                        <Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
+                            ToolTip="{DynamicResource main_importSkin}" x:Name="btn_import" Style="{StaticResource AppBarButton}"
                                  Command="{x:Static material:DialogHost.OpenDialogCommand}">
                             <material:PackIcon
                             Kind="PackageUp"
@@ -127,11 +181,25 @@
                                 <ui:DragDropArea/>
                             </Button.CommandParameter>
                         </Button>
+                        <!--<Button DockPanel.Dock="Right" Visibility="{Binding SelectedSidebarIndex, Converter={StaticResource IntToVisibility}, ConverterParameter=0}"
+                                ToolTip="{DynamicResource main_syncSkinFolders}" x:Name="btn_syncSkins" Style="{StaticResource AppBarButton}">
+                            <material:PackIcon
+                            Kind="Sync"
+                            Height="28"
+                            Width="28" />
+                        </Button>-->
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{Binding Content.Tag, ElementName=content}"/>
                     </DockPanel>
                 </material:ColorZone>
 
-                <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
+                <ui:DebugConsole x:Name="console" DockPanel.Dock="Bottom" IsVisibleChanged="console_IsVisibleChanged" Visibility="Collapsed" Loaded="console_Loaded" MaxHeight="200"/>
+                <Grid>
+                    <ContentControl x:Name="content" Content="{Binding SelectedItem.Content, ElementName=sidebarMenu}"/>
+                    <material:Card x:Name="updaterContainer" Visibility="Visible" Margin="8,8,-308,8" Width="270" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <ui:UpdateStatus x:Name="updater" VerticalAlignment="Center"
+                                     Background="{DynamicResource MaterialDesignBackground}"/>
+                    </material:Card>
+                </Grid>
             </DockPanel>
         </material:DrawerHost>
     </material:DialogHost>

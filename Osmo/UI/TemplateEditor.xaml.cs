@@ -25,7 +25,7 @@ namespace Osmo.UI
     /// <summary>
     /// Interaction logic for TemplateEditor.xaml
     /// </summary>
-    public partial class TemplateEditor : Grid, IShortcutHelper
+    public partial class TemplateEditor : Grid, IHotkeyHelper
     {
         private static TemplateEditor instance;
 

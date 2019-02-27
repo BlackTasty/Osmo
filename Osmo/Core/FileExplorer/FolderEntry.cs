@@ -18,9 +18,16 @@ namespace Osmo.Core.FileExplorer
         private bool mFoldersLoaded;
         private bool mFilesLoaded;
 
+        private bool mIsExpanded;
+        private bool mIsSelected;
+
         public string Path
         {
             get => mDi?.FullName ?? mUnloadedEntry.Path;
+            set
+            {
+                InitializeFolderStructure(new DirectoryInfo(value));
+            }
         }
 
         public string Name
@@ -36,6 +43,8 @@ namespace Osmo.Core.FileExplorer
 
         public FolderEntry Parent { get; private set; }
 
+        public FolderEntry Root { get; private set; }
+
         public bool FoldersLoaded {
             get => mFoldersLoaded;
             private set
@@ -44,6 +53,8 @@ namespace Osmo.Core.FileExplorer
                 InvokePropertyChanged("FoldersLoaded");
             }
         }
+
+        public int TreeDepth { get; private set; }
 
         public List<FileEntry> Files { get; private set; } 
             = new List<FileEntry>();
@@ -54,15 +65,57 @@ namespace Osmo.Core.FileExplorer
         public List<IFilePickerEntry> JoinedContent { get; private set; }
             = new List<IFilePickerEntry>();
 
-        public FolderEntry(DirectoryInfo di, bool isRoot)
+        public bool IsExpanded
         {
+            get => mIsExpanded;
+            set
+            {
+                mIsExpanded = value;
+                InvokePropertyChanged("IsExpanded");
+            }
+        }
+
+        public bool IsSelected
+        {
+            get => mIsSelected;
+            set
+            {
+                mIsSelected = value;
+                InvokePropertyChanged("IsSelected");
+            }
+        }
+
+        public FolderEntry(DirectoryInfo di, bool isRoot, int treeDepth)
+        {
+            TreeDepth = treeDepth;
             IsRoot = isRoot;
+            InitializeFolderStructure(di);
+        }
+
+        /// <summary>
+        /// Initialize a new <see cref="FolderEntry"/> which calculates it's tree depth automatically
+        /// </summary>
+        /// <param name="di">The target directory</param>
+        public FolderEntry(DirectoryInfo di)
+        {
+            string[] pathParts = di.FullName.Split('\\');
+            TreeDepth = pathParts.Length - 1;
+            IsRoot = TreeDepth == 0;
             InitializeFolderStructure(di);
         }
 
         private FolderEntry(UnloadedFolderEntry unloadedEntry, FolderEntry parent)
         {
             mUnloadedEntry = unloadedEntry;
+            if (IsRoot)
+            {
+                parent.Root = this;
+            }
+            else
+            {
+                Root = parent.Root;
+            }
+            TreeDepth = parent.TreeDepth + 1;
             Parent = parent;
         }
 
@@ -107,8 +160,17 @@ namespace Osmo.Core.FileExplorer
                 FolderEntry entry = SubDirectories[i];
                 if (!entry.FoldersLoaded)
                 {
-                    SubDirectories[i] = new FolderEntry(entry.mUnloadedEntry.DirectoryInfo, false);
+                    SubDirectories[i] = new FolderEntry(entry.mUnloadedEntry.DirectoryInfo, false, TreeDepth + 1);
                 }
+            }
+        }
+
+        private void LoadSingleFolderOnDemand(FolderEntry entry)
+        {
+            if (!entry.FoldersLoaded)
+            {
+                int entryIndex = SubDirectories.FindIndex(x => x.Path.Equals(entry.Path));
+                SubDirectories[entryIndex] = new FolderEntry(entry.mUnloadedEntry.DirectoryInfo, false, TreeDepth + 1);
             }
         }
 
@@ -125,6 +187,50 @@ namespace Osmo.Core.FileExplorer
                 JoinedContent.AddRange(Files);
                 mFilesLoaded = true;
             }
+        }
+
+        public FolderEntry BuildSubTree(StructureBuilder structure, bool loadFiles)
+        {
+            string nextPath = structure.GetPathAtTreeLayer(TreeDepth + 1);
+
+            if (Path.Equals(structure.TargetPath) && loadFiles)
+            {
+                LoadAllOnDemand();
+            }
+            else if (!FoldersLoaded)
+            {
+                InitializeFolderStructure(mUnloadedEntry.DirectoryInfo);
+            }
+
+            //FolderEntry subFolder = SubDirectories.FirstOrDefault(x => x.Path.Equals(nextPath));
+            //if (subFolder != null)
+            //{
+            //    LoadSingleFolderOnDemand(subFolder);
+            //}
+            //else
+            //{
+            //}
+            return SubDirectories.FirstOrDefault(x => x.Path.Equals(nextPath))?.BuildSubTree(structure, loadFiles) ?? this;
+        }
+
+        public List<string> GetFolderStructure(bool alsoSubdirectories)
+        {
+            List<string> structure = new List<string>();
+            foreach (FolderEntry folder in SubDirectories)
+            {
+                structure.Add(folder.Path + "\n");
+                if (alsoSubdirectories)
+                {
+                    structure.AddRange(folder.GetFolderStructure(alsoSubdirectories));
+                }
+            }
+
+            foreach (FileEntry file in Files)
+            {
+                structure.Add(file.Path + "\n");
+            }
+
+            return structure;
         }
 
         public override string ToString()

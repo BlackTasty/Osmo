@@ -1,12 +1,7 @@
 ﻿using Osmo.Core;
-using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Osmo.ViewModel
 {
@@ -17,17 +12,20 @@ namespace Osmo.ViewModel
 
         public TemplateManagerViewModel()
         {
-            Templates.Add(new ForumTemplate());
-
-            if (!Directory.Exists(AppConfiguration.GetInstance().TemplateDirectory))
+            if (!App.IsDesigner)
             {
-                Directory.CreateDirectory(AppConfiguration.GetInstance().TemplateDirectory);
-                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Default.oft",
-                    Properties.Resources.DefaultTemplate);
-                File.WriteAllText(AppConfiguration.GetInstance().TemplateDirectory + "Official.oft",
-                    Properties.Resources.OfficialTemplate);
+                Templates.Add(new ForumTemplate());
+
+                if (!Directory.Exists(App.ProfileManager.Profile.TemplateDirectory))
+                {
+                    Directory.CreateDirectory(App.ProfileManager.Profile.TemplateDirectory);
+                    File.WriteAllText(App.ProfileManager.Profile.TemplateDirectory + "Default.oft",
+                        Properties.Resources.DefaultTemplate);
+                    File.WriteAllText(App.ProfileManager.Profile.TemplateDirectory + "Official.oft",
+                        Properties.Resources.OfficialTemplate);
+                }
+                LoadTemplates();
             }
-            LoadTemplates();
         }
 
         public void DeleteTemplate(string name)
@@ -43,7 +41,7 @@ namespace Osmo.ViewModel
 
         private void LoadTemplates()
         {
-            foreach (FileInfo fi in new DirectoryInfo(AppConfiguration.GetInstance().TemplateDirectory).EnumerateFiles("*.oft"))
+            foreach (FileInfo fi in new DirectoryInfo(App.ProfileManager.Profile.TemplateDirectory).EnumerateFiles("*.oft"))
             {
                 Templates.Add(new ForumTemplate(fi.FullName));
             }

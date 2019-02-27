@@ -17,7 +17,9 @@ namespace Osmo.Core
     public class VeryObservableCollection<T> : ObservableCollection<T>, INotifyPropertyChanged
     {
         private bool autoSort;
+        private bool firstKeepPosition;
         private string watchAlso;
+        private bool observeChanges = true; //If this flag is set to false the collection won't fire CollectionChanged events
 
         new event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,6 +45,7 @@ namespace Osmo.Core
         /// </summary>
         /// <param name="collectionName">The name of the collection (must match the property name!)</param>
         /// <param name="autoSort">If true the list is sorted after every change</param>
+        /// <param name="firstKeepPosition">If true the first item in the list is not affected by sorting</param>
         public VeryObservableCollection(string collectionName, bool autoSort) : this(collectionName)
         {
             this.autoSort = autoSort;
@@ -59,9 +62,10 @@ namespace Osmo.Core
 
         private void Collection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(this, new PropertyChangedEventArgs(CollectionName));
-            if (watchAlso != null)
-                OnPropertyChanged(this, new PropertyChangedEventArgs(watchAlso));
+            if (observeChanges)
+            {
+                Refresh();
+            }
         }
 
         /// <summary>
@@ -113,17 +117,19 @@ namespace Osmo.Core
         public new void Add(T item)
         {
             base.Add(item);
-            List<T> lookupList = Items.OrderBy(x => x.ToString(), StringComparer.CurrentCultureIgnoreCase)
-                .ToList();
-            foreach (T obj in lookupList)
+            if (autoSort)
             {
-                if (obj.Equals(item))
+                List<T> lookupList = Items.OrderBy(x => x.ToString(), StringComparer.CurrentCultureIgnoreCase)
+                    .ToList();
+                foreach (T obj in lookupList)
                 {
-                    Remove(item);
-                    Insert(lookupList.IndexOf(obj), obj);
+                    if (obj.Equals(item))
+                    {
+                        Remove(item);
+                        Insert(lookupList.IndexOf(obj), obj);
+                    }
                 }
             }
-
         }
 
         public new void Clear()
@@ -134,9 +140,35 @@ namespace Osmo.Core
             }
             catch
             {
+                observeChanges = false;
                 for (int i = 0; i < Count; i++)
                     RemoveAt(0);
+                observeChanges = true;
             }
+        }
+
+        /// <summary>
+        /// Removes all items starting at the given index
+        /// </summary>
+        /// <param name="startIndex">Defines at which index the collection should remove all items</param>
+        public void RemoveRange(int startIndex)
+        {
+            RemoveRange(startIndex, Count);
+        }
+
+        /// <summary>
+        /// Removes all items in a range starting at the given index
+        /// </summary>
+        /// <param name="startIndex">Defines at which index the collection should remove all items</param>
+        /// <param name="range">How many items shall be removed beginning from the start index</param>
+        public void RemoveRange(int startIndex, int range)
+        {
+            observeChanges = false;
+            for (int i = startIndex; i < range; i++)
+            {
+                RemoveAt(startIndex);
+            }
+            observeChanges = true;
         }
 
         public void Refresh()

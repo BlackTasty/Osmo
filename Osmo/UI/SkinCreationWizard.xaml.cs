@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using Osmo.Core;
 using Osmo.Core.Configuration;
+using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using Osmo.Core.Reader;
 using Osmo.ViewModel;
@@ -90,7 +91,10 @@ namespace Osmo.UI
             if (vm.ComponentSounds)
                 vm.FilesToCreate += FixedValues.readerSounds.FileCount;
 
-            string skinPath = AppConfiguration.GetInstance().OsuDirectory + "\\Skins\\" + vm.Name;
+            Logger.Instance.WriteLog("Creating new skin \"{0}\"... ({1} files to generate)", 
+                vm.Name, vm.FilesToCreate);
+
+            string skinPath = App.ProfileManager.Profile.OsuDirectory + "\\" + vm.Name;
             Directory.CreateDirectory(skinPath);
             bool spinnerNewChecked = (bool)cb_spinnerNew.IsChecked;
             bool catcherNewChecked = (bool)cb_catcherNew.IsChecked;
@@ -100,26 +104,38 @@ namespace Osmo.UI
                 if (vm.ComponentInterface)
                 {
                     WriteFilesFromReader(vm, FixedValues.readerInterface, skinPath);
+                    Logger.Instance.WriteLog("Generating interface elements... ({0} files)", 
+                        FixedValues.readerInterface.FileCount);
                 }
                 if (vm.ComponentOsu)
                 {
                     WriteFilesFromReader(vm, FixedValues.readerStandard, skinPath, spinnerNewChecked);
+                    Logger.Instance.WriteLog("Generating osu! Standard elements... ({0} files)",
+                        FixedValues.readerStandard.FileCount);
                 }
                 if (vm.ComponentMania)
                 {
                     WriteFilesFromReader(vm, FixedValues.readerMania, skinPath);
+                    Logger.Instance.WriteLog("Generating Mania elements... ({0} files)",
+                        FixedValues.readerMania.FileCount);
                 }
                 if (vm.ComponentCTB)
                 {
                     WriteFilesFromReader(vm, FixedValues.readerCatch, skinPath, catcherNewChecked);
+                    Logger.Instance.WriteLog("Generating CTB elements... ({0} files)",
+                        FixedValues.readerCatch.FileCount);
                 }
                 if (vm.ComponentTaiko)
                 {
                     WriteFilesFromReader(vm, FixedValues.readerTaiko, skinPath);
+                    Logger.Instance.WriteLog("Generating Taiko elements... ({0} files)",
+                        FixedValues.readerTaiko.FileCount);
                 }
                 if (vm.ComponentSounds)
                 {
                     WriteSoundsFromReader(vm, FixedValues.readerSounds, skinPath);
+                    Logger.Instance.WriteLog("Generating sounds... ({0} files)",
+                        FixedValues.readerSounds.FileCount);
                 }
             }).Start();
 
@@ -129,9 +145,11 @@ namespace Osmo.UI
                 .Replace("[VERSION]", combo_version.Text);
 
             File.WriteAllText(Path.Combine(skinPath, "skin.ini"), skinIniRaw);
+            Logger.Instance.WriteLog("skin.ini created!");
             vm.IsCreating = false;
             Skin skin = new Skin(skinPath);
             vm.Master.Skins.Add(skin);
+            Logger.Instance.WriteLog("Skin \"{0}\" successfully created!", vm.Name);
             if (await SkinEditor.Instance.LoadSkin(skin))
             {
                 vm.Master.SelectedSidebarIndex = FixedValues.EDITOR_INDEX;
@@ -145,12 +163,8 @@ namespace Osmo.UI
         /// <param name="reader">The reader which contains all information about skin elements</param>
         /// <param name="skinPath">The path where all elements should be saved to</param>
         /// <param name="useNewStyle">Optional: If true, this method will only export elements without flag or with the flag "New".
-        /// <para>
-        /// If false, this method will only export elements without flag or with the flag "Old".
-        /// </para>
-        /// <para>
-        /// If null, flags are ignored.
-        /// </para></param>
+        /// <para>If false, this method will only export elements without flag or with the flag "Old".</para>
+        /// <para>If null, flags are ignored.</para></param>
         private void WriteFilesFromReader(SkinWizardViewModel vm, SkinElementReader reader, string skinPath, bool? useNewStyle = null)
         {
             foreach (SkinningEntry entry in reader.Files)

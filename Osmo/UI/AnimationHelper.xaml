@@ -29,7 +29,7 @@
         </ListView.View>
     </ListView>
     <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-    <material:ColorZone VerticalAlignment="Stretch" Mode="Dark" Grid.Column="2">
+    <material:ColorZone VerticalAlignment="Stretch" Mode="{DynamicResource ColorZoneMode}" Grid.Column="2">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="44"/>
@@ -59,11 +59,11 @@
                             </ItemsPanelTemplate>
                         </ComboBox.ItemsPanel>
                     </ComboBox>
-                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Center">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" HorizontalAlignment="Center">
                         <Run Text="{DynamicResource animator_currentFrame}"/> <Run Text="{Binding CurrentFrame}"/>
                     </TextBlock>
                     <Button Padding="0" Width="32" DockPanel.Dock="Right" IsEnabled="{Binding PlayEnabled}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-                            ToolTip="Close animation helper" Click="Close_Click" Command="material:DialogHost.CloseDialogCommand"  Background="{x:Null}" BorderBrush="{x:Null}">
+                            ToolTip="{DynamicResource tip_closeAnimationHelper}" Click="Close_Click" Command="material:DialogHost.CloseDialogCommand"  Background="{x:Null}" BorderBrush="{x:Null}">
                         <material:PackIcon
                             Kind="Close"
                             Height="32"

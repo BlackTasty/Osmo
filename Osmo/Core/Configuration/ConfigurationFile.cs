@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Osmo.Core.Logging;
+using System;
 using System.IO;
 
 namespace Osmo.Core.Configuration
@@ -6,6 +7,8 @@ namespace Osmo.Core.Configuration
     public partial class ConfigurationFile
     {
         private string fileName;
+        private string subDir;
+        private string extension;
 
         /// <summary>
         /// Defines a new configuration file with the given name. 
@@ -25,17 +28,28 @@ namespace Osmo.Core.Configuration
             if (fileName != "")
             {
                 this.fileName = fileName;
-                FilePath = AppDomain.CurrentDomain.BaseDirectory + subDir + fileName + extension;
+                this.subDir = subDir;
+                this.extension = extension;
+                FilePath = GetFilePath(fileName);
             }
         }
         
         public string FilePath { get; private set; }
 
-        protected string[] Content { get; set; }
-
         protected void Save(string[] properties)
         {
-            File.WriteAllLines(FilePath, properties);
+            SaveTo(FilePath, properties);
+        }
+
+        /// <summary>
+        /// Defines where an array of properties should be saved
+        /// </summary>
+        /// <param name="properties">An array of properties</param>
+        /// <param name="filePath">The target file location where the configuration shall be saved to</param>
+        protected void SaveTo(string filePath, string[] properties)
+        {
+            File.WriteAllLines(filePath, properties);
+            Logger.Instance.WriteLog("Configuration file \"{0}\" has been saved!", fileName + extension);
         }
 
         protected string[] LoadFile(ConfigurationFile file)
@@ -59,6 +73,15 @@ namespace Osmo.Core.Configuration
             Save(newProp);
         }
 
+        protected void RenameFile(string newName)
+        {
+            Logger.Instance.WriteLog("Renaming configuration file \"{0}\" to \"{1}\"...", fileName + extension, newName + extension);
+            fileName = newName;
+            string newPath = GetFilePath(newName);
+            File.Move(FilePath, newPath);
+            FilePath = newPath;
+        }
+
         internal bool Exists()
         {
             return File.Exists(FilePath);
@@ -67,6 +90,11 @@ namespace Osmo.Core.Configuration
         internal void Reset()
         {
             File.Delete(FilePath);
+        }
+
+        private string GetFilePath(string fileName)
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, subDir, fileName + extension);
         }
     }
 }

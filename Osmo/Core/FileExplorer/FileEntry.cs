@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Osmo.Core.FileExplorer
 {
@@ -31,7 +32,17 @@ namespace Osmo.Core.FileExplorer
 
         public PackIconKind Icon
         {
-            get;private set;
+            get; private set;
+        }
+
+        public ImageSource Preview
+        {
+            get; private set;
+        }
+
+        public bool IsImage
+        {
+            get; private set;
         }
 
         public FileEntry(FileInfo fi)
@@ -46,6 +57,8 @@ namespace Osmo.Core.FileExplorer
                 case ".gif":
                 case ".bmp":
                     Icon = PackIconKind.FileImage;
+                    Preview = Helper.LoadImage(fi.FullName);
+                    IsImage = true;
                     break;
                 case ".wav":
                 case ".ogg":

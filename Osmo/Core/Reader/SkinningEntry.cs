@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Osmo.Core.Objects;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
@@ -46,8 +47,11 @@ namespace Osmo.Core.Reader
 
         public string Flags { get; private set; } = "";
 
-        internal SkinningEntry(string line)
+        public ElementType ElementType { get; private set; }
+
+        internal SkinningEntry(string line, ElementType elementType)
         {
+            ElementType = elementType;
             sizeDescriptors = new List<VersionSizeDescriptor>();
             string[] content = ReadLine(line);
             for (int i = 0; i < content.Length; i++)

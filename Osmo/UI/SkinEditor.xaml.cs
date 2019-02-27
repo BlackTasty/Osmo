@@ -1,9 +1,7 @@
-﻿using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.CodeCompletion;
+﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using Microsoft.Win32;
 using Osmo.Core;
 using Osmo.Core.Configuration;
 using Osmo.Core.Objects;
@@ -11,29 +9,25 @@ using Osmo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Xml;
 using System.Linq;
 using Osmo.Core.Reader;
-using MaterialDesignThemes.Wpf.Transitions;
 using MaterialDesignThemes.Wpf;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using Osmo.Core.FileExplorer;
+using Osmo.Core.Logging;
 
 namespace Osmo.UI
 {
     /// <summary>
     /// Interaction logic for SkinEditor.xaml
     /// </summary>
-    public partial class SkinEditor : Grid, IShortcutHelper
+    public partial class SkinEditor : Grid, IHotkeyHelper, ISkinContainer
     {
         private static SkinEditor instance;
         private AudioEngine audio;
@@ -80,6 +74,9 @@ namespace Osmo.UI
                         case Key.H:
                             e.Handled = true;
                             Replace_Click(null, null);
+
+                            Helper.ExecuteDialogOpenCommand(btn_replace);
+                            DialogHelper.Instance.NotifyDialogOpened(btn_replace);
                             break;
                         case Key.Delete:
                             e.Handled = true;
@@ -100,8 +97,9 @@ namespace Osmo.UI
                     if (vm.AnimationEnabled)
                     {
                         animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
-                        if (DialogHost.OpenDialogCommand.CanExecute(btn_animate.CommandParameter, btn_animate))
-                            DialogHost.OpenDialogCommand.Execute(btn_animate.CommandParameter, btn_animate);
+
+                        Helper.ExecuteDialogOpenCommand(btn_animate);
+                        DialogHelper.Instance.NotifyDialogOpened(btn_animate);
                     }
                 }
                 else if (e.Key == Key.Delete)
@@ -116,13 +114,21 @@ namespace Osmo.UI
 
         private SkinEditor()
         {
+            LoadCompletionData();
             InitializeComponent();
             audio = new AudioEngine((AudioViewModel)DataContext);
+        }
+
+        public void LoadCompletionData()
+        {
+            Logger.Instance.WriteLog("Refreshing completion data...");
+            skinIniCompletion.Clear();
             skinIniCompletion.AddRange(FixedValues.skinIniGeneralCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniColoursCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniFontsCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniCTBCompletionData);
             skinIniCompletion.AddRange(FixedValues.skinIniManiaCompletionData);
+            Logger.Instance.WriteLog("Completion data refreshed!");
         }
 
         public async Task<bool> LoadSkin(Skin skin)
@@ -135,7 +141,7 @@ namespace Osmo.UI
                        Helper.FindString("main_unsavedChangesDescription"),
                        OsmoMessageBoxButton.YesNoCancel);
 
-                await DialogHost.Show(msgBox);
+                await DialogHelper.Instance.ShowDialog(msgBox);
 
                 if (msgBox.Result == OsmoMessageBoxResult.Cancel)
                 {
@@ -149,6 +155,17 @@ namespace Osmo.UI
             
             vm.LoadedSkin = skin;
             return true;
+        }
+
+        public void UnloadSkin(Skin skin)
+        {
+            SkinViewModel vm = DataContext as SkinViewModel;
+            if (vm.LoadedSkin?.Equals(skin) ?? false)
+            {
+                StopAudio();
+                vm.SelectedElement = new SkinElement();
+                vm.LoadedSkin = null;
+            }
         }
 
         public void SaveSkin()
@@ -196,7 +213,7 @@ namespace Osmo.UI
                         vm.Icon = PackIconKind.FileXml;
                         LoadConfigFile(vm.SelectedElement.Path);
                         break;
-                    case FileType.Unknown:
+                    case FileType.Any:
                         vm.Icon = PackIconKind.File;
                         break;
                 }
@@ -221,15 +238,15 @@ namespace Osmo.UI
         private void Replace_Click(object sender, RoutedEventArgs e)
         {
             PreloadFilePickerProperties(Helper.FindString("edit_replaceTitle"),
-                GetFileFilter((DataContext as SkinViewModel).SelectedElement.FileType),
+                (DataContext as SkinViewModel).SelectedElement.FileType,
                 "replace");
         }
 
-        private void PreloadFilePickerProperties(string title, string filter, string tag)
+        private void PreloadFilePickerProperties(string title, FileType fileType, string tag)
         {
             FilePicker fp = FindResource("filePicker") as FilePicker;
             fp.Title = title;
-            fp.Filter = filter;
+            fp.FilterType = fileType;
             fp.Tag = tag;
         }
 
@@ -256,32 +273,13 @@ namespace Osmo.UI
             }
         }
 
-
-        private string GetFileFilter(FileType fileType)
-        {
-            switch (fileType)
-            {
-                case FileType.Audio:
-                    return string.Format("{0}|*.mp3;*.wav|{1}|*.ogg",
-                        Helper.FindString("edit_replaceFilterAudio1"), Helper.FindString("edit_replaceFilterAudio2"));
-                case FileType.Configuration:
-                    return string.Format("{0}|*.ini",
-                        Helper.FindString("edit_replaceFilterConfig"));
-                case FileType.Image:
-                    return string.Format("{0}|*.jpg;*.jpeg;*.png",
-                        Helper.FindString("edit_replaceFilterImage"));
-                default:
-                    return "";
-            }
-        }
-
         private async void Revert_Click(object sender, RoutedEventArgs e)
         {
             var msgBox = MaterialMessageBox.Show(Helper.FindString("edit_revertTitle"),
                 Helper.FindString("edit_revertDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -302,7 +300,7 @@ namespace Osmo.UI
                 Helper.FindString("edit_eraseDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             string path = ((SkinViewModel)DataContext).SelectedElement.ReplaceBackup(null);
 
@@ -322,7 +320,7 @@ namespace Osmo.UI
                 Helper.FindString("edit_deleteDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -354,7 +352,17 @@ namespace Osmo.UI
 
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-            audio.PauseAudio();
+            SkinViewModel vm = DataContext as SkinViewModel;
+
+            if (vm.AudioEnded)
+            {
+                audio.PlayAudio(vm.SelectedElement.Path);
+            }
+            else
+            {
+                audio.PauseAudio();
+                vm.PlayStatus = 0;
+            }
         }
 
         private void Slider_volume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -362,14 +370,14 @@ namespace Osmo.UI
             if (audio != null)
             {
                 cb_mute.IsChecked = false;
-                AppConfiguration.GetInstance().Volume = slider_volume.Value;
+                RecallConfiguration.Instance.Volume = slider_volume.Value;
                 audio.SetVolume(slider_volume.Value);
             }
         }
 
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
-            AppConfiguration.GetInstance().IsMuted = cb_mute.IsChecked == true;
+            RecallConfiguration.Instance.IsMuted = cb_mute.IsChecked == true;
             if (cb_mute.IsChecked == true)
                 audio.SetVolume(0);
             else
@@ -390,7 +398,7 @@ namespace Osmo.UI
             textEditor.TextArea.TextEntered += TextArea_TextEntered;
         }
 
-        private void TextArea_TextEntered(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)
         {
             if ((DataContext as SkinViewModel).SelectedElement.Name.Equals("skin.ini", 
                 StringComparison.InvariantCultureIgnoreCase))
@@ -417,7 +425,7 @@ namespace Osmo.UI
             }
         }
 
-        private void TextArea_TextEntering(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)
         {
             if (completionWindow != null && !char.IsLetterOrDigit(e.Text[0]))
             {
@@ -429,8 +437,8 @@ namespace Osmo.UI
 
         private void Container_Loaded(object sender, RoutedEventArgs e)
         {
-            slider_volume.Value = AppConfiguration.GetInstance().Volume;
-            cb_mute.IsChecked = AppConfiguration.GetInstance().IsMuted;
+            slider_volume.Value = RecallConfiguration.Instance.Volume;
+            cb_mute.IsChecked = RecallConfiguration.Instance.IsMuted;
         }
 
         private void Slider_Audio_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -439,16 +447,6 @@ namespace Osmo.UI
             {
                 audio.SetPosition(slider_audio.Value);
             }
-        }
-
-        private void Slider_Audio_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            audio.EnableSliderChange = true;
-        }
-
-        private void Slider_Audio_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            audio.EnableSliderChange = false;
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -468,7 +466,7 @@ namespace Osmo.UI
                 Helper.FindString("edit_revertDescription"),
                 OsmoMessageBoxButton.YesNo);
 
-            await DialogHost.Show(msgBox);
+            await DialogHelper.Instance.ShowDialog(msgBox);
 
             if (msgBox.Result == OsmoMessageBoxResult.Yes)
             {
@@ -491,6 +489,7 @@ namespace Osmo.UI
         private void Animate_Click(object sender, RoutedEventArgs e)
         {
             animationHelper.LoadAnimation((DataContext as SkinViewModel).SelectedElement);
+            DialogHelper.Instance.NotifyDialogOpened(btn_animate);
         }
 
         private void container_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -516,6 +515,39 @@ namespace Osmo.UI
             {
                 Helper.ExportSkin(args.Path, FixedValues.EDITOR_INDEX, true);
             }
+        }
+
+        private void FilePicker_DialogOpened(object sender, RoutedEventArgs e)
+        {
+            (sender as FilePicker).InitialDirectory = (DataContext as SkinViewModel).LoadedSkin.Path;
+        }
+
+        private void MenuItem_Replace_Click(object sender, RoutedEventArgs e)
+        {
+            Replace_Click(sender, e);
+
+            Helper.ExecuteDialogOpenCommand(btn_replace);
+            DialogHelper.Instance.NotifyDialogOpened(btn_replace);
+        }
+
+        private void MenuItem_Animate_Click(object sender, RoutedEventArgs e)
+        {
+            Animate_Click(sender, e);
+
+            Helper.ExecuteDialogOpenCommand(btn_animate);
+            DialogHelper.Instance.NotifyDialogOpened(btn_animate);
+        }
+
+        private void MenuItem_Play_Click(object sender, RoutedEventArgs e)
+        {
+            Play_Click(sender, e);
+            (DataContext as SkinViewModel).PlayStatus = 1;
+        }
+
+        private void MenuItem_Pause_Click(object sender, RoutedEventArgs e)
+        {
+            Pause_Click(sender, e);
+            (DataContext as SkinViewModel).PlayStatus = 0;
         }
     }
 }

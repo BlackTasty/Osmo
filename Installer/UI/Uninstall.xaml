@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Installer.UI.Uninstall"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="322" d:DesignWidth="414">
+    <DockPanel>
+        <TextBlock x:Name="txt_status" Margin="8,0" TextWrapping="Wrap" Text="Preparing installer..." DockPanel.Dock="Top"/>
+        <ProgressBar x:Name="progress" IsIndeterminate="True" DockPanel.Dock="Top" Margin="0,8" Foreground="{DynamicResource ErrorBrushLight}" Background="{DynamicResource ErrorBrushDark}" BorderBrush="{DynamicResource ErrorBrushDark}"/>
+        <ScrollViewer Margin="8,8,0,8">
+            <TextBlock x:Name="txt_log" TextWrapping="Wrap" Text="Preparing installer..."/>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

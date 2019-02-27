@@ -1,13 +1,12 @@
-﻿using Osmo.Core;
+﻿using MaterialDesignThemes.Wpf;
+using Osmo.Core;
+using Osmo.Core.Configuration;
 using Osmo.Core.Logging;
 using Osmo.Core.Objects;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
+using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Osmo
@@ -19,8 +18,15 @@ namespace Osmo
     {
         private static int sessionId;
         private static MainWindow window;
+        private static ProfileManager profileManager;
+        
+        public static event EventHandler<EventArgs> LanguageChanged;
 
         public static int SessionID { get => sessionId; }
+
+        public static ProfileManager ProfileManager { get => profileManager; }
+
+        public static bool IsDesigner { get => DesignerProperties.GetIsInDesignMode(new DependencyObject()); }
 
         [STAThread()]
         //[DebuggerNonUserCode()]
@@ -52,6 +58,7 @@ namespace Osmo
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
                 Logger.Instance.WriteLog("Initializing Osmo...");
                 sessionId = Logger.Instance.SessionID;
+                profileManager = new ProfileManager(new AppConfiguration());
                 Un4seen.Bass.BassNet.Registration("raphael10@live.at", "2X373361752918");
                 App app = new App()
                 {
@@ -61,6 +68,11 @@ namespace Osmo
                 window = (MainWindow)app.MainWindow;
                 app.Run();
             }
+        }
+
+        public static void RequestShutdown()
+        {
+            window.Close();
         }
 
         private static bool ValidateLibraries()
@@ -97,6 +109,10 @@ namespace Osmo
                     localisation.Source = new Uri(@"Localisation\StringResources.es.xaml", UriKind.Relative);
                     threadLang = "es";
                     break;
+                case Language.German:
+                    localisation.Source = new Uri(@"Localisation\StringResources.de.xaml", UriKind.Relative);
+                    threadLang = "de";
+                    break;
                 default:
                     localisation.Source = new Uri(@"Localisation\StringResources.xaml", UriKind.Relative);
                     threadLang = "en";
@@ -105,7 +121,30 @@ namespace Osmo
 
             Thread.CurrentThread.CurrentUICulture =
                new System.Globalization.CultureInfo(threadLang);
-            Resources.MergedDictionaries[2] = localisation;
+            Resources.MergedDictionaries[0] = localisation;
+            OnLanguageChanged(EventArgs.Empty);
+        }
+
+        public void ChangeBaseTheme(bool isDark)
+        {
+            ResourceDictionary theme = new ResourceDictionary();
+
+            if (isDark)
+            {
+                theme.Source = new Uri(@"pack://application:,,,/Osmo;component/Resources/Theme/Dark.xaml", UriKind.RelativeOrAbsolute);
+            }
+            else
+            {
+                theme.Source = new Uri(@"pack://application:,,,/Osmo;component/Resources/Theme/Light.xaml", UriKind.RelativeOrAbsolute);
+            }
+
+            Resources.MergedDictionaries[4] = theme;
+            new PaletteHelper().SetLightDark(isDark);
+        }
+
+        protected virtual void OnLanguageChanged(EventArgs e)
+        {
+            LanguageChanged?.Invoke(this, e);
         }
     }
 }
